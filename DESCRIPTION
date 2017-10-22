@@ -1,0 +1,45 @@
+Package: SINGCORE
+Type: Package
+Title: Rank-based single-sample Gene Set Scoring Method
+Version: 0.99.0
+Authors@R: c(person("Momeneh", "Foroutan", email = "foroutan.m@wehi.edu.au",role = c("aut")),
+           person("Dharmesh","Bhuva", email = "bhuva.d@wehi.edu.au", role = c("aut")),
+           person("Ruqian","Lyu", email = "ruqianl@student.unimelb.edu.au", role = c("aut", "cre")))
+Maintainer: Ruqian Lyu <ruqianl@student.unimelb.edu.au>, Momeneh Foroutan <foroutan.m@wehi.edu.au>
+Description: A simple single-sample gene signature scoring method that uses rank-based 
+  statistics to analyze the sample's gene expression profile. It scores the expression activities of 
+  gene sets at a single-sample level.
+biocViews: Software, GeneSetScoring, GeneSetEnrichmentAnalysis
+Depends: R (>= 3.3)
+Imports:
+    methods,
+    stats,
+    graphics,
+    ggplot2,
+    ggsci,
+    ggrepel,
+    plotly,
+    tidyr,
+    reshape,
+    doParallel,
+    foreach,
+    edgeR,
+    RColorBrewer,
+    Biobase,
+    GSEABase
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Collate: 
+    'simpleScoring.R'
+    'CoreFuns.R'
+    'parPermu.R'
+    'rankGenesGeneric.R'
+    'simpleScoreGeneric.R'
+Suggests: knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+URL: https://github.com/Rachael-rq/SINGCORE
+BugReports: https://github.com/Rachael-rq/SINGCORE/issues
