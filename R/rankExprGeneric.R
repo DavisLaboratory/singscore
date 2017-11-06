@@ -1,4 +1,4 @@
-#' @include simpleScoring.R CoreFuns.R
+#' @include singscore.R CoreFuns.R
 NULL
 
 #'@title  Rank genes by the gene expression intensities

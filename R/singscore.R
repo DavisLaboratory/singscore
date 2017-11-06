@@ -1,7 +1,8 @@
-#' SINCORE: A package for deriving gene set score on a single sample level.
+#' SINGSCORE: A package for deriving gene-set score at a single sample level.
 #'
-#' The packge provides functions of ranking genes based on absolute gene
-#' expression values, calculate gene set signature scores, plotting despersion,
+#' The packge provides functions of calculating gene-set expression scores at a 
+#' single-sample level and it is able to deal with single-sample input. It also 
+#' includes efficient visulisation function for exploring the results as well as 
 #' permutation test for significance test and plot null distribution.
 #' @import methods
 #' @import stats
@@ -18,7 +19,7 @@
 #' @importFrom ggsci scale_color_npg
 #' @importFrom ggrepel geom_label_repel
 #' @docType package
-#' @name SINGCORE
+#' @name singscore
 NULL
 
 #' Gene expression dataset of 100 genes in ten samples

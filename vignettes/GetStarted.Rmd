@@ -8,24 +8,24 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-This vignette demonstrates how to use SINCORE to score a gene expression dataset against a gene set on a single-sample level. It contains 6 parts:
+This vignette demonstrates how to use 'singscore' to score a gene expression dataset against a gene set on a single-sample level. It contains 6 parts:
 
-- Introduction of SINCORE R package
-- Installing SINCORE
+- Introduction of 'singscore' R package
+- Installing 'singscore'
 - Preparing Dataset
 - Performe sample scoring function
 - Plot rank densities for genes in gene set in one sample
 - Calculate the significance of obtained score and plot null distribution
 
 ## Introduction 
-SINCORE implements a simple single-sample scoring method which does not rely on other the samples in gene expression data sets and can deal with single-sample input. It provides stable scores which are also less likely to be affected by unwanted variations across samples. CITATION
+'singscore' implements a simple single-sample scoring method which does not rely on other the samples in gene expression data sets and can deal with single-sample input. It provides stable scores which are also less likely to be affected by unwanted variations across samples. CITATION
 It also provides various visulisation functions to further explore the analysis result.
 
-## Install SINCORE R package
-SINCORE is currently host on github and can be easily installed using 'install_github()' function provided by 'devtools' CITATION.
+## Install SINGSCORE R package
+'singscore' is currently host on github and can be easily installed using 'install_github()' function provided by 'devtools' CITATION.
 ```{r installation, eval=FALSE}
 library(devtools)
-install_github("https://github.com/Rachael-rq/SINCORE")
+install_github("https://github.com/Rachael-rq/'singscore'")
 
 ```
 
@@ -33,7 +33,7 @@ install_github("https://github.com/Rachael-rq/SINCORE")
 The data set for use in this vignette can be loaded easiy as below which has been built in with the package. The dataset is obtained from CITATION and it is a ten-sample subset of the original dataset. We are going to score the TGFb gene expression dataeset (5 control samples, 5 case samples) against a TGFb gene signature with up-set and down-set CITATION
 
 ```{r}
-library(SINCORE)
+library(SINGSCORE)
 # load the expression dataset and gene signatures
 data("tgfb_expr_10")
 data("tgfb_gs_up")
@@ -54,18 +54,27 @@ scoredf
 ## Plot rank densities
 Now the scores of each sample are stored in `scoredf`, we next use the `plotRankDensity` functions to plot the ranks for genes in the gene sets in one sample. We plot the rank densities for the first sample in rankData, please note that since we are subsetting the data.frame rankData by one column, to maintain the structure of the data.frame a `drop = FALSE` is set.
 
-```{r plot}
+```{r plotdt, fig.height = 6, fig.width = 10}
 #  
 plotRankDensity(rankData[,1,drop = FALSE], upSet = tgfb_gs_up, downSet = tgfb_gs_dn, isInteractive = F)
 ``` 
 
-*Maybe some comment on the plot
+```{r plotds, fig.height = 6, fig.width = 10}
+#  
+plotDispersion(scoredf)
+``` 
+```{r plotls, fig.height = 6, fig.width = 10}
+#  
+scoredf1 <- simpleScore(rankData, upSet = tgfb_gs_dn, downSet = tgfb_gs_up)
+plotScoreLandscape(scoredf, scoredf1)
+``` 
+
 
 ## Calculate p value for the obtained scores and plot null distributions
 
 We can use the `permute_null()` function to generate a number of random gene sets and score the gene set against the single samples. The obtained scores can be used to calculate the empirical p values which is applies as p = (r+1)/(m+1). *explain the formula.
 The permutation function has parallel feature if you wish to use the parallel script you  
-```{r pvalue, fig.height = 6, fig.width = 10}
+```{r pvalue, fig.height = 8, fig.width = 10}
 
 n_up = length(GSEABase::geneIds(tgfb_gs_up))
 n_down = length(GSEABase::geneIds(tgfb_gs_dn))
@@ -83,11 +92,11 @@ foreach::registerDoSEQ()
 
 pvals <- get_pval(permuResult,scoredf)
 # show the p values for first 5 samples
-pvals[1:5,drop = FALSE]
+pvals[1:4,drop = FALSE]
 
 # plot the null distributions for the first 5 samples and the p values
 # We can see from the plot, the control samples are not signicant and TGFb samples # are very significant with very low p values
-plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals)[1:5])
+plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals)[1:4])
 # plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals)[1])
 # * approve the plot when only one sample is needed to be ploted
 ```

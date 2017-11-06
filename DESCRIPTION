@@ -1,4 +1,4 @@
-Package: SINGCORE
+Package: SINGSCORE
 Type: Package
 Title: Rank-based single-sample Gene Set Scoring Method
 Version: 0.99.0
@@ -32,14 +32,13 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 Collate: 
-    'simpleScoring.R'
+    'singscore.R'
     'CoreFuns.R'
-    'parPermu.R'
-    'rankGenesGeneric.R'
-    'simpleScoreGeneric.R'
+    'rankExprGeneric.R'
+    'singscoringGeneric.R'
 Suggests: knitr,
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-URL: https://github.com/Rachael-rq/SINGCORE
-BugReports: https://github.com/Rachael-rq/SINGCORE/issues
+URL: https://github.com/Rachael-rq/SINGSCORE
+BugReports: https://github.com/Rachael-rq/SINGSCORE/issues

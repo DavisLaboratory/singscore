@@ -1,4 +1,4 @@
-#' @include simpleScoring.R CoreFuns.R
+#' @include singscore.R CoreFuns.R
 NULL
 
 #'@title Calculate scores for the ranked gene expression matrix against gene set
@@ -18,16 +18,16 @@ NULL
 #'
 #' @examples
 #' ranked <- rankExpr(toy_expr)
-#' scoredf <- singcore(ranked, upSet = toy_up, downSet = toy_dn)
+#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 #'
 #'@seealso \code{\link{rank}} \linkS4class{GeneSet}
 #'
 #'@export
-setGeneric("singcore",
-           function(rankData,subSamples,upSet,downSet,centerScore,dispersionFun) standardGeneric("singcore"))
+setGeneric("singscoring",
+           function(rankData,subSamples,upSet,downSet,centerScore,dispersionFun) standardGeneric("singscoring"))
 
-#' @rdname singcore
-setMethod("singcore", signature(rankData = 'matrix',subSamples='ANY',upSet ='vector',downSet = 'vector', centerScore='ANY',dispersionFun='ANY'),
+#' @rdname singscoring
+setMethod("singscoring", signature(rankData = 'matrix',subSamples='ANY',upSet ='vector',downSet = 'vector', centerScore='ANY',dispersionFun='ANY'),
           function(rankData,subSamples,upSet,downSet,centerScore,dispersionFun){
             upSet <- GSEABase::GeneSet(as.character(upSet))
             downSet <- GSEABase::GeneSet(as.character(downSet))
