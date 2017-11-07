@@ -4,7 +4,7 @@
 \name{singscore}
 \alias{singscore}
 \alias{singscore-package}
-\title{SINGSCORE: A package for deriving gene-set score at a single sample level.}
+\title{Singscore: A package for deriving gene-set score at a single sample level.}
 \description{
 The packge provides functions of calculating gene-set expression scores at a 
 single-sample level and it is able to deal with single-sample input. It also 

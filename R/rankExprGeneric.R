@@ -58,10 +58,10 @@ setMethod("rankExpr", signature('DGEList'), function(expreMatrix){
 })
 #' @rdname rankExpr
 setMethod("rankExpr", signature('ExpressionSet'), function(expreMatrix){
-  rankGenes(exprs(expreMatrix))
+  rankGenes(Biobase::exprs(expreMatrix))
 })
 #' @rdname rankExpr
 setMethod("rankExpr", signature('ExpressionSet', 'character'),
           function(expreMatrix,tiesMethod){
-            rankGenes(exprs(expreMatrix),tiesMethod)
+            rankGenes(Biobase::exprs(expreMatrix),tiesMethod)
           })

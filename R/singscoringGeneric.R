@@ -10,8 +10,8 @@ NULL
 #' @param rankData A matrix-like object, ranked gene expression matrix data
 #' @param subSamples A character or vector of sample labels/indices that will be
 #'   used to subset the rankData matrix
-#' @param upSet A GeneSet object or vector of gene ids, up regulated gene set
-#' @param downSet A GeneSet object or vector of gene ids, down regulated gene set
+#' @param upSet A GeneSet object or vector of gene ids of up regulated gene set
+#' @param downSet A GeneSet object or vector of gene ids of down regulated gene set
 #' @param centerScore A Boolean, specifying whether scores should be centred
 #' @param dispersionFun A character, dispersion function with default as 'mad'
 #' @return A data.frame consists of scores and dispersions for all samples
@@ -35,3 +35,10 @@ setMethod("singscoring", signature(rankData = 'matrix',subSamples='ANY',upSet ='
             df <- simpleScore(rankData,upSet = upSet, downSet = downSet)
             return(df)
             })
+
+#' @rdname singscoring
+setMethod("singscoring", signature(rankData = 'matrix',subSamples='ANY',upSet ='GeneSet',downSet = 'GeneSet', centerScore='ANY',dispersionFun='ANY'),
+          function(rankData,subSamples,upSet,downSet,centerScore,dispersionFun){
+            df <- simpleScore(rankData,upSet = upSet, downSet = downSet)
+            return(df)
+          })

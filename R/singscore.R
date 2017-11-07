@@ -1,4 +1,4 @@
-#' SINGSCORE: A package for deriving gene-set score at a single sample level.
+#' Singscore: A package for deriving gene-set score at a single sample level.
 #'
 #' The packge provides functions of calculating gene-set expression scores at a 
 #' single-sample level and it is able to deal with single-sample input. It also 
@@ -7,17 +7,10 @@
 #' @import methods
 #' @import stats
 #' @import graphics
-#' @import doParallel
-#' @import foreach
 #' @import ggplot2
-#' @import tidyr
-#' @importFrom RColorBrewer brewer.pal
 #' @import GSEABase
 #' @importClassesFrom edgeR DGEList
 #' @importClassesFrom Biobase ExpressionSet
-#' @importMethodsFrom Biobase exprs
-#' @importFrom ggsci scale_color_npg
-#' @importFrom ggrepel geom_label_repel
 #' @docType package
 #' @name singscore
 NULL

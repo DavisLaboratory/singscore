@@ -363,12 +363,12 @@ projectScoreLandscape <- function(plotObj = NULL,
       fill = 'white',
       size = 2,
       stroke = 2
-    ) + scale_color_npg()
+    ) + ggsci::scale_color_npg()
 
     #label samples
     if (nrow(newdata) <= labels) {
       pproj = pproj +
-        geom_label_repel(
+      ggrepel::geom_label_repel(
           data = newdata,
           aes(label = SampleID,
               colour = Annotation),
@@ -492,7 +492,7 @@ plotRankDensity <- function (rankData,
   p = ggplot(allRanks, aes(x = Ranks, col = upDown)) +
     stat_density(aes(y = ..density..), geom = 'line', position = 'identity')
 
-  dens =  ggplot_build(p)$data[[1]]$density
+  dens = ggplot_build(p)$data[[1]]$density
   ymap[1] = round(max(dens), digits = 1) + 0.1
   ymap[2] = round(min(dens), digits = 1) - 0.1
   bcheight = (max(dens) - min(dens))
@@ -592,12 +592,12 @@ plotRankDensity <- function (rankData,
 #' #registerDoSEQ()
 permute_null <- function(n_up, n_down, ranked_sample, B = 100, seed = 1){
   set.seed(seed)
-  all_genes  <-  rownames(ranked_sample)
-  totalNo   <-    n_up + n_down
+  all_genes <- rownames(ranked_sample)
+  totalNo <- n_up + n_down
   temSets <- sapply(1:B, function(i) {
     sample(all_genes, size = totalNo, replace = FALSE)
   })
-  r <- foreach(i = 1:B,
+  r <- foreach::foreach(i = 1:B,
                .combine = rbind,
                .packages = "GSEABase",
                .export = c("GeneSet", "simpleScore", "geneIds")
@@ -715,14 +715,14 @@ plot_null <- function(permuResult, scoredf, pvals, sampleLabel = NULL,
       sampleLSc <- merge(sampleLSc,cutoff_annot)
       sampleLSc <- merge(sampleLSc, pvalTitle)
       #browser()
-      plotObj <-  ggplot2::ggplot(data = sampleLSc)+
-        geom_density(mapping = ggplot2::aes( x = value), size =1)+
+      plotObj <-  ggplot(data = sampleLSc)+
+        geom_density(mapping = aes( x = value), size =1)+
         coord_cartesian(xlim = c(0.35,0.85))+
         facet_grid(sampleLabel~.)+
-        geom_segment(mapping =  ggplot2::aes(x  = cutoff_score, y = 11, xend = cutoff_score, yend =0), linetype="dashed", colour = 'blue',size = 1)+
-        geom_segment(mapping = ggplot2::aes(x  = TotalScore, y = 11, xend = TotalScore, yend =0),colour = 'red',size = 2)+
-        geom_text(mapping = ggplot2::aes(x  = TotalScore-0.01, y = 12, label = pvalTitle[sampleLabel]), colour = 'red',size =5)+
-        geom_text(mapping = ggplot2::aes(x  = cutoff_score, y = 12, label = '99%-ile threshold'), colour = 'blue',size =5)+
+        geom_segment(mapping =  aes(x  = cutoff_score, y = 11, xend = cutoff_score, yend =0), linetype="dashed", colour = 'blue',size = 1)+
+        geom_segment(mapping = aes(x  = TotalScore, y = 11, xend = TotalScore, yend =0),colour = 'red',size = 2)+
+        geom_text(mapping = aes(x  = TotalScore-0.01, y = 12, label = pvalTitle[sampleLabel]), colour = 'red',size =5)+
+        geom_text(mapping = aes(x  = cutoff_score, y = 12, label = '99%-ile threshold'), colour = 'blue',size =5)+
         xlab("Scores")+
         ggtitle("Null distribution")+
         theme_minimal() +
@@ -747,9 +747,9 @@ plot_null <- function(permuResult, scoredf, pvals, sampleLabel = NULL,
         )
     }else{
       plotDt <- data.frame(sampleLabel = sampleLabel, value = permuResult[,sampleLabel])
-      plotObj <-  ggplot2::ggplot(data = plotDt)+
-        geom_density(mapping = ggplot2::aes(x = value))+
-        geom_vline(mapping = ggplot2::aes(xintercept  = scoredf[sampleLabel,1]))+
+      plotObj <-  ggplot(data = plotDt)+
+        geom_density(mapping = aes(x = value))+
+        geom_vline(mapping = aes(xintercept  = scoredf[sampleLabel,1]))+
         xlab(paste0(sampleLabel,"-Null Distribution alpha = 0.01"))+
         ggtitle(paste0("pval =", round(pvals,3))) +
         theme_minimal() +

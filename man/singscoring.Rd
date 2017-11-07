@@ -4,11 +4,15 @@
 \name{singscoring}
 \alias{singscoring}
 \alias{singscoring,matrix,ANY,vector,vector-method}
+\alias{singscoring,matrix,ANY,GeneSet,GeneSet-method}
 \title{Calculate scores for the ranked gene expression matrix against gene set}
 \usage{
 singscoring(rankData, subSamples, upSet, downSet, centerScore, dispersionFun)
 
 \S4method{singscoring}{matrix,ANY,vector,vector}(rankData, subSamples, upSet,
+  downSet, centerScore, dispersionFun)
+
+\S4method{singscoring}{matrix,ANY,GeneSet,GeneSet}(rankData, subSamples, upSet,
   downSet, centerScore, dispersionFun)
 }
 \arguments{
@@ -17,9 +21,9 @@ singscoring(rankData, subSamples, upSet, downSet, centerScore, dispersionFun)
 \item{subSamples}{A character or vector of sample labels/indices that will be
 used to subset the rankData matrix}
 
-\item{upSet}{A GeneSet object or vector of gene ids, up regulated gene set}
+\item{upSet}{A GeneSet object or vector of gene ids of up regulated gene set}
 
-\item{downSet}{A GeneSet object or vector of gene ids, down regulated gene set}
+\item{downSet}{A GeneSet object or vector of gene ids of down regulated gene set}
 
 \item{centerScore}{A Boolean, specifying whether scores should be centred}
 
