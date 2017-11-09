@@ -4,8 +4,8 @@
 \alias{plot_null}
 \title{Plot the empirical null distribution using the permutation result}
 \usage{
-plot_null(permuResult, scoredf, pvals, sampleLabel = NULL, alpha = 1,
-  size = 1, textSize = 2, cutoff = 0.01)
+plot_null(permuResult, scoredf, pvals, sampleLabel = NULL, cutoff = 0.01,
+  alpha = 1, size = 1, textSize = 2)
 }
 \arguments{
 \item{permuResult}{A matrix, outcome from function permuteNull()}
@@ -16,13 +16,13 @@ plot_null(permuResult, scoredf, pvals, sampleLabel = NULL, alpha = 1,
 
 \item{sampleLabel}{character, one sample label or multiple sample labels}
 
-\item{alpha}{ggplot theme}
-
-\item{size}{ggplot theme}
-
-\item{textSize}{ggplot theme}
-
 \item{cutoff}{double, the cutoff value for significant p values}
+
+\item{alpha}{ggplot theme element}
+
+\item{size}{ggplot theme element}
+
+\item{textSize}{ggplot theme element}
 }
 \description{
 This function takes the result from function permuteNull(), plot the density

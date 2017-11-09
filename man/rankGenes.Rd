@@ -13,18 +13,20 @@ rankGenes(exprsM, tiesMethod = "min")
 }
 \value{
 A matrix that has samples in colunm and genes in rows. Values are the
-  ranks of each gene in each sample.
+ranks of each gene in each sample.
 }
 \description{
-Given a gene expression matrix and a tiesMethod
-  character, this fucntion calls the 'rank' function in the base package
-  The default ties.Method is set to 'min'. There is a generic version of
-  this function, details can be found in the see also section down at the
-  bottom. It is suggested to use the generic function 'rankExpr'
+Given a gene expression matrix and a tiesMethod (character),
+this fucntion calls the 'rank' function from 'base' package which ranks the
+gene expression matrix by gene's expression level. The default tiesMethod
+is 'min'. There is a generic version of this function, details can be found
+in the see also section down at the bottom. It is suggested to use the
+generic function 'rankExpr' which can accept multiple data formats as
+input.
 }
 \examples{
 ranked <- rankGenes(toy_expr)
 }
 \seealso{
-\code{ \link{rankExpr}}
+\code{\link[=rankExpr]{rankExpr()}}
 }

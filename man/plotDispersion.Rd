@@ -26,8 +26,8 @@ A ggplot object
 }
 \description{
 This function takes the output from the simpleScore() function
-  and plots scatter plots for the score vs the dispersion for the total
-  score, the up score and the down score
+and plots scatter plots for the score vs the dispersion for the total
+score, the up score and the down score
 }
 \examples{
 ranked <- rankGenes(toy_expr)

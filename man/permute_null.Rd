@@ -22,8 +22,8 @@ a list consists of empircal scores, p values and the tested result scores
 }
 \description{
 This function randomize the genes in the gene set and calculate the sample's score against the
- random gene sets which form the null distribution for the simple score test. The resulting
- permutation score results are used to calculate the empirical P value.
+random gene sets which form the null distribution for the simple score test. The resulting
+permutation score results are used to calculate the empirical P value.
 }
 \examples{
 ranked <- rankGenes(toy_expr)

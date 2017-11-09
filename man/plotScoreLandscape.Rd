@@ -5,12 +5,12 @@
 \title{Plot landscape of two gene signatures scores}
 \usage{
 plotScoreLandscape(scoredf1, scoredf2, scorenames = c(), textSize = 1.5,
-  isInteractive = F)
+  isInteractive = F, hexMin = 100)
 }
 \arguments{
-\item{scoredf1}{data.frame, results of the simpleScore() function}
+\item{scoredf1}{data.frame, results of the simpleScore() or singscoring() function}
 
-\item{scoredf2}{data.frame, results of the simpleScore() function}
+\item{scoredf2}{data.frame, results of the simpleScore() or singscoring() function}
 
 \item{scorenames}{character, names for the two gene signatures scored stored
 in scoredf1 and scoredf2}
@@ -26,7 +26,8 @@ between scores from two signatures on the same set of samples.
 }
 \description{
 This function takes two data frames which are the output from
-the simpleScore() function and plots the relationship between the two scores.
+the simpleScore() function or singscoring() function and plots the relationship
+between the two scores.
 }
 \examples{
 ranked <- rankGenes(toy_expr)

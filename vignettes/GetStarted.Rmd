@@ -33,7 +33,7 @@ install_github("https://github.com/Rachael-rq/'singscore'")
 The data set for use in this vignette can be loaded easiy as below which has been built in with the package. The dataset is obtained from CITATION and it is a ten-sample subset of the original dataset. We are going to score the TGFb gene expression dataeset (5 control samples, 5 case samples) against a TGFb gene signature with up-set and down-set CITATION
 
 ```{r}
-library(SINGSCORE)
+library(singscore)
 # load the expression dataset and gene signatures
 data("tgfb_expr_10")
 data("tgfb_gs_up")
@@ -86,7 +86,7 @@ no_cores <- parallel::detectCores() - 1
 #using parallel scripts
 cl <- parallel::makeCluster(no_cores)
 doParallel::registerDoParallel(cl)
-permuResult = permute_null(n_up = n_up, n_down = n_down, rankData, B = 10000, seed = 1)
+permuResult = permute_null(n_up = n_up, n_down = n_down, rankData, B = 100, seed = 1)
 parallel::stopCluster(cl)
 foreach::registerDoSEQ()
 

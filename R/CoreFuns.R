@@ -1,29 +1,29 @@
 #' @include singscore.R
 NULL
 
-
 ################################################################################
 ####=========================== rankGenes() function ===========================
 ################################################################################
 
 #' Rank gene expression matrix
-#' @description Given a gene expression matrix and a tiesMethod
-#'   character, this fucntion calls the 'rank' function in the base package
-#'   The default ties.Method is set to 'min'. There is a generic version of
-#'   this function, details can be found in the see also section down at the
-#'   bottom. It is suggested to use the generic function 'rankExpr'
+#' @description Given a gene expression matrix and a tiesMethod (character),
+#'   this fucntion calls the 'rank' function from 'base' package which ranks the
+#'   gene expression matrix by gene's expression level. The default tiesMethod
+#'   is 'min'. There is a generic version of this function, details can be found
+#'   via the link in the see also section down at the bottom. It is suggested to
+#'   use the generic function 'rankExpr' which can accept multiple data formats
+#'   as input.
 #' @param exprsM A matrix, gene expression matrix
 #' @param tiesMethod A character, default as 'min'
-#'
 #' @return A matrix that has samples in colunm and genes in rows. Values are the
 #'   ranks of each gene in each sample.
-#' @seealso
-#' \code{ \link{rankExpr}}
+#' @seealso 
+#' [rankExpr()]
 #' @examples
 #' ranked <- rankGenes(toy_expr)
 #' @export
-rankGenes<- function(exprsM, tiesMethod = "min"){
-  rankedData<- apply(exprsM, 2, rank, ties.method= tiesMethod)
+rankGenes <- function(exprsM, tiesMethod = "min") {
+  rankedData <- apply(exprsM, 2, rank, ties.method = tiesMethod)
   return (rankedData)
 }
 
@@ -31,36 +31,42 @@ rankGenes<- function(exprsM, tiesMethod = "min"){
 ####========================= simpleScore() function ===========================
 ################################################################################
 
-#' Calculate scores for the ranked gene expression matrix against a gene set
+#' Single-sample Gene-set scoring method
+#'
 #' @description This function takes a ranked gene expression matrix obtained
 #'   from \code{rankExpr} (or \code{rankGenes}) function and a GeneSet object as
-#'   input parameters. It returns a data.frame consists of scores and
-#'   dispersions for each sample.
-#'
+#'   input parameters. It returns a data.frame consists of calculated scores and
+#'   dispersions for each sample. It is suggested to use the generic version of
+#'   of this method which can work with gene set stored in both vector or
+#'   GeneSet.
+#'   
 #' @param rankData A matrix, ranked gene expression matrix data
-#' @param subSamples A character or vector of sample labels/indices that will be
-#'   used to subset the rankData matrix
 #' @param upSet A GeneSet object, up regulated gene set
 #' @param downSet A GeneSet object, down regulated gene set
+#' @param subSamples A character or vector of sample labels/indices that will be
+#'   used to subset the rankData matrix.All samples will be scored by default.
 #' @param centerScore A Boolean, specifying whether scores should be centred
 #' @param dispersionFun A character, dispersion function with default as 'mad'
 #' @return A data.frame consists of scores and dispersions for all samples
+#' @seealso 
+#' [singscoring()]
+#' [GeneSet][GeneSet-class]
+#' 
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankExpr(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 #' @export
 simpleScore <-
   function (rankData,
-            subSamples = NULL,
             upSet,
             downSet = NULL,
+            subSamples = NULL,
             centerScore = TRUE,
             dispersionFun = mad) {
     #subset the data for samples whose calculation is to be performed
     if (!is.null(subSamples)) {
       rankData <- rankData[, subSamples, drop = F]
     }
-
     #values needed for calculating the boundaries
     upSigSize <- length(geneIds(upSet))
     nTotalGenes <- nrow(rankData)
@@ -98,7 +104,7 @@ simpleScore <-
       return(scoredf)
     } else{
       scoreDown <-
-        simpleScore(rankData, subSamples, downSet, NULL, F, dispersionFun)
+        simpleScore(rankData, downSet, NULL,subSamples, FALSE, dispersionFun)
       normDownScore <- 1 - scoreDown$TotalScore
       downDispersion <- scoreDown$TotalDispersion
 
@@ -234,14 +240,17 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 
 #' Plot landscape of two gene signatures scores
 #' @description  This function takes two data frames which are the output from
-#' the simpleScore() function and plots the relationship between the two scores.
+#' the simpleScore() function or singscoring() function and plots the relationship
+#' between the two scores.
 #'
-#' @param scoredf1 data.frame, results of the simpleScore() function
+#' @param scoredf1 data.frame, results of the simpleScore() or singscoring() function 
 #'
-#' @param scoredf2 data.frame, results of the simpleScore() function
+#' @param scoredf2 data.frame, results of the simpleScore() or singscoring() function 
 #' @param scorenames character, names for the two gene signatures scored stored
 #' in scoredf1 and scoredf2
 #' @param isInteractive boolean, whether the plot is interactive
+#' @param hexMin integer, the threshold which decides whether hex bin plot or 
+#' scatter plot is displayed
 #' @inheritParams plotDispersion
 #' @return A ggplot object, a scatter plot, demostrating the relationship
 #' between scores from two signatures on the same set of samples.
@@ -252,7 +261,7 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' plotScoreLandscape(scoredf, scoredf2)
 #' @export
 plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
-                               textSize = 1.5, isInteractive = F){
+                               textSize = 1.5, isInteractive = F, hexMin = 100){
   if (length(scorenames) == 0){
     scorenames = c('Signature 1', 'Signature 2')
   }
@@ -262,13 +271,22 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
   # generate labels
   pxlab = paste0('`', scorenames[1], '`')
   pylab = paste0('`', scorenames[2], '`')
-
-  p = ggplot(plotdf, aes_string(pxlab, pylab)) +
-    geom_hex(colour = 'white') +
-    scale_fill_distiller(palette = 'RdPu', direction = 1)
-  p = p +
-    ggtitle('Signature landscape') +
-    theme_minimal() +
+  if(nrow(scoredf1) < hexMin){
+    p = ggplot(plotdf, aes_string(pxlab, pylab)) +
+      geom_point(colour = 'blue') +
+      scale_fill_distiller(palette = 'RdPu', direction = 1)
+    p = p +
+      ggtitle('Signature landscape less than 100')
+  }else{
+    p = ggplot(plotdf, aes_string(pxlab, pylab)) +
+      geom_hex(colour = 'white') +
+      scale_fill_distiller(palette = 'RdPu', direction = 1)
+    p = p +
+      ggtitle('Signature landscape')
+  }
+  
+    p = p+ 
+      theme_minimal() +
     theme(
       panel.grid.minor = element_blank(),
       axis.title = element_text(size = rel(textSize)),
@@ -307,13 +325,13 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 ####============================ projectScoreLandscape() =======================
 ################################################################################
 
-#' Project the landscape score obtained from plotScoreLanscape
+#' Project the landscape score obtained from plotScoreLandscape
 #' @description This function takes the output of the plotScoreLandscape() and
-#'   anew data, and plots the new data onto the ggplot object.
+#'   a new data, and it projects the new data onto the ggplot object.
 #' @param plotObj a dataframe, resulted from plotScoreLanscape()
 #'
-#' @param sampleIDs character, sample names to display, ordered in the same way
-#'   as samples are ordered in the rank matrix
+#' @param sampleLabels character, sample names to display, ordered in the same way
+#'   as samples are ordered in the 'singscored' data matrix
 #' @param annot Annotations to colour the data.
 #' @param labels integer, number of samples labeled on the plot in the new data
 #' @inheritParams plotScoreLandscape
@@ -330,19 +348,19 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 projectScoreLandscape <- function(plotObj = NULL,
                                   scoredf1,
                                   scoredf2,
-                                  sampleIDs = NULL,
+                                  sampleLabels = NULL,
                                   annot = NULL,
                                   labels = 20,
                                   isInteractive = F){
   #create data frame with the new data
-  if (is.null(sampleIDs)) {
-    sampleIDs = 1:nrow(scoredf1)
+  if (is.null(sampleLabels)) {
+    sampleLabels = 1:nrow(scoredf1)
   }
   if (is.null(annot)) {
     annot = ''
   }
 
-  newdata = data.frame(scoredf1$TotalScore, scoredf2$TotalScore, sampleIDs)
+  newdata = data.frame(scoredf1$TotalScore, scoredf2$TotalScore, sampleLabels)
 
   if (! is.ggplot(plotObj)) {
     stop('Please provide a ggplot object (',
@@ -385,7 +403,7 @@ projectScoreLandscape <- function(plotObj = NULL,
     #add layer with new data
     npgpal =ggsci::pal_npg('nrc')(length(levels(newdata$Annotation)))
     ply = ply %>%
-      add_trace(data = newdata,
+      plotly::add_trace(data = newdata,
                 color = ~Annotation,
                 colors = npgpal,
                 type = 'scatter',
@@ -395,7 +413,7 @@ projectScoreLandscape <- function(plotObj = NULL,
                   line = list(color = 'white', width = 2)
                 ),
                 text = paste('Cell line:', newdata$SampleID)) %>%
-      layout(showlegend = TRUE,
+     plotly::layout(showlegend = TRUE,
              legend = list(
                orientation = 'h',
                xanchor = 'center',
@@ -546,7 +564,7 @@ plotRankDensity <- function (rankData,
     #Horizontal legend not supported by plotly yet so re-orient after
     #creating plotly object
     ply = suppressWarnings(plotly::ggplotly(p, tooltip = c('text', 'x')))
-    ply = ply %>% layout(
+    ply = ply %>% plotly::layout(
       legend = list(
         orientation = 'h',
         xanchor = 'center',
@@ -664,9 +682,9 @@ get_pval <- function(permuResult,scoredf){
 #' @param scoredf A dataframe, outcome from function simplescore()
 #' @param pvals A vector, outcome from function get_pval()
 #' @param sampleLabel character, one sample label or multiple sample labels
-#' @param alpha ggplot theme
-#' @param size ggplot theme
-#' @param textSize ggplot theme
+#' @param alpha ggplot theme element
+#' @param size ggplot theme element
+#' @param textSize ggplot theme element
 #' @param cutoff double, the cutoff value for significant p values
 #'
 #' @examples
@@ -688,8 +706,9 @@ get_pval <- function(permuResult,scoredf){
 #' plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals))
 #' plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals)[1])
 #' @export
-plot_null <- function(permuResult, scoredf, pvals, sampleLabel = NULL,
-                      alpha = 1, size = 1, textSize = 2, cutoff = 0.01){
+plot_null <- function(permuResult, scoredf, pvals, sampleLabel = NULL,cutoff = 0.01,
+                      alpha = 1, size = 1, textSize = 2){
+  quantile_title <- as.character((1 - cutoff)*100)
   if(!is.null(sampleLabel)){
     pvals <- pvals[sampleLabel,drop=F]
   }
@@ -719,62 +738,45 @@ plot_null <- function(permuResult, scoredf, pvals, sampleLabel = NULL,
         geom_density(mapping = aes( x = value), size =1)+
         coord_cartesian(xlim = c(0.35,0.85))+
         facet_grid(sampleLabel~.)+
+        geom_segment(mapping =  aes(x  = cutoff_score, y = 11, xend = cutoff_score, yend = 0), linetype="dashed", colour = 'blue',size = 1)+
+        geom_segment(mapping = aes(x  = TotalScore, y = 11, xend = TotalScore, yend = 0),colour = 'red',size = 2)+
+        geom_text(mapping = aes(x  = TotalScore-0.01, y = 12, label = pvalTitle[sampleLabel]), colour = 'red',size =5)+
+        geom_text(mapping = aes(x  = cutoff_score, y = 12, label = paste0(quantile_title,'%-ile threshold')), colour = 'blue',size =5)+
+        xlab("Scores")+
+        ggtitle("Null distribution")
+    }else{
+      plotDt <- data.frame(sampleLabel = sampleLabel, value = permuResult[,sampleLabel],TotalScore = scoredf[sampleLabel,]$TotalScore)
+      plotObj <-  ggplot(data = plotDt)+
+        geom_density(mapping = aes( x = value),size = 1)+
+        coord_cartesian(xlim = c(min(permuResult[,sampleLabel])-0.03,max(permuResult[,sampleLabel])+0.03))+
         geom_segment(mapping =  aes(x  = cutoff_score, y = 11, xend = cutoff_score, yend =0), linetype="dashed", colour = 'blue',size = 1)+
         geom_segment(mapping = aes(x  = TotalScore, y = 11, xend = TotalScore, yend =0),colour = 'red',size = 2)+
-        geom_text(mapping = aes(x  = TotalScore-0.01, y = 12, label = pvalTitle[sampleLabel]), colour = 'red',size =5)+
-        geom_text(mapping = aes(x  = cutoff_score, y = 12, label = '99%-ile threshold'), colour = 'blue',size =5)+
+        geom_text(mapping = aes(x  = TotalScore, y = 12, label = pvalTitle[sampleLabel]), colour = 'red',size =5)+
+        geom_text(mapping = aes(x  = cutoff_score, y = 12, label = paste0(quantile_title,'%-ile threshold')), colour = 'blue',size =5)+
         xlab("Scores")+
-        ggtitle("Null distribution")+
-        theme_minimal() +
-        theme(
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          axis.title = element_text(size = rel(textSize)),
-          axis.text.x = element_text(angle = 0, size = rel(textSize)),
-          axis.text.y = element_text(angle = 0, size = rel(textSize)),
-          strip.background = element_rect(colour = "#f0f0f0", fill = "#f0f0f0"),
-          strip.text = element_text(size = rel(textSize)),
-          axis.line = element_line(colour = "black"),
-          axis.ticks = element_line(),
-          legend.position = "bottom",
-          legend.direction = "horizontal",
-          legend.margin = margin(unit(0, "cm")),
-          legend.title = element_text(face = "italic"),
-          plot.title = element_text(
-            face = "bold",
-            size = rel(textSize),
-            hjust = 0.5)
-        )
-    }else{
-      plotDt <- data.frame(sampleLabel = sampleLabel, value = permuResult[,sampleLabel])
-      plotObj <-  ggplot(data = plotDt)+
-        geom_density(mapping = aes(x = value))+
-        geom_vline(mapping = aes(xintercept  = scoredf[sampleLabel,1]))+
-        xlab(paste0(sampleLabel,"-Null Distribution alpha = 0.01"))+
-        ggtitle(paste0("pval =", round(pvals,3))) +
-        theme_minimal() +
-        theme(
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          axis.title = element_text(size = rel(textSize)),
-          axis.text.x = element_text(angle = 0, size = rel(textSize)),
-          axis.text.y = element_text(angle = 0, size = rel(textSize)),
-          strip.background = element_rect(colour = "#f0f0f0", fill = "#f0f0f0"),
-          strip.text = element_text(size = rel(textSize)),
-          axis.line = element_line(colour = "black"),
-          axis.ticks = element_line(),
-          legend.position = "bottom",
-          legend.direction = "horizontal",
-          legend.margin = margin(unit(0, "cm")),
-          legend.title = element_text(face = "italic"),
-          plot.title = element_text(
-            face = "bold",
-            size = rel(textSize),
-            hjust = 0.5)
-        )
+        ggtitle("Null distribution")
     }
   }else{
     warning("Please provide which sample's null distribution to plot")
   }
-  plotObj
+  plotObj+
+    theme_minimal() +
+    theme(
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      axis.title = element_text(size = rel(textSize)),
+      axis.text.x = element_text(angle = 0, size = rel(textSize)),
+      axis.text.y = element_text(angle = 0, size = rel(textSize)),
+      strip.background = element_rect(colour = "#f0f0f0", fill = "#f0f0f0"),
+      strip.text = element_text(size = rel(textSize)),
+      axis.line = element_line(colour = "black"),
+      axis.ticks = element_line(),
+      legend.position = "bottom",
+      legend.direction = "horizontal",
+      legend.margin = margin(unit(0, "cm")),
+      legend.title = element_text(face = "italic"),
+      plot.title = element_text(
+        face = "bold",
+        size = rel(textSize),
+        hjust = 0.5))
 }

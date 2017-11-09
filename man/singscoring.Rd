@@ -3,16 +3,24 @@
 \docType{methods}
 \name{singscoring}
 \alias{singscoring}
-\alias{singscoring,matrix,ANY,vector,vector-method}
-\alias{singscoring,matrix,ANY,GeneSet,GeneSet-method}
+\alias{singscoring,ANY,ANY,vector,vector-method}
+\alias{singscoring,ANY,ANY,GeneSet,GeneSet-method}
+\alias{singscoring,ANY,ANY,GeneSet,vector-method}
+\alias{singscoring,ANY,ANY,vector,GeneSet-method}
 \title{Calculate scores for the ranked gene expression matrix against gene set}
 \usage{
 singscoring(rankData, subSamples, upSet, downSet, centerScore, dispersionFun)
 
-\S4method{singscoring}{matrix,ANY,vector,vector}(rankData, subSamples, upSet,
+\S4method{singscoring}{ANY,ANY,vector,vector}(rankData, subSamples, upSet,
   downSet, centerScore, dispersionFun)
 
-\S4method{singscoring}{matrix,ANY,GeneSet,GeneSet}(rankData, subSamples, upSet,
+\S4method{singscoring}{ANY,ANY,GeneSet,GeneSet}(rankData, subSamples, upSet,
+  downSet, centerScore, dispersionFun)
+
+\S4method{singscoring}{ANY,ANY,GeneSet,vector}(rankData, subSamples, upSet,
+  downSet, centerScore, dispersionFun)
+
+\S4method{singscoring}{ANY,ANY,vector,GeneSet}(rankData, subSamples, upSet,
   downSet, centerScore, dispersionFun)
 }
 \arguments{
@@ -34,9 +42,9 @@ A data.frame consists of scores and dispersions for all samples
 }
 \description{
 This function takes a ranked gene expression matrix obtained
-  from \code{rankExpr} (or \code{rankGenes}) function and gene sets as input.
-  It returns a data.frame consists of scores and dispersions for each sample.
-  The gene sets can be in vector format or GeneSet S4 object.
+from \code{rankExpr} (or \code{rankGenes}) function and gene sets as input.
+It returns a data.frame consists of scores and dispersions for each sample.
+The gene sets can be in vector format or GeneSet S4 object.
 }
 \examples{
 ranked <- rankExpr(toy_expr)

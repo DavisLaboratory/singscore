@@ -13,12 +13,12 @@ get_pval(permuResult, scoredf)
 }
 \value{
 pvals, the calculated empirical p values for all empirical null
-  sample scores distribution
+sample scores distribution
 }
 \description{
 This function takes the permutation result, which is the
-  empirical scores, and the test sample scores as input. It calculates the
-  empirical p values of the simple sample scoring test.
+empirical scores, and the test sample scores as input. It calculates the
+empirical p values of the simple sample scoring test.
 }
 \examples{
 ranked <- rankGenes(toy_expr)

@@ -22,7 +22,7 @@ interactive}
 }
 \value{
 A ggplot object (optionally interactive) demonstrating the rank
-  density along with rug plot
+density along with rug plot
 }
 \description{
 This function takes a single column data frame, which is a

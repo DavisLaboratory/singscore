@@ -8,8 +8,8 @@
 \describe{
 \item{D_Ctrl_R1}{a control sample label}
 \item{D_TGFb_R1}{a tgfb sample label}
- ...
- }}
+...
+}}
 \source{
 \url{http://www.somelinktotgfbdata.info/}
 }

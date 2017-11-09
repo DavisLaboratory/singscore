@@ -26,11 +26,15 @@ A data.frame consists of scores and dispersions for all samples
 }
 \description{
 This function takes a ranked gene expression matrix obtained
-  from \code{rankExpr} (or \code{rankGenes}) function and a GeneSet object as
-  input parameters. It returns a data.frame consists of scores and
-  dispersions for each sample.
+from \code{rankExpr} (or \code{rankGenes}) function and a GeneSet object as
+input parameters. It returns a data.frame consists of scores and
+dispersions for each sample.
 }
 \examples{
 ranked <- rankGenes(toy_expr)
 scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
+}
+\seealso{
+\link[=GeneSet-class]{GeneSet}
+\code{\link[=singscoring]{singscoring()}}
 }

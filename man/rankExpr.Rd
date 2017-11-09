@@ -3,53 +3,45 @@
 \docType{methods}
 \name{rankExpr}
 \alias{rankExpr}
-\alias{rankExpr,matrix,ANY-method}
-\alias{rankExpr,matrix,character-method}
-\alias{rankExpr,data.frame,ANY-method}
-\alias{rankExpr,data.frame,character-method}
-\alias{rankExpr,DGEList,character-method}
-\alias{rankExpr,DGEList,ANY-method}
-\alias{rankExpr,ExpressionSet,ANY-method}
-\alias{rankExpr,ExpressionSet,character-method}
+\alias{rankExpr,matrix-method}
+\alias{rankExpr,data.frame-method}
+\alias{rankExpr,DGEList-method}
+\alias{rankExpr,ExpressionSet-method}
 \title{Rank genes by the gene expression intensities}
 \usage{
-rankExpr(expreMatrix, tiesMethod)
+rankExpr(expreMatrix, tiesMethod = "min")
 
-\S4method{rankExpr}{matrix,ANY}(expreMatrix)
+\S4method{rankExpr}{matrix}(expreMatrix, tiesMethod = "min")
 
-\S4method{rankExpr}{matrix,character}(expreMatrix, tiesMethod)
+\S4method{rankExpr}{data.frame}(expreMatrix, tiesMethod = "min")
 
-\S4method{rankExpr}{data.frame,ANY}(expreMatrix)
+\S4method{rankExpr}{DGEList}(expreMatrix, tiesMethod = "min")
 
-\S4method{rankExpr}{data.frame,character}(expreMatrix, tiesMethod)
-
-\S4method{rankExpr}{DGEList,character}(expreMatrix, tiesMethod)
-
-\S4method{rankExpr}{DGEList,ANY}(expreMatrix)
-
-\S4method{rankExpr}{ExpressionSet,ANY}(expreMatrix)
-
-\S4method{rankExpr}{ExpressionSet,character}(expreMatrix, tiesMethod)
+\S4method{rankExpr}{ExpressionSet}(expreMatrix, tiesMethod = "min")
 }
 \arguments{
 \item{expreMatrix}{A gene expression matrix or S4 object
-(ExpressionSet,DGEList,data.frame)}
+(matrix,data.frame,ExpressionSet,DGEList)}
 
 \item{tiesMethod}{A character indicating what method to use when dealing with
 ties}
 }
 \value{
 The ranked gene expression matrix that has samples in columns and
- genes in rows
+genes in rows
 }
 \description{
-The \code{rankExpr} function is a generic function that takes
-mutilple combinations of inputs.If input is S4 object of \code{DGEList, or
-ExpressionSet}, the generic function will extract the gene epxression matrix
-genes on the rows and samples on columns from the object and rank the genes.
-Given a matrix of gene expression that has samples in columns, genes in rows,
-and values being gene expression intensity. \code{rankExpr} ranks gene
-expression in each sample.
+The \code{rankExpr} function is a generic function that can deal
+with mutilple types of inputs. Given a matrix of gene expression that has
+samples in columns, genes in rows, and values being gene expression
+intensity. \code{rankExpr} ranks gene expression in each sample. Given a
+gene expression matrix (i.e matrix, data.frame) or a S4 object that has gene
+expression matrix as a component (i.e ExpressionSet, DGEList) and a
+'tiesMethod', it calls the  \code{rank} function in the base package which ranks
+the gene expression matrix by its absolute expression level. If input is S4
+object of \code{DGEList, or ExpressionSet}, the generic function will
+extract the gene epxression matrix genes on the rows and samples on columns
+from the object and rank the genes. The default ties.Method is set to 'min'
 }
 \examples{
 rankExpr(toy_expr) # toy_expr is a gene expression matrix, tiesMethod = 'min'
@@ -57,5 +49,6 @@ e <- Biobase::ExpressionSet(assayData = as.matrix(toy_expr))
 rankExpr(e) # or it can be a ExpressionSet object
 }
 \seealso{
-\code{\link{rank}} \linkS4class{GeneSet}
+\code{\link{rank}} \link[=ExpressionSet-class]{ExpressionSet}
+\link[=DGEList-class]{DGEList}
 }

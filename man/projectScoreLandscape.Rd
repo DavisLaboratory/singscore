@@ -2,20 +2,20 @@
 % Please edit documentation in R/CoreFuns.R
 \name{projectScoreLandscape}
 \alias{projectScoreLandscape}
-\title{Project the landscape score obtained from plotScoreLanscape}
+\title{Project the landscape score obtained from plotScoreLandscape}
 \usage{
-projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2, sampleIDs = NULL,
-  annot = NULL, labels = 20, isInteractive = F)
+projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2,
+  sampleLabels = NULL, annot = NULL, labels = 20, isInteractive = F)
 }
 \arguments{
 \item{plotObj}{a dataframe, resulted from plotScoreLanscape()}
 
-\item{scoredf1}{data.frame, results of the simpleScore() function}
+\item{scoredf1}{data.frame, results of the simpleScore() or singscoring() function}
 
-\item{scoredf2}{data.frame, results of the simpleScore() function}
+\item{scoredf2}{data.frame, results of the simpleScore() or singscoring() function}
 
-\item{sampleIDs}{character, sample names to display, ordered in the same way
-as samples are ordered in the rank matrix}
+\item{sampleLabels}{character, sample names to display, ordered in the same way
+as samples are ordered in the 'singscored' data matrix}
 
 \item{annot}{Annotations to colour the data.}
 
@@ -25,11 +25,11 @@ as samples are ordered in the rank matrix}
 }
 \value{
 New data points on the already plotted ggplot object from
-  plotScoreLanscape()
+plotScoreLanscape()
 }
 \description{
 This function takes the output of the plotScoreLandscape() and
-  anew data, and plots the new data onto the ggplot object.
+a new data, and it projects the new data onto the ggplot object.
 }
 \examples{
 ranked <- rankGenes(toy_expr)
