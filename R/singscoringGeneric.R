@@ -23,7 +23,8 @@ NULL
 #' @examples
 #' ranked <- rankExpr(toy_expr)
 #' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-#'
+#' # toy_up is a GeneSet object, alternatively a vector of gene ids may also 
+#' be supplied.
 #'@seealso \code{\link{rank}} \linkS4class{GeneSet}
 #'
 #'@export
@@ -92,8 +93,6 @@ function(rankData,
          dispersionFun = 'mad') {
   upSet <- GSEABase::GeneSet(as.character(upSet))
   downSet <- GSEABase::GeneSet(as.character(downSet))
-  if( ! is.null(downSet)){
-  }
   df <- simpleScore( rankData,
                      upSet = upSet,
                      downSet = downSet,

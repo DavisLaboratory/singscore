@@ -3,37 +3,48 @@
 \docType{methods}
 \name{singscoring}
 \alias{singscoring}
-\alias{singscoring,ANY,ANY,vector,vector-method}
-\alias{singscoring,ANY,ANY,GeneSet,GeneSet-method}
-\alias{singscoring,ANY,ANY,GeneSet,vector-method}
-\alias{singscoring,ANY,ANY,vector,GeneSet-method}
-\title{Calculate scores for the ranked gene expression matrix against gene set}
+\alias{singscoring,ANY,vector,missing-method}
+\alias{singscoring,ANY,GeneSet,missing-method}
+\alias{singscoring,ANY,vector,vector-method}
+\alias{singscoring,ANY,GeneSet,GeneSet-method}
+\alias{singscoring,ANY,GeneSet,vector-method}
+\alias{singscoring,ANY,vector,GeneSet-method}
+\title{single-sample gene-set scoring method}
 \usage{
-singscoring(rankData, subSamples, upSet, downSet, centerScore, dispersionFun)
+singscoring(rankData, upSet, downSet = NULL, subSamples = NULL,
+  centerScore = TRUE, dispersionFun = "mad")
 
-\S4method{singscoring}{ANY,ANY,vector,vector}(rankData, subSamples, upSet,
-  downSet, centerScore, dispersionFun)
+\S4method{singscoring}{ANY,vector,missing}(rankData, upSet, downSet = NULL,
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
 
-\S4method{singscoring}{ANY,ANY,GeneSet,GeneSet}(rankData, subSamples, upSet,
-  downSet, centerScore, dispersionFun)
+\S4method{singscoring}{ANY,GeneSet,missing}(rankData, upSet, downSet = NULL,
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
 
-\S4method{singscoring}{ANY,ANY,GeneSet,vector}(rankData, subSamples, upSet,
-  downSet, centerScore, dispersionFun)
+\S4method{singscoring}{ANY,vector,vector}(rankData, upSet, downSet = NULL,
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
 
-\S4method{singscoring}{ANY,ANY,vector,GeneSet}(rankData, subSamples, upSet,
-  downSet, centerScore, dispersionFun)
+\S4method{singscoring}{ANY,GeneSet,GeneSet}(rankData, upSet, downSet = NULL,
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
+
+\S4method{singscoring}{ANY,GeneSet,vector}(rankData, upSet, downSet = NULL,
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
+
+\S4method{singscoring}{ANY,vector,GeneSet}(rankData, upSet, downSet = NULL,
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
 }
 \arguments{
 \item{rankData}{A matrix-like object, ranked gene expression matrix data}
 
-\item{subSamples}{A character or vector of sample labels/indices that will be
-used to subset the rankData matrix}
-
 \item{upSet}{A GeneSet object or vector of gene ids of up regulated gene set}
 
-\item{downSet}{A GeneSet object or vector of gene ids of down regulated gene set}
+\item{downSet}{A GeneSet object or vector of gene ids of down regulated gene
+set}
 
-\item{centerScore}{A Boolean, specifying whether scores should be centred}
+\item{subSamples}{A vector of sample labels/indices that will be
+used to subset the rankData matrix. All samples will be scored by default.}
+
+\item{centerScore}{A Boolean, specifying whether scores should be centred,
+default as TRUE}
 
 \item{dispersionFun}{A character, dispersion function with default as 'mad'}
 }
@@ -41,15 +52,18 @@ used to subset the rankData matrix}
 A data.frame consists of scores and dispersions for all samples
 }
 \description{
-This function takes a ranked gene expression matrix obtained
-from \code{rankExpr} (or \code{rankGenes}) function and gene sets as input.
-It returns a data.frame consists of scores and dispersions for each sample.
-The gene sets can be in vector format or GeneSet S4 object.
+This function takes a ranked gene expression matrix obtained from
+\code{rankExpr} (or \code{rankGenes}) function and gene sets as input and
+calulate the scores for each individual sample against gene set. It returns
+a data.frame consists of scores and dispersions for each sample. The gene
+sets can be in vector format or GeneSet S4 object. Down set can be null if
+no down-regulated gene sets are available.
 }
 \examples{
 ranked <- rankExpr(toy_expr)
 scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-
+# toy_up is a GeneSet object, alternatively a vector of gene ids may also 
+be supplied.
 }
 \seealso{
 \code{\link{rank}} \linkS4class{GeneSet}

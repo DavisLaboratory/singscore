@@ -2,20 +2,20 @@
 % Please edit documentation in R/CoreFuns.R
 \name{simpleScore}
 \alias{simpleScore}
-\title{Calculate scores for the ranked gene expression matrix against a gene set}
+\title{Single-sample Gene-set scoring method}
 \usage{
-simpleScore(rankData, subSamples = NULL, upSet, downSet = NULL,
+simpleScore(rankData, upSet, downSet = NULL, subSamples = NULL,
   centerScore = TRUE, dispersionFun = mad)
 }
 \arguments{
 \item{rankData}{A matrix, ranked gene expression matrix data}
 
-\item{subSamples}{A character or vector of sample labels/indices that will be
-used to subset the rankData matrix}
-
 \item{upSet}{A GeneSet object, up regulated gene set}
 
 \item{downSet}{A GeneSet object, down regulated gene set}
+
+\item{subSamples}{A character or vector of sample labels/indices that will be
+used to subset the rankData matrix.All samples will be scored by default.}
 
 \item{centerScore}{A Boolean, specifying whether scores should be centred}
 
@@ -26,15 +26,16 @@ A data.frame consists of scores and dispersions for all samples
 }
 \description{
 This function takes a ranked gene expression matrix obtained
-from \code{rankExpr} (or \code{rankGenes}) function and a GeneSet object as
-input parameters. It returns a data.frame consists of scores and
-dispersions for each sample.
+from \code{rankExpr}  function and a GeneSet object as input parameters. It
+returns a data.frame consists of calculated scores and dispersions for each
+sample. It is suggested to use the generic version of of this method which
+can work with gene set stored in both vector or GeneSet.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankExpr(toy_expr)
 scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 }
 \seealso{
-\link[=GeneSet-class]{GeneSet}
 \code{\link[=singscoring]{singscoring()}}
+\link[=GeneSet-class]{GeneSet}
 }

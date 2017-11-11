@@ -21,7 +21,6 @@ NULL
 #' [rankExpr()]
 #' @examples
 #' ranked <- rankGenes(toy_expr)
-#' @export
 rankGenes <- function(exprsM, tiesMethod = "min") {
   rankedData <- apply(exprsM, 2, rank, ties.method = tiesMethod)
   return (rankedData)
@@ -34,11 +33,10 @@ rankGenes <- function(exprsM, tiesMethod = "min") {
 #' Single-sample Gene-set scoring method
 #'
 #' @description This function takes a ranked gene expression matrix obtained
-#'   from \code{rankExpr} (or \code{rankGenes}) function and a GeneSet object as
-#'   input parameters. It returns a data.frame consists of calculated scores and
-#'   dispersions for each sample. It is suggested to use the generic version of
-#'   of this method which can work with gene set stored in both vector or
-#'   GeneSet.
+#'   from \code{rankExpr}  function and a GeneSet object as input parameters. It
+#'   returns a data.frame consists of calculated scores and dispersions for each
+#'   sample. It is suggested to use the generic version of of this method which
+#'   can work with gene set stored in both vector or GeneSet.
 #'   
 #' @param rankData A matrix, ranked gene expression matrix data
 #' @param upSet A GeneSet object, up regulated gene set
@@ -55,7 +53,6 @@ rankGenes <- function(exprsM, tiesMethod = "min") {
 #' @examples
 #' ranked <- rankExpr(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
-#' @export
 simpleScore <-
   function (rankData,
             upSet,
@@ -142,7 +139,7 @@ simpleScore <-
 #' @param size numeric, Set the size of each point
 #' @param textSize numeric, relative text sizes for title, labels and axis
 #'   values
-#' @param isInteractive Boolean, determin whether the plot is interactive
+#' @param isInteractive Boolean, Determine whether the plot is interactive
 #' @examples
 #' ranked <- rankGenes(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
@@ -151,7 +148,7 @@ simpleScore <-
 #' @return A ggplot object
 #' @export
 plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
-                           textSize = 1.5, isInteractive=F){
+                           textSize = 1.5, isInteractive=FALSE){
   if (is.null(annot)) {
     annot = rep('', nrow(scoredf))
   }
@@ -239,19 +236,21 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 ################################################################################
 
 #' Plot landscape of two gene signatures scores
-#' @description  This function takes two data frames which are the output from
-#' the simpleScore() function or singscoring() function and plots the relationship
-#' between the two scores.
-#'
-#' @param scoredf1 data.frame, results of the simpleScore() or singscoring() function 
-#'
-#' @param scoredf2 data.frame, results of the simpleScore() or singscoring() function 
-#' @param scorenames character, names for the two gene signatures scored stored
-#' in scoredf1 and scoredf2
-#' @param isInteractive boolean, whether the plot is interactive
+#' @description This function takes two data frames which are outputs from the
+#'   singscoring() function and plots the relationship between the two gene set
+#'   scores for samples in the gene expression matrix.
+#'   
+#' @param scoredf1 data.frame, result of the singscoring() function which scores 
+#' the gene expression matrix against a gene set of interest 
+#' @param scoredf2 data.frame, result of the singscoring() function which scores 
+#' the gene expression matrix against another gene set of interest
+#' @param scorenames character vector of length 2, names for the two scored gene
+#' set/signatures stored in scoredf1 and scoredf2
+#' @param isInteractive boolean, whether the plot is interactive default as 
+#'   FALSE
+#' @param textSize numeric, set the text size for the plot, default as 1.5
 #' @param hexMin integer, the threshold which decides whether hex bin plot or 
-#' scatter plot is displayed
-#' @inheritParams plotDispersion
+#' scatter plot is displayed, default as 100
 #' @return A ggplot object, a scatter plot, demostrating the relationship
 #' between scores from two signatures on the same set of samples.
 #' @examples
@@ -261,7 +260,7 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' plotScoreLandscape(scoredf, scoredf2)
 #' @export
 plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
-                               textSize = 1.5, isInteractive = F, hexMin = 100){
+                               textSize = 1.5, isInteractive = FALSE, hexMin = 100){
   if (length(scorenames) == 0){
     scorenames = c('Signature 1', 'Signature 2')
   }
@@ -325,41 +324,55 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 ####============================ projectScoreLandscape() =======================
 ################################################################################
 
-#' Project the landscape score obtained from plotScoreLandscape
-#' @description This function takes the output of the plotScoreLandscape() and
-#'   a new data, and it projects the new data onto the ggplot object.
-#' @param plotObj a dataframe, resulted from plotScoreLanscape()
-#'
-#' @param sampleLabels character, sample names to display, ordered in the same way
-#'   as samples are ordered in the 'singscored' data matrix
-#' @param annot Annotations to colour the data.
-#' @param labels integer, number of samples labeled on the plot in the new data
+#' Project data on the landscape plot obtained from \code{plotScoreLandscape()}
+#' 
+#'@description This function takes the output (ggplot object) of the
+#'  \code{plotScoreLandscape() }  and a dataset. It projects the data onto the 
+#'  ggplot object and returns a ggplot object with projected data points.
+#' @param plotObj a dataframe, resulted from [plotScoreLanscape()]
+#' @param subSamples vector of character or indices for subsetting the scoredfs,
+#'  default as NULL and all samples in scoredfs will be plotted
+#' @param sampleLabels vector of character, sample names to display, ordered in
+#'   the same way as samples are ordered in the 'scoredf1' data matrix, default 
+#'   as NULL which means points are labelled by sample names.
+#' @param annot vector of characters, annotations to colour the data and should 
+#'  have the sample length with sampleLabels.
 #' @inheritParams plotScoreLandscape
+#' 
 #' @return New data points on the already plotted ggplot object from
 #'   plotScoreLanscape()
-#'
+#' @seealso 
+#' [plotScoreLandscape()]
 #' @examples
 #' ranked <- rankGenes(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 #' scoredf2 <- simpleScore(ranked, upSet = toy_up)
 #' psl <- plotScoreLandscape(scoredf, scoredf2)
-#' projectScoreLandscape(psl,scoredf, scoredf2)
+#' projectScoreLandscape(psl,scoredf1, scoredf2)
 #' @export
 projectScoreLandscape <- function(plotObj = NULL,
                                   scoredf1,
                                   scoredf2,
+                                  subSamples = NULL,
                                   sampleLabels = NULL,
                                   annot = NULL,
-                                  labels = 20,
                                   isInteractive = F){
   #create data frame with the new data
+  
+  #subsetting the two data frames, scoredfs
+  if(! is.null(subSamples)){
+    scoredf1 <- scoredf1[subSamples,]
+    scoredf2 <- scoredf2[subSamples,]
+  }
+  #if no sample labels are provided, the plot labels the points using sample 
+  #names
   if (is.null(sampleLabels)) {
-    sampleLabels = 1:nrow(scoredf1)
+    sampleLabels <- rownames(scoredf1)
   }
   if (is.null(annot)) {
     annot = ''
   }
-
+  browser()
   newdata = data.frame(scoredf1$TotalScore, scoredf2$TotalScore, sampleLabels)
 
   if (! is.ggplot(plotObj)) {
@@ -368,7 +381,7 @@ projectScoreLandscape <- function(plotObj = NULL,
   }
 
   plabs = c(plotObj$labels$x, plotObj$labels$y)
-  colnames(newdata) = c(plabs, 'SampleID')
+  colnames(newdata) = c(plabs, 'SampleLabel')
   newdata[, 'Annotation'] = as.factor(annot) #need to make it work for factor
 
   #need to deal with legends in both interactive and non-interactive
@@ -376,23 +389,21 @@ projectScoreLandscape <- function(plotObj = NULL,
     #add layer with new data
     pproj = plotObj + geom_point(
       data = newdata,
-      aes(text = SampleID, colour = Annotation),
+      aes(text = SampleLabel, colour = Annotation),
       shape = 21,
       fill = 'white',
       size = 2,
       stroke = 2
     ) + ggsci::scale_color_npg()
-
+    
+    
     #label samples
-    if (nrow(newdata) <= labels) {
-      pproj = pproj +
+    pproj = pproj +
       ggrepel::geom_label_repel(
-          data = newdata,
-          aes(label = SampleID,
-              colour = Annotation),
-          show.legend = F
-        )
-    }
+        data = newdata,
+        aes(label = SampleLabel, colour = Annotation),
+        show.legend = FALSE
+      ) 
   } else if(isInteractive) {
     #replace params as ggplot objects are mutable
     oldparams = plotObj$layers[[1]]$aes_params
@@ -412,7 +423,7 @@ projectScoreLandscape <- function(plotObj = NULL,
                   size = 10,
                   line = list(color = 'white', width = 2)
                 ),
-                text = paste('Cell line:', newdata$SampleID)) %>%
+                text = paste('Cell line:', newdata$SampleLabel)) %>%
      plotly::layout(showlegend = TRUE,
              legend = list(
                orientation = 'h',
@@ -429,16 +440,18 @@ projectScoreLandscape <- function(plotObj = NULL,
 }
 
 ################################################################################
-#### =============================== plotRankDensity() =========================
+#### =============================== plotRankDensity_intl() =========================
 ################################################################################
 
-#' Plot the density of ranks for one sample
+#' Plot the densities of ranks for one sample
+#' 
 #' @description This function takes a single column data frame, which is a
-#' subset of the ranked data obtained from rankGenes() function, and gene sets,
-#' and it returns plots visualising the density and the rugs of the ranks.
+#' subset of the ranked data obtained from [rankExpr()]function, and gene sets,
+#' and it returns plots visualising the density and the rugs of the ran ks.
 #'
-#' @param rankData one column of the data.frame obtained from the
-#'   rankExpr()/rankGenes() function
+#' @param rankData one column of the ranked gene expression matrix obtained from
+#'   the [rankExpr()] function, use drop = FALSE when subsetting the ranked gene 
+#'   expression matrix, see examples.
 #' @param isInteractive Boolean, determin whether the returned plot is
 #'   interactive
 #' @param textSize numberic, set the size of text on the plot
@@ -447,19 +460,18 @@ projectScoreLandscape <- function(plotObj = NULL,
 #'
 #' @return A ggplot object (optionally interactive) demonstrating the rank
 #'   density along with rug plot
-#' @examples
-#' ranked <- rankExpr(toy_expr)
-#'
-#' @export
-plotRankDensity <- function (rankData,
+
+#' @seealso 
+#' [GeneSet][GeneSet-class]
+plotRankDensity_intl <- function (rankData,
                              upSet,
                              downSet = NULL,
-                             isInteractive = F,
+                             isInteractive = FALSE,
                              textSize = 1.5) {
   #values needed for calculating the boundaries
   upSigSize = length(geneIds(upSet))
   nTotalGenes = nrow(rankData)
-
+  #browser()
   #check if there are some missing genes in the geneset
   missingGenes = setdiff(geneIds(upSet), rownames(rankData))
   if (length(missingGenes) > 0) {
@@ -516,16 +528,18 @@ plotRankDensity <- function (rankData,
   bcheight = (max(dens) - min(dens))
   bcheight = bcheight/ifelse(is.null(downSet), 4, 3)
   yendmap = ymap + c(1, -1) * bcheight
-
+  
   #plot barcode plot
-  p = p + geom_segment(aes(
+  #text aes useful for the plotly plot, so supress the warnings
+  #
+  p = suppressWarnings( p + geom_segment(aes(
     y = ymap[upDown],
     xend = Ranks,
     yend = yendmap[upDown],
     text = paste0(typemap[upDown], '\nGene symbol: ', EntrezID)
-  ), alpha = 0.8) +
+  ),alpha = 0.8) +
     scale_colour_manual(values = colmap,
-                        guide = guide_legend(title = "Type"))
+                        guide = guide_legend(title = "Type")))
 
   #publication quality plot
   p = p + ggtitle('Rank density') +
@@ -580,81 +594,89 @@ plotRankDensity <- function (rankData,
   }
 }
 
-#' @title permutation test for the scored samples with gene set size and
-#' @description
-#'  This function randomize the genes in the gene set and calculate the sample's score against the
-#'  random gene sets which form the null distribution for the simple score test. The resulting
-#'  permutation score results are used to calculate the empirical P value.
-#' @param n_up numeric  size of up set
-#' @param n_down numeric size of down set
-#' @param ranked_sample matrix, outcome of function rankGenes()
-#' @param B numeric number of permuting times
-#' @param seed nunmeric set the seed for randomization
+#' @title Permutation test for the derived scores of each sample
+#' 
+#' @description This function randomly generates a number of gene sets which
+#'   have the same number of genes as the scored gene set. It scores each random
+#'   gene set and return a matrix with scores for each permutation across all
+#'   samples. The empirical scores are used to calculate the empirical p value
+#'   and plot the null distribution. The implementation uses
+#'   [BiocParallel::bplapply()] for easy access to parallel backends.
+#' @param n_up integer,  size of up set
+#' @param n_down integer, size of down set
+#' @param rankData matrix, outcome of function [rankExpr()]
+#' @param B integer, the number of permutation repeats default as 1000 
+#' @param seed integer, set the seed for randomisation
 #'
-#' @return a list consists of empircal scores, p values and the tested result scores
+#' @return A matrix of empircal scores for each sample
+#' @seealso 
+#' [Post about BiocParallel]
+#' {http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U}
+#' `browseVignettes("BiocParallel")`
 #' @export
 #'
 #' @examples
-#' ranked <- rankGenes(toy_expr)
-#' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
+#' ranked <- rankExpr(toy_expr)
+#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 #' n_up = length(GSEABase::geneIds(toy_up))
 #' n_down = length(GSEABase::geneIds(toy_dn))
-#' #no_cores <- detectCores() - 1
-#' #This permutation function can be run using parallel scripts, refer to the
-#' #vignette for examples
-#' #cl <- makeCluster(no_cores)
-#' #registerDoParallel(cl)
+#' # find out what backends can be registered on your machine
+#' BiocParallel::registered()
+#' # the first one is the default backend, can be changed explicitly.
+#' 
 #' permuteResult = permute_null(n_up = n_up, n_down = n_down, ranked, B =10,
-#' seed = 1)
-#' #stopCluster(cl)
-#' #registerDoSEQ()
-permute_null <- function(n_up, n_down, ranked_sample, B = 100, seed = 1){
+#' seed = 1) # call the permutation function to generate the empirical scores 
+#' #for B times.
+
+permute_null <- function(n_up, n_down, rankData, B = 1000, seed = 1){
   set.seed(seed)
-  all_genes <- rownames(ranked_sample)
+  all_genes <- rownames(rankData)
   totalNo <- n_up + n_down
-  temSets <- sapply(1:B, function(i) {
+  temSets <- BiocParallel::bplapply(1:B, function(i) {
     sample(all_genes, size = totalNo, replace = FALSE)
   })
-  r <- foreach::foreach(i = 1:B,
-               .combine = rbind,
-               .packages = "GSEABase",
-               .export = c("GeneSet", "simpleScore", "geneIds")
-  ) %dopar% {
-    tms <- temSets[, i]
+  r <- BiocParallel::bplapply(1:B, function(i) {
+    tms <- temSets[[i]]
     
     if (n_down > 0) {
       upSet <-  GeneSet(as.character(tms[1:n_up]))
       downSet <-  GeneSet(as.character(tms[-(1:n_up)]))
-      ss = simpleScore(ranked_sample, upSet = upSet, downSet = downSet)
+      ss = simpleScore(rankData, upSet = upSet, downSet = downSet)
     } else {
       #else all the random generated genes are in upSet
-      ss = simpleScore(ranked_sample, upSet = GeneSet(as.character(tms)))
+      ss = simpleScore(rankData, upSet = GeneSet(as.character(tms)))
     }
     ss[, 1]
-  }
-  colnames(r) <- colnames(ranked_sample)
+  })
+  r <- plyr::ldply(r)
+  colnames(r) <- colnames(rankData)
   return(r)
 }
 
-#' calculate the p values for tested sample scores
-#' @description This function takes the permutation result, which is the
-#'   empirical scores, and the test sample scores as input. It calculates the
-#'   empirical p values of the simple sample scoring test.
+#' Calculate the empirical p values
 #'
-#' @param permuResult A matrix, result from permuteNull() function
-#' @param scoredf A dataframe, result from simplescore() function
+#' @description This function takes the permutation results, which is the
+#'   empirical scores, and the calculated sample scores using [singscoring()] as
+#'   input. It calculates the empirical p values of the simple sample scoring
+#'   test using formula p = (r+1)/(m+1) where r is the number of empirical
+#'   scores that are larger than the obtained score and m is the total number of
+#'   permutation run which is the B parameter in [permute_null()]
 #'
-#' @return pvals, the calculated empirical p values for all empirical null
-#'   sample scores distribution
+#' @param permuResult A matrix, result from [permute_null()] function
+#' @param scoredf A dataframe, result from [singscoring()] function
 #'
+#' @return pvals for each sample, the calculated empirical p values for all
+#'   empirical sample scores null distribution
+#'   
 #' @examples
 #' ranked <- rankGenes(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 #' n_up = length(GSEABase::geneIds(toy_up))
 #' n_down = length(GSEABase::geneIds(toy_dn))
+#' # uncomment these lines to use the parallel scripts
 #' #no_cores <- detectCores() - 1
 #' #This permutation function can be run using parallel scripts, refer to the
-#' #vignette for examples
+#' #vignette `browseVignettes("GetStarted")`for examples
 #' #cl <- makeCluster(no_cores)
 #' #registerDoParallel(cl)
 #' permuResult = permute_null(n_up = n_up, n_down = n_down, ranked, B = 10,
@@ -664,10 +686,13 @@ permute_null <- function(n_up, n_down, ranked_sample, B = 100, seed = 1){
 #' pvals <- get_pval(permuResult,scoredf)
 #' @export
 get_pval <- function(permuResult,scoredf){
-  resultSc <- t(scoredf[, 1, drop = F])
+  resultSc <- t(scoredf[, 1, drop = FALSE])
   #combine the permutation with the result score for the computation of P values
   #p = (r+1)/(m+1)
   empirScore_re <- rbind(permuResult, as.character(resultSc))
+  
+  #x[length(x)] is the calculated score
+  
   pvals <- apply(empirScore_re,2,function(x){
     length(x[x >= x[length(x)]]) / length(x)
   })
@@ -675,18 +700,21 @@ get_pval <- function(permuResult,scoredf){
 }
 
 #' Plot the empirical null distribution using the permutation result
-#' @description
-#' This function takes the result from function permuteNull(), plot the density
-#' curve for the given samples and intercept the sample score on the x axis
-#' @param permuResult A matrix, outcome from function permuteNull()
-#' @param scoredf A dataframe, outcome from function simplescore()
-#' @param pvals A vector, outcome from function get_pval()
-#' @param sampleLabel character, one sample label or multiple sample labels
-#' @param alpha ggplot theme element
-#' @param size ggplot theme element
-#' @param textSize ggplot theme element
-#' @param cutoff double, the cutoff value for significant p values
-#'
+#' 
+#' @description This function takes the results from function [permute_null()] and 
+#' plots the density curves of empirical scores for the given samples. 
+#' 
+#' @param permuResult A matrix, outcome from function [permute_null()]
+#' @param scoredf A dataframe, outcome from function [singscoring()]
+#' @param pvals A vector, outcome of function [get_pval()]
+#' @param sampleNames A vector of character, sample names or multiple sample labels
+#' @param alpha numeric,ggplot theme element
+#' @param size numeric,ggplot theme element
+#' @param textSize numeric,ggplot theme element
+#' @param labelSize numeric, size of label texts.
+#' @param cutoff double, the cutoff value for determining significance
+#' @return a ggplot object
+#' @author Ruqian Lyu
 #' @examples
 #' ranked <- rankGenes(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
@@ -703,61 +731,87 @@ get_pval <- function(permuResult,scoredf){
 #' #stopCluster(cl)
 #' #registerDoSEQ()
 #' pvals <- get_pval(permuResult,scoredf)
-#' plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals))
-#' plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals)[1])
+#' plot_null(permuResult,scoredf,pvals,sampleNames = names(pvals))
+#' plot_null(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
 #' @export
-plot_null <- function(permuResult, scoredf, pvals, sampleLabel = NULL,cutoff = 0.01,
-                      alpha = 1, size = 1, textSize = 2){
+plot_null <- function(permuResult, scoredf, pvals, sampleNames = NULL,
+                      cutoff = 0.01,alpha = 1, size = 1, textSize = 2,labelSize = 5){
   quantile_title <- as.character((1 - cutoff)*100)
-  if(!is.null(sampleLabel)){
-    pvals <- pvals[sampleLabel,drop=F]
+  if(!is.null(sampleNames)){
+    pvals <- pvals[sampleNames,drop=F]
   }
-  pval_r <- as.character(format(pvals[sampleLabel],scientific = TRUE, digits = 3))
+  pval_r <- as.character(format(pvals[sampleNames],scientific = TRUE,
+                                digits = 3))
   pvalTitle <- paste0(' p-value = ',pval_r)
-  names(pvalTitle) <- names(pvals[sampleLabel])
+  names(pvalTitle) <- names(pvals[sampleNames])
   cutoff_score <- c()
-  for(i in 1:length(sampleLabel)){
-    cutoff_score[i] <- quantile(permuResult[,sampleLabel[i]],(1-cutoff))
+  for(i in 1:length(sampleNames)){
+    cutoff_score[i] <- quantile(permuResult[,sampleNames[i]],(1-cutoff))
   }
-  names(cutoff_score) = sampleLabel
-  cutoff_annot = data.frame(sampleLabel = sampleLabel, cutoff_score = cutoff_score)
+  names(cutoff_score) = sampleNames
+  cutoff_annot = data.frame(sampleNames = sampleNames, 
+                            cutoff_score = cutoff_score)
   #pDt <-  as.data.frame(pvals)
-  if( !is.null(sampleLabel) ){
-    if(length(sampleLabel)>1){
-      dt <- as.data.frame(permuResult[,sampleLabel])
-      longDt <- reshape::melt(dt,variable_name = "sampleLabel")
+  if( !is.null(sampleNames) ){
+    if(length(sampleNames)>1){
+      dt <- as.data.frame(permuResult[,sampleNames])
+      longDt <- reshape::melt(dt,variable_name = "sampleNames")
       resultScs <-  scoredf[,1,drop = F]
-      resultScs$sampleLabel <-  rownames(resultScs)
-      #pDt$sampleLabel <- names(pvals)
-      sampleLSc <-  merge(longDt, resultScs, by.x = "sampleLabel", by.y = "sampleLabel")
-      #plotDt  <-  merge(sampleLSc,pDt, by.x = 'sampleLabel', by.y = 'sampleLabel')
+      resultScs$sampleNames <-  rownames(resultScs)
+      #pDt$sampleNames <- names(pvals)
+      sampleLSc <-  merge(longDt, resultScs, by.x = "sampleNames", 
+                          by.y = "sampleNames")
+      #plotDt  <-  merge(sampleLSc,pDt, by.x = 'sampleNames', 
+      #by.y = 'sampleNames')
       sampleLSc <- merge(sampleLSc,cutoff_annot)
       sampleLSc <- merge(sampleLSc, pvalTitle)
       #browser()
       plotObj <-  ggplot(data = sampleLSc)+
         geom_density(mapping = aes( x = value), size =1)+
-        coord_cartesian(xlim = c(0.35,0.85))+
-        facet_grid(sampleLabel~.)+
-        geom_segment(mapping =  aes(x  = cutoff_score, y = 11, xend = cutoff_score, yend = 0), linetype="dashed", colour = 'blue',size = 1)+
-        geom_segment(mapping = aes(x  = TotalScore, y = 11, xend = TotalScore, yend = 0),colour = 'red',size = 2)+
-        geom_text(mapping = aes(x  = TotalScore-0.01, y = 12, label = pvalTitle[sampleLabel]), colour = 'red',size =5)+
-        geom_text(mapping = aes(x  = cutoff_score, y = 12, label = paste0(quantile_title,'%-ile threshold')), colour = 'blue',size =5)+
+        coord_cartesian(xlim = c(min(permuResult[,sampleNames]) - 0.03,
+                                 max(permuResult[,sampleNames])+0.05))+
+        facet_grid(sampleNames~.)+
+        geom_segment(mapping =  aes(x  = cutoff_score, y = 11, 
+                                    xend = cutoff_score, yend = 0), 
+                     linetype="dashed", colour = 'blue',size = 1)+
+        geom_segment(mapping = aes(x  = TotalScore, y = 11, xend = TotalScore, 
+                                   yend = 0),colour = 'red',size = 2)+
+        geom_text(mapping = aes(x  = TotalScore-0.01, y = 12, 
+                                label = pvalTitle[sampleNames]), 
+                  colour = 'red',size = labelSize)+
+        geom_text(mapping = aes(x  = cutoff_score,y = 12, 
+                                label = paste0(quantile_title,
+                                               '%-ile threshold')), 
+                  colour = 'blue',size = labelSize)+
         xlab("Scores")+
         ggtitle("Null distribution")
     }else{
-      plotDt <- data.frame(sampleLabel = sampleLabel, value = permuResult[,sampleLabel],TotalScore = scoredf[sampleLabel,]$TotalScore)
+      plotDt <- data.frame(sampleNames = sampleNames, 
+                           value = permuResult[,sampleNames],
+                           TotalScore = scoredf[sampleNames,]$TotalScore)
       plotObj <-  ggplot(data = plotDt)+
         geom_density(mapping = aes( x = value),size = 1)+
-        coord_cartesian(xlim = c(min(permuResult[,sampleLabel])-0.03,max(permuResult[,sampleLabel])+0.03))+
-        geom_segment(mapping =  aes(x  = cutoff_score, y = 11, xend = cutoff_score, yend =0), linetype="dashed", colour = 'blue',size = 1)+
-        geom_segment(mapping = aes(x  = TotalScore, y = 11, xend = TotalScore, yend =0),colour = 'red',size = 2)+
-        geom_text(mapping = aes(x  = TotalScore, y = 12, label = pvalTitle[sampleLabel]), colour = 'red',size =5)+
-        geom_text(mapping = aes(x  = cutoff_score, y = 12, label = paste0(quantile_title,'%-ile threshold')), colour = 'blue',size =5)+
+        coord_cartesian(xlim = c(min(permuResult[,sampleNames]) - 0.03,
+                                 max(permuResult[,sampleNames])+0.05))+
+        geom_segment(mapping =  aes(x = cutoff_score, y = 11, 
+                                    xend = cutoff_score, yend =0), 
+                     linetype="dashed", colour = 'blue',size = 1)+
+        geom_segment(mapping = aes(x = TotalScore, y = 11, 
+                                   xend = TotalScore, yend =0),
+                     colour = 'red',size = 2)+
+        geom_text(mapping = aes(x = TotalScore, y = 12, 
+                                label = pvalTitle[sampleNames]), 
+                  colour = 'red',size = labelSize)+
+        geom_text(mapping = aes(x = cutoff_score, y = 12, 
+                                label = paste0(quantile_title,
+                                               '%-ile threshold')), 
+                  colour = 'blue',size = labelSize)+
         xlab("Scores")+
-        ggtitle("Null distribution")
+        ggtitle( paste0(sampleNames," null distribution"))
     }
   }else{
-    warning("Please provide which sample's null distribution to plot")
+    warning("Please provide which sample's null distribution to
+            plot by specifying the sampleNames")
   }
   plotObj+
     theme_minimal() +

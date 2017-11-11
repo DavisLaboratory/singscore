@@ -2,41 +2,47 @@
 % Please edit documentation in R/CoreFuns.R
 \name{permute_null}
 \alias{permute_null}
-\title{permutation test for the scored samples with gene set size and}
+\title{Permutation test for the derived scores of each sample}
 \usage{
-permute_null(n_up, n_down, ranked_sample, B = 100, seed = 1)
+permute_null(n_up, n_down, rankData, B = 1000, seed = 1)
 }
 \arguments{
-\item{n_up}{numeric  size of up set}
+\item{n_up}{integer,  size of up set}
 
-\item{n_down}{numeric size of down set}
+\item{n_down}{integer, size of down set}
 
-\item{ranked_sample}{matrix, outcome of function rankGenes()}
+\item{rankData}{matrix, outcome of function \code{\link[=rankExpr]{rankExpr()}}}
 
-\item{B}{numeric number of permuting times}
+\item{B}{integer, the number of permutation repeats default as 1000}
 
-\item{seed}{nunmeric set the seed for randomization}
+\item{seed}{integer, set the seed for randomisation}
 }
 \value{
-a list consists of empircal scores, p values and the tested result scores
+A matrix of empircal scores for each sample
 }
 \description{
-This function randomize the genes in the gene set and calculate the sample's score against the
-random gene sets which form the null distribution for the simple score test. The resulting
-permutation score results are used to calculate the empirical P value.
+This function randomly generates a number of gene sets which
+have the same number of genes as the scored gene set. It scores each random
+gene set and return a matrix with scores for each permutation across all
+samples. The empirical scores are used to calculate the empirical p value
+and plot the null distribution. The implementation uses
+\code{\link[BiocParallel:bplapply]{BiocParallel::bplapply()}} for easy access to parallel backends.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
-scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
+ranked <- rankExpr(toy_expr)
+scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 n_up = length(GSEABase::geneIds(toy_up))
 n_down = length(GSEABase::geneIds(toy_dn))
-#no_cores <- detectCores() - 1
-#This permutation function can be run using parallel scripts, refer to the
-#vignette for examples
-#cl <- makeCluster(no_cores)
-#registerDoParallel(cl)
+# find out what backends can be registered on your machine
+BiocParallel::registered()
+# the first one is the default backend, can be changed explicitly.
+
 permuteResult = permute_null(n_up = n_up, n_down = n_down, ranked, B =10,
-seed = 1)
-#stopCluster(cl)
-#registerDoSEQ()
+seed = 1) # call the permutation function to generate the empirical scores 
+#for B times.
+}
+\seealso{
+\link{Post about BiocParallel}
+{http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U}
+\code{browseVignettes("BiocParallel")}
 }

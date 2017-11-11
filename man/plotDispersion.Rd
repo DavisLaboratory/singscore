@@ -5,7 +5,7 @@
 \title{Plot the score v.s. despersion for all samples}
 \usage{
 plotDispersion(scoredf, annot = NULL, alpha = 1, size = 1,
-  textSize = 1.5, isInteractive = F)
+  textSize = 1.5, isInteractive = FALSE)
 }
 \arguments{
 \item{scoredf}{data.frame, results of the simpleScore() function}
@@ -19,7 +19,7 @@ plotDispersion(scoredf, annot = NULL, alpha = 1, size = 1,
 \item{textSize}{numeric, relative text sizes for title, labels and axis
 values}
 
-\item{isInteractive}{Boolean, determin whether the plot is interactive}
+\item{isInteractive}{Boolean, Determine whether the plot is interactive}
 }
 \value{
 A ggplot object

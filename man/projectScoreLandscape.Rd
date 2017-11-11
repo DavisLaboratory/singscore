@@ -2,39 +2,49 @@
 % Please edit documentation in R/CoreFuns.R
 \name{projectScoreLandscape}
 \alias{projectScoreLandscape}
-\title{Project the landscape score obtained from plotScoreLandscape}
+\title{Project data on the landscape plot obtained from \code{plotScoreLandscape()}}
 \usage{
-projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2,
-  sampleLabels = NULL, annot = NULL, labels = 20, isInteractive = F)
+projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2, subSamples = NULL,
+  sampleLabels = NULL, annot = NULL, isInteractive = F)
 }
 \arguments{
-\item{plotObj}{a dataframe, resulted from plotScoreLanscape()}
+\item{plotObj}{a dataframe, resulted from \code{\link[=plotScoreLanscape]{plotScoreLanscape()}}}
 
-\item{scoredf1}{data.frame, results of the simpleScore() or singscoring() function}
+\item{scoredf1}{data.frame, result of the singscoring() function which scores
+the gene expression matrix against a gene set of interest}
 
-\item{scoredf2}{data.frame, results of the simpleScore() or singscoring() function}
+\item{scoredf2}{data.frame, result of the singscoring() function which scores
+the gene expression matrix against another gene set of interest}
 
-\item{sampleLabels}{character, sample names to display, ordered in the same way
-as samples are ordered in the 'singscored' data matrix}
+\item{subSamples}{vector of character or indices for subsetting the scoredfs,
+default as NULL and all samples in scoredfs will be plotted}
 
-\item{annot}{Annotations to colour the data.}
+\item{sampleLabels}{vector of character, sample names to display, ordered in
+the same way as samples are ordered in the 'scoredf1' data matrix, default
+as NULL which means points are labelled by sample names.}
 
-\item{labels}{integer, number of samples labeled on the plot in the new data}
+\item{annot}{vector of characters, annotations to colour the data and should
+have the sample length with sampleLabels.}
 
-\item{isInteractive}{boolean, whether the plot is interactive}
+\item{isInteractive}{boolean, whether the plot is interactive default as
+FALSE}
 }
 \value{
 New data points on the already plotted ggplot object from
 plotScoreLanscape()
 }
 \description{
-This function takes the output of the plotScoreLandscape() and
-a new data, and it projects the new data onto the ggplot object.
+This function takes the output (ggplot object) of the
+\code{plotScoreLandscape() }  and a dataset. It projects the data onto the
+ggplot object and returns a ggplot object with projected data points.
 }
 \examples{
 ranked <- rankGenes(toy_expr)
 scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 scoredf2 <- simpleScore(ranked, upSet = toy_up)
 psl <- plotScoreLandscape(scoredf, scoredf2)
-projectScoreLandscape(psl,scoredf, scoredf2)
+projectScoreLandscape(psl,scoredf1, scoredf2)
+}
+\seealso{
+\code{\link[=plotScoreLandscape]{plotScoreLandscape()}}
 }

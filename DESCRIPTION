@@ -20,10 +20,9 @@ Imports:
     ggrepel,
     plotly,
     tidyr,
+    plyr,
     magrittr,
     reshape,
-    doParallel,
-    foreach,
     edgeR,
     RColorBrewer,
     Biobase,
@@ -36,6 +35,7 @@ Roxygen: list(markdown = TRUE)
 Collate: 
     'singscore.R'
     'CoreFuns.R'
+    'plotRankDensityGeneric.R'
     'rankExprGeneric.R'
     'singscoringGeneric.R'
 Suggests: knitr,

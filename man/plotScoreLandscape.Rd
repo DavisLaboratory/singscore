@@ -5,29 +5,34 @@
 \title{Plot landscape of two gene signatures scores}
 \usage{
 plotScoreLandscape(scoredf1, scoredf2, scorenames = c(), textSize = 1.5,
-  isInteractive = F, hexMin = 100)
+  isInteractive = FALSE, hexMin = 100)
 }
 \arguments{
-\item{scoredf1}{data.frame, results of the simpleScore() or singscoring() function}
+\item{scoredf1}{data.frame, result of the singscoring() function which scores
+the gene expression matrix against a gene set of interest}
 
-\item{scoredf2}{data.frame, results of the simpleScore() or singscoring() function}
+\item{scoredf2}{data.frame, result of the singscoring() function which scores
+the gene expression matrix against another gene set of interest}
 
-\item{scorenames}{character, names for the two gene signatures scored stored
-in scoredf1 and scoredf2}
+\item{scorenames}{character vector of length 2, names for the two scored gene
+set/signatures stored in scoredf1 and scoredf2}
 
-\item{textSize}{numeric, relative text sizes for title, labels and axis
-values}
+\item{textSize}{numeric, set the text size for the plot, default as 1.5}
 
-\item{isInteractive}{boolean, whether the plot is interactive}
+\item{isInteractive}{boolean, whether the plot is interactive default as
+FALSE}
+
+\item{hexMin}{integer, the threshold which decides whether hex bin plot or
+scatter plot is displayed, default as 100}
 }
 \value{
 A ggplot object, a scatter plot, demostrating the relationship
 between scores from two signatures on the same set of samples.
 }
 \description{
-This function takes two data frames which are the output from
-the simpleScore() function or singscoring() function and plots the relationship
-between the two scores.
+This function takes two data frames which are outputs from the
+singscoring() function and plots the relationship between the two gene set
+scores for samples in the gene expression matrix.
 }
 \examples{
 ranked <- rankGenes(toy_expr)

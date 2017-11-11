@@ -4,29 +4,34 @@
 \alias{plot_null}
 \title{Plot the empirical null distribution using the permutation result}
 \usage{
-plot_null(permuResult, scoredf, pvals, sampleLabel = NULL, cutoff = 0.01,
-  alpha = 1, size = 1, textSize = 2)
+plot_null(permuResult, scoredf, pvals, sampleNames = NULL, cutoff = 0.01,
+  alpha = 1, size = 1, textSize = 2, labelSize = 5)
 }
 \arguments{
-\item{permuResult}{A matrix, outcome from function permuteNull()}
+\item{permuResult}{A matrix, outcome from function \code{\link[=permute_null]{permute_null()}}}
 
-\item{scoredf}{A dataframe, outcome from function simplescore()}
+\item{scoredf}{A dataframe, outcome from function \code{\link[=singscoring]{singscoring()}}}
 
-\item{pvals}{A vector, outcome from function get_pval()}
+\item{pvals}{A vector, outcome of function \code{\link[=get_pval]{get_pval()}}}
 
-\item{sampleLabel}{character, one sample label or multiple sample labels}
+\item{sampleNames}{A vector of character, sample names or multiple sample labels}
 
-\item{cutoff}{double, the cutoff value for significant p values}
+\item{cutoff}{double, the cutoff value for determining significance}
 
-\item{alpha}{ggplot theme element}
+\item{alpha}{numeric,ggplot theme element}
 
-\item{size}{ggplot theme element}
+\item{size}{numeric,ggplot theme element}
 
-\item{textSize}{ggplot theme element}
+\item{textSize}{numeric,ggplot theme element}
+
+\item{labelSize}{numeric, size of label texts.}
+}
+\value{
+a ggplot object
 }
 \description{
-This function takes the result from function permuteNull(), plot the density
-curve for the given samples and intercept the sample score on the x axis
+This function takes the results from function \code{\link[=permute_null]{permute_null()}} and
+plots the density curves of empirical scores for the given samples.
 }
 \examples{
 ranked <- rankGenes(toy_expr)
@@ -44,6 +49,9 @@ permuResult = permute_null(n_up = n_up, n_down = n_down, ranked, B = 10,
 #stopCluster(cl)
 #registerDoSEQ()
 pvals <- get_pval(permuResult,scoredf)
-plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals))
-plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals)[1])
+plot_null(permuResult,scoredf,pvals,sampleNames = names(pvals))
+plot_null(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
+}
+\author{
+Ruqian Lyu
 }

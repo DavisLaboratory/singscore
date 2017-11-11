@@ -2,32 +2,36 @@
 % Please edit documentation in R/CoreFuns.R
 \name{get_pval}
 \alias{get_pval}
-\title{calculate the p values for tested sample scores}
+\title{Calculate the empirical p values}
 \usage{
 get_pval(permuResult, scoredf)
 }
 \arguments{
-\item{permuResult}{A matrix, result from permuteNull() function}
+\item{permuResult}{A matrix, result from \code{\link[=permute_null]{permute_null()}} function}
 
-\item{scoredf}{A dataframe, result from simplescore() function}
+\item{scoredf}{A dataframe, result from \code{\link[=singscoring]{singscoring()}} function}
 }
 \value{
-pvals, the calculated empirical p values for all empirical null
-sample scores distribution
+pvals for each sample, the calculated empirical p values for all
+empirical sample scores null distribution
 }
 \description{
-This function takes the permutation result, which is the
-empirical scores, and the test sample scores as input. It calculates the
-empirical p values of the simple sample scoring test.
+This function takes the permutation results, which is the
+empirical scores, and the calculated sample scores using \code{\link[=singscoring]{singscoring()}} as
+input. It calculates the empirical p values of the simple sample scoring
+test using formula p = (r+1)/(m+1) where r is the number of empirical
+scores that are larger than the obtained score and m is the total number of
+permutation run which is the B parameter in \code{\link[=permute_null]{permute_null()}}
 }
 \examples{
 ranked <- rankGenes(toy_expr)
 scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 n_up = length(GSEABase::geneIds(toy_up))
 n_down = length(GSEABase::geneIds(toy_dn))
+# uncomment these lines to use the parallel scripts
 #no_cores <- detectCores() - 1
 #This permutation function can be run using parallel scripts, refer to the
-#vignette for examples
+#vignette `browseVignettes("GetStarted")`for examples
 #cl <- makeCluster(no_cores)
 #registerDoParallel(cl)
 permuResult = permute_null(n_up = n_up, n_down = n_down, ranked, B = 10,
