@@ -141,7 +141,7 @@ simpleScore <-
 #'   values
 #' @param isInteractive Boolean, Determine whether the plot is interactive
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankExpr(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 #' plotDispersion(scoredf)
 #' plotDispersion(scoredf, isInteractive = TRUE)
@@ -254,7 +254,7 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' @return A ggplot object, a scatter plot, demostrating the relationship
 #' between scores from two signatures on the same set of samples.
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankExpr(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 #' scoredf2 <- simpleScore(ranked, upSet = toy_up)
 #' plotScoreLandscape(scoredf, scoredf2)
@@ -344,7 +344,7 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #' @seealso 
 #' [plotScoreLandscape()]
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankExpr(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 #' scoredf2 <- simpleScore(ranked, upSet = toy_up)
 #' psl <- plotScoreLandscape(scoredf, scoredf2)
@@ -613,8 +613,8 @@ plotRankDensity_intl <- function (rankData,
 #' [Post about BiocParallel]
 #' {http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U}
 #' `browseVignettes("BiocParallel")`
+#' @author Ruqian Lyu
 #' @export
-#'
 #' @examples
 #' ranked <- rankExpr(toy_expr)
 #' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
@@ -622,13 +622,12 @@ plotRankDensity_intl <- function (rankData,
 #' n_down = length(GSEABase::geneIds(toy_dn))
 #' # find out what backends can be registered on your machine
 #' BiocParallel::registered()
-#' # the first one is the default backend, can be changed explicitly.
-#' 
-#' permuteResult = permute_null(n_up = n_up, n_down = n_down, ranked, B =10,
+#' # the first one is the default backend, and it can be changed explicitly.
+#' permuteResult = permuteScores(n_up = n_up, n_down = n_down, ranked, B =10,
 #' seed = 1) # call the permutation function to generate the empirical scores 
 #' #for B times.
 
-permute_null <- function(n_up, n_down, rankData, B = 1000, seed = 1){
+permuteScores <- function(n_up, n_down, rankData, B = 1000, seed = 1){
   set.seed(seed)
   all_genes <- rownames(rankData)
   totalNo <- n_up + n_down
@@ -660,38 +659,34 @@ permute_null <- function(n_up, n_down, rankData, B = 1000, seed = 1){
 #'   input. It calculates the empirical p values of the simple sample scoring
 #'   test using formula p = (r+1)/(m+1) where r is the number of empirical
 #'   scores that are larger than the obtained score and m is the total number of
-#'   permutation run which is the B parameter in [permute_null()]
+#'   permutation run which is the B parameter in [permuteScores()]
 #'
-#' @param permuResult A matrix, result from [permute_null()] function
+#' @param permuResult A matrix, result from [permuteScores()] function
 #' @param scoredf A dataframe, result from [singscoring()] function
 #'
 #' @return pvals for each sample, the calculated empirical p values for all
 #'   empirical sample scores null distribution
-#'   
+#' @author Ruqian Lyu
 #' @examples
-#' ranked <- rankGenes(toy_expr)
-#' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
+#' ranked <- rankExpr(toy_expr)
+#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 #' n_up = length(GSEABase::geneIds(toy_up))
 #' n_down = length(GSEABase::geneIds(toy_dn))
-#' # uncomment these lines to use the parallel scripts
-#' #no_cores <- detectCores() - 1
-#' #This permutation function can be run using parallel scripts, refer to the
-#' #vignette `browseVignettes("GetStarted")`for examples
-#' #cl <- makeCluster(no_cores)
-#' #registerDoParallel(cl)
-#' permuResult = permute_null(n_up = n_up, n_down = n_down, ranked, B = 10,
-#'  seed = 1)
-#' #stopCluster(cl)
-#' #registerDoSEQ()
-#' pvals <- get_pval(permuResult,scoredf)
+#' # find out what backends can be registered on your machine
+#' BiocParallel::registered()
+#' # the first one is the default backend, and it can be changed explicitly.
+#' permuteResult = permuteScores(n_up = n_up, n_down = n_down, ranked, B =10,
+#' seed = 1) # call the permutation function to generate the empirical scores 
+#' #for B times.
+#' pvals <- getPvals(permuteResult,scoredf)
 #' @export
-get_pval <- function(permuResult,scoredf){
+getPvals <- function(permuResult,scoredf){
   resultSc <- t(scoredf[, 1, drop = FALSE])
-  #combine the permutation with the result score for the computation of P values
-  #p = (r+1)/(m+1)
+  # combine the permutation with the result score for the computation of P values
+  # p = (r+1)/(m+1)
   empirScore_re <- rbind(permuResult, as.character(resultSc))
   
-  #x[length(x)] is the calculated score
+  # x[length(x)] is the calculated score
   
   pvals <- apply(empirScore_re,2,function(x){
     length(x[x >= x[length(x)]]) / length(x)
@@ -701,12 +696,12 @@ get_pval <- function(permuResult,scoredf){
 
 #' Plot the empirical null distribution using the permutation result
 #' 
-#' @description This function takes the results from function [permute_null()] and 
+#' @description This function takes the results from function [permuteScores()] and 
 #' plots the density curves of empirical scores for the given samples. 
 #' 
-#' @param permuResult A matrix, outcome from function [permute_null()]
+#' @param permuResult A matrix, outcome from function [permuteScores()]
 #' @param scoredf A dataframe, outcome from function [singscoring()]
-#' @param pvals A vector, outcome of function [get_pval()]
+#' @param pvals A vector, outcome of function [getPvals()]
 #' @param sampleNames A vector of character, sample names or multiple sample labels
 #' @param alpha numeric,ggplot theme element
 #' @param size numeric,ggplot theme element
@@ -716,25 +711,21 @@ get_pval <- function(permuResult,scoredf){
 #' @return a ggplot object
 #' @author Ruqian Lyu
 #' @examples
-#' ranked <- rankGenes(toy_expr)
-#' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
+#' ranked <- rankExpr(toy_expr)
+#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 #' n_up = length(GSEABase::geneIds(toy_up))
 #' n_down = length(GSEABase::geneIds(toy_dn))
-#' #This permutation function can be run using parallel scripts, refer to the
-#' #vignette for examples
-#' #no_cores <- detectCores() - 1
-#' #using parallel scripts
-#' #cl <- makeCluster(no_cores)
-#' #registerDoParallel(cl)
-#' permuResult = permute_null(n_up = n_up, n_down = n_down, ranked, B = 10,
-#'  seed = 1)
-#' #stopCluster(cl)
-#' #registerDoSEQ()
-#' pvals <- get_pval(permuResult,scoredf)
-#' plot_null(permuResult,scoredf,pvals,sampleNames = names(pvals))
-#' plot_null(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
+#' # find out what backends can be registered on your machine
+#' BiocParallel::registered()
+#' # the first one is the default backend, and it can be changed explicitly.
+#' permuteResult = permuteScores(n_up = n_up, n_down = n_down, ranked, B =10,
+#' seed = 1) # call the permutation function to generate the empirical scores 
+#' #for B times.
+#' pvals <- getPvals(permuteResult,scoredf)
+#' plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals))
+#' plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
 #' @export
-plot_null <- function(permuResult, scoredf, pvals, sampleNames = NULL,
+plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
                       cutoff = 0.01,alpha = 1, size = 1, textSize = 2,labelSize = 5){
   quantile_title <- as.character((1 - cutoff)*100)
   if(!is.null(sampleNames)){

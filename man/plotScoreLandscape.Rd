@@ -35,7 +35,7 @@ singscoring() function and plots the relationship between the two gene set
 scores for samples in the gene expression matrix.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankExpr(toy_expr)
 scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 scoredf2 <- simpleScore(ranked, upSet = toy_up)
 plotScoreLandscape(scoredf, scoredf2)

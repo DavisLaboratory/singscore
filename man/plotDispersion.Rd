@@ -30,7 +30,7 @@ and plots scatter plots for the score vs the dispersion for the total
 score, the up score and the down score
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankExpr(toy_expr)
 scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 plotDispersion(scoredf)
 plotDispersion(scoredf, isInteractive = TRUE)

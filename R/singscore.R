@@ -9,8 +9,6 @@
 #' @import graphics
 #' @import ggplot2
 #' @import GSEABase
-#' @import doParallel
-#' @import foreach
 #' @importFrom magrittr "%>%"
 #' @importClassesFrom edgeR DGEList
 #' @importClassesFrom Biobase ExpressionSet

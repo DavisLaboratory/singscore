@@ -39,7 +39,7 @@ This function takes the output (ggplot object) of the
 ggplot object and returns a ggplot object with projected data points.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankExpr(toy_expr)
 scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
 scoredf2 <- simpleScore(ranked, upSet = toy_up)
 psl <- plotScoreLandscape(scoredf, scoredf2)
