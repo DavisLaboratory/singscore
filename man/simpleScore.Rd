@@ -31,10 +31,6 @@ returns a data.frame consists of calculated scores and dispersions for each
 sample. It is suggested to use the generic version of of this method which
 can work with gene set stored in both vector or GeneSet.
 }
-\examples{
-ranked <- rankExpr(toy_expr)
-scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
-}
 \seealso{
 \code{\link[=singscoring]{singscoring()}}
 \link[=GeneSet-class]{GeneSet}

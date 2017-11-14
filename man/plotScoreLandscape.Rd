@@ -36,7 +36,7 @@ scores for samples in the gene expression matrix.
 }
 \examples{
 ranked <- rankExpr(toy_expr)
-scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
-scoredf2 <- simpleScore(ranked, upSet = toy_up)
+scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
+scoredf2 <- singscoring(ranked, upSet = toy_up)
 plotScoreLandscape(scoredf, scoredf2)
 }

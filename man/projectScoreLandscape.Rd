@@ -35,13 +35,13 @@ plotScoreLanscape()
 }
 \description{
 This function takes the output (ggplot object) of the
-\code{plotScoreLandscape() }  and a dataset. It projects the data onto the
+\code{plotScoreLandscape()}  and a dataset. It projects the data onto the
 ggplot object and returns a ggplot object with projected data points.
 }
 \examples{
 ranked <- rankExpr(toy_expr)
-scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
-scoredf2 <- simpleScore(ranked, upSet = toy_up)
+scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
+scoredf2 <- singscoring(ranked, upSet = toy_up)
 psl <- plotScoreLandscape(scoredf, scoredf2)
 projectScoreLandscape(psl,scoredf1, scoredf2)
 }

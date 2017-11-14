@@ -26,12 +26,15 @@ Imports:
     edgeR,
     RColorBrewer,
     Biobase,
-    GSEABase
+    GSEABase,
+    Rdpack,
+    BiocParallel
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
+RdMacros: Rdpack
 Collate: 
     'singscore.R'
     'CoreFuns.R'

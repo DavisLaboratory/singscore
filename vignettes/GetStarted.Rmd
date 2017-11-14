@@ -43,11 +43,11 @@ head(tgfb_expr_10)
 ```
 
 ## Sample scoring
-To performe the sample scoring function, the gene expression dataset needs to be ranked first by calling the `rankExpr()` function. Then the ranked data and gene sets are input into the `simplescore()` function which returns a data.frame with scores for each sample.
+To performe the sample scoring function, the gene expression dataset needs to be ranked first by calling the `rankExpr()` function. Then the ranked data and gene sets are input into the `singscoring()` function which returns a data.frame with scores for each sample.
 
 ```{r simplescoring}
 rankData <- rankExpr(tgfb_expr_10)
-scoredf <- simpleScore(rankData, upSet = tgfb_gs_up, downSet = tgfb_gs_dn)
+scoredf <- singscoring(rankData, upSet = tgfb_gs_up, downSet = tgfb_gs_dn)
 scoredf
 ```
 
@@ -65,39 +65,33 @@ plotDispersion(scoredf)
 ``` 
 ```{r plotls, fig.height = 6, fig.width = 10}
 #  
-scoredf1 <- simpleScore(rankData, upSet = tgfb_gs_dn, downSet = tgfb_gs_up)
+scoredf1 <- singscoring(rankData, upSet = tgfb_gs_dn, downSet = tgfb_gs_up)
 plotScoreLandscape(scoredf, scoredf1)
 ``` 
 
 
 ## Calculate p value for the obtained scores and plot null distributions
 
-We can use the `permute_null()` function to generate a number of random gene sets and score the gene set against the single samples. The obtained scores can be used to calculate the empirical p values which is applies as p = (r+1)/(m+1). *explain the formula.
+We can use the `permuteScores()` function to generate a number of random gene sets and score the gene set against the single samples. The obtained scores can be used to calculate the empirical p values which is applies as p = (r+1)/(m+1). *explain the formula.
 The permutation function has parallel feature if you wish to use the parallel script you  
 ```{r pvalue, fig.height = 8, fig.width = 10}
 
 n_up = length(GSEABase::geneIds(tgfb_gs_up))
 n_down = length(GSEABase::geneIds(tgfb_gs_dn))
 #This permutation function can be run using parallel scripts, refer to the
-library(doParallel)
-library(parallel)
-library(foreach)
-no_cores <- parallel::detectCores() - 1
 #using parallel scripts
-cl <- parallel::makeCluster(no_cores)
-doParallel::registerDoParallel(cl)
-permuResult = permute_null(n_up = n_up, n_down = n_down, rankData, B = 100, seed = 1)
-parallel::stopCluster(cl)
-foreach::registerDoSEQ()
 
-pvals <- get_pval(permuResult,scoredf)
+permuResult = permuteScores(n_up = n_up, n_down = n_down, rankData, B = 100, seed = 1)
+
+
+pvals <- getPvals(permuResult,scoredf)
 # show the p values for first 5 samples
 pvals[1:4,drop = FALSE]
 
 # plot the null distributions for the first 5 samples and the p values
 # We can see from the plot, the control samples are not signicant and TGFb samples # are very significant with very low p values
-plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals)[1:4])
-# plot_null(permuResult,scoredf,pvals,sampleLabel = names(pvals)[1])
+plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1:4])
+# plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
 # * approve the plot when only one sample is needed to be ploted
 ```
 

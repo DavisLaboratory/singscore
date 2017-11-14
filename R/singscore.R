@@ -12,43 +12,52 @@
 #' @importFrom magrittr "%>%"
 #' @importClassesFrom edgeR DGEList
 #' @importClassesFrom Biobase ExpressionSet
+#' @importFrom Rdpack reprompt
 #' @docType package
 #' @name singscore
 NULL
 
-#' Gene expression dataset of 100 genes in ten samples
+#' Gene expression dataset of two samples
 #'
-#' A gene by sample matrix-like dataset with value representing the gene's
-#' expression intensity in a sample
+#' A microarray gene expression data.frame dataset that was originially obtained
+#' from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
+#' corrected values).\code{toy_expr} is a subset of the integrated TGFb-EMT data
+#' consisting of 2 samples each with 20 genes.
+#' 
 #'
-#' @format A data frame with 100 rows and 10 columns:
+#' @format A data frame of 2 samples each with 20 genes
 #' \describe{
-#' \item{D_Ctrl_R1}{a control sample label}
-#' \item{D_TGFb_R1}{a tgfb sample label}
-#'  ...
+#' \item{D_Ctrl_R1}{a control sample}
+#' \item{D_TGFb_R1}{a TGFb-treated sample}
 #'  }
 #' @docType data
-#' @source \url{http://www.somelinktotgfbdata.info/}
+#' @references 
+#' \insertRef{Foroutanmolcanres.0313.2016}{singscore}
+#' @source [Foroutan et al.,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
 "toy_expr"
 
-#' Gene set of 5 genes
+#' Gene set object
 #'
-#' A GeneSet object that has ten genes
-#'
-#'
-#' @format A GeneSet obeject with 5 genes
+#' A GeneSet object that represents the down-regulated gene set in a gene
+#' signature and it consists of five genes which are randomly selected from the
+#' gene list in \code{toy_expr} but has no overlap with \code{toy_up}.
+#' 
+#' @format A GSEABase::GeneSet obeject with 5 genes
 #' @docType data
-#' @source \url{http://www.somelinktotgfbdata.info/}
+#' @seealso 
+#' [GeneSet][GeneSet-class],[toy_expr],[toy_up]
 "toy_dn"
 
 #' Gene set of 5 genes
 #'
-#' A GeneSet object that has ten genes
-#'
+#' A GeneSet object that represents the up-regulated gene set in a gene
+#' signature and it consists of five genes which are randomly selected from the
+#' gene list in \code{toy_expr} but has no overlap with \code{toy_dn}.
 #'
 #' @format A GeneSet obeject with 5 genes
 #' @docType data
-#' @source \url{http://www.somelinktotgfbdata.info/}
+#' @seealso 
+#' [GeneSet][GeneSet-class],[toy_expr],[toy_dn]
 "toy_up"
 
 #' Gene expression data.frame
@@ -58,26 +67,101 @@ NULL
 #'
 #' @format A data.frame obeject
 #' @docType data
-#' @source \url{http://www.somelinktotgfbdata.info/}
 "tgfb_expr_10"
 
-#' Up-set for TGFb gene expression signature
+#' Up-set for TGFb-induced EMT gene signature
 #'
-#' A GeneSet object
+#' A GeneSet object that contains the up regulated gene set of a TGFb-induced
+#' EMT gene signature that was derived by (Foroutan et al.,2017), using two
+#' meta-analysis techniques. The gene signature contains a up-regulated gene set
+#' (up-set) and a down-regulated gene set (down-set). Please refer to the
+#' vignettes for the steps to aquaire the exact data object.
 #'
-#'
+#' 
 #' @format A GeneSet obeject
 #' @docType data
-#' @source \url{http://www.somelinktotgfbdata.info/}
+#' @references 
+#' \insertRef{Foroutanmolcanres.0313.2016}{singscore}
+#' @source
+#' [Foroutan et al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
+#' @seealso 
+#' [GeneSet][GeneSet-class],[tgfb_gs_dn]
 "tgfb_gs_up"
 
 #' Down-set for TGFb gene expression signature
 #'
-#' A GeneSet object
-#'
-#'
+#' A GeneSet object that contains the up regulated gene set of a TGFb-induced
+#' EMT gene signature that was derived by (Foroutan et al,2017), using two
+#' meta-analysis techniques. The gene signature contains a up-regulated gene set
+#' (up-set) and a down-regulated gene set (down-set). Please refer to the
+#' vignettes for the steps to aquaire the exact data object.
 #' @format A GeneSet obeject
 #' @docType data
-#' @source \url{http://www.somelinktotgfbdata.info/}
+#' @references 
+#' \insertRef{Foroutan:2017aa}{singscore}
+#' @source 
+#' [Foroutan et al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
+#' @seealso 
+#' [GeneSet][GeneSet-class],[tgfb_gs_up]
 "tgfb_gs_dn"
 
+#' Scoring results of a CCLE dataset against an epithelial gene signature
+#'
+#' This data.frame is the returned results of function [singscoreing()] on a
+#' CCLE dataset [Barretina et al](https://www.nature.com/articles/nature11003) 
+#' consists of 55 samples agaist an epithelial gene signature obtained from 
+#' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/) 
+#' Please refer to the vignettes for the steps to aquaire the exact data object.
+#'
+#' 
+#' @seealso 
+#' [scoredf_ccle_mes]
+#' @references 
+#' \insertRef{barretina2012cancer}{singscore}
+#' \insertRef{Ep-MES}{singscore}
+"scoredf_ccle_ep"
+
+
+#' Scoring results of a CCLE dataset against an mesenchymal gene signature
+#'
+#' This data.frame is the returned results of function [singscoreing()] on a
+#' CCLE dataset [Barretina et al](https://www.nature.com/articles/nature11003)
+#' consists of 55 samples agaist an mesenchymal gene signature obtained from
+#' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/)
+#' Please refer to the vignettes for the steps to aquaire the exact data object.
+#'
+#' @seealso 
+#' [scoredf_ccle_ep]
+#' @references 
+#' \insertRef{barretina2012cancer}{singscore}
+#' \insertRef{Ep-MES}{singscore}
+"scoredf_ccle_mes"
+
+#' Scoring results of TCGA tumour gene expression matrix
+#'
+#' This data.frame is the returned results of function [singscoreing()] on
+#' tumour samples from [TCGA](https://cancergenome.nih.gov) database against 
+#' an mesenchymal gene signature obtained from 
+#' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/).
+#' Please refer to the vignettes for the steps to aquaire the exact data object.
+#'
+#' @seealso 
+#' [scoredf_tumour_mes]
+#' @references 
+#' \insertRef{Ep-MES}{singscore}
+"scoredf_tumour_ep"
+
+#' Scoring results of TCGA tumour gene expression matrix
+#'
+#' This data.frame is the returned results of function [singscoreing()] on
+#' tumour samples from [TCGA](https://cancergenome.nih.gov) database against 
+#' an epithelial gene signature obtained from 
+#' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/).
+#' Please refer to the
+#' vignettes for the steps to aquaire the exact data object.
+#'
+#' @seealso 
+#' [scoredf_tumour_ep]
+#' @references 
+#' \insertRef{Ep-MES}{singscore}
+"scoredf_tumour_mes"

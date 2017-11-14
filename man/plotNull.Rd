@@ -30,8 +30,8 @@ plotNull(permuResult, scoredf, pvals, sampleNames = NULL, cutoff = 0.01,
 a ggplot object
 }
 \description{
-This function takes the results from function \code{\link[=permuteScores]{permuteScores()}} and
-plots the density curves of empirical scores for the given samples.
+This function takes the results from function \code{\link[=permuteScores]{permuteScores()}}
+and plots the density curves of empirical scores for the given samples.
 }
 \examples{
 ranked <- rankExpr(toy_expr)
@@ -45,8 +45,8 @@ permuteResult = permuteScores(n_up = n_up, n_down = n_down, ranked, B =10,
 seed = 1) # call the permutation function to generate the empirical scores 
 #for B times.
 pvals <- getPvals(permuteResult,scoredf)
-plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals))
-plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
+plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals))
+plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1])
 }
 \author{
 Ruqian Lyu

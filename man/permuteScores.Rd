@@ -41,8 +41,7 @@ seed = 1) # call the permutation function to generate the empirical scores
 #for B times.
 }
 \seealso{
-\link{Post about BiocParallel}
-{http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U}
+\href{http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U}{Post about BiocParallel}
 \code{browseVignettes("BiocParallel")}
 }
 \author{

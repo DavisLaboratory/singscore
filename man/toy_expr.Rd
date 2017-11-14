@@ -3,21 +3,25 @@
 \docType{data}
 \name{toy_expr}
 \alias{toy_expr}
-\title{Gene expression dataset of 100 genes in ten samples}
-\format{A data frame with 100 rows and 10 columns:
+\title{Gene expression dataset of two samples}
+\format{A data frame of 2 samples each with 20 genes
 \describe{
-\item{D_Ctrl_R1}{a control sample label}
-\item{D_TGFb_R1}{a tgfb sample label}
-...
+\item{D_Ctrl_R1}{a control sample}
+\item{D_TGFb_R1}{a TGFb-treated sample}
 }}
 \source{
-\url{http://www.somelinktotgfbdata.info/}
+\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al.,2017}
 }
 \usage{
 toy_expr
 }
 \description{
-A gene by sample matrix-like dataset with value representing the gene's
-expression intensity in a sample
+A microarray gene expression data.frame dataset that was originially obtained
+from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
+corrected values).\code{toy_expr} is a subset of the integrated TGFb-EMT data
+consisting of 2 samples each with 20 genes.
+}
+\references{
+\insertRef{Foroutanmolcanres.0313.2016}{singscore}
 }
 \keyword{datasets}

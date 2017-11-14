@@ -5,9 +5,6 @@
 \alias{tgfb_expr_10}
 \title{Gene expression data.frame}
 \format{A data.frame obeject}
-\source{
-\url{http://www.somelinktotgfbdata.info/}
-}
 \usage{
 tgfb_expr_10
 }

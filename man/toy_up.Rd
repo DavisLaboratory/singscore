@@ -5,13 +5,15 @@
 \alias{toy_up}
 \title{Gene set of 5 genes}
 \format{A GeneSet obeject with 5 genes}
-\source{
-\url{http://www.somelinktotgfbdata.info/}
-}
 \usage{
 toy_up
 }
 \description{
-A GeneSet object that has ten genes
+A GeneSet object that represents the up-regulated gene set in a gene
+signature and it consists of five genes which are randomly selected from the
+gene list in \code{toy_expr} but has no overlap with \code{toy_dn}.
+}
+\seealso{
+\link[=GeneSet-class]{GeneSet},\link{toy_expr},\link{toy_dn}
 }
 \keyword{datasets}

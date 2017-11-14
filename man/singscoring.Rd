@@ -63,7 +63,7 @@ no down-regulated gene sets are available.
 ranked <- rankExpr(toy_expr)
 scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 # toy_up is a GeneSet object, alternatively a vector of gene ids may also 
-be supplied.
+# be supplied.
 }
 \seealso{
 \code{\link{rank}} \linkS4class{GeneSet}

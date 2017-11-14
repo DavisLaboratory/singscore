@@ -24,8 +24,8 @@ NULL
 #' ranked <- rankExpr(toy_expr)
 #' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 #' # toy_up is a GeneSet object, alternatively a vector of gene ids may also 
-#' be supplied.
-#'@seealso \code{\link{rank}} \linkS4class{GeneSet}
+#' # be supplied.
+#'@seealso \code{\link{rank}} \link[GSEABase:GeneSet-class]{GSEABase::GeneSet}
 #'
 #'@export
 setGeneric("singscoring",

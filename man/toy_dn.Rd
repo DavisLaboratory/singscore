@@ -3,15 +3,17 @@
 \docType{data}
 \name{toy_dn}
 \alias{toy_dn}
-\title{Gene set of 5 genes}
-\format{A GeneSet obeject with 5 genes}
-\source{
-\url{http://www.somelinktotgfbdata.info/}
-}
+\title{Gene set object}
+\format{A GSEABase::GeneSet obeject with 5 genes}
 \usage{
 toy_dn
 }
 \description{
-A GeneSet object that has ten genes
+A GeneSet object that represents the down-regulated gene set in a gene
+signature and it consists of five genes which are randomly selected from the
+gene list in \code{toy_expr} but has no overlap with \code{toy_up}.
+}
+\seealso{
+\link[=GeneSet-class]{GeneSet},\link{toy_expr},\link{toy_up}
 }
 \keyword{datasets}

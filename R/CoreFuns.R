@@ -48,11 +48,8 @@ rankGenes <- function(exprsM, tiesMethod = "min") {
 #' @return A data.frame consists of scores and dispersions for all samples
 #' @seealso 
 #' [singscoring()]
-#' [GeneSet][GeneSet-class]
-#' 
-#' @examples
-#' ranked <- rankExpr(toy_expr)
-#' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
+#' [GSEABase::GeneSet][GSEABase::GeneSet-class]
+
 simpleScore <-
   function (rankData,
             upSet,
@@ -129,10 +126,10 @@ simpleScore <-
 ################################################################################
 
 #' Plot the score v.s. despersion for all samples
-#' @description This function takes the output from the simpleScore() function
+#' @description This function takes the output from the singscoring() function
 #'   and plots scatter plots for the score vs the dispersion for the total
 #'   score, the up score and the down score
-#' @param scoredf data.frame, results of the simpleScore() function
+#' @param scoredf data.frame, results of the singscoring() function
 #' @param annot any annotation provided by the user that needs to be plot
 # 		annot must be ordered in the same was as the scores
 #' @param alpha numeric, set the transparency of points
@@ -142,7 +139,7 @@ simpleScore <-
 #' @param isInteractive Boolean, Determine whether the plot is interactive
 #' @examples
 #' ranked <- rankExpr(toy_expr)
-#' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
+#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 #' plotDispersion(scoredf)
 #' plotDispersion(scoredf, isInteractive = TRUE)
 #' @return A ggplot object
@@ -255,8 +252,8 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' between scores from two signatures on the same set of samples.
 #' @examples
 #' ranked <- rankExpr(toy_expr)
-#' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
-#' scoredf2 <- simpleScore(ranked, upSet = toy_up)
+#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
+#' scoredf2 <- singscoring(ranked, upSet = toy_up)
 #' plotScoreLandscape(scoredf, scoredf2)
 #' @export
 plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
@@ -327,7 +324,7 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #' Project data on the landscape plot obtained from \code{plotScoreLandscape()}
 #' 
 #'@description This function takes the output (ggplot object) of the
-#'  \code{plotScoreLandscape() }  and a dataset. It projects the data onto the 
+#'  \code{plotScoreLandscape()}  and a dataset. It projects the data onto the 
 #'  ggplot object and returns a ggplot object with projected data points.
 #' @param plotObj a dataframe, resulted from [plotScoreLanscape()]
 #' @param subSamples vector of character or indices for subsetting the scoredfs,
@@ -345,8 +342,8 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #' [plotScoreLandscape()]
 #' @examples
 #' ranked <- rankExpr(toy_expr)
-#' scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
-#' scoredf2 <- simpleScore(ranked, upSet = toy_up)
+#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
+#' scoredf2 <- singscoring(ranked, upSet = toy_up)
 #' psl <- plotScoreLandscape(scoredf, scoredf2)
 #' projectScoreLandscape(psl,scoredf1, scoredf2)
 #' @export
@@ -440,7 +437,7 @@ projectScoreLandscape <- function(plotObj = NULL,
 }
 
 ################################################################################
-#### =============================== plotRankDensity_intl() =========================
+#### =============================== plotRankDensity_intl() ====================
 ################################################################################
 
 #' Plot the densities of ranks for one sample
@@ -610,8 +607,7 @@ plotRankDensity_intl <- function (rankData,
 #'
 #' @return A matrix of empircal scores for each sample
 #' @seealso 
-#' [Post about BiocParallel]
-#' {http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U}
+#' [Post about BiocParallel](http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U)
 #' `browseVignettes("BiocParallel")`
 #' @author Ruqian Lyu
 #' @export
@@ -640,10 +636,10 @@ permuteScores <- function(n_up, n_down, rankData, B = 1000, seed = 1){
     if (n_down > 0) {
       upSet <-  GeneSet(as.character(tms[1:n_up]))
       downSet <-  GeneSet(as.character(tms[-(1:n_up)]))
-      ss = simpleScore(rankData, upSet = upSet, downSet = downSet)
+      ss = singscoring(rankData, upSet = upSet, downSet = downSet)
     } else {
       #else all the random generated genes are in upSet
-      ss = simpleScore(rankData, upSet = GeneSet(as.character(tms)))
+      ss = singscoring(rankData, upSet = GeneSet(as.character(tms)))
     }
     ss[, 1]
   })
@@ -696,8 +692,8 @@ getPvals <- function(permuResult,scoredf){
 
 #' Plot the empirical null distribution using the permutation result
 #' 
-#' @description This function takes the results from function [permuteScores()] and 
-#' plots the density curves of empirical scores for the given samples. 
+#' @description This function takes the results from function [permuteScores()] 
+#' and plots the density curves of empirical scores for the given samples. 
 #' 
 #' @param permuResult A matrix, outcome from function [permuteScores()]
 #' @param scoredf A dataframe, outcome from function [singscoring()]
@@ -722,8 +718,8 @@ getPvals <- function(permuResult,scoredf){
 #' seed = 1) # call the permutation function to generate the empirical scores 
 #' #for B times.
 #' pvals <- getPvals(permuteResult,scoredf)
-#' plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals))
-#' plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
+#' plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals))
+#' plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1])
 #' @export
 plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
                       cutoff = 0.01,alpha = 1, size = 1, textSize = 2,labelSize = 5){

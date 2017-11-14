@@ -8,7 +8,7 @@ plotDispersion(scoredf, annot = NULL, alpha = 1, size = 1,
   textSize = 1.5, isInteractive = FALSE)
 }
 \arguments{
-\item{scoredf}{data.frame, results of the simpleScore() function}
+\item{scoredf}{data.frame, results of the singscoring() function}
 
 \item{annot}{any annotation provided by the user that needs to be plot}
 
@@ -25,13 +25,13 @@ values}
 A ggplot object
 }
 \description{
-This function takes the output from the simpleScore() function
+This function takes the output from the singscoring() function
 and plots scatter plots for the score vs the dispersion for the total
 score, the up score and the down score
 }
 \examples{
 ranked <- rankExpr(toy_expr)
-scoredf <- simpleScore(ranked, upSet = toy_up, downSet = toy_dn)
+scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 plotDispersion(scoredf)
 plotDispersion(scoredf, isInteractive = TRUE)
 }
