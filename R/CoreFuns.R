@@ -282,7 +282,7 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
       geom_point(colour = 'blue') +
       scale_fill_distiller(palette = 'RdPu', direction = 1)
     p = p +
-      ggtitle('Signature landscape less than 100')
+      ggtitle('Signature landscape')
   }else{
     p = ggplot(plotdf, aes_string(pxlab, pylab)) +
       geom_hex(colour = 'white') +
@@ -379,7 +379,6 @@ projectScoreLandscape <- function(plotObj = NULL,
   if (is.null(annot)) {
     annot = ''
   }
-  browser()
   newdata = data.frame(scoredf1$TotalScore, scoredf2$TotalScore, sampleLabels)
 
   if (! is.ggplot(plotObj)) {
