@@ -128,7 +128,7 @@ simpleScore <-
 #' Plot the score v.s. despersion for all samples
 #' @description This function takes the output from the singscoring() function
 #'   and plots scatter plots for the score vs the dispersion for the total
-#'   score, the up score and the down score
+#'   score, the up score and the down score of samples. The plots 
 #' @param scoredf data.frame, results of the singscoring() function
 #' @param annot any annotation provided by the user that needs to be plot
 # 		annot must be ordered in the same was as the scores
@@ -149,7 +149,6 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
   if (is.null(annot)) {
     annot = rep('', nrow(scoredf))
   }
-
   #name annots
   annot = as.factor(annot)
   names(annot) = rownames(scoredf)
@@ -181,10 +180,17 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
     colnames(plotdf)[5] = 'Type'
     p = p + facet_wrap( ~ plotdf$Type, scales = 'free')
   }
-
+  n_color = length(unique(plotdf$Annotation))
   #plot properties
-  p = p + scale_colour_manual(values= RColorBrewer::brewer.pal(8,"Set1")[4])+
-    # scale_color_npg() +
+  if(n_color > 9){
+    p = p + 
+      scale_color_manual(values = terrain.colors(n_color))
+  }else {
+    p = p + 
+      scale_color_brewer(palette = 'RdPu',direction = 1)
+  }
+  
+    p = p +
     ggtitle('Score vs Dispersion') +
     theme_minimal() +
     theme(
@@ -257,7 +263,8 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' plotScoreLandscape(scoredf, scoredf2)
 #' @export
 plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
-                               textSize = 1.5, isInteractive = FALSE, hexMin = 100){
+                               textSize = 1.5, isInteractive = FALSE, 
+                               hexMin = 100){
   if (length(scorenames) == 0){
     scorenames = c('Signature 1', 'Signature 2')
   }
@@ -326,7 +333,7 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #'@description This function takes the output (ggplot object) of the
 #'  \code{plotScoreLandscape()}  and a dataset. It projects the data onto the 
 #'  ggplot object and returns a ggplot object with projected data points.
-#' @param plotObj a dataframe, resulted from [plotScoreLanscape()]
+#' @param plotObj a dataframe, resulted from [plotScoreLandscape()]
 #' @param subSamples vector of character or indices for subsetting the scoredfs,
 #'  default as NULL and all samples in scoredfs will be plotted
 #' @param sampleLabels vector of character, sample names to display, ordered in
@@ -459,7 +466,7 @@ projectScoreLandscape <- function(plotObj = NULL,
 #'   density along with rug plot
 
 #' @seealso 
-#' [GeneSet][GeneSet-class]
+#' [GSEABase::GeneSet][GSEABase::GeneSet-class]
 plotRankDensity_intl <- function (rankData,
                              upSet,
                              downSet = NULL,

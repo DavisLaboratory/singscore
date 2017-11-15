@@ -31,5 +31,5 @@ subset of the ranked data obtained from \code{\link[=rankExpr]{rankExpr()}}funct
 and it returns plots visualising the density and the rugs of the ran ks.
 }
 \seealso{
-\link[=GeneSet-class]{GeneSet}
+\link[GSEABase:GeneSet-class]{GSEABase::GeneSet}
 }

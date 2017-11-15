@@ -62,16 +62,22 @@ NULL
 
 #' Gene expression data.frame
 #'
-#' A data.frame object that has 10 samples selected from a TFGb full dataset
-#'
-#'
+#' A microarray gene expression dataset that was originially obtained
+#' from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
+#' corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT data
+#' consisting of ten samples each with 11900 genes.
+#' @references 
+#' \insertRef{Foroutanmolcanres.0313.2016}{singscore}
+#' @source
+#' [Foroutan et al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
+#' @seealso 
 #' @format A data.frame obeject
 #' @docType data
 "tgfb_expr_10"
 
 #' Up-set for TGFb-induced EMT gene signature
 #'
-#' A GeneSet object that contains the up regulated gene set of a TGFb-induced
+#' A GeneSet object that contains the up-regulated genes of a TGFb-induced
 #' EMT gene signature that was derived by (Foroutan et al.,2017), using two
 #' meta-analysis techniques. The gene signature contains a up-regulated gene set
 #' (up-set) and a down-regulated gene set (down-set). Please refer to the

@@ -1,0 +1,128 @@
+---
+title: "singscore"
+author: "Ruqian LYU"
+date: "`r Sys.Date()`"
+output: rmarkdown::pdf_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ../inst/REFERENCES.bib
+---
+This vignette demonstrates how to use the functions in R package 'singscore' to score a gene expression dataset against a gene set at a single-sample level and how to visulise the results. It consists of the following parts,
+
+1. Introduction of 'singscore' R package
+2. Installation of 'singscore'
+3. Perform 'singscoring' function
+4. Visulisation functions
+5. Calculate the significance of obtained score and plot null distribution
+6. Obtaining datasets
+7. References
+
+## Introduction 
+  `singscore` implements a simple single-sample gene-set (gene-signature) scoring method which does not rely on background samples in gene expression datasets and can deal with single-sample input. It provides stable scores which is less likely to be affected by unwanted variations across samples. The scoring method uses a rank-based statistics and has fast performance. For details of the methods please refer to (singscore paper). It also provides various visulisation functions to further explore the analysis results.
+
+# Install "singscore" R package
+'singscore' is currently host on github and can be easily installed using
+`devtools::install_github()` function provided by **devtools**, (https://cran.r-project.org/package=devtools) 
+```{r installation, eval=FALSE}
+# You would need to install 'devtools' package first.
+library(devtools)
+install_github("https://github.com/Rachael-rq/'singscore'")
+
+```
+
+# Perform singscoring function 
+## Load datasets
+To illustrate the usage of 'singscoring()', we first need to load the example datasets. The datasets for use in this vignette have been built with the package, you can use the following scripts in the code chuncks to load them into your R environment. The detailed steps of obtaining the datases are included at the the end of the vignette. The 'tgfb_expr_10' dataset is obtained from [@Foroutanmolcanres.0313.2016] and it is a ten-sample subset of the original dataset. We are going to score the integrated TGFb-treated gene expression dataeset (5 control samples, 5 case samples) against a TGFb gene signature with up-set and down-set [@Foroutanmolcanres.0313.2016] 
+
+```{r}
+library(singscore)
+# load the expression dataset and gene signatures
+data("tgfb_expr_10")
+data("tgfb_gs_up")
+data("tgfb_gs_dn")
+# To see the description of 'tgfb_expr_10','tgfb_gs_up','tgfb_gs_dn', look at their help pages by
+# 
+?tgfb_expr_10
+?tgfb_gs_up
+?tgfb_gs_dn
+
+# Have a look at the top 5 rows of tgfb_expr_10
+head(tgfb_expr_10)
+
+# View what tgfb_gs_up/dn contains
+tgfb_gs_up
+tgfb_gs_dn
+
+# Get the size of the gene sets
+length(GSEABase::geneIds(tgfb_gs_up))
+length(GSEABase::geneIds(tgfb_gs_dn))
+```
+
+
+## Sample scoring
+To performe the single-sample gene-set scoring function, the gene expression dataset firstly needs to be ranked by calling the `rankExpr()` function. Then the ranked data and gene sets are input into the `singscoring()` function which returns a data.frame with scores for each sample.
+
+```{r simplescoring}
+# The default method for dealing with ties in ranking is 'min', you can change by specifying  
+# 'tiesMethod' parameter for rankExpr function.
+rankData <- rankExpr(tgfb_expr_10)
+
+# Given the ranked data and gene signature, singscoring returns the scores and despersions for 
+# each sample
+scoredf <- singscoring(rankData, upSet = tgfb_gs_up, downSet = tgfb_gs_dn)
+scoredf
+```
+In the returned data.frame, we have the total score which is combined scores of the up-set and down-set. The dispersion is calculated using `mad` by default, which can also be changed by specifying the `dispersionFun` of `singscoring(dispersionFun = ...)`. 
+
+# Visulisation functions
+
+## Plot rank densities
+Now the scores of each sample are stored in `scoredf`, we next use the `plotRankDensity` functions to plot the ranks for genes in the gene sets for a specific sample. We plot the rank densities for the first sample in rankData, please note that since we are subsetting the data.frame rankData by one column, to maintain the structure of the data.frame/matrix, we use `drop = FALSE` is set.
+
+```{r plotdt, fig.height = 6, fig.width = 10}
+#  
+plotRankDensity(rankData[,1,drop = FALSE], upSet = tgfb_gs_up, downSet = tgfb_gs_dn, isInteractive = F)
+``` 
+
+## Plot dispersions of scores
+Function `plotDispersion` will plot the scores of down
+```{r plotds, fig.height = 6, fig.width = 10}
+#  
+plotDispersion(scoredf,annot = c('1','1','1','2','1','2','1','1','1','1'),isInteractive = F)
+``` 
+```{r plotls, fig.height = 6, fig.width = 10}
+#  
+scoredf1 <- singscoring(rankData, upSet = tgfb_gs_dn, downSet = tgfb_gs_up)
+plotScoreLandscape(scoredf, scoredf1)
+``` 
+
+
+## Calculate p value for the obtained scores and plot null distributions
+
+We can use the `permuteScores()` function to generate a number of random gene sets and score the gene set against the single samples. The obtained scores can be used to calculate the empirical p values which is applies as p = (r+1)/(m+1). *explain the formula.
+The permutation function has parallel feature if you wish to use the parallel script you  
+```{r pvalue, fig.height = 8, fig.width = 10}
+
+n_up = length(GSEABase::geneIds(tgfb_gs_up))
+n_down = length(GSEABase::geneIds(tgfb_gs_dn))
+#This permutation function can be run using parallel scripts, refer to the
+#using parallel scripts
+
+permuResult = permuteScores(n_up = n_up, n_down = n_down, rankData, B = 100, seed = 1)
+
+
+pvals <- getPvals(permuResult,scoredf)
+# show the p values for first 5 samples
+pvals[1:4,drop = FALSE]
+
+# plot the null distributions for the first 5 samples and the p values
+# We can see from the plot, the control samples are not signicant and TGFb samples # are very significant with very low p values
+plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1:4])
+# plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
+# * approve the plot when only one sample is needed to be ploted
+```
+
+...
+
