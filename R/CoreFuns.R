@@ -182,12 +182,15 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
   }
   n_color = length(unique(plotdf$Annotation))
   #plot properties
-  if(n_color > 9){
+  if(n_color == 1) {
+    p = p + 
+      scale_color_manual(values = RColorBrewer::brewer.pal(8,'Set1')[4])
+  } else if(n_color > 9){
     p = p + 
       scale_color_manual(values = terrain.colors(n_color))
   }else {
     p = p + 
-      scale_color_brewer(palette = 'RdPu',direction = 1)
+      scale_color_brewer(palette = 'RdYlBu',direction = 1)
   }
   
     p = p +
