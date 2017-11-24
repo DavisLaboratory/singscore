@@ -66,5 +66,6 @@ scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 # be supplied.
 }
 \seealso{
-\code{\link{rank}} \link\linkS4class{GSEABase:GeneSet}{GSEABase::GeneSet}
+\code{\link{rank}}
+\code{"\linkS4class{GeneSet}"}
 }

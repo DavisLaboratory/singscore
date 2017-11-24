@@ -22,6 +22,10 @@ corrected values).\code{toy_expr} is a subset of the integrated TGFb-EMT data
 consisting of 2 samples each with 20 genes.
 }
 \references{
-\insertRef{Foroutanmolcanres.0313.2016}{singscore}
+Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
+Erik W Thompson, and Melissa J Davis. 2017.
+“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
+Molecular Cancer Research. American Association for Cancer Research.
+doi:10.1158/1541-7786.MCR-16-0313.
 }
 \keyword{datasets}

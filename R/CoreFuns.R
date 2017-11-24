@@ -20,7 +20,7 @@ NULL
 #' @seealso 
 #' [rankExpr()]
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' \dontrun{ranked <- rankGenes(toy_expr)}
 rankGenes <- function(exprsM, tiesMethod = "min") {
   rankedData <- apply(exprsM, 2, rank, ties.method = tiesMethod)
   return (rankedData)
@@ -48,7 +48,7 @@ rankGenes <- function(exprsM, tiesMethod = "min") {
 #' @return A data.frame consists of scores and dispersions for all samples
 #' @seealso 
 #' [singscoring()]
-#' [GSEABase::GeneSet][GSEABase::GeneSet-class]
+#' \code{"\linkS4class{GeneSet}"}
 
 simpleScore <-
   function (rankData,
@@ -187,7 +187,7 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
       scale_color_manual(values = RColorBrewer::brewer.pal(8,'Set1')[4])
   } else if(n_color > 9){
     p = p + 
-      scale_color_manual(values = terrain.colors(n_color))
+      scale_color_manual(values = grDevices::terrain.colors(n_color))
   }else {
     p = p + 
       scale_color_brewer(palette = 'RdYlBu',direction = 1)
@@ -352,9 +352,9 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #' [plotScoreLandscape()]
 #' @examples
 #' ranked <- rankExpr(toy_expr)
-#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
+#' scoredf1 <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 #' scoredf2 <- singscoring(ranked, upSet = toy_up)
-#' psl <- plotScoreLandscape(scoredf, scoredf2)
+#' psl <- plotScoreLandscape(scoredf1, scoredf2)
 #' projectScoreLandscape(psl,scoredf1, scoredf2)
 #' @export
 projectScoreLandscape <- function(plotObj = NULL,
@@ -468,7 +468,7 @@ projectScoreLandscape <- function(plotObj = NULL,
 #'   density along with rug plot
 
 #' @seealso 
-#' [GSEABase::GeneSet][GSEABase::GeneSet-class]
+#' \code{"\linkS4class{GeneSet}"}
 plotRankDensity_intl <- function (rankData,
                              upSet,
                              downSet = NULL,
@@ -687,8 +687,8 @@ permuteScores <- function(n_up, n_down, rankData, B = 1000, seed = 1){
 #' @export
 getPvals <- function(permuResult,scoredf){
   resultSc <- t(scoredf[, 1, drop = FALSE])
-  # combine the permutation with the result score for the computation of P values
-  # p = (r+1)/(m+1)
+# combine the permutation with the result score for the computation of P values
+# p = (r+1)/(m+1)
   empirScore_re <- rbind(permuResult, as.character(resultSc))
   
   # x[length(x)] is the calculated score
@@ -702,12 +702,15 @@ getPvals <- function(permuResult,scoredf){
 #' Plot the empirical null distribution using the permutation result
 #' 
 #' @description This function takes the results from function [permuteScores()] 
-#' and plots the density curves of empirical scores for the given samples. 
+#' and plots the density curves of empirical scores for the provided samples via
+#' \code{sampleNames} parameter. It can plot null distribution for a single 
+#' sample or multiple samples.
 #' 
 #' @param permuResult A matrix, outcome from function [permuteScores()]
 #' @param scoredf A dataframe, outcome from function [singscoring()]
 #' @param pvals A vector, outcome of function [getPvals()]
-#' @param sampleNames A vector of character, sample names or multiple sample labels
+#' @param sampleNames A vector of character, sample names or multiple sample 
+#' labels
 #' @param alpha numeric,ggplot theme element
 #' @param size numeric,ggplot theme element
 #' @param textSize numeric,ggplot theme element
@@ -731,7 +734,8 @@ getPvals <- function(permuResult,scoredf){
 #' plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1])
 #' @export
 plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
-                      cutoff = 0.01,alpha = 1, size = 1, textSize = 2,labelSize = 5){
+                      cutoff = 0.01,alpha = 1, size = 1, 
+                     textSize = 2,labelSize = 5){
   quantile_title <- as.character((1 - cutoff)*100)
   if(!is.null(sampleNames)){
     pvals <- pvals[sampleNames,drop=F]

@@ -23,7 +23,6 @@ NULL
 #' from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
 #' corrected values).\code{toy_expr} is a subset of the integrated TGFb-EMT data
 #' consisting of 2 samples each with 20 genes.
-#' 
 #'
 #' @format A data frame of 2 samples each with 20 genes
 #' \describe{
@@ -32,8 +31,13 @@ NULL
 #'  }
 #' @docType data
 #' @references 
-#' \insertRef{Foroutanmolcanres.0313.2016}{singscore}
-#' @source [Foroutan et al.,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
+#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
+#' Erik W Thompson, and Melissa J Davis. 2017. 
+#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
+#' Molecular Cancer Research. American Association for Cancer Research. 
+#' doi:10.1158/1541-7786.MCR-16-0313.
+#' @source 
+#' [Foroutan et al.,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
 "toy_expr"
 
 #' Gene set object
@@ -45,7 +49,7 @@ NULL
 #' @format A GSEABase::GeneSet obeject with 5 genes
 #' @docType data
 #' @seealso 
-#' [GeneSet][GeneSet-class],[toy_expr],[toy_up]
+#' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_up]
 "toy_dn"
 
 #' Gene set of 5 genes
@@ -57,23 +61,44 @@ NULL
 #' @format A GeneSet obeject with 5 genes
 #' @docType data
 #' @seealso 
-#' [GeneSet][GeneSet-class],[toy_expr],[toy_dn]
+#' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_dn]
 "toy_up"
 
 #' Gene expression data.frame
 #'
 #' A microarray gene expression dataset that was originially obtained
 #' from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
-#' corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT data
-#' consisting of ten samples each with 11900 genes.
+#' corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT 
+#' data consisting of ten samples each with 11900 genes.
 #' @references 
-#' \insertRef{Foroutanmolcanres.0313.2016}{singscore}
+#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
+#' Erik W Thompson, and Melissa J Davis. 2017. 
+#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
+#' Molecular Cancer Research. American Association for Cancer Research. 
+#' doi:10.1158/1541-7786.MCR-16-0313.
 #' @source
 #' [Foroutan et al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
-#' @seealso 
 #' @format A data.frame obeject
 #' @docType data
 "tgfb_expr_10"
+
+#' Gene expression data.frame
+#'
+#' A microarray gene expression dataset that was originially obtained
+#' from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
+#' corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT 
+#' data consisting of ten samples each with 11900 genes.
+#' @references 
+#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
+#' Erik W Thompson, and Melissa J Davis. 2017. 
+#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
+#' Molecular Cancer Research. American Association for Cancer Research. 
+#' doi:10.1158/1541-7786.MCR-16-0313.
+#' @source
+#' [Foroutan et al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
+#' @format A data.frame obeject
+#' @docType data
+"tgfb_expr_20"
 
 #' Up-set for TGFb-induced EMT gene signature
 #'
@@ -83,15 +108,18 @@ NULL
 #' (up-set) and a down-regulated gene set (down-set). Please refer to the
 #' vignettes for the steps to aquaire the exact data object.
 #'
-#' 
 #' @format A GeneSet obeject
 #' @docType data
-#' @references 
-#' \insertRef{Foroutanmolcanres.0313.2016}{singscore}
+#' @references
+#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
+#' Erik W Thompson, and Melissa J Davis. 2017. 
+#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
+#' Molecular Cancer Research. American Association for Cancer Research. 
+#' doi:10.1158/1541-7786.MCR-16-0313.
 #' @source
 #' [Foroutan et al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
 #' @seealso 
-#' [GeneSet][GeneSet-class],[tgfb_gs_dn]
+#' \code{"\linkS4class{GeneSet}"},[tgfb_gs_dn]
 "tgfb_gs_up"
 
 #' Down-set for TGFb gene expression signature
@@ -104,48 +132,82 @@ NULL
 #' @format A GeneSet obeject
 #' @docType data
 #' @references 
-#' \insertRef{Foroutan:2017aa}{singscore}
+#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
+#' Erik W Thompson, and Melissa J Davis. 2017. 
+#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
+#' Molecular Cancer Research. American Association for Cancer Research. 
+#' doi:10.1158/1541-7786.MCR-16-0313.
 #' @source 
 #' [Foroutan et al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
 #' @seealso 
-#' [GeneSet][GeneSet-class],[tgfb_gs_up]
+#' \code{"\linkS4class{GeneSet}"},[tgfb_gs_up]
 "tgfb_gs_dn"
 
 #' Scoring results of a CCLE dataset against an epithelial gene signature
 #'
-#' This data.frame is the returned results of function [singscoreing()] on a
+#' This data.frame is the returned results of function [singscoring()] on a
 #' CCLE dataset [Barretina et al](https://www.nature.com/articles/nature11003) 
 #' consists of 55 samples agaist an epithelial gene signature obtained from 
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/) 
 #' Please refer to the vignettes for the steps to aquaire the exact data object.
-#'
-#' 
 #' @seealso 
 #' [scoredf_ccle_mes]
 #' @references 
-#' \insertRef{barretina2012cancer}{singscore}
-#' \insertRef{Ep-MES}{singscore}
+#' Barretina, Jordi, Giordano Caponigro, Nicolas Stransky, Kavitha Venkatesan,
+#' Adam A Margolin, Sungjoon Kim, Christopher J Wilson, et al. 2012. 
+#' “The Cancer Cell Line Encyclopedia Enables Predictive Modelling of Anticancer 
+#' Drug Sensitivity.” Nature 483 (7391): 603–7.
+#' 
+#' Tan, Tuan Zea, Qing Hao Miow, Yoshio Miki, Tetsuo Noda, Seiichi Mori, 
+#' Ruby Yun-Ju Huang, and Jean Paul Thiery. 2014–10AD. 
+#' “Epithelial-Mesenchymal Transition Spectrum Quantification and Its Efficacy 
+#' in Deciphering Survival and Drug Responses of Cancer Patients.” 
+#' EMBO Molecular Medicine 6 (10). Oxford, UK: BlackWell Publishing Ltd: 1279–93.
+#' doi:10.15252/emmm.201404208.
+#' 
+#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
+#' Erik W Thompson, and Melissa J Davis. 2017. 
+#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
+#' Molecular Cancer Research. American Association for Cancer Research. 
+#' doi:10.1158/1541-7786.MCR-16-0313.
+#' 
 "scoredf_ccle_ep"
 
 
 #' Scoring results of a CCLE dataset against an mesenchymal gene signature
 #'
-#' This data.frame is the returned results of function [singscoreing()] on a
-#' CCLE dataset [Barretina et al](https://www.nature.com/articles/nature11003)
+#' This data.frame is the returned results of function 
+#' [singscoring()] on a CCLE dataset 
+#' [Barretina et al](https://www.nature.com/articles/nature11003)
 #' consists of 55 samples agaist an mesenchymal gene signature obtained from
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/)
 #' Please refer to the vignettes for the steps to aquaire the exact data object.
 #'
 #' @seealso 
-#' [scoredf_ccle_ep]
+#' \code{[scoredf_ccle_ep]}
 #' @references 
-#' \insertRef{barretina2012cancer}{singscore}
-#' \insertRef{Ep-MES}{singscore}
+#' Barretina, Jordi, Giordano Caponigro, Nicolas Stransky, Kavitha Venkatesan,
+#' Adam A Margolin, Sungjoon Kim, Christopher J Wilson, et al. 2012. 
+#' “The Cancer Cell Line Encyclopedia Enables Predictive Modelling of Anticancer 
+#' Drug Sensitivity.” Nature 483 (7391): 603–7.
+#' 
+#' Tan, Tuan Zea, Qing Hao Miow, Yoshio Miki, Tetsuo Noda, Seiichi Mori, 
+#' Ruby Yun-Ju Huang, and Jean Paul Thiery. 2014–10AD. 
+#' “Epithelial-Mesenchymal Transition Spectrum Quantification and Its Efficacy 
+#' in Deciphering Survival and Drug Responses of Cancer Patients.” 
+#' EMBO Molecular Medicine 6 (10). Oxford, UK: BlackWell Publishing Ltd: 1279–93
+#' doi:10.15252/emmm.201404208.
+#' 
+#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
+#' Erik W Thompson, and Melissa J Davis. 2017. 
+#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
+#' Molecular Cancer Research. American Association for Cancer Research. 
+#' doi:10.1158/1541-7786.MCR-16-0313.
 "scoredf_ccle_mes"
 
 #' Scoring results of TCGA tumour gene expression matrix
 #'
-#' This data.frame is the returned results of function [singscoreing()] on
+#' This data.frame is the returned results of function [singscoring()] on
 #' tumour samples from [TCGA](https://cancergenome.nih.gov) database against 
 #' an mesenchymal gene signature obtained from 
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/).
@@ -154,12 +216,16 @@ NULL
 #' @seealso 
 #' [scoredf_tumour_mes]
 #' @references 
-#' \insertRef{Ep-MES}{singscore}
+#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
+#' Erik W Thompson, and Melissa J Davis. 2017. 
+#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
+#' Molecular Cancer Research. American Association for Cancer Research. 
+#' doi:10.1158/1541-7786.MCR-16-0313.
 "scoredf_tumour_ep"
 
 #' Scoring results of TCGA tumour gene expression matrix
 #'
-#' This data.frame is the returned results of function [singscoreing()] on
+#' This data.frame is the returned results of function [singscoring()] on
 #' tumour samples from [TCGA](https://cancergenome.nih.gov) database against 
 #' an epithelial gene signature obtained from 
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/).
@@ -169,5 +235,9 @@ NULL
 #' @seealso 
 #' [scoredf_tumour_ep]
 #' @references 
-#' \insertRef{Ep-MES}{singscore}
+#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
+#' Erik W Thompson, and Melissa J Davis. 2017. 
+#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
+#' Molecular Cancer Research. American Association for Cancer Research. 
+#' doi:10.1158/1541-7786.MCR-16-0313.
 "scoredf_tumour_mes"

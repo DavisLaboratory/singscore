@@ -14,7 +14,8 @@ plotNull(permuResult, scoredf, pvals, sampleNames = NULL, cutoff = 0.01,
 
 \item{pvals}{A vector, outcome of function \code{\link[=getPvals]{getPvals()}}}
 
-\item{sampleNames}{A vector of character, sample names or multiple sample labels}
+\item{sampleNames}{A vector of character, sample names or multiple sample
+labels}
 
 \item{cutoff}{double, the cutoff value for determining significance}
 
@@ -31,7 +32,9 @@ a ggplot object
 }
 \description{
 This function takes the results from function \code{\link[=permuteScores]{permuteScores()}}
-and plots the density curves of empirical scores for the given samples.
+and plots the density curves of empirical scores for the provided samples via
+\code{sampleNames} parameter. It can plot null distribution for a single
+sample or multiple samples.
 }
 \examples{
 ranked <- rankExpr(toy_expr)

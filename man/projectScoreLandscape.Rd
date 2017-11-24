@@ -8,7 +8,7 @@ projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2, subSamples = NULL,
   sampleLabels = NULL, annot = NULL, isInteractive = F)
 }
 \arguments{
-\item{plotObj}{a dataframe, resulted from \code{\link[=plotScoreLanscape]{plotScoreLanscape()}}}
+\item{plotObj}{a dataframe, resulted from \code{\link[=plotScoreLandscape]{plotScoreLandscape()}}}
 
 \item{scoredf1}{data.frame, result of the singscoring() function which scores
 the gene expression matrix against a gene set of interest}
@@ -40,9 +40,9 @@ ggplot object and returns a ggplot object with projected data points.
 }
 \examples{
 ranked <- rankExpr(toy_expr)
-scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
+scoredf1 <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
 scoredf2 <- singscoring(ranked, upSet = toy_up)
-psl <- plotScoreLandscape(scoredf, scoredf2)
+psl <- plotScoreLandscape(scoredf1, scoredf2)
 projectScoreLandscape(psl,scoredf1, scoredf2)
 }
 \seealso{

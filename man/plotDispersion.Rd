@@ -27,7 +27,7 @@ A ggplot object
 \description{
 This function takes the output from the singscoring() function
 and plots scatter plots for the score vs the dispersion for the total
-score, the up score and the down score
+score, the up score and the down score of samples. The plots
 }
 \examples{
 ranked <- rankExpr(toy_expr)

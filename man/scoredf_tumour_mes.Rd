@@ -9,7 +9,7 @@
 scoredf_tumour_mes
 }
 \description{
-This data.frame is the returned results of function \code{\link[=singscoreing]{singscoreing()}} on
+This data.frame is the returned results of function \code{\link[=singscoring]{singscoring()}} on
 tumour samples from \href{https://cancergenome.nih.gov}{TCGA} database against
 an epithelial gene signature obtained from
 \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}.
@@ -17,7 +17,11 @@ Please refer to the
 vignettes for the steps to aquaire the exact data object.
 }
 \references{
-\insertRef{Ep-MES}{singscore}
+Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
+Erik W Thompson, and Melissa J Davis. 2017.
+“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
+Molecular Cancer Research. American Association for Cancer Research.
+doi:10.1158/1541-7786.MCR-16-0313.
 }
 \seealso{
 \link{scoredf_tumour_ep}

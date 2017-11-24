@@ -9,17 +9,33 @@
 scoredf_ccle_mes
 }
 \description{
-This data.frame is the returned results of function \code{\link[=singscoreing]{singscoreing()}} on a
-CCLE dataset \href{https://www.nature.com/articles/nature11003}{Barretina et al}
+This data.frame is the returned results of function
+\code{\link[=singscoring]{singscoring()}} on a CCLE dataset
+\href{https://www.nature.com/articles/nature11003}{Barretina et al}
 consists of 55 samples agaist an mesenchymal gene signature obtained from
 \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}
 Please refer to the vignettes for the steps to aquaire the exact data object.
 }
 \references{
-\insertRef{barretina2012cancer}{singscore}
-\insertRef{Ep-MES}{singscore}
+Barretina, Jordi, Giordano Caponigro, Nicolas Stransky, Kavitha Venkatesan,
+Adam A Margolin, Sungjoon Kim, Christopher J Wilson, et al. 2012.
+“The Cancer Cell Line Encyclopedia Enables Predictive Modelling of Anticancer
+Drug Sensitivity.” Nature 483 (7391): 603–7.
+
+Tan, Tuan Zea, Qing Hao Miow, Yoshio Miki, Tetsuo Noda, Seiichi Mori,
+Ruby Yun-Ju Huang, and Jean Paul Thiery. 2014–10AD.
+“Epithelial-Mesenchymal Transition Spectrum Quantification and Its Efficacy
+in Deciphering Survival and Drug Responses of Cancer Patients.”
+EMBO Molecular Medicine 6 (10). Oxford, UK: BlackWell Publishing Ltd: 1279–93
+doi:10.15252/emmm.201404208.
+
+Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
+Erik W Thompson, and Melissa J Davis. 2017.
+“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
+Molecular Cancer Research. American Association for Cancer Research.
+doi:10.1158/1541-7786.MCR-16-0313.
 }
 \seealso{
-\link{scoredf_ccle_ep}
+\code{[scoredf_ccle_ep]}
 }
 \keyword{datasets}

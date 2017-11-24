@@ -19,9 +19,13 @@ meta-analysis techniques. The gene signature contains a up-regulated gene set
 vignettes for the steps to aquaire the exact data object.
 }
 \references{
-\insertRef{Foroutan:2017aa}{singscore}
+Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
+Erik W Thompson, and Melissa J Davis. 2017.
+“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
+Molecular Cancer Research. American Association for Cancer Research.
+doi:10.1158/1541-7786.MCR-16-0313.
 }
 \seealso{
-\link[=GeneSet-class]{GeneSet},\link{tgfb_gs_up}
+\code{"\linkS4class{GeneSet}"},\link{tgfb_gs_up}
 }
 \keyword{datasets}

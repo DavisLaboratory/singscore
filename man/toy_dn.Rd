@@ -14,6 +14,6 @@ signature and it consists of five genes which are randomly selected from the
 gene list in \code{toy_expr} but has no overlap with \code{toy_up}.
 }
 \seealso{
-\link[=GeneSet-class]{GeneSet},\link{toy_expr},\link{toy_up}
+\code{"\linkS4class{GeneSet}"},\link{toy_expr},\link{toy_up}
 }
 \keyword{datasets}

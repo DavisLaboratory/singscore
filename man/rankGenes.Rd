@@ -25,7 +25,7 @@ use the generic function 'rankExpr' which can accept multiple data formats
 as input.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+\dontrun{ranked <- rankGenes(toy_expr)}
 }
 \seealso{
 \code{\link[=rankExpr]{rankExpr()}}

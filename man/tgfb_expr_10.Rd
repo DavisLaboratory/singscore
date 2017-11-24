@@ -5,10 +5,23 @@
 \alias{tgfb_expr_10}
 \title{Gene expression data.frame}
 \format{A data.frame obeject}
+\source{
+\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al,2017}
+}
 \usage{
 tgfb_expr_10
 }
 \description{
-A data.frame object that has 10 samples selected from a TFGb full dataset
+A microarray gene expression dataset that was originially obtained
+from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
+corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT
+data consisting of ten samples each with 11900 genes.
+}
+\references{
+Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
+Erik W Thompson, and Melissa J Davis. 2017.
+“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
+Molecular Cancer Research. American Association for Cancer Research.
+doi:10.1158/1541-7786.MCR-16-0313.
 }
 \keyword{datasets}

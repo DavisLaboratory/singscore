@@ -33,5 +33,5 @@ can work with gene set stored in both vector or GeneSet.
 }
 \seealso{
 \code{\link[=singscoring]{singscoring()}}
-\link[GSEABase:GeneSet-class]{GSEABase::GeneSet}
+\code{"\linkS4class{GeneSet}"}
 }

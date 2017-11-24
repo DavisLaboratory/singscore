@@ -15,11 +15,12 @@ This vignette demonstrates how to use the functions in R package 'singscore' to 
 2. Installation of 'singscore'
 3. Perform 'singscoring' function
 4. Visulisation functions
-5. Calculate the significance of obtained score and plot null distribution
+5. Calculate empirical p value for the obtained scores and plot null distributions
 6. Obtaining datasets
+7. Session info
 7. References
 
-## Introduction 
+# Introduction 
   `singscore` implements a simple single-sample gene-set (gene-signature) scoring method which does not rely on background samples in gene expression datasets and can deal with single-sample input. It provides stable scores which is less likely to be affected by unwanted variations across samples. The scoring method uses a rank-based statistics and has fast performance. For details of the methods please refer to (singscore paper). It also provides various visulisation functions to further explore the analysis results.
 
 # Install "singscore" R package
@@ -42,8 +43,9 @@ library(singscore)
 data("tgfb_expr_20")
 data("tgfb_gs_up")
 data("tgfb_gs_dn")
-# To see the description of 'tgfb_expr_10','tgfb_gs_up','tgfb_gs_dn', look at their help pages by
-# 
+# To see the description of 'tgfb_expr_10','tgfb_gs_up','tgfb_gs_dn', look at 
+# their help pages by
+
 ?tgfb_expr_10
 ?tgfb_gs_up
 ?tgfb_gs_dn
@@ -65,12 +67,12 @@ length(GSEABase::geneIds(tgfb_gs_dn))
 To performe the single-sample gene-set scoring function, the gene expression dataset firstly needs to be ranked by calling the `rankExpr()` function. Then the ranked data and gene sets are input into the `singscoring()` function which returns a data.frame with scores for each sample.You can only provide upSet when downSet information is not available.
 
 ```{r simplescoring}
-# The default method for dealing with ties in ranking is 'min', you can change by specifying  
-# 'tiesMethod' parameter for rankExpr function.
+# The default method for dealing with ties in ranking is 'min', you can change 
+# by specifying 'tiesMethod' parameter for rankExpr function.
 rankData <- rankExpr(tgfb_expr_20)
 
-# Given the ranked data and gene signature, singscoring returns the scores and despersions for 
-# each sample
+# Given the ranked data and gene signature, singscoring returns the scores and 
+# despersions for each sample
 scoredf <- singscoring(rankData, upSet = tgfb_gs_up, downSet = tgfb_gs_dn)
 scoredf
 ```
@@ -83,7 +85,8 @@ Now the scores of each sample are stored in `scoredf`, we next use the `plotRank
 
 ```{r plotdt, fig.height = 6, fig.width = 10}
 #  You can only provide upSet when downSet information is not available. 
-plotRankDensity(rankData[,1,drop = FALSE], upSet = tgfb_gs_up, downSet = tgfb_gs_dn, isInteractive = F)
+plotRankDensity(rankData[,1,drop = FALSE], upSet = tgfb_gs_up, 
+                downSet = tgfb_gs_dn, isInteractive = F)
 ``` 
 
 ## Plot dispersions of scores
@@ -96,7 +99,9 @@ tgfbAnnot$Type[grepl("Ctrl", tgfbAnnot$SampleID)] = "Control"
 tgfbAnnot$Type[grepl("TGFb", tgfbAnnot$SampleID)] = "TGFb"
 
 plotDispersion(scoredf,annot =tgfbAnnot$Type,isInteractive = FALSE)
-# To see an interactive version powered by 'plotly', simply set the 'isInteractive' = TRUE
+# To see an interactive version powered by 'plotly', simply set the 
+# 'isInteractive' = TRUE
+#
 # plotDispersion(scoredf,annot =tgfbAnnot$Type,isInteractive = TRUE)
 
 
@@ -105,18 +110,22 @@ plotDispersion(scoredf,annot =tgfbAnnot$Type,isInteractive = FALSE)
 ## Plot Score Landscape
 `plotScoreLandscape` plots the scores of the samples against two different gene signatures in a landscape for exploring the replationships of gene signatures.
 ```{r plotls, fig.height = 6, fig.width = 10}
-#  For illustration of the function, we generate scoredf1 using upSet = tgfb_gs_dn, downSet = tgfb_gs_up, scoredf2 using upSet = tgfb_gs_dn, downSet = tgfb_gs_up
+#  For illustration of the function, we generate scoredf1 using 
+# upSet = tgfb_gs_dn, downSet = tgfb_gs_up,
+# generate scoredf2 using upSet = tgfb_gs_dn, downSet = tgfb_gs_up
 scoredf1 <- singscoring(rankData, upSet = tgfb_gs_up, downSet = tgfb_gs_dn)
 scoredf2 <- singscoring(rankData, upSet = tgfb_gs_dn, downSet = tgfb_gs_up)
 
-plotScoreLandscape(scoredf1, scoredf2, scorenames = c('tgfb_gs','tgfb_gs_reverse'))
+plotScoreLandscape(scoredf1, scoredf2, scorenames = c('tgfb_gs',
+                                                      'tgfb_gs_reverse'))
 
 ``` 
 
-There is actually another format of plot (i.e hexBin plot) when there are more samples in the gene expression dataset. The default the threshold for determining the format of plot is 100. To force using the hexBin plot by specifying the parameter `hexMin` to less than the number of samples in the gene expression dataset.
+There is another format of plot (i.e hexBin plot) when there are more samples in the gene expression dataset. The default the threshold for determining the plot format is 100. To force using the hex bin plot by specifying the parameter `hexMin` to less than the number of samples in the gene expression dataset.
 ```{r plotlsHex1, fig.height = 6, fig.width = 10}
 # Not an ideal plot since the number of samples is too small.
-plotScoreLandscape(scoredf1, scoredf2, scorenames = c('tgfb_gs','tgfb_gs_reverse'),hexMin = 10)
+plotScoreLandscape(scoredf1, scoredf2, 
+                   scorenames = c('tgfb_gs','tgfb_gs_reverse'),hexMin = 10)
 
 ```
 In order to better demonstrate the usage of `plotScoreLandscape`, we load some additional datasets.
@@ -124,7 +133,8 @@ In order to better demonstrate the usage of `plotScoreLandscape`, we load some a
 ```{r loadCCLE,fig.height = 6, fig.width = 10}
 data("scoredf_ccle_ep")
 data("scoredf_ccle_mes")
-plotScoreLandscape(scoredf_ccle_ep, scoredf_ccle_mes, scorenames = c('ccle-EP','ccle-MES'),hexMin = 10)
+plotScoreLandscape(scoredf_ccle_ep, scoredf_ccle_mes, 
+                   scorenames = c('ccle-EP','ccle-MES'),hexMin = 10)
 
 ```
 
@@ -132,51 +142,105 @@ Another group of data.frames of scored gene expression datasets, are `scoredf_tu
 ```{r loadTCGA,fig.height = 6, fig.width = 10}
 data("scoredf_tumour_ep")
 data("scoredf_tumour_mes")
-plotScoreLandscape(scoredf_tumour_ep, scoredf_tumour_mes, scorenames = c('tcga-EP','tcga-MES'))
+plotScoreLandscape(scoredf_tumour_ep, scoredf_tumour_mes, 
+                   scorenames = c('tcga-EP','tcga-MES'), isInteractive = FALSE)
+
+# To get an interactive version of plot, set isInteractive = TRUE
 
 ```
 You can also project some new data's landscape onto the derived landscape plot by using `projectScoreLandscape` function. For example, to project some 'ccle-EP' vs 'ccle-MES' samples on to 'tcga-EP' vs 'tcga-MES' plot.
 
 ```{r projectScore,fig.height = 6, fig.width = 10}
-ori_plot <- plotScoreLandscape(scoredf_tumour_ep, scoredf_tumour_mes, scorenames = c('tcga-EP','tcga-MES'))
+ori_plot <- plotScoreLandscape(scoredf_tumour_ep, scoredf_tumour_mes, 
+                               scorenames = c('tcga-EP','tcga-MES'))
 
-projectScoreLandscape(plotObj = ori_plot, scoredf_ccle_ep, scoredf_ccle_mes,subSamples = rownames(scoredf_ccle_ep)[1:3],annot = rownames(scoredf_ccle_ep)[1:3], isInteractive = FALSE)
-# Same as above, use isInteractive = TRUE to get an interactive version of the plot.
+projectScoreLandscape(plotObj = ori_plot, scoredf_ccle_ep, scoredf_ccle_mes,
+                      subSamples = rownames(scoredf_ccle_ep)[1:3],
+                      annot = rownames(scoredf_ccle_ep)[1:3], 
+                      isInteractive = FALSE)
+# Same as above, use isInteractive = TRUE to get an interactive version of 
+# the plot.
 ```
 
-You can also use different labels to the new data via parameter `sampleLabels` instead of using the sample names.
+You can also use different labels to mark the new data via parameter `sampleLabels` instead of using the sample names which is the default setting.
 
 ```{r projectScore2,fig.height = 6, fig.width = 10}
-ori_plot <- plotScoreLandscape(scoredf_tumour_ep, scoredf_tumour_mes, scorenames = c('tcga-EP','tcga-MES'))
+ori_plot <- plotScoreLandscape(scoredf_tumour_ep, scoredf_tumour_mes, 
+                               scorenames = c('tcga-EP','tcga-MES'))
 
-projectScoreLandscape(plotObj = ori_plot, scoredf_ccle_ep, scoredf_ccle_mes,subSamples = rownames(scoredf_ccle_ep)[1:3],sampleLabels = c('l1','l2','l3'),annot = rownames(scoredf_ccle_ep)[1:3], isInteractive = FALSE)
-# Same as above, use isInteractive = TRUE to get an interactive version of the plot.
+projectScoreLandscape(plotObj = ori_plot, scoredf_ccle_ep, scoredf_ccle_mes,
+                      subSamples = rownames(scoredf_ccle_ep)[1:5],
+                      sampleLabels = c('l1','l2','l3','l4','L5'),
+                      annot = rownames(scoredf_ccle_ep)[1:5], 
+                      isInteractive = FALSE)
+# Same as above, use isInteractive = TRUE to get an interactive version of the
+# plot.
 ```
 
-# Calculate p value for the obtained scores and plot null distributions
+# Calculate empirical p value for the obtained scores and plot null distributions
 
-We can use the `permuteScores()` function to generate a number of random gene sets and score the gene set against the single samples. The obtained scores can be used to calculate the empirical p values which is applies as p = (r+1)/(m+1). *explain the formula.
-The permutation function has parallel feature if you wish to use the parallel script you  
+## Permutation test
+We can use the `permuteScores()` function to generate a number of random gene sets and score the samples against these gene sets. The obtained scores will be used to calculate the empirical p values which is derived using $p = \frac{r+1}{m+1}$, where $r$ is the number of empirical scores that are larger than the obtained score and $m$ is the total number of permutation run which is the $B$ parameter in `permuteScores()`
+The permutation function has parallel computing features provided by using [`BiocParallel`](http://bioconductor.org/packages/release/bioc/html/BiocParallel.html) 
 ```{r pvalue, fig.height = 8, fig.width = 10}
 
 n_up = length(GSEABase::geneIds(tgfb_gs_up))
 n_down = length(GSEABase::geneIds(tgfb_gs_dn))
-#This permutation function can be run using parallel scripts, refer to the
-#using parallel scripts
 
-permuResult = permuteScores(n_up = n_up, n_down = n_down, rankData, B = 100, seed = 1)
+#This permutation function uses BiocParallel::bplapply() parallel function
+permuResult = permuteScores(n_up = n_up, n_down = n_down, rankData, 
+                            B = 10000, seed = 1)
 
-
+head(permuResult)
+```
+## Calculate empirical p values
+After obtaining the permuated scores, use `getPvals` to derive the empirical p values.
+```{r getPvals, fig.height = 6, fig.width = 10}
 pvals <- getPvals(permuResult,scoredf)
+
+# getPval returns p values for each individual sample.
 # show the p values for first 5 samples
 pvals[1:4,drop = FALSE]
+```
+##Plot null distribution
 
+Plot the null distributions for the first sample with p value labelled. The function uses `sampleNames` parameter for deciding what samples to plot.
+
+```{r plotNull1, fig.height = 6, fig.width = 10 }
 # plot the null distributions for the first 5 samples and the p values
-# We can see from the plot, the control samples are not signicant and TGFb samples # are very significant with very low p values
-plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1:4])
-# plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
-# * approve the plot when only one sample is needed to be ploted
+# We can see from the plot, the control samples are not signicant and TGFb 
+# samples are very significant with very low p values
+plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1])
+
+```
+------
+You can provide multiple sample names to plot these samples in one plot. For example, plot the first 2 samples.
+```{r plotNull2, fig.height = 6, fig.width = 10 }
+# plot the null distributions for the first 2 samples and the p values
+# We can see from the plot, the control samples are not signicant and TGFb 
+# samples are very significant with very low p values
+plotNull(permuResult,scoredf,pvals,sampleNames = names(pvals)[1:2])
 ```
 
-...
+# Obtaining dataset
 
+## TGFb-EMT data
+   Descibing how to download and process  TGFb-EMT data
+
+## CCLE dataset
+  Descibing how to download and process CCLE data
+
+## TCGA cancer samples dataset
+  Descibing how to download and process TCGA data
+
+## TGFb gene signature
+  Descibing how to download and process TGFb gene signature
+
+## EP, MES gene signatures
+  Descibing how to download and process EP, MES gene signature
+
+# Session Info
+```{r sessionInfo}
+sessionInfo()
+```
+# References
