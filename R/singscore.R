@@ -2,13 +2,14 @@
 #'
 #' The packge provides functions of calculating gene-set expression scores at a 
 #' single-sample level and it is able to deal with single-sample input. It also 
-#' includes efficient visulisation function for exploring the results as well as 
-#' permutation test for significance test and plot null distribution.
+#' includes efficient visulisation function for exploring the results as well 
+#' as permutation test for significance test and plot null distribution.
 #' @import methods
 #' @import stats
 #' @import graphics
 #' @import ggplot2
 #' @import GSEABase
+#' @import tidyr
 #' @importFrom magrittr "%>%"
 #' @importClassesFrom edgeR DGEList
 #' @importClassesFrom Biobase ExpressionSet
@@ -19,10 +20,10 @@ NULL
 #' Gene expression dataset of two samples
 #'
 #' A microarray gene expression data.frame dataset that was originially obtained
-#' from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
-#' corrected values).\code{toy_expr} is a subset of the integrated TGFb-EMT data
-#' consisting of 2 samples each with 20 genes.
-#'
+#' from the integrated TGFb-EMT data published by (Foroutan et al, 2017).
+#' (ComBat corrected values).\code{toy_expr} is a subset of the integrated
+#' TGFb-EMT data consisting of 2 samples each with 20 genes.
+#' 
 #' @format A data frame of 2 samples each with 20 genes
 #' \describe{
 #' \item{D_Ctrl_R1}{a control sample}
@@ -65,9 +66,9 @@ NULL
 
 #' Gene expression data.frame
 #'
-#' A microarray gene expression dataset that was originially obtained
-#' from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
-#' corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT 
+#' A microarray gene expression dataset that was originially obtained from the
+#' integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
+#' corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT
 #' data consisting of ten samples each with 11900 genes.
 #' @references 
 #' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 

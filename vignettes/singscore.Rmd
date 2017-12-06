@@ -86,7 +86,7 @@ Now the scores of each sample are stored in `scoredf`, we next use the `plotRank
 ```{r plotdt, fig.height = 6, fig.width = 10}
 #  You can only provide upSet when downSet information is not available. 
 plotRankDensity(rankData[,1,drop = FALSE], upSet = tgfb_gs_up, 
-                downSet = tgfb_gs_dn, isInteractive = F)
+                downSet = tgfb_gs_dn, isInteractive = FALSE)
 ``` 
 
 ## Plot dispersions of scores

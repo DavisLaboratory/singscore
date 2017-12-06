@@ -8,9 +8,9 @@ NULL
 #'  intensity. \code{rankExpr} ranks gene expression in each sample. Given a
 #'  gene expression matrix (i.e matrix, data.frame) or a S4 object that has gene
 #'  expression matrix as a component (i.e ExpressionSet, DGEList) and a
-#'  'tiesMethod', it calls the  \code{rank} function in the base package which ranks
-#'  the gene expression matrix by its absolute expression level. If input is S4
-#'  object of \code{DGEList, or ExpressionSet}, the generic function will
+#'  'tiesMethod', it calls the  \code{rank} function in the base package which
+#'  ranks the gene expression matrix by its absolute expression level. If input
+#'  is S4 object of \code{DGEList, or ExpressionSet}, the generic function will
 #'  extract the gene epxression matrix genes on the rows and samples on columns
 #'  from the object and rank the genes. The default ties.Method is set to 'min'
 #'
@@ -32,23 +32,33 @@ NULL
 #'
 #'@export
 setGeneric("rankExpr",
-           function(expreMatrix, tiesMethod = 'min') standardGeneric("rankExpr"))
+           function(expreMatrix, 
+                    tiesMethod = 'min') standardGeneric("rankExpr"))
 
 #' @rdname rankExpr
-setMethod("rankExpr", signature('matrix','ANY'), function(expreMatrix,tiesMethod = 'min'){
-  return(rankGenes(expreMatrix,tiesMethod = tiesMethod))
+setMethod("rankExpr", signature('matrix','ANY'), 
+          function(expreMatrix,tiesMethod = 'min'){
+            return(rankGenes(expreMatrix,tiesMethod = tiesMethod))
 })
 
 #' @rdname rankExpr
-setMethod("rankExpr", signature(expreMatrix = 'data.frame',tiesMethod = 'ANY'), function(expreMatrix, tiesMethod = 'min'){
-  return( rankGenes(as.matrix(expreMatrix),tiesMethod = tiesMethod))
+setMethod("rankExpr", 
+          signature(expreMatrix = 'data.frame',
+                    tiesMethod = 'ANY'), 
+          function(expreMatrix, tiesMethod = 'min'){
+  return(rankGenes(as.matrix(expreMatrix),tiesMethod = tiesMethod))
 })
 
 #' @rdname rankExpr
-setMethod("rankExpr", signature('DGEList',tiesMethod = 'ANY'), function(expreMatrix,tiesMethod = 'min'){
+setMethod("rankExpr", 
+          signature('DGEList',tiesMethod = 'ANY'), 
+          function(expreMatrix,tiesMethod = 'min'){
   rankGenes(expreMatrix$counts,tiesMethod = tiesMethod)
 })
 #' @rdname rankExpr
-setMethod("rankExpr", signature('ExpressionSet',tiesMethod = 'ANY'), function(expreMatrix,tiesMethod = 'min'){
+setMethod("rankExpr", 
+          signature('ExpressionSet',
+                    tiesMethod = 'ANY'), 
+          function(expreMatrix,tiesMethod = 'min'){
   rankGenes(Biobase::exprs(expreMatrix),tiesMethod = tiesMethod)
 })

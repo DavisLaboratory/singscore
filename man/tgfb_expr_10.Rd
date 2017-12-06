@@ -12,8 +12,8 @@
 tgfb_expr_10
 }
 \description{
-A microarray gene expression dataset that was originially obtained
-from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
+A microarray gene expression dataset that was originially obtained from the
+integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
 corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT
 data consisting of ten samples each with 11900 genes.
 }

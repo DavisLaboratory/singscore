@@ -31,7 +31,7 @@ NULL
 #'
 #'@export
 setGeneric("singscoring",
-           function(rankData,
+            function(rankData,
                     upSet,
                     downSet = NULL,
                     subSamples = NULL,

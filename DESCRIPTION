@@ -9,8 +9,8 @@ Maintainer: Ruqian Lyu <ruqianl@student.unimelb.edu.au>, Momeneh Foroutan <forou
 Description: A simple single-sample gene signature scoring method that uses rank-based 
   statistics to analyze the sample's gene expression profile. It scores the expression activities of 
   gene sets at a single-sample level.
-biocViews: Software, GeneSetScoring, GeneSetEnrichmentAnalysis
-Depends: R (>= 3.3)
+biocViews: Software, GeneExpression, 
+Depends: R (>= 3.4)
 Imports:
     methods,
     stats,

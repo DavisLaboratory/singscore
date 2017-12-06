@@ -11,26 +11,26 @@
 \alias{plotRankDensity,ANY,vector,GeneSet-method}
 \title{Plot the densities of ranks for one sample}
 \usage{
-plotRankDensity(rankData, upSet, downSet = NULL, isInteractive = F,
+plotRankDensity(rankData, upSet, downSet = NULL, isInteractive = FALSE,
   textSize = 1.5)
 
 \S4method{plotRankDensity}{ANY,vector,missing}(rankData, upSet,
   downSet = NULL, isInteractive = FALSE, textSize = 1.5)
 
 \S4method{plotRankDensity}{ANY,GeneSet,missing}(rankData, upSet,
-  downSet = NULL, isInteractive = F, textSize = 1.5)
+  downSet = NULL, isInteractive = FALSE, textSize = 1.5)
 
 \S4method{plotRankDensity}{ANY,vector,vector}(rankData, upSet, downSet = NULL,
-  isInteractive = F, textSize = 1.5)
+  isInteractive = FALSE, textSize = 1.5)
 
 \S4method{plotRankDensity}{ANY,GeneSet,GeneSet}(rankData, upSet,
-  downSet = NULL, isInteractive = F, textSize = 1.5)
+  downSet = NULL, isInteractive = FALSE, textSize = 1.5)
 
 \S4method{plotRankDensity}{ANY,GeneSet,vector}(rankData, upSet,
-  downSet = NULL, isInteractive = F, textSize = 1.5)
+  downSet = NULL, isInteractive = FALSE, textSize = 1.5)
 
 \S4method{plotRankDensity}{ANY,vector,GeneSet}(rankData, upSet,
-  downSet = NULL, isInteractive = F, textSize = 1.5)
+  downSet = NULL, isInteractive = FALSE, textSize = 1.5)
 }
 \arguments{
 \item{rankData}{one column of the ranked gene expression matrix obtained from

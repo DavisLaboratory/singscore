@@ -22,8 +22,8 @@ NULL
 #' @examples
 #' \dontrun{ranked <- rankGenes(toy_expr)}
 rankGenes <- function(exprsM, tiesMethod = "min") {
-  rankedData <- apply(exprsM, 2, rank, ties.method = tiesMethod)
-  return (rankedData)
+    rankedData <- apply(exprsM, 2, rank, ties.method = tiesMethod)
+    return (rankedData)
 }
 
 ################################################################################
@@ -50,76 +50,76 @@ rankGenes <- function(exprsM, tiesMethod = "min") {
 #' [singscoring()]
 #' \code{"\linkS4class{GeneSet}"}
 
-simpleScore <-
-  function (rankData,
-            upSet,
-            downSet = NULL,
-            subSamples = NULL,
-            centerScore = TRUE,
-            dispersionFun = mad) {
-    #subset the data for samples whose calculation is to be performed
-    if (!is.null(subSamples)) {
-      rankData <- rankData[, subSamples, drop = F]
-    }
-    #values needed for calculating the boundaries
-    upSigSize <- length(geneIds(upSet))
-    nTotalGenes <- nrow(rankData)
-
-    #check if there are some missing genes in the geneset
-    missingGenes <- setdiff(geneIds(upSet), rownames(rankData))
-    if (length(missingGenes) > 0) {
-      warningMsg <- paste(length(missingGenes), "genes missing:", sep = ' ')
-      warningMsg <-
-        paste(warningMsg, paste(missingGenes, collapse = ', '), sep = ' ')
-      warning(warningMsg)
-    }
-
-    #remove missing genes from signature for further analysis
-    geneIds(upSet) <- setdiff(geneIds(upSet), missingGenes)
-    upRanks <- rankData[geneIds(upSet), , drop = F]
-    upScore <- colMeans(upRanks)
-    lowBound <- (upSigSize + 1) / 2
-    upBound  <- (2 * nTotalGenes - upSigSize + 1) / 2
-    normUpScore <- (upScore - lowBound) / (upBound - lowBound)
-
-    #calculate dispersion
-    upDispersion <- apply(upRanks, 2, dispersionFun)
-
-    #if just the up score is provided
-    if (is.null(downSet)) {
-      #if centering
-      if (centerScore) {
-        normUpScore <- normUpScore - 0.5
-      }
-
-      scoredf <-
-        data.frame("TotalScore" = normUpScore, "TotalDispersion" = upDispersion)
-      rownames(scoredf) <- colnames(rankData)
-      return(scoredf)
-    } else{
-      scoreDown <-
-        simpleScore(rankData, downSet, NULL,subSamples, FALSE, dispersionFun)
-      normDownScore <- 1 - scoreDown$TotalScore
-      downDispersion <- scoreDown$TotalDispersion
-
-      #if centering
-      if (centerScore) {
-        normDownScore <- normDownScore - 0.5
-      }
-
-      scoredf <-
-        data.frame(
-          "TotalScore" = normUpScore + normDownScore,
-          "TotalDispersion" = upDispersion + downDispersion,
-          "UpScore" = normUpScore,
-          "UpDispersion" = upDispersion,
-          "DownScore" = normDownScore,
-          "DownDispersion" = downDispersion
-        )
-      rownames(scoredf) <- colnames(rankData)
-      return(scoredf)
-    }
+simpleScore <- function (rankData,
+                         upSet,
+                         downSet = NULL,
+                         subSamples = NULL,
+                         centerScore = TRUE,
+                         dispersionFun = mad) {
+  #subset the data for samples whose calculation is to be performed
+  if (!is.null(subSamples)) {
+    rankData <- rankData[, subSamples, drop = FALSE]
   }
+  #values needed for calculating the boundaries
+  upSigSize <- length(geneIds(upSet))
+  nTotalGenes <- nrow(rankData)
+  
+  #check if there are some missing genes in the geneset
+  missingGenes <- setdiff(geneIds(upSet), rownames(rankData))
+  if (length(missingGenes) > 0) {
+    warningMsg <-
+      paste(length(missingGenes), "genes missing:", sep = ' ')
+    warningMsg <- paste(warningMsg,
+                        paste(missingGenes, collapse = ', '), sep = ' ')
+    warning(warningMsg)
+  }
+  
+  #remove missing genes from signature for further analysis
+  geneIds(upSet) <- setdiff(geneIds(upSet), missingGenes)
+  upRanks <- rankData[geneIds(upSet), , drop = FALSE]
+  upScore <- colMeans(upRanks)
+  lowBound <- (upSigSize + 1) / 2
+  upBound  <- (2 * nTotalGenes - upSigSize + 1) / 2
+  normUpScore <- (upScore - lowBound) / (upBound - lowBound)
+  
+  #calculate dispersion
+  upDispersion <- apply(upRanks, 2, dispersionFun)
+  
+  #if just the up score is provided
+  if (is.null(downSet)) {
+    #if centering
+    if (centerScore) {
+      normUpScore <- normUpScore - 0.5
+    }
+    
+    scoredf <-
+      data.frame("TotalScore" = normUpScore, "TotalDispersion" = upDispersion)
+    rownames(scoredf) <- colnames(rankData)
+    return(scoredf)
+  } else{
+    scoreDown <-
+      simpleScore(rankData, downSet, NULL, subSamples, FALSE, dispersionFun)
+    normDownScore <- 1 - scoreDown$TotalScore
+    downDispersion <- scoreDown$TotalDispersion
+    
+    #if centering
+    if (centerScore) {
+      normDownScore <- normDownScore - 0.5
+    }
+    
+    scoredf <-
+      data.frame(
+        "TotalScore" = normUpScore + normDownScore,
+        "TotalDispersion" = upDispersion + downDispersion,
+        "UpScore" = normUpScore,
+        "UpDispersion" = upDispersion,
+        "DownScore" = normDownScore,
+        "DownDispersion" = downDispersion
+      )
+    rownames(scoredf) <- colnames(rankData)
+    return(scoredf)
+  }
+}
 
 ################################################################################
 #### =============================== plotDispersion() ==========================
@@ -131,11 +131,11 @@ simpleScore <-
 #'   score, the up score and the down score of samples. The plots 
 #' @param scoredf data.frame, results of the singscoring() function
 #' @param annot any annotation provided by the user that needs to be plot
-# 		annot must be ordered in the same was as the scores
+#' annot must be ordered in the same was as the scores
 #' @param alpha numeric, set the transparency of points
 #' @param size numeric, Set the size of each point
 #' @param textSize numeric, relative text sizes for title, labels and axis
-#'   values
+#' values
 #' @param isInteractive Boolean, Determine whether the plot is interactive
 #' @examples
 #' ranked <- rankExpr(toy_expr)
@@ -245,20 +245,20 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' @description This function takes two data frames which are outputs from the
 #'   singscoring() function and plots the relationship between the two gene set
 #'   scores for samples in the gene expression matrix.
-#'   
-#' @param scoredf1 data.frame, result of the singscoring() function which scores 
-#' the gene expression matrix against a gene set of interest 
-#' @param scoredf2 data.frame, result of the singscoring() function which scores 
-#' the gene expression matrix against another gene set of interest
+#'
+#' @param scoredf1 data.frame, result of the singscoring() function which scores
+#'   the gene expression matrix against a gene set of interest
+#' @param scoredf2 data.frame, result of the singscoring() function which scores
+#'   the gene expression matrix against another gene set of interest
 #' @param scorenames character vector of length 2, names for the two scored gene
-#' set/signatures stored in scoredf1 and scoredf2
-#' @param isInteractive boolean, whether the plot is interactive default as 
+#'   set/signatures stored in scoredf1 and scoredf2
+#' @param isInteractive boolean, whether the plot is interactive default as
 #'   FALSE
 #' @param textSize numeric, set the text size for the plot, default as 1.5
-#' @param hexMin integer, the threshold which decides whether hex bin plot or 
-#' scatter plot is displayed, default as 100
+#' @param hexMin integer, the threshold which decides whether hex bin plot or
+#'   scatter plot is displayed, default as 100
 #' @return A ggplot object, a scatter plot, demostrating the relationship
-#' between scores from two signatures on the same set of samples.
+#'   between scores from two signatures on the same set of samples.
 #' @examples
 #' ranked <- rankExpr(toy_expr)
 #' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
@@ -363,7 +363,7 @@ projectScoreLandscape <- function(plotObj = NULL,
                                   subSamples = NULL,
                                   sampleLabels = NULL,
                                   annot = NULL,
-                                  isInteractive = F){
+                                  isInteractive = FALSE){
   #create data frame with the new data
   
   #subsetting the two data frames, scoredfs
@@ -456,8 +456,8 @@ projectScoreLandscape <- function(plotObj = NULL,
 #' and it returns plots visualising the density and the rugs of the ran ks.
 #'
 #' @param rankData one column of the ranked gene expression matrix obtained from
-#'   the [rankExpr()] function, use drop = FALSE when subsetting the ranked gene 
-#'   expression matrix, see examples.
+#' the [rankExpr()] function, use drop = FALSE when subsetting the ranked gene 
+#' expression matrix, see examples.
 #' @param isInteractive Boolean, determin whether the returned plot is
 #'   interactive
 #' @param textSize numberic, set the size of text on the plot
@@ -489,7 +489,7 @@ plotRankDensity_intl <- function (rankData,
 
   #remove missing genes from signature for further analysis
   geneIds(upSet) = setdiff(geneIds(upSet), missingGenes)
-  upRanks = rankData[geneIds(upSet), , drop = F] / nrow(rankData)
+  upRanks = rankData[geneIds(upSet), , drop = FALSE] / nrow(rankData)
   upRank = data.frame(upRanks, type = "Up Gene-set")
   allRanks = upRank
 
@@ -506,7 +506,7 @@ plotRankDensity_intl <- function (rankData,
 
     #remove missing genes from signature for further analysis
     geneIds(downSet) = setdiff(geneIds(downSet), missingGenes)
-    downRanks = rankData[geneIds(downSet), , drop = F] / nrow(rankData)
+    downRanks = rankData[geneIds(downSet), , drop = FALSE] / nrow(rankData)
     downRank = data.frame(downRanks, type =  "Down Gene-set")
     allRanks = rbind(upRank, downRank)
   }
@@ -738,7 +738,7 @@ plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
                      textSize = 2,labelSize = 5){
   quantile_title <- as.character((1 - cutoff)*100)
   if(!is.null(sampleNames)){
-    pvals <- pvals[sampleNames,drop=F]
+    pvals <- pvals[sampleNames, drop = FALSE]
   }
   pval_r <- as.character(format(pvals[sampleNames],scientific = TRUE,
                                 digits = 3))
@@ -756,7 +756,7 @@ plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
     if(length(sampleNames)>1){
       dt <- as.data.frame(permuResult[,sampleNames])
       longDt <- reshape::melt(dt,variable_name = "sampleNames")
-      resultScs <-  scoredf[,1,drop = F]
+      resultScs <-  scoredf[,1,drop = FALSE]
       resultScs$sampleNames <-  rownames(resultScs)
       #pDt$sampleNames <- names(pvals)
       sampleLSc <-  merge(longDt, resultScs, by.x = "sampleNames", 

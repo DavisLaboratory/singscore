@@ -10,7 +10,8 @@ plotDispersion(scoredf, annot = NULL, alpha = 1, size = 1,
 \arguments{
 \item{scoredf}{data.frame, results of the singscoring() function}
 
-\item{annot}{any annotation provided by the user that needs to be plot}
+\item{annot}{any annotation provided by the user that needs to be plot
+annot must be ordered in the same was as the scores}
 
 \item{alpha}{numeric, set the transparency of points}
 

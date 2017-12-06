@@ -8,6 +8,6 @@
 \description{
 The packge provides functions of calculating gene-set expression scores at a
 single-sample level and it is able to deal with single-sample input. It also
-includes efficient visulisation function for exploring the results as well as
-permutation test for significance test and plot null distribution.
+includes efficient visulisation function for exploring the results as well
+as permutation test for significance test and plot null distribution.
 }

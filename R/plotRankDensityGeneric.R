@@ -26,7 +26,7 @@ setGeneric("plotRankDensity",
            function (rankData,
                         upSet,
                         downSet = NULL,
-                        isInteractive = F,
+                        isInteractive = FALSE,
                         textSize = 1.5)
              standardGeneric("plotRankDensity"))
 
@@ -59,7 +59,7 @@ setMethod("plotRankDensity", signature(
 function(rankData,
          upSet,
          downSet = NULL,
-         isInteractive = F,
+         isInteractive = FALSE,
          textSize = 1.5) {
   plt <- plotRankDensity_intl(rankData,
                               upSet = upSet,
@@ -77,7 +77,7 @@ setMethod("plotRankDensity", signature(
 function(rankData,
          upSet,
          downSet = NULL,
-         isInteractive = F,
+         isInteractive = FALSE,
          textSize = 1.5) {
   upSet <- GSEABase::GeneSet(as.character(upSet))
   downSet <- GSEABase::GeneSet(as.character(downSet))
@@ -98,7 +98,7 @@ setMethod("plotRankDensity", signature(
 function(rankData,
          upSet,
          downSet = NULL,
-         isInteractive = F,
+         isInteractive = FALSE,
          textSize = 1.5) {
   
   plt <- plotRankDensity_intl(rankData,
@@ -118,7 +118,7 @@ setMethod("plotRankDensity", signature(
 function(rankData,
          upSet,
          downSet = NULL,
-         isInteractive = F,
+         isInteractive = FALSE,
          textSize = 1.5) {
   downSet <- GSEABase::GeneSet(as.character(downSet))
   
@@ -139,7 +139,7 @@ setMethod("plotRankDensity", signature(
 function(rankData,
          upSet,
          downSet = NULL,
-         isInteractive = F,
+         isInteractive = FALSE,
          textSize = 1.5) {
   upSet <- GSEABase::GeneSet(as.character(upSet))
   

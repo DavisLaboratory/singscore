@@ -5,7 +5,7 @@
 \title{Project data on the landscape plot obtained from \code{plotScoreLandscape()}}
 \usage{
 projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2, subSamples = NULL,
-  sampleLabels = NULL, annot = NULL, isInteractive = F)
+  sampleLabels = NULL, annot = NULL, isInteractive = FALSE)
 }
 \arguments{
 \item{plotObj}{a dataframe, resulted from \code{\link[=plotScoreLandscape]{plotScoreLandscape()}}}
