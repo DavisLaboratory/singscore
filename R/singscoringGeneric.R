@@ -56,8 +56,8 @@ function(rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
-                     centerScore = TRUE,
-                     dispersionFun = 'mad')
+                     centerScore = centerScore,
+                     dispersionFun = dispersionFun)
   return(df)
 })
 
@@ -77,8 +77,8 @@ function(rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
-                     centerScore = TRUE,
-                     dispersionFun = 'mad')
+                     centerScore = centerScore,
+                     dispersionFun = dispersionFun)
   return(df)
 })
 #' @rdname singscoring
@@ -99,8 +99,8 @@ function(rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
-                     centerScore = TRUE,
-                     dispersionFun = 'mad')
+                     centerScore = centerScore,
+                     dispersionFun = dispersionFun)
   return(df)
 })
 
@@ -121,8 +121,8 @@ function(rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
-                     centerScore = TRUE,
-                     dispersionFun = 'mad')
+                     centerScore = centerScore,
+                     dispersionFun = dispersionFun)
   return(df)
 })
 
@@ -144,8 +144,8 @@ function(rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
-                     centerScore = TRUE,
-                     dispersionFun = 'mad')
+                     centerScore = centerScore,
+                     dispersionFun = dispersionFun)
   return(df)
 })
 
@@ -167,7 +167,7 @@ function(rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
-                     centerScore = TRUE,
-                     dispersionFun = 'mad')
+                     centerScore = centerScore,
+                     dispersionFun = dispersionFun)
   return(df)
 })

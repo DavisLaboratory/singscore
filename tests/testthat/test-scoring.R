@@ -1,0 +1,51 @@
+context("test-scoring")
+
+test_that("score calculation works well with vector gene set ids", {
+  df <- as.data.frame(c(1,2,5,5))
+  colnames(df) <- 'test'
+  dfrMin <- rankExpr(df, tiesMethod = 'min')
+  rownames(dfrMin) <- c(1,2,3,4)
+  scoredfUp <- singscoring(dfrMin, upSet = c(3,4), centerScore = TRUE)
+  scoredfBoth <- singscoring(dfrMin, upSet = c(3,4), downSet = c(1))
+  
+  expect_that(dim(scoredfUp), equals(c(1,2)))
+  expect_that(scoredfUp, is_equivalent_to(data.frame(0.25, 0)))
+  expect_that(dim(scoredfBoth), equals(c(1,6)))
+  expect_that(scoredfBoth, 
+              is_equivalent_to(data.frame(1.25, 0, 0.75, 0, 0.5,0)))
+})
+
+test_that("score calculation works well with GeneSet", {
+  df <- as.data.frame(c(1,2,5,5))
+  colnames(df) <- 'test'
+  dfrMin <- rankExpr(df, tiesMethod = 'min')
+  rownames(dfrMin) <- c(1,2,3,4)
+  scoredfUp <- singscoring(dfrMin, 
+                           upSet = GSEABase::GeneSet(as.character(c(3,4))), 
+                           centerScore = FALSE)
+  scoredfBoth <- singscoring(dfrMin, 
+                             upSet = GSEABase::GeneSet(as.character(c(3,4))), 
+                             downSet = GSEABase::GeneSet(as.character(c(1))),
+                             centerScore = TRUE)
+  expect_that(dim(scoredfUp), equals(c(1,2)))
+  expect_that(scoredfUp, is_equivalent_to(data.frame(0.75, 0)))
+  expect_that(dim(scoredfBoth), equals(c(1,6)))
+  expect_that(scoredfBoth, 
+              is_equivalent_to(data.frame(1.25, 0, 0.75, 0, 0.5,0)))
+})
+test_that("score calculation works well with GeneSet or vector of gene ids", {
+  df <- as.data.frame(c(1,2,5,5))
+  colnames(df) <- 'test'
+  dfrMin <- rankExpr(df, tiesMethod = 'min')
+  rownames(dfrMin) <- c(1,2,3,4)
+  scoredfBoth <- singscoring(dfrMin, 
+                             upSet = GSEABase::GeneSet(as.character(c(3,4))), 
+                             downSet = c(1),
+                             centerScore = TRUE)
+  
+  expect_that(dim(scoredfUp), equals(c(1,2)))
+  expect_that(scoredfUp, is_equivalent_to(data.frame(0.75, 0)))
+  expect_that(dim(scoredfBoth), equals(c(1,6)))
+  expect_that(scoredfBoth, 
+              is_equivalent_to(data.frame(1.25, 0, 0.75, 0, 0.5,0)))
+})
