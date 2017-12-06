@@ -12,7 +12,6 @@
 #' @importFrom magrittr "%>%"
 #' @importClassesFrom edgeR DGEList
 #' @importClassesFrom Biobase ExpressionSet
-#' @importFrom Rdpack reprompt
 #' @docType package
 #' @name singscore
 NULL

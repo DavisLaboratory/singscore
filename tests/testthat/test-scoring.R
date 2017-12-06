@@ -1,6 +1,6 @@
 context("test-scoring")
 
-test_that("score calculation works well with vector gene set ids", {
+test_that("score calculation works well with vector ids", {
   df <- as.data.frame(c(1,2,5,5))
   colnames(df) <- 'test'
   dfrMin <- rankExpr(df, tiesMethod = 'min')
@@ -15,7 +15,7 @@ test_that("score calculation works well with vector gene set ids", {
               is_equivalent_to(data.frame(1.25, 0, 0.75, 0, 0.5,0)))
 })
 
-test_that("score calculation works well with GeneSet", {
+test_that("score calculation works well with GeneSet S4 object", {
   df <- as.data.frame(c(1,2,5,5))
   colnames(df) <- 'test'
   dfrMin <- rankExpr(df, tiesMethod = 'min')
@@ -38,6 +38,9 @@ test_that("score calculation works well with GeneSet or vector of gene ids", {
   colnames(df) <- 'test'
   dfrMin <- rankExpr(df, tiesMethod = 'min')
   rownames(dfrMin) <- c(1,2,3,4)
+  scoredfUp <- singscoring(dfrMin, 
+                           upSet = GSEABase::GeneSet(as.character(c(3,4))), 
+                           centerScore = FALSE)
   scoredfBoth <- singscoring(dfrMin, 
                              upSet = GSEABase::GeneSet(as.character(c(3,4))), 
                              downSet = c(1),
