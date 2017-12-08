@@ -7,11 +7,11 @@
 
 These instructions will get you to install the package up and running on your local machine. Please be aware that the package is still under development and we aim to submit the release version to [Bioconductor](https://www.bioconductor.org). If you experience any issues, please let us know via email 
 <ul>
- <li> Ruqian Lyu <lyu.r@wehi.edu.au> </li>
- <li> Momeneh Foroutan <foroutan.m@wehi.edu.au></li> 
- <li> Dharmesh Bhuva <bhuva.d@wehi.edu.au></li>
- <li> Joseph Cursons <cursons.j@wehi.edu.au></li>
- <li> Melissa Davis <davis.m@wehi.edu.au></li>
+ <li> Ruqian Lyu lyu.r@wehi.edu.au </li>
+ <li> Momeneh Foroutan foroutan.m@wehi.edu.au</li> 
+ <li> Dharmesh Bhuva bhuva.d@wehi.edu.au </li>
+ <li> Joseph Cursons cursons.j@wehi.edu.au</li>
+ <li> Melissa Davis davis.m@wehi.edu.au</li>
 </ul>
 
 ### Prerequisites
