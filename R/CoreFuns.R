@@ -343,7 +343,7 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #'   the same way as samples are ordered in the 'scoredf1' data matrix, default 
 #'   as NULL which means points are labelled by sample names.
 #' @param annot vector of characters, annotations to colour the data and should 
-#'  have the sample length with sampleLabels.
+#'  have the sample of length with number of samples in scoredfs
 #' @inheritParams plotScoreLandscape
 #' 
 #' @return New data points on the already plotted ggplot object from
@@ -365,22 +365,33 @@ projectScoreLandscape <- function(plotObj = NULL,
                                   annot = NULL,
                                   isInteractive = FALSE){
   #create data frame with the new data
-  
   #subsetting the two data frames, scoredfs
   if(! is.null(subSamples)){
     scoredf1 <- scoredf1[subSamples,]
     scoredf2 <- scoredf2[subSamples,]
+    if(anyNA(scoredf1)){
+      message('some selected samples not exist in provided scoredf1')
+      scoredf1 <- na.omit(scoredf1)
+    }
+    if(anyNA(scoredf2)){
+      message('some selected samples not exist in provided scoredf2')
+      scoredf2 <- na.omit(scoredf2)
+      
+    }
   }
   #if no sample labels are provided, the plot labels the points using sample 
   #names
   if (is.null(sampleLabels)) {
     sampleLabels <- rownames(scoredf1)
+  }else{
+    if(length(sampleLabels) != nrow(scoredf1))
+    stop("sampleLabels must have same number of labels with samples")
   }
   if (is.null(annot)) {
     annot = ''
   }
   newdata = data.frame(scoredf1$TotalScore, scoredf2$TotalScore, sampleLabels)
-
+  
   if (! is.ggplot(plotObj)) {
     stop('Please provide a ggplot object (',
          class(plotObj)[1], ' object given)')
