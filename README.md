@@ -106,4 +106,4 @@ plotScoreLandscape(scoredf_tumour_ep, scoredf_tumour_mes,
 `browseVignettes('singscore')`
 
 ### Linked Article
-TBA
+[Defining a landscape of molecular phenotypes using a simple single sample scoring method](https://www.biorxiv.org/content/early/2017/12/08/231217 )
