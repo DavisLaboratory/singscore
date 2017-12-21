@@ -2,7 +2,7 @@
 NULL
 
 ################################################################################
-####=========================== rankGenes() function ===========================
+####=========================== rankExpr() function ===========================
 ################################################################################
 
 #' Rank gene expression matrix
@@ -17,26 +17,27 @@ NULL
 #' @param tiesMethod A character, default as 'min'
 #' @return A matrix that has samples in colunm and genes in rows. Values are the
 #'   ranks of each gene in each sample.
+#' @keywords internal
 #' @seealso 
 #' [rankExpr()]
 #' @examples
-#' \dontrun{ranked <- rankGenes(toy_expr)}
-rankGenes <- function(exprsM, tiesMethod = "min") {
+#' \dontrun{ranked <- rankExpr(toy_expr)}
+rankExpr <- function(exprsM, tiesMethod = "min") {
     rankedData <- apply(exprsM, 2, rank, ties.method = tiesMethod)
     return (rankedData)
 }
 
 ################################################################################
-####========================= simpleScore() function ===========================
+####========================= singscoring() function ===========================
 ################################################################################
 
 #' Single-sample Gene-set scoring method
 #'
 #' @description This function takes a ranked gene expression matrix obtained
-#'   from \code{rankExpr}  function and a GeneSet object as input parameters. It
-#'   returns a data.frame consists of calculated scores and dispersions for each
-#'   sample. It is suggested to use the generic version of of this method which
-#'   can work with gene set stored in both vector or GeneSet.
+#'   from \code{rankGenes()}  function and a GeneSet object as input parameters.
+#'   It returns a data.frame consists of calculated scores and dispersions for
+#'   each sample. It is suggested to use the generic version of of this method
+#'   which can work with gene set stored in both vector or GeneSet.
 #'   
 #' @param rankData A matrix, ranked gene expression matrix data
 #' @param upSet A GeneSet object, up regulated gene set
@@ -46,16 +47,13 @@ rankGenes <- function(exprsM, tiesMethod = "min") {
 #' @param centerScore A Boolean, specifying whether scores should be centred
 #' @param dispersionFun A character, dispersion function with default as 'mad'
 #' @return A data.frame consists of scores and dispersions for all samples
+#' @keywords internal
 #' @seealso 
-#' [singscoring()]
+#' [simpleScore()]
 #' \code{"\linkS4class{GeneSet}"}
 
-simpleScore <- function (rankData,
-                         upSet,
-                         downSet = NULL,
-                         subSamples = NULL,
-                         centerScore = TRUE,
-                         dispersionFun = mad) {
+singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
+                         centerScore = TRUE, dispersionFun = mad) {
   #subset the data for samples whose calculation is to be performed
   if (!is.null(subSamples)) {
     rankData <- rankData[, subSamples, drop = FALSE]
@@ -98,7 +96,7 @@ simpleScore <- function (rankData,
     return(scoredf)
   } else{
     scoreDown <-
-      simpleScore(rankData, downSet, NULL, subSamples, FALSE, dispersionFun)
+      singscoring(rankData, downSet, NULL, subSamples, FALSE, dispersionFun)
     normDownScore <- 1 - scoreDown$TotalScore
     downDispersion <- scoreDown$TotalDispersion
     
@@ -126,10 +124,10 @@ simpleScore <- function (rankData,
 ################################################################################
 
 #' Plot the score v.s. despersion for all samples
-#' @description This function takes the output from the singscoring() function
+#' @description This function takes the output from the simpleScore() function
 #'   and plots scatter plots for the score vs the dispersion for the total
 #'   score, the up score and the down score of samples. The plots 
-#' @param scoredf data.frame, results of the singscoring() function
+#' @param scoredf data.frame, results of the simpleScore() function
 #' @param annot any annotation provided by the user that needs to be plot
 #' annot must be ordered in the same was as the scores
 #' @param alpha numeric, set the transparency of points
@@ -138,8 +136,8 @@ simpleScore <- function (rankData,
 #' values
 #' @param isInteractive Boolean, Determine whether the plot is interactive
 #' @examples
-#' ranked <- rankExpr(toy_expr)
-#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
+#' ranked <- rankGenes(toy_expr)
+#' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 #' plotDispersion(scoredf)
 #' plotDispersion(scoredf, isInteractive = TRUE)
 #' @return A ggplot object
@@ -166,9 +164,13 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
     plotdf = rbind(total, up, down)
   }
   colnames(plotdf)[1:4] = c('Score', 'Dispersion', 'SampleID', 'Annotation')
-
+  Annotation <- NULL
+  Score <- NULL
+  Dispersion <- NULL
+  SampleID <- NULL
+  
   #Scatter plot
-  p = ggplot(plotdf, aes(Score, Dispersion, text = SampleID))
+  p = with(plotdf,{ ggplot(plotdf, aes(Score, Dispersion, text = SampleID))})
   #colour by classification
   if (is.null(annot)) {
     p = p + geom_point(alpha = alpha, size = size)
@@ -243,12 +245,12 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 
 #' Plot landscape of two gene signatures scores
 #' @description This function takes two data frames which are outputs from the
-#'   singscoring() function and plots the relationship between the two gene set
+#'   simpleScore() function and plots the relationship between the two gene set
 #'   scores for samples in the gene expression matrix.
 #'
-#' @param scoredf1 data.frame, result of the singscoring() function which scores
+#' @param scoredf1 data.frame, result of the simpleScore() function which scores
 #'   the gene expression matrix against a gene set of interest
-#' @param scoredf2 data.frame, result of the singscoring() function which scores
+#' @param scoredf2 data.frame, result of the simpleScore() function which scores
 #'   the gene expression matrix against another gene set of interest
 #' @param scorenames character vector of length 2, names for the two scored gene
 #'   set/signatures stored in scoredf1 and scoredf2
@@ -260,9 +262,9 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' @return A ggplot object, a scatter plot, demostrating the relationship
 #'   between scores from two signatures on the same set of samples.
 #' @examples
-#' ranked <- rankExpr(toy_expr)
-#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-#' scoredf2 <- singscoring(ranked, upSet = toy_up)
+#' ranked <- rankGenes(toy_expr)
+#' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+#' scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
 #' plotScoreLandscape(scoredf, scoredf2)
 #' @export
 plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
@@ -351,9 +353,9 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #' @seealso 
 #' [plotScoreLandscape()]
 #' @examples
-#' ranked <- rankExpr(toy_expr)
-#' scoredf1 <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-#' scoredf2 <- singscoring(ranked, upSet = toy_up)
+#' ranked <- rankGenes(toy_expr)
+#' scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+#' scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
 #' psl <- plotScoreLandscape(scoredf1, scoredf2)
 #' projectScoreLandscape(psl,scoredf1, scoredf2)
 #' @export
@@ -398,9 +400,11 @@ projectScoreLandscape <- function(plotObj = NULL,
   }
 
   plabs = c(plotObj$labels$x, plotObj$labels$y)
+  Annotation <- NULL
+  SampleLabel <- NULL
   colnames(newdata) = c(plabs, 'SampleLabel')
   newdata[, 'Annotation'] = as.factor(annot) #need to make it work for factor
-
+  
   #need to deal with legends in both interactive and non-interactive
   if (!isInteractive) {
     #add layer with new data
@@ -467,7 +471,7 @@ projectScoreLandscape <- function(plotObj = NULL,
 #' and it returns plots visualising the density and the rugs of the ran ks.
 #'
 #' @param rankData one column of the ranked gene expression matrix obtained from
-#' the [rankExpr()] function, use drop = FALSE when subsetting the ranked gene 
+#' the [rankGenes()] function, use drop = FALSE when subsetting the ranked gene 
 #' expression matrix, see examples.
 #' @param isInteractive Boolean, determin whether the returned plot is
 #'   interactive
@@ -521,7 +525,9 @@ plotRankDensity_intl <- function (rankData,
     downRank = data.frame(downRanks, type =  "Down Gene-set")
     allRanks = rbind(upRank, downRank)
   }
-
+  Ranks <- NULL
+  upDown <- NULL
+  EntrezID <- NULL
   colnames(allRanks) <- c("Ranks", "upDown")
   allRanks$EntrezID <- row.names(allRanks)
 
@@ -533,11 +539,14 @@ plotRankDensity_intl <- function (rankData,
   typemap = c('Up-regulated gene', 'Down-regulated gene')
   names(colmap) = names(ymap)  = c('Up Gene-set', 'Down Gene-set')
   names(yendmap) = names(typemap) = c('Up Gene-set', 'Down Gene-set')
-
+  ..density.. <- NULL
+  
   #plot density and calculate max density and barcode line heights and
   #positions
-  p = ggplot(allRanks, aes(x = Ranks, col = upDown)) +
-    stat_density(aes(y = ..density..), geom = 'line', position = 'identity')
+  p =with(allRanks,{
+    ggplot(allRanks, aes(x = Ranks, col = upDown)) +
+      stat_density(aes(y = ..density..), geom = 'line', position = 'identity')
+  })
 
   dens = ggplot_build(p)$data[[1]]$density
   ymap[1] = round(max(dens), digits = 1) + 0.1
@@ -612,7 +621,7 @@ plotRankDensity_intl <- function (rankData,
 }
 
 #' @title Permutation test for the derived scores of each sample
-#' 
+#'
 #' @description This function randomly generates a number of gene sets which
 #'   have the same number of genes as the scored gene set. It scores each random
 #'   gene set and return a matrix with scores for each permutation across all
@@ -622,7 +631,7 @@ plotRankDensity_intl <- function (rankData,
 #' @param n_up integer,  size of up set
 #' @param n_down integer, size of down set
 #' @param rankData matrix, outcome of function [rankExpr()]
-#' @param B integer, the number of permutation repeats default as 1000 
+#' @param B integer, the number of permutation repeats default as 1000
 #' @param seed integer, set the seed for randomisation
 #'
 #' @return A matrix of empircal scores for each sample
@@ -632,18 +641,18 @@ plotRankDensity_intl <- function (rankData,
 #' @author Ruqian Lyu
 #' @export
 #' @examples
-#' ranked <- rankExpr(toy_expr)
-#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-#' n_up = length(GSEABase::geneIds(toy_up))
-#' n_down = length(GSEABase::geneIds(toy_dn))
+#' ranked <- rankGenes(toy_expr)
+#' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+#' n_up = length(GSEABase::geneIds(toy_gs_up))
+#' n_down = length(GSEABase::geneIds(toy_gs_dn))
 #' # find out what backends can be registered on your machine
 #' BiocParallel::registered()
 #' # the first one is the default backend, and it can be changed explicitly.
-#' permuteResult = permuteScores(n_up = n_up, n_down = n_down, ranked, B =10,
+#' permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
 #' seed = 1) # call the permutation function to generate the empirical scores 
 #' #for B times.
 
-permuteScores <- function(n_up, n_down, rankData, B = 1000, seed = 1){
+generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
   set.seed(seed)
   all_genes <- rownames(rankData)
   totalNo <- n_up + n_down
@@ -656,10 +665,10 @@ permuteScores <- function(n_up, n_down, rankData, B = 1000, seed = 1){
     if (n_down > 0) {
       upSet <-  GeneSet(as.character(tms[1:n_up]))
       downSet <-  GeneSet(as.character(tms[-(1:n_up)]))
-      ss = singscoring(rankData, upSet = upSet, downSet = downSet)
+      ss = simpleScore(rankData, upSet = upSet, downSet = downSet)
     } else {
       #else all the random generated genes are in upSet
-      ss = singscoring(rankData, upSet = GeneSet(as.character(tms)))
+      ss = simpleScore(rankData, upSet = GeneSet(as.character(tms)))
     }
     ss[, 1]
   })
@@ -671,27 +680,27 @@ permuteScores <- function(n_up, n_down, rankData, B = 1000, seed = 1){
 #' Calculate the empirical p values
 #'
 #' @description This function takes the permutation results, which is the
-#'   empirical scores, and the calculated sample scores using [singscoring()] as
+#'   empirical scores, and the calculated sample scores using [simpleScore()] as
 #'   input. It calculates the empirical p values of the simple sample scoring
 #'   test using formula p = (r+1)/(m+1) where r is the number of empirical
 #'   scores that are larger than the obtained score and m is the total number of
-#'   permutation run which is the B parameter in [permuteScores()]
+#'   permutation run which is the B parameter in [generateNull()]
 #'
-#' @param permuResult A matrix, result from [permuteScores()] function
-#' @param scoredf A dataframe, result from [singscoring()] function
+#' @param permuResult A matrix, result from [generateNull()] function
+#' @param scoredf A dataframe, result from [simpleScore()] function
 #'
 #' @return pvals for each sample, the calculated empirical p values for all
 #'   empirical sample scores null distribution
 #' @author Ruqian Lyu
 #' @examples
-#' ranked <- rankExpr(toy_expr)
-#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-#' n_up = length(GSEABase::geneIds(toy_up))
-#' n_down = length(GSEABase::geneIds(toy_dn))
+#' ranked <- rankGenes(toy_expr)
+#' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+#' n_up = length(GSEABase::geneIds(toy_gs_up))
+#' n_down = length(GSEABase::geneIds(toy_gs_dn))
 #' # find out what backends can be registered on your machine
 #' BiocParallel::registered()
 #' # the first one is the default backend, and it can be changed explicitly.
-#' permuteResult = permuteScores(n_up = n_up, n_down = n_down, ranked, B =10,
+#' permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
 #' seed = 1) # call the permutation function to generate the empirical scores 
 #' #for B times.
 #' pvals <- getPvals(permuteResult,scoredf)
@@ -712,13 +721,13 @@ getPvals <- function(permuResult,scoredf){
 
 #' Plot the empirical null distribution using the permutation result
 #' 
-#' @description This function takes the results from function [permuteScores()] 
+#' @description This function takes the results from function [generateNull()] 
 #' and plots the density curves of empirical scores for the provided samples via
 #' \code{sampleNames} parameter. It can plot null distribution for a single 
 #' sample or multiple samples.
 #' 
-#' @param permuResult A matrix, outcome from function [permuteScores()]
-#' @param scoredf A dataframe, outcome from function [singscoring()]
+#' @param permuResult A matrix, outcome from function [generateNull()]
+#' @param scoredf A dataframe, outcome from function [simpleScore()]
 #' @param pvals A vector, outcome of function [getPvals()]
 #' @param sampleNames A vector of character, sample names or multiple sample 
 #' labels
@@ -730,14 +739,14 @@ getPvals <- function(permuResult,scoredf){
 #' @return a ggplot object
 #' @author Ruqian Lyu
 #' @examples
-#' ranked <- rankExpr(toy_expr)
-#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-#' n_up = length(GSEABase::geneIds(toy_up))
-#' n_down = length(GSEABase::geneIds(toy_dn))
+#' ranked <- rankGenes(toy_expr)
+#' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+#' n_up = length(GSEABase::geneIds(toy_gs_up))
+#' n_down = length(GSEABase::geneIds(toy_gs_dn))
 #' # find out what backends can be registered on your machine
 #' BiocParallel::registered()
 #' # the first one is the default backend, and it can be changed explicitly.
-#' permuteResult = permuteScores(n_up = n_up, n_down = n_down, ranked, B =10,
+#' permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
 #' seed = 1) # call the permutation function to generate the empirical scores 
 #' #for B times.
 #' pvals <- getPvals(permuteResult,scoredf)
@@ -776,6 +785,8 @@ plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
       #by.y = 'sampleNames')
       sampleLSc <- merge(sampleLSc,cutoff_annot)
       sampleLSc <- merge(sampleLSc, pvalTitle)
+      value <- NULL
+      TotalScore <- NULL
       #browser()
       plotObj <-  ggplot(data = sampleLSc)+
         geom_density(mapping = aes( x = value), size =1)+

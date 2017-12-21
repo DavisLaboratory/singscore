@@ -10,10 +10,10 @@ projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2, subSamples = NULL,
 \arguments{
 \item{plotObj}{a dataframe, resulted from \code{\link[=plotScoreLandscape]{plotScoreLandscape()}}}
 
-\item{scoredf1}{data.frame, result of the singscoring() function which scores
+\item{scoredf1}{data.frame, result of the simpleScore() function which scores
 the gene expression matrix against a gene set of interest}
 
-\item{scoredf2}{data.frame, result of the singscoring() function which scores
+\item{scoredf2}{data.frame, result of the simpleScore() function which scores
 the gene expression matrix against another gene set of interest}
 
 \item{subSamples}{vector of character or indices for subsetting the scoredfs,
@@ -24,7 +24,7 @@ the same way as samples are ordered in the 'scoredf1' data matrix, default
 as NULL which means points are labelled by sample names.}
 
 \item{annot}{vector of characters, annotations to colour the data and should
-have the sample length with sampleLabels.}
+have the sample of length with number of samples in scoredfs}
 
 \item{isInteractive}{boolean, whether the plot is interactive default as
 FALSE}
@@ -39,9 +39,9 @@ This function takes the output (ggplot object) of the
 ggplot object and returns a ggplot object with projected data points.
 }
 \examples{
-ranked <- rankExpr(toy_expr)
-scoredf1 <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-scoredf2 <- singscoring(ranked, upSet = toy_up)
+ranked <- rankGenes(toy_expr)
+scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
 psl <- plotScoreLandscape(scoredf1, scoredf2)
 projectScoreLandscape(psl,scoredf1, scoredf2)
 }

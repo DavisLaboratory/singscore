@@ -8,9 +8,9 @@ plotNull(permuResult, scoredf, pvals, sampleNames = NULL, cutoff = 0.01,
   alpha = 1, size = 1, textSize = 2, labelSize = 5)
 }
 \arguments{
-\item{permuResult}{A matrix, outcome from function \code{\link[=permuteScores]{permuteScores()}}}
+\item{permuResult}{A matrix, outcome from function \code{\link[=generateNull]{generateNull()}}}
 
-\item{scoredf}{A dataframe, outcome from function \code{\link[=singscoring]{singscoring()}}}
+\item{scoredf}{A dataframe, outcome from function \code{\link[=simpleScore]{simpleScore()}}}
 
 \item{pvals}{A vector, outcome of function \code{\link[=getPvals]{getPvals()}}}
 
@@ -31,20 +31,20 @@ labels}
 a ggplot object
 }
 \description{
-This function takes the results from function \code{\link[=permuteScores]{permuteScores()}}
+This function takes the results from function \code{\link[=generateNull]{generateNull()}}
 and plots the density curves of empirical scores for the provided samples via
 \code{sampleNames} parameter. It can plot null distribution for a single
 sample or multiple samples.
 }
 \examples{
-ranked <- rankExpr(toy_expr)
-scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-n_up = length(GSEABase::geneIds(toy_up))
-n_down = length(GSEABase::geneIds(toy_dn))
+ranked <- rankGenes(toy_expr)
+scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+n_up = length(GSEABase::geneIds(toy_gs_up))
+n_down = length(GSEABase::geneIds(toy_gs_dn))
 # find out what backends can be registered on your machine
 BiocParallel::registered()
 # the first one is the default backend, and it can be changed explicitly.
-permuteResult = permuteScores(n_up = n_up, n_down = n_down, ranked, B =10,
+permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
 seed = 1) # call the permutation function to generate the empirical scores 
 #for B times.
 pvals <- getPvals(permuteResult,scoredf)

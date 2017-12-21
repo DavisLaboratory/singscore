@@ -1,9 +1,9 @@
 context("projectScoreLandscape")
 
 test_that("projectScoreLandscape works", {
-  ranked <- rankExpr(toy_expr)
-  scoredf1 <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-  scoredf2 <- singscoring(ranked, upSet = toy_up)
+  ranked <- rankGenes(toy_expr)
+  scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+  scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
   psl <- plotScoreLandscape(scoredf1, scoredf2)
   
   expect_true(ggplot2::is.ggplot(

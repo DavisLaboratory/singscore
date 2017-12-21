@@ -3,10 +3,10 @@ context("test-scoring")
 test_that("score calculation works well with vector ids", {
   df <- as.data.frame(c(1,2,5,5))
   colnames(df) <- 'test'
-  dfrMin <- rankExpr(df, tiesMethod = 'min')
+  dfrMin <- rankGenes(df, tiesMethod = 'min')
   rownames(dfrMin) <- c(1,2,3,4)
-  scoredfUp <- singscoring(dfrMin, upSet = c(3,4), centerScore = TRUE)
-  scoredfBoth <- singscoring(dfrMin, upSet = c(3,4), downSet = c(1))
+  scoredfUp <- simpleScore(dfrMin, upSet = c(3,4), centerScore = TRUE)
+  scoredfBoth <- simpleScore(dfrMin, upSet = c(3,4), downSet = c(1))
   
   expect_that(dim(scoredfUp), equals(c(1,2)))
   expect_that(scoredfUp, is_equivalent_to(data.frame(0.25, 0)))
@@ -18,12 +18,12 @@ test_that("score calculation works well with vector ids", {
 test_that("score calculation works well with GeneSet S4 object", {
   df <- as.data.frame(c(1,2,5,5))
   colnames(df) <- 'test'
-  dfrMin <- rankExpr(df, tiesMethod = 'min')
+  dfrMin <- rankGenes(df, tiesMethod = 'min')
   rownames(dfrMin) <- c(1,2,3,4)
-  scoredfUp <- singscoring(dfrMin, 
+  scoredfUp <- simpleScore(dfrMin, 
                            upSet = GSEABase::GeneSet(as.character(c(3,4))), 
                            centerScore = FALSE)
-  scoredfBoth <- singscoring(dfrMin, 
+  scoredfBoth <- simpleScore(dfrMin, 
                              upSet = GSEABase::GeneSet(as.character(c(3,4))), 
                              downSet = GSEABase::GeneSet(as.character(c(1))),
                              centerScore = TRUE)
@@ -36,12 +36,12 @@ test_that("score calculation works well with GeneSet S4 object", {
 test_that("score calculation works well with GeneSet or vector of gene ids", {
   df <- as.data.frame(c(1,2,5,5))
   colnames(df) <- 'test'
-  dfrMin <- rankExpr(df, tiesMethod = 'min')
+  dfrMin <- rankGenes(df, tiesMethod = 'min')
   rownames(dfrMin) <- c(1,2,3,4)
-  scoredfUp <- singscoring(dfrMin, 
+  scoredfUp <- simpleScore(dfrMin, 
                            upSet = GSEABase::GeneSet(as.character(c(3,4))), 
                            centerScore = FALSE)
-  scoredfBoth <- singscoring(dfrMin, 
+  scoredfBoth <- simpleScore(dfrMin, 
                              upSet = GSEABase::GeneSet(as.character(c(3,4))), 
                              downSet = c(1),
                              centerScore = TRUE)

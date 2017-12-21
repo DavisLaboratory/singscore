@@ -36,6 +36,6 @@ Molecular Cancer Research. American Association for Cancer Research.
 doi:10.1158/1541-7786.MCR-16-0313.
 }
 \seealso{
-\code{[scoredf_ccle_ep]}
+\code{[scoredf_ccle_epi]}
 }
 \keyword{datasets}

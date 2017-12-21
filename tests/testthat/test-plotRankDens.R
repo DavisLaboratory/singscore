@@ -1,25 +1,25 @@
 context("testing plotRankDensity function ")
 
 test_that("plotRankDensity is plotting", {
-  ranked <- rankExpr(toy_expr)
-  plt <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_up)
-  plt2 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_up,
-                         downSet = toy_dn)
+  ranked <- rankGenes(toy_expr)
+  plt <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up)
+  plt2 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up,
+                         downSet = toy_gs_dn)
   expect_true(ggplot2::is.ggplot(plt))
   expect_true(ggplot2::is.ggplot(plt2))
- # expect_error(plotRankDensity(ranked[,2], upSet = toy_up))
+ # expect_error(plotRankDensity(ranked[,2], upSet = toy_gs_up))
 })
 
 test_that("Generic features for plotRankDensity",{
-  ranked <- rankExpr(toy_expr)
-  geneIdUp <- GSEABase::geneIds(toy_up)
-  geneIdDn <- GSEABase::geneIds(toy_dn)
+  ranked <- rankGenes(toy_expr)
+  geneIdUp <- GSEABase::geneIds(toy_gs_up)
+  geneIdDn <- GSEABase::geneIds(toy_gs_dn)
   
   plt <- plotRankDensity(ranked[,2,drop = FALSE], upSet = geneIdUp)
-  plt1 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_up)
+  plt1 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up)
   plt2 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = geneIdUp,
-                          downSet = toy_dn)
-  plt3 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_up,
+                          downSet = toy_gs_dn)
+  plt3 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up,
                           downSet = geneIdDn)
   expect_true(ggplot2::is.ggplot(plt))
   expect_true(ggplot2::is.ggplot(plt2))

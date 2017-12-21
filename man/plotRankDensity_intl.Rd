@@ -9,7 +9,7 @@ plotRankDensity_intl(rankData, upSet, downSet = NULL, isInteractive = FALSE,
 }
 \arguments{
 \item{rankData}{one column of the ranked gene expression matrix obtained from
-the \code{\link[=rankExpr]{rankExpr()}} function, use drop = FALSE when subsetting the ranked gene
+the \code{\link[=rankGenes]{rankGenes()}} function, use drop = FALSE when subsetting the ranked gene
 expression matrix, see examples.}
 
 \item{upSet}{GeneSet object, up regulated gene set}

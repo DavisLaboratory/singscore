@@ -3,7 +3,7 @@ NULL
 
 #'@title single-sample gene-set scoring method
 #'@description This function takes a ranked gene expression matrix obtained from
-#'  \code{rankExpr} (or \code{rankGenes}) function and gene sets as input and
+#'  \code{rankGenes()} function and gene sets as input and
 #'  calulate the scores for each individual sample against gene set. It returns
 #'  a data.frame consists of scores and dispersions for each sample. The gene
 #'  sets can be in vector format or GeneSet S4 object. Down set can be null if 
@@ -21,26 +21,26 @@ NULL
 #' @return A data.frame consists of scores and dispersions for all samples
 #'
 #' @examples
-#' ranked <- rankExpr(toy_expr)
-#' scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-#' # toy_up is a GeneSet object, alternatively a vector of gene ids may also 
+#' ranked <- rankGenes(toy_expr)
+#' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+#' # toy_gs_up is a GeneSet object, alternatively a vector of gene ids may also 
 #' # be supplied.
 #'@seealso 
 #'\code{\link{rank}} 
 #'\code{"\linkS4class{GeneSet}"}
 #'
 #'@export
-setGeneric("singscoring",
+setGeneric("simpleScore",
             function(rankData,
                     upSet,
                     downSet = NULL,
                     subSamples = NULL,
                     centerScore = TRUE,
                     dispersionFun = 'mad')
-             standardGeneric("singscoring"))
+             standardGeneric("simpleScore"))
 
-#' @rdname singscoring
-setMethod("singscoring", signature(
+#' @rdname simpleScore
+setMethod("simpleScore", signature(
   rankData = 'ANY',
   upSet = 'vector',
   downSet = 'missing'
@@ -52,7 +52,7 @@ function(rankData,
          centerScore = TRUE,
          dispersionFun = 'mad') {
   upSet <- GSEABase::GeneSet(as.character(upSet))
-  df <- simpleScore( rankData,
+  df <- singscoring( rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
@@ -61,8 +61,8 @@ function(rankData,
   return(df)
 })
 
-#' @rdname singscoring
-setMethod("singscoring", signature(
+#' @rdname simpleScore
+setMethod("simpleScore", signature(
   rankData = 'ANY',
   upSet = 'GeneSet',
   downSet = 'missing'
@@ -73,7 +73,7 @@ function(rankData,
          subSamples = NULL,
          centerScore = TRUE,
          dispersionFun = 'mad') {
-  df <- simpleScore( rankData,
+  df <- singscoring( rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
@@ -81,8 +81,8 @@ function(rankData,
                      dispersionFun = dispersionFun)
   return(df)
 })
-#' @rdname singscoring
-setMethod("singscoring", signature(
+#' @rdname simpleScore
+setMethod("simpleScore", signature(
   rankData = 'ANY',
   upSet = 'vector',
   downSet = 'vector'
@@ -95,7 +95,7 @@ function(rankData,
          dispersionFun = 'mad') {
   upSet <- GSEABase::GeneSet(as.character(upSet))
   downSet <- GSEABase::GeneSet(as.character(downSet))
-  df <- simpleScore( rankData,
+  df <- singscoring( rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
@@ -104,8 +104,8 @@ function(rankData,
   return(df)
 })
 
-#' @rdname singscoring
-setMethod("singscoring", signature(
+#' @rdname simpleScore
+setMethod("simpleScore", signature(
   rankData = 'ANY',
   upSet = 'GeneSet',
   downSet = 'GeneSet'
@@ -117,7 +117,7 @@ function(rankData,
          centerScore = TRUE,
          dispersionFun = 'mad') {
  
-  df <- simpleScore( rankData,
+  df <- singscoring( rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
@@ -126,8 +126,8 @@ function(rankData,
   return(df)
 })
 
-#' @rdname singscoring
-setMethod("singscoring", signature(
+#' @rdname simpleScore
+setMethod("simpleScore", signature(
   rankData = 'ANY',
   upSet = 'GeneSet',
   downSet = 'vector'
@@ -140,7 +140,7 @@ function(rankData,
          dispersionFun = 'mad') {
   downSet <- GSEABase::GeneSet(as.character(downSet))
   
-  df <- simpleScore( rankData,
+  df <- singscoring( rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,
@@ -149,8 +149,8 @@ function(rankData,
   return(df)
 })
 
-#' @rdname singscoring
-setMethod("singscoring", signature(
+#' @rdname simpleScore
+setMethod("simpleScore", signature(
   rankData = 'ANY',
   upSet = 'vector',
   downSet = 'GeneSet'
@@ -163,7 +163,7 @@ function(rankData,
          dispersionFun = 'mad') {
   upSet <- GSEABase::GeneSet(as.character(upSet))
   
-  df <- simpleScore( rankData,
+  df <- singscoring( rankData,
                      upSet = upSet,
                      downSet = downSet,
                      subSamples = subSamples,

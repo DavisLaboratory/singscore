@@ -44,25 +44,25 @@ NULL
 #'
 #' A GeneSet object that represents the down-regulated gene set in a gene
 #' signature and it consists of five genes which are randomly selected from the
-#' gene list in \code{toy_expr} but has no overlap with \code{toy_up}.
+#' gene list in \code{toy_expr} but has no overlap with \code{toy_gs_up}.
 #' 
 #' @format A GSEABase::GeneSet obeject with 5 genes
 #' @docType data
 #' @seealso 
-#' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_up]
-"toy_dn"
+#' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_gs_up]
+"toy_gs_dn"
 
 #' Gene set of 5 genes
 #'
 #' A GeneSet object that represents the up-regulated gene set in a gene
 #' signature and it consists of five genes which are randomly selected from the
-#' gene list in \code{toy_expr} but has no overlap with \code{toy_dn}.
+#' gene list in \code{toy_expr} but has no overlap with \code{toy_gs_dn}.
 #'
 #' @format A GeneSet obeject with 5 genes
 #' @docType data
 #' @seealso 
-#' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_dn]
-"toy_up"
+#' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_gs_dn]
+"toy_gs_up"
 
 #' Gene expression data.frame
 #'
@@ -171,7 +171,7 @@ NULL
 #' Molecular Cancer Research. American Association for Cancer Research. 
 #' doi:10.1158/1541-7786.MCR-16-0313.
 #' 
-"scoredf_ccle_ep"
+"scoredf_ccle_epi"
 
 
 #' Scoring results of a CCLE dataset against an mesenchymal gene signature
@@ -184,7 +184,7 @@ NULL
 #' Please refer to the vignettes for the steps to aquaire the exact data object.
 #'
 #' @seealso 
-#' \code{[scoredf_ccle_ep]}
+#' \code{[scoredf_ccle_epi]}
 #' @references 
 #' Barretina, Jordi, Giordano Caponigro, Nicolas Stransky, Kavitha Venkatesan,
 #' Adam A Margolin, Sungjoon Kim, Christopher J Wilson, et al. 2012. 
@@ -214,14 +214,14 @@ NULL
 #' Please refer to the vignettes for the steps to aquaire the exact data object.
 #'
 #' @seealso 
-#' [scoredf_tumour_mes]
+#' [scoredf_tcga_mes]
 #' @references 
 #' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
 #' Erik W Thompson, and Melissa J Davis. 2017. 
 #' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
 #' Molecular Cancer Research. American Association for Cancer Research. 
 #' doi:10.1158/1541-7786.MCR-16-0313.
-"scoredf_tumour_ep"
+"scoredf_tcga_epi"
 
 #' Scoring results of TCGA tumour gene expression matrix
 #'
@@ -233,11 +233,11 @@ NULL
 #' vignettes for the steps to aquaire the exact data object.
 #'
 #' @seealso 
-#' [scoredf_tumour_ep]
+#' [scoredf_tcga_epi]
 #' @references 
 #' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
 #' Erik W Thompson, and Melissa J Davis. 2017. 
 #' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
 #' Molecular Cancer Research. American Association for Cancer Research. 
 #' doi:10.1158/1541-7786.MCR-16-0313.
-"scoredf_tumour_mes"
+"scoredf_tcga_mes"

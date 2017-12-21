@@ -8,10 +8,10 @@ plotScoreLandscape(scoredf1, scoredf2, scorenames = c(), textSize = 1.5,
   isInteractive = FALSE, hexMin = 100)
 }
 \arguments{
-\item{scoredf1}{data.frame, result of the singscoring() function which scores
+\item{scoredf1}{data.frame, result of the simpleScore() function which scores
 the gene expression matrix against a gene set of interest}
 
-\item{scoredf2}{data.frame, result of the singscoring() function which scores
+\item{scoredf2}{data.frame, result of the simpleScore() function which scores
 the gene expression matrix against another gene set of interest}
 
 \item{scorenames}{character vector of length 2, names for the two scored gene
@@ -31,12 +31,12 @@ between scores from two signatures on the same set of samples.
 }
 \description{
 This function takes two data frames which are outputs from the
-singscoring() function and plots the relationship between the two gene set
+simpleScore() function and plots the relationship between the two gene set
 scores for samples in the gene expression matrix.
 }
 \examples{
-ranked <- rankExpr(toy_expr)
-scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-scoredf2 <- singscoring(ranked, upSet = toy_up)
+ranked <- rankGenes(toy_expr)
+scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
 plotScoreLandscape(scoredf, scoredf2)
 }

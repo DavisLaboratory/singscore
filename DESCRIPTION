@@ -38,8 +38,8 @@ Collate:
     'singscore.R'
     'CoreFuns.R'
     'plotRankDensityGeneric.R'
-    'rankExprGeneric.R'
-    'singscoringGeneric.R'
+    'rankGenesGeneric.R'
+    'simpleScoreGeneric.R'
 Suggests: knitr,
     rmarkdown,
     testthat

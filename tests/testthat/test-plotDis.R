@@ -1,8 +1,8 @@
 context("plotDis")
 
 test_that("plotDis works", {
-  ranked <- rankExpr(toy_expr)
-  scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
+  ranked <- rankGenes(toy_expr)
+  scoredf <- singscoring(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
   plt1 <- plotDispersion(scoredf)
   plt2 <- plotDispersion(scoredf, annot = c(1,2))
   

@@ -7,9 +7,9 @@
 getPvals(permuResult, scoredf)
 }
 \arguments{
-\item{permuResult}{A matrix, result from \code{\link[=permuteScores]{permuteScores()}} function}
+\item{permuResult}{A matrix, result from \code{\link[=generateNull]{generateNull()}} function}
 
-\item{scoredf}{A dataframe, result from \code{\link[=singscoring]{singscoring()}} function}
+\item{scoredf}{A dataframe, result from \code{\link[=simpleScore]{simpleScore()}} function}
 }
 \value{
 pvals for each sample, the calculated empirical p values for all
@@ -17,21 +17,21 @@ empirical sample scores null distribution
 }
 \description{
 This function takes the permutation results, which is the
-empirical scores, and the calculated sample scores using \code{\link[=singscoring]{singscoring()}} as
+empirical scores, and the calculated sample scores using \code{\link[=simpleScore]{simpleScore()}} as
 input. It calculates the empirical p values of the simple sample scoring
 test using formula p = (r+1)/(m+1) where r is the number of empirical
 scores that are larger than the obtained score and m is the total number of
-permutation run which is the B parameter in \code{\link[=permuteScores]{permuteScores()}}
+permutation run which is the B parameter in \code{\link[=generateNull]{generateNull()}}
 }
 \examples{
-ranked <- rankExpr(toy_expr)
-scoredf <- singscoring(ranked, upSet = toy_up, downSet = toy_dn)
-n_up = length(GSEABase::geneIds(toy_up))
-n_down = length(GSEABase::geneIds(toy_dn))
+ranked <- rankGenes(toy_expr)
+scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+n_up = length(GSEABase::geneIds(toy_gs_up))
+n_down = length(GSEABase::geneIds(toy_gs_dn))
 # find out what backends can be registered on your machine
 BiocParallel::registered()
 # the first one is the default backend, and it can be changed explicitly.
-permuteResult = permuteScores(n_up = n_up, n_down = n_down, ranked, B =10,
+permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
 seed = 1) # call the permutation function to generate the empirical scores 
 #for B times.
 pvals <- getPvals(permuteResult,scoredf)
