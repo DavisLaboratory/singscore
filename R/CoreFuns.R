@@ -94,7 +94,7 @@ singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
       data.frame("TotalScore" = normUpScore, "TotalDispersion" = upDispersion)
     rownames(scoredf) <- colnames(rankData)
     return(scoredf)
-  } else{
+  } else {
     scoreDown <-
       singscoring(rankData, downSet, NULL, subSamples, FALSE, dispersionFun)
     normDownScore <- 1 - scoreDown$TotalScore
@@ -102,6 +102,7 @@ singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
     
     #if centering
     if (centerScore) {
+      normUpScore <- normUpScore - 0.5
       normDownScore <- normDownScore - 0.5
     }
     
@@ -665,10 +666,10 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
     if (n_down > 0) {
       upSet <-  GeneSet(as.character(tms[1:n_up]))
       downSet <-  GeneSet(as.character(tms[-(1:n_up)]))
-      ss = simpleScore(rankData, upSet = upSet, downSet = downSet)
+      ss <-  simpleScore(rankData, upSet = upSet, downSet = downSet)
     } else {
       #else all the random generated genes are in upSet
-      ss = simpleScore(rankData, upSet = GeneSet(as.character(tms)))
+      ss <- simpleScore(rankData, upSet = GeneSet(as.character(tms)))
     }
     ss[, 1]
   })
