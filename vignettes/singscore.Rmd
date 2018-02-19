@@ -29,7 +29,7 @@ This vignette demonstrates how to use the functions in R package 'singscore' to 
 ```{r installation, eval=FALSE}
 # You would need to install 'devtools' package first.
 library(devtools)
-install_github("https://github.com/Rachael-rq/'singscore'")
+install_github('DavisLaboratory/singscore')
 
 ```
 
@@ -40,7 +40,7 @@ To illustrate the usage of 'simpleScore()', we first need to load the example da
 ```{r}
 library(singscore)
 # load the expression dataset and gene signatures
-data("tgfb_expr_20")
+data("tgfb_expr_10")
 data("tgfb_gs_up")
 data("tgfb_gs_dn")
 # To see the description of 'tgfb_expr_10','tgfb_gs_up','tgfb_gs_dn', look at 

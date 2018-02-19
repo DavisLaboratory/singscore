@@ -59,11 +59,11 @@ singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
     rankData <- rankData[, subSamples, drop = FALSE]
   }
   #values needed for calculating the boundaries
-  upSigSize <- length(geneIds(upSet))
+  upSigSize <- length(GSEABase::geneIds(upSet))
   nTotalGenes <- nrow(rankData)
   
   #check if there are some missing genes in the geneset
-  missingGenes <- setdiff(geneIds(upSet), rownames(rankData))
+  missingGenes <- setdiff(GSEABase::geneIds(upSet), rownames(rankData))
   if (length(missingGenes) > 0) {
     warningMsg <-
       paste(length(missingGenes), "genes missing:", sep = ' ')
@@ -73,8 +73,8 @@ singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
   }
   
   #remove missing genes from signature for further analysis
-  geneIds(upSet) <- setdiff(geneIds(upSet), missingGenes)
-  upRanks <- rankData[geneIds(upSet), , drop = FALSE]
+  GSEABase::geneIds(upSet) <- setdiff(GSEABase::geneIds(upSet), missingGenes)
+  upRanks <- rankData[GSEABase::geneIds(upSet), , drop = FALSE]
   upScore <- colMeans(upRanks)
   lowBound <- (upSigSize + 1) / 2
   upBound  <- (2 * nTotalGenes - upSigSize + 1) / 2
@@ -491,11 +491,11 @@ plotRankDensity_intl <- function (rankData,
                              isInteractive = FALSE,
                              textSize = 1.5) {
   #values needed for calculating the boundaries
-  upSigSize = length(geneIds(upSet))
+  upSigSize = length(GSEABase::geneIds(upSet))
   nTotalGenes = nrow(rankData)
   #browser()
   #check if there are some missing genes in the geneset
-  missingGenes = setdiff(geneIds(upSet), rownames(rankData))
+  missingGenes = setdiff(GSEABase::geneIds(upSet), rownames(rankData))
   if (length(missingGenes) > 0) {
     warningMsg = paste(length(missingGenes), 'genes missing:', sep = ' ')
     warningMsg = paste(warningMsg, paste(missingGenes, collapse = ', '),
@@ -504,14 +504,14 @@ plotRankDensity_intl <- function (rankData,
   }
 
   #remove missing genes from signature for further analysis
-  geneIds(upSet) = setdiff(geneIds(upSet), missingGenes)
-  upRanks = rankData[geneIds(upSet), , drop = FALSE] / nrow(rankData)
+  GSEABase::geneIds(upSet) = setdiff(GSEABase::geneIds(upSet), missingGenes)
+  upRanks = rankData[GSEABase::geneIds(upSet), , drop = FALSE] / nrow(rankData)
   upRank = data.frame(upRanks, type = "Up Gene-set")
   allRanks = upRank
 
   if (!is.null(downSet)) {
     #check if there are some missing genes in the geneset
-    missingGenes = setdiff(geneIds(downSet), rownames(rankData))
+    missingGenes = setdiff(GSEABase::geneIds(downSet), rownames(rankData))
     if (length(missingGenes) > 0) {
       warningMsg = paste(length(missingGenes), 'genes missing:',
                          sep = ' ')
@@ -521,8 +521,8 @@ plotRankDensity_intl <- function (rankData,
     }
 
     #remove missing genes from signature for further analysis
-    geneIds(downSet) = setdiff(geneIds(downSet), missingGenes)
-    downRanks = rankData[geneIds(downSet), , drop = FALSE] / nrow(rankData)
+    GSEABase::geneIds(downSet) = setdiff(GSEABase::geneIds(downSet), missingGenes)
+    downRanks = rankData[GSEABase::geneIds(downSet), , drop = FALSE] / nrow(rankData)
     downRank = data.frame(downRanks, type =  "Down Gene-set")
     allRanks = rbind(upRank, downRank)
   }
@@ -654,28 +654,97 @@ plotRankDensity_intl <- function (rankData,
 #' #for B times.
 
 generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
-  set.seed(seed)
-  all_genes <- rownames(rankData)
-  totalNo <- n_up + n_down
-  temSets <- BiocParallel::bplapply(1:B, function(i) {
-    sample(all_genes, size = totalNo, replace = FALSE)
-  })
-  r <- BiocParallel::bplapply(1:B, function(i) {
-    tms <- temSets[[i]]
-    
-    if (n_down > 0) {
-      upSet <-  GeneSet(as.character(tms[1:n_up]))
-      downSet <-  GeneSet(as.character(tms[-(1:n_up)]))
-      ss <-  simpleScore(rankData, upSet = upSet, downSet = downSet)
-    } else {
-      #else all the random generated genes are in upSet
-      ss <- simpleScore(rankData, upSet = GeneSet(as.character(tms)))
+  # A copy of singscoring method for usage in the Bpapply function  
+  singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
+                             centerScore = TRUE, dispersionFun = mad) {
+      #subset the data for samples whose calculation is to be performed
+      if (!is.null(subSamples)) {
+        rankData <- rankData[, subSamples, drop = FALSE]
+      }
+      #values needed for calculating the boundaries
+      upSigSize <- length(GSEABase::geneIds(upSet))
+      nTotalGenes <- nrow(rankData)
+      
+      #check if there are some missing genes in the geneset
+      missingGenes <- setdiff(GSEABase::geneIds(upSet), rownames(rankData))
+      if (length(missingGenes) > 0) {
+        warningMsg <-
+          paste(length(missingGenes), "genes missing:", sep = ' ')
+        warningMsg <- paste(warningMsg,
+                            paste(missingGenes, collapse = ', '), sep = ' ')
+        warning(warningMsg)
+      }
+      
+      #remove missing genes from signature for further analysis
+      GSEABase::geneIds(upSet) <- setdiff(GSEABase::geneIds(upSet), missingGenes)
+      upRanks <- rankData[GSEABase::geneIds(upSet), , drop = FALSE]
+      upScore <- colMeans(upRanks)
+      lowBound <- (upSigSize + 1) / 2
+      upBound  <- (2 * nTotalGenes - upSigSize + 1) / 2
+      normUpScore <- (upScore - lowBound) / (upBound - lowBound)
+      
+      #calculate dispersion
+      upDispersion <- apply(upRanks, 2, dispersionFun)
+      
+      #if just the up score is provided
+      if (is.null(downSet)) {
+        #if centering
+        if (centerScore) {
+          normUpScore <- normUpScore - 0.5
+        }
+        
+        scoredf <-
+          data.frame("TotalScore" = normUpScore, "TotalDispersion" = upDispersion)
+        rownames(scoredf) <- colnames(rankData)
+        return(scoredf)
+      } else {
+        scoreDown <-
+          singscoring(rankData, downSet, NULL, subSamples, FALSE, dispersionFun)
+        normDownScore <- 1 - scoreDown$TotalScore
+        downDispersion <- scoreDown$TotalDispersion
+        
+        #if centering
+        if (centerScore) {
+          normUpScore <- normUpScore - 0.5
+          normDownScore <- normDownScore - 0.5
+        }
+        
+        scoredf <-
+          data.frame(
+            "TotalScore" = normUpScore + normDownScore,
+            "TotalDispersion" = upDispersion + downDispersion,
+            "UpScore" = normUpScore,
+            "UpDispersion" = upDispersion,
+            "DownScore" = normDownScore,
+            "DownDispersion" = downDispersion
+          )
+        rownames(scoredf) <- colnames(rankData)
+        return(scoredf)
+      }
     }
-    ss[, 1]
-  })
-  r <- plyr::ldply(r)
-  colnames(r) <- colnames(rankData)
-  return(r)
+    
+    set.seed(seed)
+    all_genes <- rownames(rankData)
+    totalNo <- n_up + n_down
+    temSets <- BiocParallel::bplapply(1:B, function(i) {
+      tms <-  sample(all_genes, size = totalNo, replace = FALSE)
+      tms
+    })
+    r <- BiocParallel::bplapply(1:B, function(i) {
+      tms <- temSets[[i]]
+      if (n_down > 0) {
+        upSet <- GSEABase::GeneSet(as.character(tms[1:n_up]))
+        downSet <-  GSEABase::GeneSet(as.character(tms[-(1:n_up)]))
+        ss <-  singscoring(rankData, upSet = upSet, downSet = downSet)
+      } else {
+        #else all the random generated genes are in upSet
+        ss <- singscoring(rankData, upSet = GeneSet(as.character(tms)))
+      }
+      ss[, 1]
+    })
+    r <- plyr::ldply(r)
+    colnames(r) <- colnames(rankData)
+    return(r)
 }
 
 #' Calculate the empirical p values
