@@ -22,7 +22,8 @@ To install the package from git hub, install the package 'devtools' first and th
 
 ```
 install.packages('devtools')
-devtools::install_github('DavisLaboratory/singscore')
+# build_vignettes = TRUE to build vignettes upon installation
+devtools::install_github('DavisLaboratory/singscore', build_vignettes = TRUE)
 library(singscore)
 ```
 
