@@ -22,7 +22,8 @@ To install the package from git hub, install the package 'devtools' first and th
 
 ```
 install.packages('devtools')
-devtools::install_github('DavisLaboratory/singscore')
+# build_vignettes = TRUE to build vignettes upon installation
+devtools::install_github('DavisLaboratory/singscore', build_vignettes = TRUE)
 library(singscore)
 ```
 
@@ -40,10 +41,10 @@ data('tgfb_gs_up')
 data('tgfb_gs_dn')
 
 # rank the expression matrix first
-rankedData <- rankExpr('tgfb_expr_10')
+rankedData <- rankGenes(tgfb_expr_10)
 
-# Call singscoring to score each individual sample
-scoredf <- singscoring(rankedData,tgfb_gs_up,tgfb_gs_dn)
+# Call simpleScore function to score each individual sample
+scoredf <- simpleScore(rankedData,tgfb_gs_up,tgfb_gs_dn, centerScore = FALSE)
 
 scoredf
 ##             TotalScore TotalDispersion   UpScore UpDispersion    DownScore
@@ -79,7 +80,7 @@ scoredf
 
 
 ## Produced rank density plot
-`plotRankDensity()` takes a single column data frame, which is a subset of the ranked data obtained from `rankExpr()`function, and gene sets, and it returns plots visualising the density and the rugs of the ranks.
+`plotRankDensity()` takes a single column data frame, which is a subset of the ranked data obtained from `rankGenes()`function, and gene sets, and it returns plots visualising the density and the rugs of the ranks.
 ```
 plotRankDensity(rankData[,1,drop = FALSE], upSet = tgfb_gs_up, 
                 downSet = tgfb_gs_dn, isInteractive = FALSE)
