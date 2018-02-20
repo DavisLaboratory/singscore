@@ -80,7 +80,7 @@ scoredf
 
 
 ## Produced rank density plot
-`plotRankDensity()` takes a single column data frame, which is a subset of the ranked data obtained from `rankExpr()`function, and gene sets, and it returns plots visualising the density and the rugs of the ranks.
+`plotRankDensity()` takes a single column data frame, which is a subset of the ranked data obtained from `rankGenes()`function, and gene sets, and it returns plots visualising the density and the rugs of the ranks.
 ```
 plotRankDensity(rankData[,1,drop = FALSE], upSet = tgfb_gs_up, 
                 downSet = tgfb_gs_dn, isInteractive = FALSE)
