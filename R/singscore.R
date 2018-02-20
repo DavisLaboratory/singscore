@@ -82,24 +82,6 @@ NULL
 #' @docType data
 "tgfb_expr_10"
 
-#' Gene expression data.frame
-#'
-#' A microarray gene expression dataset that was originially obtained
-#' from the integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
-#' corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT 
-#' data consisting of ten samples each with 11900 genes.
-#' @references 
-#' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
-#' Erik W Thompson, and Melissa J Davis. 2017. 
-#' “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” 
-#' Molecular Cancer Research. American Association for Cancer Research. 
-#' doi:10.1158/1541-7786.MCR-16-0313.
-#' @source
-#' [Foroutan et al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
-#' @format A data.frame obeject
-#' @docType data
-"tgfb_expr_20"
-
 #' Up-set for TGFb-induced EMT gene signature
 #'
 #' A GeneSet object that contains the up-regulated genes of a TGFb-induced
@@ -145,7 +127,7 @@ NULL
 
 #' Scoring results of a CCLE dataset against an epithelial gene signature
 #'
-#' This data.frame is the returned results of function [singscoring()] on a
+#' This data.frame is the returned results of function [simpleScore()] on a
 #' CCLE dataset [Barretina et al](https://www.nature.com/articles/nature11003) 
 #' consists of 55 samples agaist an epithelial gene signature obtained from 
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/) 
@@ -177,7 +159,7 @@ NULL
 #' Scoring results of a CCLE dataset against an mesenchymal gene signature
 #'
 #' This data.frame is the returned results of function 
-#' [singscoring()] on a CCLE dataset 
+#' [simpleScore()] on a CCLE dataset 
 #' [Barretina et al](https://www.nature.com/articles/nature11003)
 #' consists of 55 samples agaist an mesenchymal gene signature obtained from
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/)
@@ -207,7 +189,7 @@ NULL
 
 #' Scoring results of TCGA tumour gene expression matrix
 #'
-#' This data.frame is the returned results of function [singscoring()] on
+#' This data.frame is the returned results of function [simpleScore()] on
 #' tumour samples from [TCGA](https://cancergenome.nih.gov) database against 
 #' an mesenchymal gene signature obtained from 
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/).
@@ -225,7 +207,7 @@ NULL
 
 #' Scoring results of TCGA tumour gene expression matrix
 #'
-#' This data.frame is the returned results of function [singscoring()] on
+#' This data.frame is the returned results of function [simpleScore()] on
 #' tumour samples from [TCGA](https://cancergenome.nih.gov) database against 
 #' an epithelial gene signature obtained from 
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/).

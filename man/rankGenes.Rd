@@ -44,9 +44,11 @@ extract the gene epxression matrix genes on the rows and samples on columns
 from the object and rank the genes. The default ties.Method is set to 'min'
 }
 \examples{
-rankGenes(toy_expr) # toy_expr is a gene expression matrix, tiesMethod = 'min'
+rankGenes(toy_expr) # toy_expr is a gene expression matrix, 
+tiesMethod = 'min'
+# or it can be a ExpressionSet object
 e <- Biobase::ExpressionSet(assayData = as.matrix(toy_expr))
-rankGenes(e) # or it can be a ExpressionSet object
+rankGenes(e) 
 }
 \seealso{
 \code{\link{rank}} \link[=ExpressionSet-class]{ExpressionSet}

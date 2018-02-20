@@ -32,7 +32,12 @@ between scores from two signatures on the same set of samples.
 \description{
 This function takes two data frames which are outputs from the
 simpleScore() function and plots the relationship between the two gene set
-scores for samples in the gene expression matrix.
+scores for samples in the gene expression matrix. If you wish to use the
+plotting function but with some customized inputs (instead of outputs from
+\code{simpleScore} function), you need to make sure the formats are the same.
+To be specific, you need to have columns names "TotalScore"
+"TotalDispersion" "UpScore" "UpDispersion" "DownScore" "DownDispersion"
+and rows names as samples.
 }
 \examples{
 ranked <- rankGenes(toy_expr)

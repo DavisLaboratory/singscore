@@ -35,9 +35,9 @@ simpleScore(rankData, upSet, downSet = NULL, subSamples = NULL,
 \arguments{
 \item{rankData}{A matrix-like object, ranked gene expression matrix data}
 
-\item{upSet}{A GeneSet object or vector of gene ids of up regulated gene set}
+\item{upSet}{A GeneSet object or vector of gene Ids of up regulated gene set}
 
-\item{downSet}{A GeneSet object or vector of gene ids of down regulated gene
+\item{downSet}{A GeneSet object or vector of gene Ids of down regulated gene
 set}
 
 \item{subSamples}{A vector of sample labels/indices that will be

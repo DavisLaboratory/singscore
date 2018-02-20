@@ -11,7 +11,7 @@ generateNull(n_up, n_down, rankData, B = 1000, seed = 1)
 
 \item{n_down}{integer, size of down set}
 
-\item{rankData}{matrix, outcome of function \code{\link[=rankExpr]{rankExpr()}}}
+\item{rankData}{matrix, outcome of function \code{\link[=rankGenes]{rankGenes()}}}
 
 \item{B}{integer, the number of permutation repeats default as 1000}
 

@@ -12,8 +12,8 @@ NULL
 #' @param rankData A matrix-like object, ranked gene expression matrix data
 #' @param subSamples A vector of sample labels/indices that will be
 #'   used to subset the rankData matrix. All samples will be scored by default.
-#' @param upSet A GeneSet object or vector of gene ids of up regulated gene set
-#' @param downSet A GeneSet object or vector of gene ids of down regulated gene 
+#' @param upSet A GeneSet object or vector of gene Ids of up regulated gene set
+#' @param downSet A GeneSet object or vector of gene Ids of down regulated gene 
 #'   set
 #' @param centerScore A Boolean, specifying whether scores should be centred, 
 #'   default as TRUE

@@ -27,9 +27,10 @@ density along with rug plot
 }
 \description{
 This function takes a single column data frame, which is a
-subset of the ranked data obtained from \code{\link[=rankExpr]{rankExpr()}}function, and gene sets,
+subset of the ranked data obtained from \code{\link[=rankGenes]{rankGenes()}}function and gene sets,
 and it returns plots visualising the density and the rugs of the ran ks.
 }
 \seealso{
 \code{"\linkS4class{GeneSet}"}
 }
+\keyword{internal}

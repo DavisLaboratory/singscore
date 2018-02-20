@@ -37,9 +37,9 @@ plotRankDensity(rankData, upSet, downSet = NULL, isInteractive = FALSE,
 the \code{\link[=rankGenes]{rankGenes()}} function, use drop = FALSE when subsetting the ranked gene
 expression matrix, see examples.}
 
-\item{upSet}{GeneSet object, up regulated gene set}
+\item{upSet}{GeneSet object or a vector of gene Ids, up regulated gene set}
 
-\item{downSet}{GeneSet object, down regulated gene set}
+\item{downSet}{GeneSet object or a vector of gene Ids, down regulated gene set}
 
 \item{isInteractive}{Boolean, determin whether the returned plot is
 interactive}

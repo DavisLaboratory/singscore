@@ -23,9 +23,11 @@ NULL
 #'@return The ranked gene expression matrix that has samples in columns and
 #'  genes in rows
 #' @examples
-#' rankGenes(toy_expr) # toy_expr is a gene expression matrix, tiesMethod = 'min'
+#' rankGenes(toy_expr) # toy_expr is a gene expression matrix, 
+#' tiesMethod = 'min'
+#' # or it can be a ExpressionSet object
 #' e <- Biobase::ExpressionSet(assayData = as.matrix(toy_expr))
-#' rankGenes(e) # or it can be a ExpressionSet object
+#' rankGenes(e) 
 #'@seealso \code{\link{rank}} [ExpressionSet][ExpressionSet-class]
 #'[DGEList][DGEList-class]
 #'

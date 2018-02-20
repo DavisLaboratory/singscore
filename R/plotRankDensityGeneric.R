@@ -12,8 +12,8 @@ NULL
 #' @param isInteractive Boolean, determin whether the returned plot is
 #'   interactive
 #' @param textSize numberic, set the size of text on the plot
-#' @param upSet GeneSet object, up regulated gene set
-#' @param downSet GeneSet object, down regulated gene set
+#' @param upSet GeneSet object or a vector of gene Ids, up regulated gene set
+#' @param downSet GeneSet object or a vector of gene Ids, down regulated gene set
 #'
 #' @return A ggplot object (optionally interactive) demonstrating the rank
 #'   density along with rug plot

@@ -19,11 +19,12 @@ NULL
 #'   ranks of each gene in each sample.
 #' @keywords internal
 #' @seealso 
-#' [rankExpr()]
+#' [rankGenes()]
 #' @examples
 #' \dontrun{ranked <- rankExpr(toy_expr)}
 rankExpr <- function(exprsM, tiesMethod = "min") {
     rankedData <- apply(exprsM, 2, rank, ties.method = tiesMethod)
+    attr(rankedData,"isRanked") <- TRUE
     return (rankedData)
 }
 
@@ -54,16 +55,24 @@ rankExpr <- function(exprsM, tiesMethod = "min") {
 
 singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
                          centerScore = TRUE, dispersionFun = mad) {
+  
+# Check whether the input rankData is returned by rankGenes() by evaluating
+# the 'isRanked' attribute
+  if(is.null(attr(rankData,'isRanked'))){
+    warning("It looks like your input for rankData parameter was not obtained 
+by using the rankGenes() function, are you sure you supplied the ranks?")
+  }
+  
   #subset the data for samples whose calculation is to be performed
   if (!is.null(subSamples)) {
     rankData <- rankData[, subSamples, drop = FALSE]
   }
   #values needed for calculating the boundaries
-  upSigSize <- length(GSEABase::geneIds(upSet))
+  upSigSize <- length(geneIds(upSet))
   nTotalGenes <- nrow(rankData)
   
   #check if there are some missing genes in the geneset
-  missingGenes <- setdiff(GSEABase::geneIds(upSet), rownames(rankData))
+  missingGenes <- setdiff(geneIds(upSet), rownames(rankData))
   if (length(missingGenes) > 0) {
     warningMsg <-
       paste(length(missingGenes), "genes missing:", sep = ' ')
@@ -73,8 +82,8 @@ singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
   }
   
   #remove missing genes from signature for further analysis
-  GSEABase::geneIds(upSet) <- setdiff(GSEABase::geneIds(upSet), missingGenes)
-  upRanks <- rankData[GSEABase::geneIds(upSet), , drop = FALSE]
+  geneIds(upSet) <- setdiff(geneIds(upSet), missingGenes)
+  upRanks <- rankData[geneIds(upSet), , drop = FALSE]
   upScore <- colMeans(upRanks)
   lowBound <- (upSigSize + 1) / 2
   upBound  <- (2 * nTotalGenes - upSigSize + 1) / 2
@@ -126,8 +135,13 @@ singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
 
 #' Plot the score v.s. despersion for all samples
 #' @description This function takes the output from the simpleScore() function
-#'   and plots scatter plots for the score vs the dispersion for the total
-#'   score, the up score and the down score of samples. The plots 
+#'   and generates scatter plots of score vs. dispersion for the total
+#'   score, the up score and the down score of samples. If you wish to use the 
+#'   plotting function but with some customized inputs (instead of outputs from
+#'   `simpleScore` function), you need to make sure the formats are the same. 
+#'   To be specific, you need to have columns names "TotalScore"
+#'   "TotalDispersion" "UpScore" "UpDispersion" "DownScore" "DownDispersion" 
+#'   and rows names as samples.
 #' @param scoredf data.frame, results of the simpleScore() function
 #' @param annot any annotation provided by the user that needs to be plot
 #' annot must be ordered in the same was as the scores
@@ -247,7 +261,12 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' Plot landscape of two gene signatures scores
 #' @description This function takes two data frames which are outputs from the
 #'   simpleScore() function and plots the relationship between the two gene set
-#'   scores for samples in the gene expression matrix.
+#'   scores for samples in the gene expression matrix. If you wish to use the 
+#'   plotting function but with some customized inputs (instead of outputs from
+#'   `simpleScore` function), you need to make sure the formats are the same. 
+#'   To be specific, you need to have columns names "TotalScore"
+#'   "TotalDispersion" "UpScore" "UpDispersion" "DownScore" "DownDispersion" 
+#'   and rows names as samples.
 #'
 #' @param scoredf1 data.frame, result of the simpleScore() function which scores
 #'   the gene expression matrix against a gene set of interest
@@ -336,9 +355,10 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 
 #' Project data on the landscape plot obtained from \code{plotScoreLandscape()}
 #' 
-#'@description This function takes the output (ggplot object) of the
-#'  \code{plotScoreLandscape()}  and a dataset. It projects the data onto the 
-#'  ggplot object and returns a ggplot object with projected data points.
+#'@description This function takes the output (ggplot object) of the function
+#'  \code{plotScoreLandscape()} and a dataset. It projects the data onto the 
+#'  ggplot object and returns a new ggplot object with projected data points.
+#'  
 #' @param plotObj a dataframe, resulted from [plotScoreLandscape()]
 #' @param subSamples vector of character or indices for subsetting the scoredfs,
 #'  default as NULL and all samples in scoredfs will be plotted
@@ -468,7 +488,7 @@ projectScoreLandscape <- function(plotObj = NULL,
 #' Plot the densities of ranks for one sample
 #' 
 #' @description This function takes a single column data frame, which is a
-#' subset of the ranked data obtained from [rankExpr()]function, and gene sets,
+#' subset of the ranked data obtained from [rankGenes()]function and gene sets,
 #' and it returns plots visualising the density and the rugs of the ran ks.
 #'
 #' @param rankData one column of the ranked gene expression matrix obtained from
@@ -479,7 +499,8 @@ projectScoreLandscape <- function(plotObj = NULL,
 #' @param textSize numberic, set the size of text on the plot
 #' @param upSet GeneSet object, up regulated gene set
 #' @param downSet GeneSet object, down regulated gene set
-#'
+#' @keywords internal
+#' 
 #' @return A ggplot object (optionally interactive) demonstrating the rank
 #'   density along with rug plot
 
@@ -491,11 +512,11 @@ plotRankDensity_intl <- function (rankData,
                              isInteractive = FALSE,
                              textSize = 1.5) {
   #values needed for calculating the boundaries
-  upSigSize = length(GSEABase::geneIds(upSet))
+  upSigSize = length(geneIds(upSet))
   nTotalGenes = nrow(rankData)
   #browser()
   #check if there are some missing genes in the geneset
-  missingGenes = setdiff(GSEABase::geneIds(upSet), rownames(rankData))
+  missingGenes = setdiff(geneIds(upSet), rownames(rankData))
   if (length(missingGenes) > 0) {
     warningMsg = paste(length(missingGenes), 'genes missing:', sep = ' ')
     warningMsg = paste(warningMsg, paste(missingGenes, collapse = ', '),
@@ -504,14 +525,14 @@ plotRankDensity_intl <- function (rankData,
   }
 
   #remove missing genes from signature for further analysis
-  GSEABase::geneIds(upSet) = setdiff(GSEABase::geneIds(upSet), missingGenes)
-  upRanks = rankData[GSEABase::geneIds(upSet), , drop = FALSE] / nrow(rankData)
+  geneIds(upSet) = setdiff(geneIds(upSet), missingGenes)
+  upRanks = rankData[geneIds(upSet), , drop = FALSE] / nrow(rankData)
   upRank = data.frame(upRanks, type = "Up Gene-set")
   allRanks = upRank
 
   if (!is.null(downSet)) {
     #check if there are some missing genes in the geneset
-    missingGenes = setdiff(GSEABase::geneIds(downSet), rownames(rankData))
+    missingGenes = setdiff(geneIds(downSet), rownames(rankData))
     if (length(missingGenes) > 0) {
       warningMsg = paste(length(missingGenes), 'genes missing:',
                          sep = ' ')
@@ -521,8 +542,8 @@ plotRankDensity_intl <- function (rankData,
     }
 
     #remove missing genes from signature for further analysis
-    GSEABase::geneIds(downSet) = setdiff(GSEABase::geneIds(downSet), missingGenes)
-    downRanks = rankData[GSEABase::geneIds(downSet), , drop = FALSE] / nrow(rankData)
+    geneIds(downSet) = setdiff(geneIds(downSet), missingGenes)
+    downRanks = rankData[geneIds(downSet), , drop = FALSE] / nrow(rankData)
     downRank = data.frame(downRanks, type =  "Down Gene-set")
     allRanks = rbind(upRank, downRank)
   }
@@ -631,7 +652,7 @@ plotRankDensity_intl <- function (rankData,
 #'   [BiocParallel::bplapply()] for easy access to parallel backends.
 #' @param n_up integer,  size of up set
 #' @param n_down integer, size of down set
-#' @param rankData matrix, outcome of function [rankExpr()]
+#' @param rankData matrix, outcome of function [rankGenes()]
 #' @param B integer, the number of permutation repeats default as 1000
 #' @param seed integer, set the seed for randomisation
 #'
@@ -662,11 +683,11 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
         rankData <- rankData[, subSamples, drop = FALSE]
       }
       #values needed for calculating the boundaries
-      upSigSize <- length(GSEABase::geneIds(upSet))
+      upSigSize <- length(geneIds(upSet))
       nTotalGenes <- nrow(rankData)
       
       #check if there are some missing genes in the geneset
-      missingGenes <- setdiff(GSEABase::geneIds(upSet), rownames(rankData))
+      missingGenes <- setdiff(geneIds(upSet), rownames(rankData))
       if (length(missingGenes) > 0) {
         warningMsg <-
           paste(length(missingGenes), "genes missing:", sep = ' ')
@@ -676,8 +697,8 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
       }
       
       #remove missing genes from signature for further analysis
-      GSEABase::geneIds(upSet) <- setdiff(GSEABase::geneIds(upSet), missingGenes)
-      upRanks <- rankData[GSEABase::geneIds(upSet), , drop = FALSE]
+      geneIds(upSet) <- setdiff(geneIds(upSet), missingGenes)
+      upRanks <- rankData[geneIds(upSet), , drop = FALSE]
       upScore <- colMeans(upRanks)
       lowBound <- (upSigSize + 1) / 2
       upBound  <- (2 * nTotalGenes - upSigSize + 1) / 2
@@ -694,7 +715,8 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
         }
         
         scoredf <-
-          data.frame("TotalScore" = normUpScore, "TotalDispersion" = upDispersion)
+          data.frame("TotalScore" = normUpScore, 
+                     "TotalDispersion" = upDispersion)
         rownames(scoredf) <- colnames(rankData)
         return(scoredf)
       } else {
@@ -733,8 +755,8 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
     r <- BiocParallel::bplapply(1:B, function(i) {
       tms <- temSets[[i]]
       if (n_down > 0) {
-        upSet <- GSEABase::GeneSet(as.character(tms[1:n_up]))
-        downSet <-  GSEABase::GeneSet(as.character(tms[-(1:n_up)]))
+        upSet <- GeneSet(as.character(tms[1:n_up]))
+        downSet <-  GeneSet(as.character(tms[-(1:n_up)]))
         ss <-  singscoring(rankData, upSet = upSet, downSet = downSet)
       } else {
         #else all the random generated genes are in upSet

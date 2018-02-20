@@ -9,9 +9,9 @@ test_that(("Test matrix input"), {
   
   
   
-  expect_that(matrixMin, equals(as.matrix(c(1,2,3,3))))
-  expect_that(matrixDefa, equals(as.matrix(c(1,2,3,3))))
-  expect_that(matrixMax, equals(as.matrix(c(1,2,4,4))))
+  expect_that(matrixMin, is_equivalent_to(as.matrix(c(1,2,3,3))))
+  expect_that(matrixDefa, is_equivalent_to(as.matrix(c(1,2,3,3))))
+  expect_that(matrixMax, is_equivalent_to(as.matrix(c(1,2,4,4))))
 
 })
 
@@ -29,9 +29,9 @@ test_that("Test data.frame input for rankGenes",{
   dfrDefa <- rankGenes(df)
   dfrMax <- rankGenes(df, tiesMethod = 'max')
   
-  expect_that(dfrMin, equals(dfmin))
-  expect_that(dfrDefa, equals(dfmin))
-  expect_that(dfrMax, equals(dfmax))
+  expect_that(dfrMin, is_equivalent_to(dfmin))
+  expect_that(dfrDefa, is_equivalent_to(dfmin))
+  expect_that(dfrMax, is_equivalent_to(dfmax))
 })
 
 test_that("test expressSet input for rankGenes", {

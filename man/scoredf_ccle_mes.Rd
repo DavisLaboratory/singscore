@@ -10,7 +10,7 @@ scoredf_ccle_mes
 }
 \description{
 This data.frame is the returned results of function
-\code{\link[=singscoring]{singscoring()}} on a CCLE dataset
+\code{\link[=simpleScore]{simpleScore()}} on a CCLE dataset
 \href{https://www.nature.com/articles/nature11003}{Barretina et al}
 consists of 55 samples agaist an mesenchymal gene signature obtained from
 \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}

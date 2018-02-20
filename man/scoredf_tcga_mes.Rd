@@ -9,7 +9,7 @@
 scoredf_tcga_mes
 }
 \description{
-This data.frame is the returned results of function \code{\link[=singscoring]{singscoring()}} on
+This data.frame is the returned results of function \code{\link[=simpleScore]{simpleScore()}} on
 tumour samples from \href{https://cancergenome.nih.gov}{TCGA} database against
 an epithelial gene signature obtained from
 \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}.

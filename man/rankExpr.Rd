@@ -28,6 +28,6 @@ as input.
 \dontrun{ranked <- rankExpr(toy_expr)}
 }
 \seealso{
-\code{\link[=rankExpr]{rankExpr()}}
+\code{\link[=rankGenes]{rankGenes()}}
 }
 \keyword{internal}

@@ -27,8 +27,13 @@ A ggplot object
 }
 \description{
 This function takes the output from the simpleScore() function
-and plots scatter plots for the score vs the dispersion for the total
-score, the up score and the down score of samples. The plots
+and generates scatter plots of score vs. dispersion for the total
+score, the up score and the down score of samples. If you wish to use the
+plotting function but with some customized inputs (instead of outputs from
+\code{simpleScore} function), you need to make sure the formats are the same.
+To be specific, you need to have columns names "TotalScore"
+"TotalDispersion" "UpScore" "UpDispersion" "DownScore" "DownDispersion"
+and rows names as samples.
 }
 \examples{
 ranked <- rankGenes(toy_expr)

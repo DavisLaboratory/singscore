@@ -34,9 +34,9 @@ New data points on the already plotted ggplot object from
 plotScoreLanscape()
 }
 \description{
-This function takes the output (ggplot object) of the
-\code{plotScoreLandscape()}  and a dataset. It projects the data onto the
-ggplot object and returns a ggplot object with projected data points.
+This function takes the output (ggplot object) of the function
+\code{plotScoreLandscape()} and a dataset. It projects the data onto the
+ggplot object and returns a new ggplot object with projected data points.
 }
 \examples{
 ranked <- rankGenes(toy_expr)
