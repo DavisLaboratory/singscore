@@ -41,10 +41,10 @@ data('tgfb_gs_up')
 data('tgfb_gs_dn')
 
 # rank the expression matrix first
-rankedData <- rankExpr('tgfb_expr_10')
+rankedData <- rankGenes(tgfb_expr_10)
 
-# Call singscoring to score each individual sample
-scoredf <- singscoring(rankedData,tgfb_gs_up,tgfb_gs_dn)
+# Call simpleScore function to score each individual sample
+scoredf <- simpleScore(rankedData,tgfb_gs_up,tgfb_gs_dn, centerScore = FALSE)
 
 scoredf
 ##             TotalScore TotalDispersion   UpScore UpDispersion    DownScore
