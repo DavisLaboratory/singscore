@@ -7,13 +7,14 @@ NULL
 #' and it returns plots visualising the density and the rugs of the ran ks.
 #'
 #' @param rankData one column of the ranked gene expression matrix obtained from
-#'   the [rankGenes()] function, use drop = FALSE when subsetting the ranked gene 
-#'   expression matrix, see examples.
+#'   the [rankGenes()] function, use drop = FALSE when subsetting the ranked 
+#'   gene expression matrix, see examples.
 #' @param isInteractive Boolean, determin whether the returned plot is
 #'   interactive
 #' @param textSize numberic, set the size of text on the plot
 #' @param upSet GeneSet object or a vector of gene Ids, up regulated gene set
-#' @param downSet GeneSet object or a vector of gene Ids, down regulated gene set
+#' @param downSet GeneSet object or a vector of gene Ids, down regulated 
+#' gene set
 #'
 #' @return A ggplot object (optionally interactive) demonstrating the rank
 #'   density along with rug plot
