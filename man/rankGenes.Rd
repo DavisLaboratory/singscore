@@ -34,14 +34,14 @@ genes in rows
 The \code{rankGenes} function is a generic function that can deal
 with mutilple types of inputs. Given a matrix of gene expression that has
 samples in columns, genes in rows, and values being gene expression
-intensity. \code{rankGenes} ranks gene expression in each sample. Given a
-gene expression matrix (i.e matrix, data.frame) or a S4 object that has gene
-expression matrix as a component (i.e ExpressionSet, DGEList) and a
-'tiesMethod', it calls the  \code{rank} function in the base package which
-ranks the gene expression matrix by its absolute expression level. If input
-is S4 object of \code{DGEList, or ExpressionSet}, the generic function will
-extract the gene epxression matrix genes on the rows and samples on columns
-from the object and rank the genes. The default ties.Method is set to 'min'
+intensity,\code{rankGenes} ranks gene expression intensities in each sample.
+
+It can also work with S4 objects that have gene expression matrix as a
+component (i.e ExpressionSet, DGEList). It calls the \code{rank} function
+in the base package which ranks the gene expression matrix by its absolute
+expression level. If the input is S4 object of \code{DGEList, or 
+ ExpressionSet}, it will extract the gene expression matrix from the object
+and rank the genes. The default 'tiesMethod' is set to 'min'.
 }
 \examples{
 rankGenes(toy_expr) # toy_expr is a gene expression matrix, 

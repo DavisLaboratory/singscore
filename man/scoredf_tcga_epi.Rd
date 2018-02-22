@@ -11,9 +11,9 @@ scoredf_tcga_epi
 \description{
 This data.frame is the returned results of function \code{\link[=simpleScore]{simpleScore()}} on
 tumour samples from \href{https://cancergenome.nih.gov}{TCGA} database against
-an mesenchymal gene signature obtained from
+a mesenchymal gene signature obtained from
 \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}.
-Please refer to the vignettes for the steps to aquaire the exact data object.
+Please refer to the vignettes for the steps to acquire the exact data object.
 }
 \references{
 Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,

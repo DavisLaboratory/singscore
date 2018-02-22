@@ -19,7 +19,7 @@ expression matrix, see examples.}
 \item{isInteractive}{Boolean, determin whether the returned plot is
 interactive}
 
-\item{textSize}{numberic, set the size of text on the plot}
+\item{textSize}{numeric, set the size of text on the plot}
 }
 \value{
 A ggplot object (optionally interactive) demonstrating the rank

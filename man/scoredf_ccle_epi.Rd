@@ -11,9 +11,9 @@ scoredf_ccle_epi
 \description{
 This data.frame is the returned results of function \code{\link[=simpleScore]{simpleScore()}} on a
 CCLE dataset \href{https://www.nature.com/articles/nature11003}{Barretina et al}
-consists of 55 samples agaist an epithelial gene signature obtained from
+consists of 55 samples against an epithelial gene signature obtained from
 \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}
-Please refer to the vignettes for the steps to aquaire the exact data object.
+Please refer to the vignettes for the steps to acquire the exact data object.
 }
 \references{
 Barretina, Jordi, Giordano Caponigro, Nicolas Stransky, Kavitha Venkatesan,

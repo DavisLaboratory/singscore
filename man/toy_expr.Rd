@@ -16,10 +16,10 @@
 toy_expr
 }
 \description{
-A microarray gene expression data.frame dataset that was originially obtained
+A microarray gene expression data.frame dataset that was originally obtained
 from the integrated TGFb-EMT data published by (Foroutan et al, 2017).
 (ComBat corrected values).\code{toy_expr} is a subset of the integrated
-TGFb-EMT data consisting of 2 samples each with 20 genes.
+TGFb-EMT data consists of 2 samples each with 20 genes.
 }
 \references{
 Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,

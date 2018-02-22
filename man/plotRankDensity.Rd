@@ -34,14 +34,15 @@ plotRankDensity(rankData, upSet, downSet = NULL, isInteractive = FALSE,
 }
 \arguments{
 \item{rankData}{one column of the ranked gene expression matrix obtained from
-the \code{\link[=rankGenes]{rankGenes()}} function, use drop = FALSE when subsetting the ranked gene
-expression matrix, see examples.}
+the \code{\link[=rankGenes]{rankGenes()}} function, use \code{drop = FALSE} when subsetting the ranked
+gene expression matrix, see examples.}
 
-\item{upSet}{GeneSet object or a vector of gene Ids, up regulated gene set}
+\item{upSet}{GeneSet object or a vector of gene Ids, up-regulated gene set}
 
-\item{downSet}{GeneSet object or a vector of gene Ids, down regulated gene set}
+\item{downSet}{GeneSet object or a vector of gene Ids, down-regulated gene
+set}
 
-\item{isInteractive}{Boolean, determin whether the returned plot is
+\item{isInteractive}{Boolean, determine whether the returned plot is
 interactive}
 
 \item{textSize}{numberic, set the size of text on the plot}
@@ -51,9 +52,10 @@ A ggplot object (optionally interactive) demonstrating the rank
 density along with rug plot
 }
 \description{
-This function takes a single column data frame, which is a
-subset of the ranked data obtained from \code{\link[=rankGenes]{rankGenes()}}function, and gene sets,
-and it returns plots visualising the density and the rugs of the ran ks.
+This function plots the density and the rugs of the ranks for
+genes in the gene set in a sample. It takes a single column data frame,
+which is a one column subset of the ranked data obtained from \code{\link[=rankGenes]{rankGenes()}}
+function, as well as the gene sets as inputs.
 }
 \examples{
 ranked <- rankGenes(toy_expr)

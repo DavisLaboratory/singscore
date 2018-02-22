@@ -144,10 +144,10 @@ by using the rankGenes() function, are you sure you supplied the ranks?")
 #'   and rows names as samples.
 #' @param scoredf data.frame, results of the simpleScore() function
 #' @param annot any annotation provided by the user that needs to be plot
-#' annot must be ordered in the same was as the scores
+#' annot must be ordered in the same way as the scores
 #' @param alpha numeric, set the transparency of points
 #' @param size numeric, Set the size of each point
-#' @param textSize numeric, relative text sizes for title, labels and axis
+#' @param textSize numeric, relative text sizes for title, labels, and axis
 #' values
 #' @param isInteractive Boolean, Determine whether the plot is interactive
 #' @examples
@@ -263,7 +263,7 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #'   simpleScore() function and plots the relationship between the two gene set
 #'   scores for samples in the gene expression matrix. If you wish to use the 
 #'   plotting function but with some customized inputs (instead of outputs from
-#'   `simpleScore` function), you need to make sure the formats are the same. 
+#'   the `simpleScore` function), you need to make sure the formats are the same. 
 #'   To be specific, you need to have columns names "TotalScore"
 #'   "TotalDispersion" "UpScore" "UpDispersion" "DownScore" "DownDispersion" 
 #'   and rows names as samples.
@@ -279,7 +279,7 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' @param textSize numeric, set the text size for the plot, default as 1.5
 #' @param hexMin integer, the threshold which decides whether hex bin plot or
 #'   scatter plot is displayed, default as 100
-#' @return A ggplot object, a scatter plot, demostrating the relationship
+#' @return A ggplot object, a scatter plot, demonstrating the relationship
 #'   between scores from two signatures on the same set of samples.
 #' @examples
 #' ranked <- rankGenes(toy_expr)
@@ -365,8 +365,8 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #' @param sampleLabels vector of character, sample names to display, ordered in
 #'   the same way as samples are ordered in the 'scoredf1' data matrix, default 
 #'   as NULL which means points are labelled by sample names.
-#' @param annot vector of characters, annotations to colour the data and should 
-#'  have the sample of length with number of samples in scoredfs
+#' @param annot vector of characters, annotations used to colour the data and 
+#' should have the same number of samples as in scoredfs
 #' @inheritParams plotScoreLandscape
 #' 
 #' @return New data points on the already plotted ggplot object from
@@ -496,7 +496,7 @@ projectScoreLandscape <- function(plotObj = NULL,
 #' expression matrix, see examples.
 #' @param isInteractive Boolean, determin whether the returned plot is
 #'   interactive
-#' @param textSize numberic, set the size of text on the plot
+#' @param textSize numeric, set the size of text on the plot
 #' @param upSet GeneSet object, up regulated gene set
 #' @param downSet GeneSet object, down regulated gene set
 #' @keywords internal
@@ -644,19 +644,20 @@ plotRankDensity_intl <- function (rankData,
 
 #' @title Permutation test for the derived scores of each sample
 #'
-#' @description This function randomly generates a number of gene sets which
+#' @description This function generates a number of random gene sets that
 #'   have the same number of genes as the scored gene set. It scores each random
-#'   gene set and return a matrix with scores for each permutation across all
-#'   samples. The empirical scores are used to calculate the empirical p value
-#'   and plot the null distribution. The implementation uses
-#'   [BiocParallel::bplapply()] for easy access to parallel backends.
-#' @param n_up integer,  size of up set
-#' @param n_down integer, size of down set
+#'   gene set and returns a matrix of scores for all samples. 
+#'   The empirical scores are used to calculate the empirical p-values and plot
+#'   the null distribution. The implementation uses [BiocParallel::bplapply()] 
+#'   for easy access to parallel backends.
+#' @param n_up integer, the number of genes in the up-regulated gene set
+#' @param n_down integer, the number of genes in the down-regulated gene set
 #' @param rankData matrix, outcome of function [rankGenes()]
-#' @param B integer, the number of permutation repeats default as 1000
+#' @param B integer, the number of permutation repeats or the number of random 
+#' gene sets to be generated, default as 1000
 #' @param seed integer, set the seed for randomisation
 #'
-#' @return A matrix of empircal scores for each sample
+#' @return A matrix of empirical scores for all samples
 #' @seealso 
 #' [Post about BiocParallel](http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U)
 #' `browseVignettes("BiocParallel")`
@@ -668,14 +669,16 @@ plotRankDensity_intl <- function (rankData,
 #' n_up = length(GSEABase::geneIds(toy_gs_up))
 #' n_down = length(GSEABase::geneIds(toy_gs_dn))
 #' # find out what backends can be registered on your machine
-#' BiocParallel::registered()
 #' # the first one is the default backend, and it can be changed explicitly.
+#' BiocParallel::registered()
+#' 
+#' # call the permutation function to generate the empirical scores for B times
 #' permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-#' seed = 1) # call the permutation function to generate the empirical scores 
-#' #for B times.
+#' seed = 1) 
+#'
 
 generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
-  # A copy of singscoring method for usage in the Bpapply function  
+  # A copy of singscoring method for usage in the bpapply function  
   singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
                              centerScore = TRUE, dispersionFun = mad) {
       #subset the data for samples whose calculation is to be performed
@@ -772,17 +775,18 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
 #' Calculate the empirical p values
 #'
 #' @description This function takes the permutation results, which is the
-#'   empirical scores, and the calculated sample scores using [simpleScore()] as
-#'   input. It calculates the empirical p values of the simple sample scoring
-#'   test using formula p = (r+1)/(m+1) where r is the number of empirical
-#'   scores that are larger than the obtained score and m is the total number of
-#'   permutation run which is the B parameter in [generateNull()]
+#'   empirical scores from [generateNull()], and the calculated sample scores 
+#'   using [simpleScore()] as inputs. It calculates the empirical p-values of 
+#'   the 'simpleScore' scoring test using formula p = (r+1)/(m+1) where r is 
+#'   the number of empirical scores that are larger than the obtained score and 
+#'   m is the total number of permutation run which is the B parameter in 
+#'   [generateNull()]
 #'
 #' @param permuResult A matrix, result from [generateNull()] function
 #' @param scoredf A dataframe, result from [simpleScore()] function
 #'
-#' @return pvals for each sample, the calculated empirical p values for all
-#'   empirical sample scores null distribution
+#' @return Estimated p-values for the tested sample, i.e the calculated 
+#' empirical p-values
 #' @author Ruqian Lyu
 #' @examples
 #' ranked <- rankGenes(toy_expr)
@@ -813,7 +817,7 @@ getPvals <- function(permuResult,scoredf){
 
 #' Plot the empirical null distribution using the permutation result
 #' 
-#' @description This function takes the results from function [generateNull()] 
+#' @description This function takes the output from function [generateNull()] 
 #' and plots the density curves of empirical scores for the provided samples via
 #' \code{sampleNames} parameter. It can plot null distribution for a single 
 #' sample or multiple samples.
@@ -821,11 +825,10 @@ getPvals <- function(permuResult,scoredf){
 #' @param permuResult A matrix, outcome from function [generateNull()]
 #' @param scoredf A dataframe, outcome from function [simpleScore()]
 #' @param pvals A vector, outcome of function [getPvals()]
-#' @param sampleNames A vector of character, sample names or multiple sample 
-#' labels
-#' @param alpha numeric,ggplot theme element
-#' @param size numeric,ggplot theme element
-#' @param textSize numeric,ggplot theme element
+#' @param sampleNames A vector of character, sample names
+#' @param alpha numeric, ggplot theme element
+#' @param size numeric, ggplot theme element
+#' @param textSize numeric, ggplot theme element
 #' @param labelSize numeric, size of label texts.
 #' @param cutoff double, the cutoff value for determining significance
 #' @return a ggplot object
@@ -842,7 +845,9 @@ getPvals <- function(permuResult,scoredf){
 #' seed = 1) # call the permutation function to generate the empirical scores 
 #' #for B times.
 #' pvals <- getPvals(permuteResult,scoredf)
+#' # plot for all samples
 #' plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals))
+#' #plot for the first sample
 #' plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1])
 #' @export
 plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
@@ -860,8 +865,8 @@ plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
   for(i in 1:length(sampleNames)){
     cutoff_score[i] <- quantile(permuResult[,sampleNames[i]],(1-cutoff))
   }
-  names(cutoff_score) = sampleNames
-  cutoff_annot = data.frame(sampleNames = sampleNames, 
+  names(cutoff_score) <-  sampleNames
+  cutoff_annot  <-  data.frame(sampleNames = sampleNames, 
                             cutoff_score = cutoff_score)
   #pDt <-  as.data.frame(pvals)
   if( !is.null(sampleNames) ){

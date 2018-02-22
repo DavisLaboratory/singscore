@@ -4,7 +4,7 @@
 \name{toy_gs_up}
 \alias{toy_gs_up}
 \title{Gene set of 5 genes}
-\format{A GeneSet obeject with 5 genes}
+\format{A GeneSet object with 5 genes}
 \usage{
 toy_gs_up
 }

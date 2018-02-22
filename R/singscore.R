@@ -1,10 +1,10 @@
-#' singscore: A package for deriving gene-set score at a single sample level.
+#' singscore: A package for deriving gene-set scores at a single sample level.
 #'
-#' The packge provides functions of calculating gene-set expression scores at a 
-#' single-sample level and it is able to deal with single-sample input. It also 
-#' includes efficient visulisation function for exploring the results as well 
-#' as permutation test for significance test and plot null distribution.
-#' @import methods
+#' The package provides functions for calculating gene-set expression scores at 
+#' a single-sample level and it can deal with single-sample input. It also 
+#' includes efficient visualisation functions for exploring the scoring results
+#'  more in depth as well as functions for permutation test.
+#' 
 #' @import stats
 #' @import graphics
 #' @import ggplot2
@@ -19,10 +19,10 @@ NULL
 
 #' Gene expression dataset of two samples
 #'
-#' A microarray gene expression data.frame dataset that was originially obtained
+#' A microarray gene expression data.frame dataset that was originally obtained
 #' from the integrated TGFb-EMT data published by (Foroutan et al, 2017).
 #' (ComBat corrected values).\code{toy_expr} is a subset of the integrated
-#' TGFb-EMT data consisting of 2 samples each with 20 genes.
+#' TGFb-EMT data consists of 2 samples each with 20 genes.
 #' 
 #' @format A data frame of 2 samples each with 20 genes
 #' \describe{
@@ -46,7 +46,7 @@ NULL
 #' signature and it consists of five genes which are randomly selected from the
 #' gene list in \code{toy_expr} but has no overlap with \code{toy_gs_up}.
 #' 
-#' @format A GSEABase::GeneSet obeject with 5 genes
+#' @format A GSEABase::GeneSet object with 5 genes
 #' @docType data
 #' @seealso 
 #' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_gs_up]
@@ -58,7 +58,7 @@ NULL
 #' signature and it consists of five genes which are randomly selected from the
 #' gene list in \code{toy_expr} but has no overlap with \code{toy_gs_dn}.
 #'
-#' @format A GeneSet obeject with 5 genes
+#' @format A GeneSet object with 5 genes
 #' @docType data
 #' @seealso 
 #' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_gs_dn]
@@ -66,7 +66,7 @@ NULL
 
 #' Gene expression data.frame
 #'
-#' A microarray gene expression dataset that was originially obtained from the
+#' A microarray gene expression dataset that was originally obtained from the
 #' integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
 #' corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT
 #' data consisting of ten samples each with 11900 genes.
@@ -78,7 +78,7 @@ NULL
 #' doi:10.1158/1541-7786.MCR-16-0313.
 #' @source
 #' [Foroutan et al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
-#' @format A data.frame obeject
+#' @format A data.frame object
 #' @docType data
 "tgfb_expr_10"
 
@@ -86,11 +86,11 @@ NULL
 #'
 #' A GeneSet object that contains the up-regulated genes of a TGFb-induced
 #' EMT gene signature that was derived by (Foroutan et al.,2017), using two
-#' meta-analysis techniques. The gene signature contains a up-regulated gene set
+#' meta-analysis techniques. The gene signature contains an up-regulated gene set
 #' (up-set) and a down-regulated gene set (down-set). Please refer to the
-#' vignettes for the steps to aquaire the exact data object.
+#' vignettes for the steps to acquire the exact data object.
 #'
-#' @format A GeneSet obeject
+#' @format A GeneSet object
 #' @docType data
 #' @references
 #' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
@@ -106,12 +106,12 @@ NULL
 
 #' Down-set for TGFb gene expression signature
 #'
-#' A GeneSet object that contains the up regulated gene set of a TGFb-induced
+#' A GeneSet object that contains the up-regulated gene set of a TGFb-induced
 #' EMT gene signature that was derived by (Foroutan et al,2017), using two
-#' meta-analysis techniques. The gene signature contains a up-regulated gene set
+#' meta-analysis techniques. The gene signature contains an up-regulated gene set
 #' (up-set) and a down-regulated gene set (down-set). Please refer to the
-#' vignettes for the steps to aquaire the exact data object.
-#' @format A GeneSet obeject
+#' vignettes for the steps to acquire the exact data object.
+#' @format A GeneSet object
 #' @docType data
 #' @references 
 #' Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, 
@@ -129,9 +129,9 @@ NULL
 #'
 #' This data.frame is the returned results of function [simpleScore()] on a
 #' CCLE dataset [Barretina et al](https://www.nature.com/articles/nature11003) 
-#' consists of 55 samples agaist an epithelial gene signature obtained from 
+#' consists of 55 samples against an epithelial gene signature obtained from 
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/) 
-#' Please refer to the vignettes for the steps to aquaire the exact data object.
+#' Please refer to the vignettes for the steps to acquire the exact data object.
 #' @seealso 
 #' [scoredf_ccle_mes]
 #' @references 
@@ -156,14 +156,14 @@ NULL
 "scoredf_ccle_epi"
 
 
-#' Scoring results of a CCLE dataset against an mesenchymal gene signature
+#' Scoring results of a CCLE dataset against a mesenchymal gene signature
 #'
 #' This data.frame is the returned results of function 
 #' [simpleScore()] on a CCLE dataset 
 #' [Barretina et al](https://www.nature.com/articles/nature11003)
-#' consists of 55 samples agaist an mesenchymal gene signature obtained from
+#' consists of 55 samples against a mesenchymal gene signature obtained from
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/)
-#' Please refer to the vignettes for the steps to aquaire the exact data object.
+#' Please refer to the vignettes for the steps to acquire the exact data object.
 #'
 #' @seealso 
 #' \code{[scoredf_ccle_epi]}
@@ -191,9 +191,9 @@ NULL
 #'
 #' This data.frame is the returned results of function [simpleScore()] on
 #' tumour samples from [TCGA](https://cancergenome.nih.gov) database against 
-#' an mesenchymal gene signature obtained from 
+#' a mesenchymal gene signature obtained from 
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/).
-#' Please refer to the vignettes for the steps to aquaire the exact data object.
+#' Please refer to the vignettes for the steps to acquire the exact data object.
 #'
 #' @seealso 
 #' [scoredf_tcga_mes]
@@ -212,7 +212,7 @@ NULL
 #' an epithelial gene signature obtained from 
 #' [Tan, Tuan Zea et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/).
 #' Please refer to the
-#' vignettes for the steps to aquaire the exact data object.
+#' vignettes for the steps to acquire the exact data object.
 #'
 #' @seealso 
 #' [scoredf_tcga_epi]

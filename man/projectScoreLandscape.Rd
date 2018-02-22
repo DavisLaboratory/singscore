@@ -23,8 +23,8 @@ default as NULL and all samples in scoredfs will be plotted}
 the same way as samples are ordered in the 'scoredf1' data matrix, default
 as NULL which means points are labelled by sample names.}
 
-\item{annot}{vector of characters, annotations to colour the data and should
-have the sample of length with number of samples in scoredfs}
+\item{annot}{vector of characters, annotations used to colour the data and
+should have the same number of samples as in scoredfs}
 
 \item{isInteractive}{boolean, whether the plot is interactive default as
 FALSE}

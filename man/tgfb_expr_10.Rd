@@ -4,7 +4,7 @@
 \name{tgfb_expr_10}
 \alias{tgfb_expr_10}
 \title{Gene expression data.frame}
-\format{A data.frame obeject}
+\format{A data.frame object}
 \source{
 \href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al,2017}
 }
@@ -12,7 +12,7 @@
 tgfb_expr_10
 }
 \description{
-A microarray gene expression dataset that was originially obtained from the
+A microarray gene expression dataset that was originally obtained from the
 integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
 corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT
 data consisting of ten samples each with 11900 genes.

@@ -11,13 +11,13 @@ plotDispersion(scoredf, annot = NULL, alpha = 1, size = 1,
 \item{scoredf}{data.frame, results of the simpleScore() function}
 
 \item{annot}{any annotation provided by the user that needs to be plot
-annot must be ordered in the same was as the scores}
+annot must be ordered in the same way as the scores}
 
 \item{alpha}{numeric, set the transparency of points}
 
 \item{size}{numeric, Set the size of each point}
 
-\item{textSize}{numeric, relative text sizes for title, labels and axis
+\item{textSize}{numeric, relative text sizes for title, labels, and axis
 values}
 
 \item{isInteractive}{Boolean, Determine whether the plot is interactive}

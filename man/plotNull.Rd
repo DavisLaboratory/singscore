@@ -14,16 +14,15 @@ plotNull(permuResult, scoredf, pvals, sampleNames = NULL, cutoff = 0.01,
 
 \item{pvals}{A vector, outcome of function \code{\link[=getPvals]{getPvals()}}}
 
-\item{sampleNames}{A vector of character, sample names or multiple sample
-labels}
+\item{sampleNames}{A vector of character, sample names}
 
 \item{cutoff}{double, the cutoff value for determining significance}
 
-\item{alpha}{numeric,ggplot theme element}
+\item{alpha}{numeric, ggplot theme element}
 
-\item{size}{numeric,ggplot theme element}
+\item{size}{numeric, ggplot theme element}
 
-\item{textSize}{numeric,ggplot theme element}
+\item{textSize}{numeric, ggplot theme element}
 
 \item{labelSize}{numeric, size of label texts.}
 }
@@ -31,7 +30,7 @@ labels}
 a ggplot object
 }
 \description{
-This function takes the results from function \code{\link[=generateNull]{generateNull()}}
+This function takes the output from function \code{\link[=generateNull]{generateNull()}}
 and plots the density curves of empirical scores for the provided samples via
 \code{sampleNames} parameter. It can plot null distribution for a single
 sample or multiple samples.
@@ -48,7 +47,9 @@ permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
 seed = 1) # call the permutation function to generate the empirical scores 
 #for B times.
 pvals <- getPvals(permuteResult,scoredf)
+# plot for all samples
 plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals))
+#plot for the first sample
 plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1])
 }
 \author{

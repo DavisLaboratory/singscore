@@ -12,16 +12,17 @@ getPvals(permuResult, scoredf)
 \item{scoredf}{A dataframe, result from \code{\link[=simpleScore]{simpleScore()}} function}
 }
 \value{
-pvals for each sample, the calculated empirical p values for all
-empirical sample scores null distribution
+Estimated p-values for the tested sample, i.e the calculated
+empirical p-values
 }
 \description{
 This function takes the permutation results, which is the
-empirical scores, and the calculated sample scores using \code{\link[=simpleScore]{simpleScore()}} as
-input. It calculates the empirical p values of the simple sample scoring
-test using formula p = (r+1)/(m+1) where r is the number of empirical
-scores that are larger than the obtained score and m is the total number of
-permutation run which is the B parameter in \code{\link[=generateNull]{generateNull()}}
+empirical scores from \code{\link[=generateNull]{generateNull()}}, and the calculated sample scores
+using \code{\link[=simpleScore]{simpleScore()}} as inputs. It calculates the empirical p-values of
+the 'simpleScore' scoring test using formula p = (r+1)/(m+1) where r is
+the number of empirical scores that are larger than the obtained score and
+m is the total number of permutation run which is the B parameter in
+\code{\link[=generateNull]{generateNull()}}
 }
 \examples{
 ranked <- rankGenes(toy_expr)

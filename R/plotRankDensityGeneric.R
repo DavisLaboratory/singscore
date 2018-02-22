@@ -2,19 +2,20 @@
 NULL
 
 #' Plot the densities of ranks for one sample 
-#' @description This function takes a single column data frame, which is a
-#' subset of the ranked data obtained from [rankGenes()]function, and gene sets,
-#' and it returns plots visualising the density and the rugs of the ran ks.
+#' @description This function plots the density and the rugs of the ranks for 
+#' genes in the gene set in a sample. It takes a single column data frame, 
+#' which is a one column subset of the ranked data obtained from [rankGenes()]
+#' function, as well as the gene sets as inputs.
 #'
 #' @param rankData one column of the ranked gene expression matrix obtained from
-#'   the [rankGenes()] function, use drop = FALSE when subsetting the ranked 
+#'   the [rankGenes()] function, use `drop = FALSE` when subsetting the ranked 
 #'   gene expression matrix, see examples.
-#' @param isInteractive Boolean, determin whether the returned plot is
+#' @param isInteractive Boolean, determine whether the returned plot is
 #'   interactive
 #' @param textSize numberic, set the size of text on the plot
-#' @param upSet GeneSet object or a vector of gene Ids, up regulated gene set
-#' @param downSet GeneSet object or a vector of gene Ids, down regulated 
-#' gene set
+#' @param upSet GeneSet object or a vector of gene Ids, up-regulated gene set
+#' @param downSet GeneSet object or a vector of gene Ids, down-regulated gene 
+#' set
 #'
 #' @return A ggplot object (optionally interactive) demonstrating the rank
 #'   density along with rug plot

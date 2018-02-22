@@ -4,7 +4,7 @@
 \name{toy_gs_dn}
 \alias{toy_gs_dn}
 \title{Gene set object}
-\format{A GSEABase::GeneSet obeject with 5 genes}
+\format{A GSEABase::GeneSet object with 5 genes}
 \usage{
 toy_gs_dn
 }

@@ -35,15 +35,15 @@ simpleScore(rankData, upSet, downSet = NULL, subSamples = NULL,
 \arguments{
 \item{rankData}{A matrix-like object, ranked gene expression matrix data}
 
-\item{upSet}{A GeneSet object or vector of gene Ids of up regulated gene set}
+\item{upSet}{A GeneSet object or vector of gene Ids of up-regulated gene set}
 
-\item{downSet}{A GeneSet object or vector of gene Ids of down regulated gene
+\item{downSet}{A GeneSet object or vector of gene Ids of down-regulated gene
 set}
 
 \item{subSamples}{A vector of sample labels/indices that will be
 used to subset the rankData matrix. All samples will be scored by default.}
 
-\item{centerScore}{A Boolean, specifying whether scores should be centred,
+\item{centerScore}{A Boolean, specifying whether scores should be centered,
 default as TRUE}
 
 \item{dispersionFun}{A character, dispersion function with default as 'mad'}
@@ -53,11 +53,11 @@ A data.frame consists of scores and dispersions for all samples
 }
 \description{
 This function takes a ranked gene expression matrix obtained from
-\code{rankGenes()} function and gene sets as input and
-calulate the scores for each individual sample against gene set. It returns
-a data.frame consists of scores and dispersions for each sample. The gene
-sets can be in vector format or GeneSet S4 object. Down set can be null if
-no down-regulated gene sets are available.
+\code{rankGenes()} function and gene sets as inputs and it calculates the
+scores for each individual sample against gene set. It returns a data.frame
+consists of scores and dispersions for each sample. The gene sets can be in
+vector format or GeneSet S4 object (GSEABase package).
+Down set can be null if down-regulated gene sets are unavailable.
 }
 \examples{
 ranked <- rankGenes(toy_expr)

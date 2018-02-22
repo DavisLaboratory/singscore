@@ -7,26 +7,27 @@
 generateNull(n_up, n_down, rankData, B = 1000, seed = 1)
 }
 \arguments{
-\item{n_up}{integer,  size of up set}
+\item{n_up}{integer, the number of genes in the up-regulated gene set}
 
-\item{n_down}{integer, size of down set}
+\item{n_down}{integer, the number of genes in the down-regulated gene set}
 
 \item{rankData}{matrix, outcome of function \code{\link[=rankGenes]{rankGenes()}}}
 
-\item{B}{integer, the number of permutation repeats default as 1000}
+\item{B}{integer, the number of permutation repeats or the number of random
+gene sets to be generated, default as 1000}
 
 \item{seed}{integer, set the seed for randomisation}
 }
 \value{
-A matrix of empircal scores for each sample
+A matrix of empirical scores for all samples
 }
 \description{
-This function randomly generates a number of gene sets which
+This function generates a number of random gene sets that
 have the same number of genes as the scored gene set. It scores each random
-gene set and return a matrix with scores for each permutation across all
-samples. The empirical scores are used to calculate the empirical p value
-and plot the null distribution. The implementation uses
-\code{\link[BiocParallel:bplapply]{BiocParallel::bplapply()}} for easy access to parallel backends.
+gene set and returns a matrix of scores for all samples.
+The empirical scores are used to calculate the empirical p-values and plot
+the null distribution. The implementation uses \code{\link[BiocParallel:bplapply]{BiocParallel::bplapply()}}
+for easy access to parallel backends.
 }
 \examples{
 ranked <- rankGenes(toy_expr)
@@ -34,11 +35,13 @@ scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 n_up = length(GSEABase::geneIds(toy_gs_up))
 n_down = length(GSEABase::geneIds(toy_gs_dn))
 # find out what backends can be registered on your machine
-BiocParallel::registered()
 # the first one is the default backend, and it can be changed explicitly.
+BiocParallel::registered()
+
+# call the permutation function to generate the empirical scores for B times
 permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-seed = 1) # call the permutation function to generate the empirical scores 
-#for B times.
+seed = 1) 
+
 }
 \seealso{
 \href{http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U}{Post about BiocParallel}
