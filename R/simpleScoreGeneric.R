@@ -3,23 +3,28 @@ NULL
 
 #'@title single-sample gene-set scoring method
 #'
-#'@description This function takes a ranked gene expression matrix obtained from
-#'  \code{rankGenes()} function and gene sets as inputs and it calculates the 
-#'  scores for each individual sample against gene set. It returns a data.frame 
-#'  consists of scores and dispersions for each sample. The gene sets can be in 
-#'  vector format or GeneSet S4 object (GSEABase package).
-#'  Down set can be null if down-regulated gene sets are unavailable.
-#'
-#' @param rankData A matrix-like object, ranked gene expression matrix data
-#' @param subSamples A vector of sample labels/indices that will be
-#'   used to subset the rankData matrix. All samples will be scored by default.
-#' @param upSet A GeneSet object or vector of gene Ids of up-regulated gene set
-#' @param downSet A GeneSet object or vector of gene Ids of down-regulated gene 
-#'   set
-#' @param centerScore A Boolean, specifying whether scores should be centered, 
-#'   default as TRUE
-#' @param dispersionFun A character, dispersion function with default as 'mad'
-#' @return A data.frame consists of scores and dispersions for all samples
+#'@description This function computes 'singscores' using a ranked gene
+#'  expression matrix obtained from the [rankGenes()] function and a gene set or
+#'  a pair of up-regulated and down-regulated gene sets. It returns a data.frame
+#'  of scores and dispersions for each sample. The gene sets can be in vector
+#'  format or as GeneSet objects (from GSEABase packages). If samples need to be
+#'  scored against a single gene set, the \code{upSet} argument should be used
+#'  to pass the gene set while the \code{downSet} argument is set to
+#'  \code{NULL}. This setting is ideal for gene sets representing gene
+#'  ontologies where the nature of the genes is unknown (up- or down-regulated).
+#'  
+#'@param rankData A matrix object, ranked gene expression matrix data generated
+#'  using the [rankGenes()] function
+#'@param subSamples A vector of sample labels/indices that will be used to
+#'  subset the rankData matrix. All samples will be scored if not provided
+#'@param upSet A GeneSet object or character vector of gene IDs of up-regulated
+#'  gene set or a gene set where the nature of genes is not known
+#'@param downSet A GeneSet object or character vector of gene IDs of
+#'  down-regulated gene set or NULL where only a single gene set is provided
+#'@param centerScore A Boolean, specifying whether scores should be centered
+#'  around 0, default as TRUE
+#'@param dispersionFun A character, dispersion function with default being 'mad'
+#'@return A data.frame consists of singscores and dispersions for all samples
 #'
 #' @examples
 #' ranked <- rankGenes(toy_expr)
@@ -127,48 +132,4 @@ function(rankData,
   return(df)
 })
 
-#' @rdname simpleScore
-setMethod("simpleScore", signature(
-  rankData = 'ANY',
-  upSet = 'GeneSet',
-  downSet = 'vector'
-),
-function(rankData,
-         upSet,
-         downSet = NULL,
-         subSamples = NULL,
-         centerScore = TRUE,
-         dispersionFun = 'mad') {
-  downSet <- GSEABase::GeneSet(as.character(downSet))
-  
-  df <- singscoring( rankData,
-                     upSet = upSet,
-                     downSet = downSet,
-                     subSamples = subSamples,
-                     centerScore = centerScore,
-                     dispersionFun = dispersionFun)
-  return(df)
-})
 
-#' @rdname simpleScore
-setMethod("simpleScore", signature(
-  rankData = 'ANY',
-  upSet = 'vector',
-  downSet = 'GeneSet'
-),
-function(rankData,
-         upSet,
-         downSet,
-         subSamples = NULL,
-         centerScore = TRUE,
-         dispersionFun = 'mad') {
-  upSet <- GSEABase::GeneSet(as.character(upSet))
-  
-  df <- singscoring( rankData,
-                     upSet = upSet,
-                     downSet = downSet,
-                     subSamples = subSamples,
-                     centerScore = centerScore,
-                     dispersionFun = dispersionFun)
-  return(df)
-})

@@ -2,37 +2,35 @@
 % Please edit documentation in R/CoreFuns.R
 \name{plotNull}
 \alias{plotNull}
-\title{Plot the empirical null distribution using the permutation result}
+\title{Plot the empirically estimated null distribution and associated p-values}
 \usage{
-plotNull(permuResult, scoredf, pvals, sampleNames = NULL, cutoff = 0.01,
-  alpha = 1, size = 1, textSize = 2, labelSize = 5)
+plotNull(permuteResult, scoredf, pvals, sampleNames = NULL, cutoff = 0.01,
+  textSize = 2, labelSize = 5)
 }
 \arguments{
-\item{permuResult}{A matrix, outcome from function \code{\link[=generateNull]{generateNull()}}}
+\item{permuteResult}{A matrix, null distributions for each sample generated
+using the \code{\link[=generateNull]{generateNull()}} function}
 
-\item{scoredf}{A dataframe, outcome from function \code{\link[=simpleScore]{simpleScore()}}}
+\item{scoredf}{A dataframe, singscores generated using the \code{\link[=simpleScore]{simpleScore()}}
+function}
 
-\item{pvals}{A vector, outcome of function \code{\link[=getPvals]{getPvals()}}}
+\item{pvals}{A vector, estimated p-values using the \code{\link[=getPvals]{getPvals()}} function}
 
-\item{sampleNames}{A vector of character, sample names}
+\item{sampleNames}{A character vector, sample IDs}
 
-\item{cutoff}{double, the cutoff value for determining significance}
+\item{cutoff}{numeric, the cutoff value for determining significance}
 
-\item{alpha}{numeric, ggplot theme element}
+\item{textSize}{numeric, size of axes labels, axes values and title}
 
-\item{size}{numeric, ggplot theme element}
-
-\item{textSize}{numeric, ggplot theme element}
-
-\item{labelSize}{numeric, size of label texts.}
+\item{labelSize}{numeric, size of label texts}
 }
 \value{
 a ggplot object
 }
 \description{
-This function takes the output from function \code{\link[=generateNull]{generateNull()}}
-and plots the density curves of empirical scores for the provided samples via
-\code{sampleNames} parameter. It can plot null distribution for a single
+This function takes the results from function \code{\link[=generateNull]{generateNull()}}
+and plots the density curves of permuted scores for the provided samples via
+\code{sampleNames} parameter. It can plot null distribution(s) for a single
 sample or multiple samples.
 }
 \examples{

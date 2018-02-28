@@ -7,8 +7,6 @@
 \alias{plotRankDensity,ANY,GeneSet,missing-method}
 \alias{plotRankDensity,ANY,vector,vector-method}
 \alias{plotRankDensity,ANY,GeneSet,GeneSet-method}
-\alias{plotRankDensity,ANY,GeneSet,vector-method}
-\alias{plotRankDensity,ANY,vector,GeneSet-method}
 \title{Plot the densities of ranks for one sample}
 \usage{
 plotRankDensity(rankData, upSet, downSet = NULL, isInteractive = FALSE,
@@ -24,12 +22,6 @@ plotRankDensity(rankData, upSet, downSet = NULL, isInteractive = FALSE,
   isInteractive = FALSE, textSize = 1.5)
 
 \S4method{plotRankDensity}{ANY,GeneSet,GeneSet}(rankData, upSet,
-  downSet = NULL, isInteractive = FALSE, textSize = 1.5)
-
-\S4method{plotRankDensity}{ANY,GeneSet,vector}(rankData, upSet,
-  downSet = NULL, isInteractive = FALSE, textSize = 1.5)
-
-\S4method{plotRankDensity}{ANY,vector,GeneSet}(rankData, upSet,
   downSet = NULL, isInteractive = FALSE, textSize = 1.5)
 }
 \arguments{
@@ -48,14 +40,16 @@ interactive}
 \item{textSize}{numberic, set the size of text on the plot}
 }
 \value{
-A ggplot object (optionally interactive) demonstrating the rank
-density along with rug plot
+A ggplot object (or a plotly object) with a rank density plot
+overlayed with a barcode plot
 }
 \description{
-This function plots the density and the rugs of the ranks for
-genes in the gene set in a sample. It takes a single column data frame,
-which is a one column subset of the ranked data obtained from \code{\link[=rankGenes]{rankGenes()}}
-function, as well as the gene sets as inputs.
+This function takes a single-column data frame, which is a
+single-column subset of the ranked matrix data generated using
+\code{\link[=rankGenes]{rankGenes()}} function, and the gene sets of interest as inputs. It plots
+the density of ranks for genes in the gene set and overlays a barcode plot
+of these ranks. Ranks are normalized by dividing them by the maximum rank.
+Densities are estimated using KDE.
 }
 \examples{
 ranked <- rankGenes(toy_expr)

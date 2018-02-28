@@ -3,26 +3,26 @@
 \docType{data}
 \name{tgfb_gs_dn}
 \alias{tgfb_gs_dn}
-\title{Down-set for TGFb gene expression signature}
+\title{Gene set of down-regulated genes for the TGFb-induced EMT gene signature}
 \format{A GeneSet object}
 \source{
-\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al,2017}
+\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan etal,2017}
 }
 \usage{
 tgfb_gs_dn
 }
 \description{
-A GeneSet object that contains the up-regulated gene set of a TGFb-induced
+A GeneSet object that contains the down-regulated genes of the TGFb-induced
 EMT gene signature that was derived by (Foroutan et al,2017), using two
-meta-analysis techniques. The gene signature contains an up-regulated gene set
-(up-set) and a down-regulated gene set (down-set). Please refer to the
+meta-analysis techniques. The gene signature contains an up-regulated gene
+set (up-set) and a down-regulated gene set (down-set). Please refer to the
 vignettes for the steps to acquire the exact data object.
 }
 \references{
-Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
-Erik W Thompson, and Melissa J Davis. 2017.
-“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
-Molecular Cancer Research. American Association for Cancer Research.
+Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, Erik W
+Thompson, and Melissa J Davis. 2017. “A Transcriptional Program for
+Detecting Tgfbeta-Induced Emt in Cancer.” Molecular Cancer Research.
+American Association for Cancer Research.
 doi:10.1158/1541-7786.MCR-16-0313.
 }
 \seealso{

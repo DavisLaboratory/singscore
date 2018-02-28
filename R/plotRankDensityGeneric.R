@@ -1,11 +1,13 @@
 #' @include singscore.R CoreFuns.R
 NULL
 
-#' Plot the densities of ranks for one sample 
-#' @description This function plots the density and the rugs of the ranks for 
-#' genes in the gene set in a sample. It takes a single column data frame, 
-#' which is a one column subset of the ranked data obtained from [rankGenes()]
-#' function, as well as the gene sets as inputs.
+#' Plot the densities of ranks for one sample
+#' @description This function takes a single-column data frame, which is a
+#'   single-column subset of the ranked matrix data generated using
+#'   [rankGenes()] function, and the gene sets of interest as inputs. It plots
+#'   the density of ranks for genes in the gene set and overlays a barcode plot
+#'   of these ranks. Ranks are normalized by dividing them by the maximum rank.
+#'   Densities are estimated using KDE.
 #'
 #' @param rankData one column of the ranked gene expression matrix obtained from
 #'   the [rankGenes()] function, use `drop = FALSE` when subsetting the ranked 
@@ -17,8 +19,8 @@ NULL
 #' @param downSet GeneSet object or a vector of gene Ids, down-regulated gene 
 #' set
 #'
-#' @return A ggplot object (optionally interactive) demonstrating the rank
-#'   density along with rug plot
+#' @return  A ggplot object (or a plotly object) with a rank density plot
+#'  overlayed with a barcode plot
 #' @examples
 #' ranked <- rankGenes(toy_expr)
 #' plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up)
@@ -102,48 +104,6 @@ function(rankData,
          downSet = NULL,
          isInteractive = FALSE,
          textSize = 1.5) {
-  
-  plt <- plotRankDensity_intl(rankData,
-                              upSet = upSet,
-                              downSet = downSet,
-                              isInteractive = isInteractive,
-                              textSize = textSize)
-  return(plt)
-})
-
-#' @rdname plotRankDensity
-setMethod("plotRankDensity", signature(
-  rankData = 'ANY',
-  upSet = 'GeneSet',
-  downSet = 'vector'
-),
-function(rankData,
-         upSet,
-         downSet = NULL,
-         isInteractive = FALSE,
-         textSize = 1.5) {
-  downSet <- GSEABase::GeneSet(as.character(downSet))
-  
-  plt <- plotRankDensity_intl(rankData,
-                              upSet = upSet,
-                              downSet = downSet,
-                              isInteractive = isInteractive,
-                              textSize = textSize)
-  return(plt)
-})
-
-#' @rdname plotRankDensity
-setMethod("plotRankDensity", signature(
-  rankData = 'ANY',
-  upSet = 'vector',
-  downSet = 'GeneSet'
-),
-function(rankData,
-         upSet,
-         downSet = NULL,
-         isInteractive = FALSE,
-         textSize = 1.5) {
-  upSet <- GSEABase::GeneSet(as.character(upSet))
   
   plt <- plotRankDensity_intl(rankData,
                               upSet = upSet,

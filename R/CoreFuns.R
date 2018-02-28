@@ -142,14 +142,14 @@ by using the rankGenes() function, are you sure you supplied the ranks?")
 #'   To be specific, you need to have columns names "TotalScore"
 #'   "TotalDispersion" "UpScore" "UpDispersion" "DownScore" "DownDispersion" 
 #'   and rows names as samples.
-#' @param scoredf data.frame, results of the simpleScore() function
-#' @param annot any annotation provided by the user that needs to be plot
-#' annot must be ordered in the same way as the scores
+#' @param scoredf data.frame, generated using the [simpleScore()] function
+#' @param annot annot any numeric or factor annotation provided by the user that
+#'   needs to be plot. Annotations must be ordered in the same way as the scores
 #' @param alpha numeric, set the transparency of points
 #' @param size numeric, Set the size of each point
 #' @param textSize numeric, relative text sizes for title, labels, and axis
 #' values
-#' @param isInteractive Boolean, Determine whether the plot is interactive
+#' @param isInteractive Boolean, determine whether the plot is interactive
 #' @examples
 #' ranked <- rankGenes(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
@@ -198,16 +198,24 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
     p = p + facet_wrap( ~ plotdf$Type, scales = 'free')
   }
   n_color = length(unique(plotdf$Annotation))
-  #plot properties
-  if(n_color == 1) {
-    p = p + 
-      scale_color_manual(values = RColorBrewer::brewer.pal(8,'Set1')[4])
-  } else if(n_color > 9){
-    p = p + 
-      scale_color_manual(values = grDevices::terrain.colors(n_color))
-  }else {
-    p = p + 
-      scale_color_brewer(palette = 'RdYlBu',direction = 1)
+  
+  
+  #plot colour scheme
+  if (is.factor(annot)) {
+    if (n_color == 1 | n_color > 10) {
+      p = p + 
+        scale_color_manual(values = RColorBrewer::brewer.pal(8,'Set1')[4])
+    } else if(n_color <= 10){
+      p = p + ggsci::scale_colour_npg()
+    }
+    
+    #throw warning for n_color > 10
+    if (n_color > 10) {
+      warning('Too many levels of the annotation (max 10 allowed), not 
+              colouring by annotations')
+    }
+  } else {
+    p = p + ggsci::scale_colour_gsea()
   }
   
     p = p +
@@ -772,21 +780,26 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
     return(r)
 }
 
-#' Calculate the empirical p values
+#' Estimate the empirical p-values
 #'
-#' @description This function takes the permutation results, which is the
-#'   empirical scores from [generateNull()], and the calculated sample scores 
-#'   using [simpleScore()] as inputs. It calculates the empirical p-values of 
-#'   the 'simpleScore' scoring test using formula p = (r+1)/(m+1) where r is 
-#'   the number of empirical scores that are larger than the obtained score and 
-#'   m is the total number of permutation run which is the B parameter in 
-#'   [generateNull()]
+#' @description This function takes the null distribution obtained by using
+#'   [generateNull()], and the calculated 'singscore' using [simpleScore()] to
+#'   estimate the empirical p-values. The p-values are estimated using a
+#'   two-tailed test. A minimum p-value of 1/B can be achieved with B
+#'   permutations. using formula p = (r+1)/(m+1) where r is the number of
+#'   empirical scores that are larger than the obtained score and m is the total
+#'   number of permutation run which is the B parameter in [generateNull()]
 #'
-#' @param permuResult A matrix, result from [generateNull()] function
-#' @param scoredf A dataframe, result from [simpleScore()] function
+#' @param permuteResult A matrix, null distributions for each sample generated
+#'   using the [generateNull()] function
+#' @param scoredf A dataframe, singscores generated using the [simpleScore()]
+#'   function
 #'
-#' @return Estimated p-values for the tested sample, i.e the calculated 
-#' empirical p-values
+#'
+#' @return Estimated p-values for enrichment of the gene signature in each
+#'   sample. A p-value of 1/B indicates that the estimated p-value is less than
+#'   or equal to 1/B.
+#'   
 #' @author Ruqian Lyu
 #' @examples
 #' ranked <- rankGenes(toy_expr)
@@ -801,36 +814,41 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, seed = 1){
 #' #for B times.
 #' pvals <- getPvals(permuteResult,scoredf)
 #' @export
-getPvals <- function(permuResult,scoredf){
+getPvals <- function(permuteResult,scoredf){
   resultSc <- t(scoredf[, 1, drop = FALSE])
 # combine the permutation with the result score for the computation of P values
 # p = (r+1)/(m+1)
-  empirScore_re <- rbind(permuResult, as.character(resultSc))
+  empirScore_re <- rbind(permuteResult, as.character(resultSc))
   
   # x[length(x)] is the calculated score
   
   pvals <- apply(empirScore_re,2,function(x){
-    length(x[x >= x[length(x)]]) / length(x)
+    B = length(x) - 1
+    x = abs(as.numeric(x)) #to enable a two-tailed test
+    p = sum(x[1:B] > x[B + 1]) / B
+    p = max(p, 1 / B)
+    
+    return(p)
   })
   return(pvals)
 }
 
-#' Plot the empirical null distribution using the permutation result
+#' Plot the empirically estimated null distribution and associated p-values
 #' 
-#' @description This function takes the output from function [generateNull()] 
-#' and plots the density curves of empirical scores for the provided samples via
-#' \code{sampleNames} parameter. It can plot null distribution for a single 
+#' @description This function takes the results from function [generateNull()] 
+#' and plots the density curves of permuted scores for the provided samples via
+#' \code{sampleNames} parameter. It can plot null distribution(s) for a single 
 #' sample or multiple samples.
 #' 
-#' @param permuResult A matrix, outcome from function [generateNull()]
-#' @param scoredf A dataframe, outcome from function [simpleScore()]
-#' @param pvals A vector, outcome of function [getPvals()]
-#' @param sampleNames A vector of character, sample names
-#' @param alpha numeric, ggplot theme element
-#' @param size numeric, ggplot theme element
-#' @param textSize numeric, ggplot theme element
-#' @param labelSize numeric, size of label texts.
-#' @param cutoff double, the cutoff value for determining significance
+#' @param permuteResult A matrix, null distributions for each sample generated
+#'   using the [generateNull()] function
+#' @param scoredf A dataframe, singscores generated using the [simpleScore()]
+#'   function
+#' @param pvals A vector, estimated p-values using the [getPvals()] function
+#' @param sampleNames A character vector, sample IDs
+#' @param textSize numeric, size of axes labels, axes values and title
+#' @param labelSize numeric, size of label texts
+#' @param cutoff numeric, the cutoff value for determining significance
 #' @return a ggplot object
 #' @author Ruqian Lyu
 #' @examples
@@ -850,9 +868,14 @@ getPvals <- function(permuResult,scoredf){
 #' #plot for the first sample
 #' plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1])
 #' @export
-plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
-                      cutoff = 0.01,alpha = 1, size = 1, 
-                     textSize = 2,labelSize = 5){
+plotNull <- function(permuteResult,
+                     scoredf,
+                     pvals,
+                     sampleNames = NULL,
+                     cutoff = 0.01,
+                     textSize = 2,
+                     labelSize = 5) {
+  
   quantile_title <- as.character((1 - cutoff)*100)
   if(!is.null(sampleNames)){
     pvals <- pvals[sampleNames, drop = FALSE]
@@ -863,7 +886,7 @@ plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
   names(pvalTitle) <- names(pvals[sampleNames])
   cutoff_score <- c()
   for(i in 1:length(sampleNames)){
-    cutoff_score[i] <- quantile(permuResult[,sampleNames[i]],(1-cutoff))
+    cutoff_score[i] <- quantile(permuteResult[,sampleNames[i]],(1-cutoff))
   }
   names(cutoff_score) <-  sampleNames
   cutoff_annot  <-  data.frame(sampleNames = sampleNames, 
@@ -871,7 +894,7 @@ plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
   #pDt <-  as.data.frame(pvals)
   if( !is.null(sampleNames) ){
     if(length(sampleNames)>1){
-      dt <- as.data.frame(permuResult[,sampleNames])
+      dt <- as.data.frame(permuteResult[,sampleNames])
       longDt <- reshape::melt(dt,variable_name = "sampleNames")
       resultScs <-  scoredf[,1,drop = FALSE]
       resultScs$sampleNames <-  rownames(resultScs)
@@ -887,8 +910,8 @@ plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
       #browser()
       plotObj <-  ggplot(data = sampleLSc)+
         geom_density(mapping = aes( x = value), size =1)+
-        coord_cartesian(xlim = c(min(permuResult[,sampleNames]) - 0.03,
-                                 max(permuResult[,sampleNames])+0.05))+
+        coord_cartesian(xlim = c(min(permuteResult[,sampleNames]) - 0.03,
+                                 max(permuteResult[,sampleNames])+0.05))+
         facet_grid(sampleNames~.)+
         geom_segment(mapping =  aes(x  = cutoff_score, y = 11, 
                                     xend = cutoff_score, yend = 0), 
@@ -906,12 +929,12 @@ plotNull <- function(permuResult, scoredf, pvals, sampleNames = NULL,
         ggtitle("Null distribution")
     }else{
       plotDt <- data.frame(sampleNames = sampleNames, 
-                           value = permuResult[,sampleNames],
+                           value = permuteResult[,sampleNames],
                            TotalScore = scoredf[sampleNames,]$TotalScore)
       plotObj <-  ggplot(data = plotDt)+
         geom_density(mapping = aes( x = value),size = 1)+
-        coord_cartesian(xlim = c(min(permuResult[,sampleNames]) - 0.03,
-                                 max(permuResult[,sampleNames])+0.05))+
+        coord_cartesian(xlim = c(min(permuteResult[,sampleNames]) - 0.03,
+                                 max(permuteResult[,sampleNames])+0.05))+
         geom_segment(mapping =  aes(x = cutoff_score, y = 11, 
                                     xend = cutoff_score, yend =0), 
                      linetype="dashed", colour = 'blue',size = 1)+

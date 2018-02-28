@@ -3,15 +3,14 @@
 \docType{data}
 \name{toy_gs_up}
 \alias{toy_gs_up}
-\title{Gene set of 5 genes}
+\title{A gene set object of up-regulated genes for the toy dataset}
 \format{A GeneSet object with 5 genes}
 \usage{
 toy_gs_up
 }
 \description{
-A GeneSet object that represents the up-regulated gene set in a gene
-signature and it consists of five genes which are randomly selected from the
-gene list in \code{toy_expr} but has no overlap with \code{toy_gs_dn}.
+A GeneSet object with 5 genes randomly selected from the toy dataset. These
+genes are independent of those in \link{toy_gs_dn}
 }
 \seealso{
 \code{"\linkS4class{GeneSet}"},\link{toy_expr},\link{toy_gs_dn}

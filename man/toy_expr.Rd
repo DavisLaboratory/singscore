@@ -3,29 +3,26 @@
 \docType{data}
 \name{toy_expr}
 \alias{toy_expr}
-\title{Gene expression dataset of two samples}
-\format{A data frame of 2 samples each with 20 genes
-\describe{
-\item{D_Ctrl_R1}{a control sample}
-\item{D_TGFb_R1}{a TGFb-treated sample}
+\title{A toy gene expression dataset of two samples}
+\format{A data frame of 2 samples each with 20 genes \describe{
+\item{D_Ctrl_R1}{a control sample} \item{D_TGFb_R1}{a TGFb-treated sample}
 }}
 \source{
-\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al.,2017}
+\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan etal.,2017}
 }
 \usage{
 toy_expr
 }
 \description{
-A microarray gene expression data.frame dataset that was originally obtained
-from the integrated TGFb-EMT data published by (Foroutan et al, 2017).
-(ComBat corrected values).\code{toy_expr} is a subset of the integrated
-TGFb-EMT data consists of 2 samples each with 20 genes.
+A toy dataset consisting of 2 samples with the expression values of 20 genes.
+The data was created by sampling 2 samples and 20 genes from the dataset by
+Foroutan et al, 2017.
 }
 \references{
-Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
-Erik W Thompson, and Melissa J Davis. 2017.
-“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
-Molecular Cancer Research. American Association for Cancer Research.
+Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, Erik W
+Thompson, and Melissa J Davis. 2017. “A Transcriptional Program for
+Detecting Tgfbeta-Induced Emt in Cancer.” Molecular Cancer Research.
+American Association for Cancer Research.
 doi:10.1158/1541-7786.MCR-16-0313.
 }
 \keyword{datasets}

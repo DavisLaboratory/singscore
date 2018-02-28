@@ -3,25 +3,26 @@
 \docType{data}
 \name{scoredf_tcga_mes}
 \alias{scoredf_tcga_mes}
-\title{Scoring results of TCGA tumour gene expression matrix}
+\title{Pre-computed singscores of the TCGA breast cancer gene expression matrix
+against a mesenchymal signature}
 \format{An object of class \code{data.frame} with 1119 rows and 2 columns.}
 \usage{
 scoredf_tcga_mes
 }
 \description{
-This data.frame is the returned results of function \code{\link[=simpleScore]{simpleScore()}} on
-tumour samples from \href{https://cancergenome.nih.gov}{TCGA} database against
-an epithelial gene signature obtained from
-\href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}.
-Please refer to the
-vignettes for the steps to acquire the exact data object.
+This data.frame stores pre-computed scores of the
+\href{https://cancergenome.nih.gov}{TCGA} dataset calculated using the
+\code{\link[=simpleScore]{simpleScore()}} function against the mesenchymal gene signature from \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan,Tuan Zea et al}.
+Please refer to the vignettes for instructions on how to obtain the full
+datasets.
 }
 \references{
-Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
-Erik W Thompson, and Melissa J Davis. 2017.
-“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
-Molecular Cancer Research. American Association for Cancer Research.
-doi:10.1158/1541-7786.MCR-16-0313.
+Tan, Tuan Zea, Qing Hao Miow, Yoshio Miki, Tetsuo Noda, Seiichi
+Mori, Ruby Yun-Ju Huang, and Jean Paul Thiery. 2014–10AD.
+“Epithelial-Mesenchymal Transition Spectrum Quantification and Its Efficacy
+in Deciphering Survival and Drug Responses of Cancer Patients.” EMBO
+Molecular Medicine 6 (10). Oxford, UK: BlackWell Publishing Ltd: 1279–93
+doi:10.15252/emmm.201404208.
 }
 \seealso{
 \link{scoredf_tcga_epi}

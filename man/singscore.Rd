@@ -4,10 +4,11 @@
 \name{singscore}
 \alias{singscore}
 \alias{singscore-package}
-\title{singscore: A package for deriving gene-set scores at a single sample level.}
+\title{singscore: A package for deriving gene-set scores at a single sample level}
 \description{
-The package provides functions for calculating gene-set expression scores at
-a single-sample level and it can deal with single-sample input. It also
-includes efficient visualisation functions for exploring the scoring results
-more in depth as well as functions for permutation test.
+The package provides functions for calculating gene-set enrichment scores at
+a single-sample level using gene expression data. It includes functions to
+perform hypothesis testing and provides visualisations to enable diagnosis of
+scores and gene sets along with visualisations to enable exploration of
+results.
 }

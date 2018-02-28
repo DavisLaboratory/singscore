@@ -2,27 +2,30 @@
 % Please edit documentation in R/CoreFuns.R
 \name{getPvals}
 \alias{getPvals}
-\title{Calculate the empirical p values}
+\title{Estimate the empirical p-values}
 \usage{
-getPvals(permuResult, scoredf)
+getPvals(permuteResult, scoredf)
 }
 \arguments{
-\item{permuResult}{A matrix, result from \code{\link[=generateNull]{generateNull()}} function}
+\item{permuteResult}{A matrix, null distributions for each sample generated
+using the \code{\link[=generateNull]{generateNull()}} function}
 
-\item{scoredf}{A dataframe, result from \code{\link[=simpleScore]{simpleScore()}} function}
+\item{scoredf}{A dataframe, singscores generated using the \code{\link[=simpleScore]{simpleScore()}}
+function}
 }
 \value{
-Estimated p-values for the tested sample, i.e the calculated
-empirical p-values
+Estimated p-values for enrichment of the gene signature in each
+sample. A p-value of 1/B indicates that the estimated p-value is less than
+or equal to 1/B.
 }
 \description{
-This function takes the permutation results, which is the
-empirical scores from \code{\link[=generateNull]{generateNull()}}, and the calculated sample scores
-using \code{\link[=simpleScore]{simpleScore()}} as inputs. It calculates the empirical p-values of
-the 'simpleScore' scoring test using formula p = (r+1)/(m+1) where r is
-the number of empirical scores that are larger than the obtained score and
-m is the total number of permutation run which is the B parameter in
-\code{\link[=generateNull]{generateNull()}}
+This function takes the null distribution obtained by using
+\code{\link[=generateNull]{generateNull()}}, and the calculated 'singscore' using \code{\link[=simpleScore]{simpleScore()}} to
+estimate the empirical p-values. The p-values are estimated using a
+two-tailed test. A minimum p-value of 1/B can be achieved with B
+permutations. using formula p = (r+1)/(m+1) where r is the number of
+empirical scores that are larger than the obtained score and m is the total
+number of permutation run which is the B parameter in \code{\link[=generateNull]{generateNull()}}
 }
 \examples{
 ranked <- rankGenes(toy_expr)

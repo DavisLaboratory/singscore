@@ -3,10 +3,10 @@
 \docType{data}
 \name{tgfb_expr_10}
 \alias{tgfb_expr_10}
-\title{Gene expression data.frame}
+\title{A sample gene expression data.frame}
 \format{A data.frame object}
 \source{
-\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al,2017}
+\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan etal,2017}
 }
 \usage{
 tgfb_expr_10
@@ -14,14 +14,15 @@ tgfb_expr_10
 \description{
 A microarray gene expression dataset that was originally obtained from the
 integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
-corrected values).\code{tgfb_expr_10} is a subset of the integrated TGFb-EMT
-data consisting of ten samples each with 11900 genes.
+corrected values). \code{tgfb_expr_10} is a subset of the integrated TGFb-EMT
+data consisting of 10 samples (4 TGFb treated and 6 controls) each with
+expression values for 11900 genes.
 }
 \references{
-Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
-Erik W Thompson, and Melissa J Davis. 2017.
-“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
-Molecular Cancer Research. American Association for Cancer Research.
+Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, Erik W
+Thompson, and Melissa J Davis. 2017. “A Transcriptional Program for
+Detecting Tgfbeta-Induced Emt in Cancer.” Molecular Cancer Research.
+American Association for Cancer Research.
 doi:10.1158/1541-7786.MCR-16-0313.
 }
 \keyword{datasets}

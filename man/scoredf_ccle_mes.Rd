@@ -3,37 +3,29 @@
 \docType{data}
 \name{scoredf_ccle_mes}
 \alias{scoredf_ccle_mes}
-\title{Scoring results of a CCLE dataset against a mesenchymal gene signature}
+\title{Pre-computed singscores of the CCLE dataset against a mesenchymal gene
+signature}
 \format{An object of class \code{data.frame} with 55 rows and 2 columns.}
 \usage{
 scoredf_ccle_mes
 }
 \description{
-This data.frame is the returned results of function
-\code{\link[=simpleScore]{simpleScore()}} on a CCLE dataset
-\href{https://www.nature.com/articles/nature11003}{Barretina et al}
-consists of 55 samples against a mesenchymal gene signature obtained from
-\href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}
-Please refer to the vignettes for the steps to acquire the exact data object.
+This data.frame stores pre-computed scores of the CCLE dataset \href{https://www.nature.com/articles/nature11003}{Barretina etal} calculated using the
+\code{\link[=simpleScore]{simpleScore()}} function against the mesenchymal gene signature from \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan,Tuan Zea et al}. The
+data.frame has scores for 55 samples. Please refer to the vignettes for
+instructions on how to obtain the full datasets.
 }
 \references{
-Barretina, Jordi, Giordano Caponigro, Nicolas Stransky, Kavitha Venkatesan,
-Adam A Margolin, Sungjoon Kim, Christopher J Wilson, et al. 2012.
+Barretina, Jordi, Giordano Caponigro, Nicolas Stransky, Kavitha
+Venkatesan, Adam A Margolin, Sungjoon Kim, Christopher J Wilson, et al. 2012.
 “The Cancer Cell Line Encyclopedia Enables Predictive Modelling of Anticancer
 Drug Sensitivity.” Nature 483 (7391): 603–7.
 
-Tan, Tuan Zea, Qing Hao Miow, Yoshio Miki, Tetsuo Noda, Seiichi Mori,
-Ruby Yun-Ju Huang, and Jean Paul Thiery. 2014–10AD.
-“Epithelial-Mesenchymal Transition Spectrum Quantification and Its Efficacy
-in Deciphering Survival and Drug Responses of Cancer Patients.”
-EMBO Molecular Medicine 6 (10). Oxford, UK: BlackWell Publishing Ltd: 1279–93
-doi:10.15252/emmm.201404208.
-
-Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh,
-Erik W Thompson, and Melissa J Davis. 2017.
-“A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.”
-Molecular Cancer Research. American Association for Cancer Research.
-doi:10.1158/1541-7786.MCR-16-0313.
+Tan, Tuan Zea, Qing Hao Miow, Yoshio Miki, Tetsuo Noda, Seiichi Mori, Ruby
+Yun-Ju Huang, and Jean Paul Thiery. 2014–10AD. “Epithelial-Mesenchymal
+Transition Spectrum Quantification and Its Efficacy in Deciphering Survival
+and Drug Responses of Cancer Patients.” EMBO Molecular Medicine 6 (10).
+Oxford, UK: BlackWell Publishing Ltd: 1279–93 doi:10.15252/emmm.201404208.
 }
 \seealso{
 \code{[scoredf_ccle_epi]}

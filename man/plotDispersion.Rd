@@ -8,10 +8,10 @@ plotDispersion(scoredf, annot = NULL, alpha = 1, size = 1,
   textSize = 1.5, isInteractive = FALSE)
 }
 \arguments{
-\item{scoredf}{data.frame, results of the simpleScore() function}
+\item{scoredf}{data.frame, generated using the \code{\link[=simpleScore]{simpleScore()}} function}
 
-\item{annot}{any annotation provided by the user that needs to be plot
-annot must be ordered in the same way as the scores}
+\item{annot}{annot any numeric or factor annotation provided by the user that
+needs to be plot. Annotations must be ordered in the same way as the scores}
 
 \item{alpha}{numeric, set the transparency of points}
 
@@ -20,7 +20,7 @@ annot must be ordered in the same way as the scores}
 \item{textSize}{numeric, relative text sizes for title, labels, and axis
 values}
 
-\item{isInteractive}{Boolean, Determine whether the plot is interactive}
+\item{isInteractive}{Boolean, determine whether the plot is interactive}
 }
 \value{
 A ggplot object
