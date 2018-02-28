@@ -910,8 +910,7 @@ plotNull <- function(permuteResult,
       #browser()
       plotObj <-  ggplot(data = sampleLSc)+
         geom_density(mapping = aes( x = value), size =1)+
-        coord_cartesian(xlim = c(min(permuteResult[,sampleNames]) - 0.03,
-                                 max(permuteResult[,sampleNames])+0.05))+
+       
         facet_grid(sampleNames~.)+
         geom_segment(mapping =  aes(x  = cutoff_score, y = 11, 
                                     xend = cutoff_score, yend = 0), 
@@ -933,8 +932,7 @@ plotNull <- function(permuteResult,
                            TotalScore = scoredf[sampleNames,]$TotalScore)
       plotObj <-  ggplot(data = plotDt)+
         geom_density(mapping = aes( x = value),size = 1)+
-        coord_cartesian(xlim = c(min(permuteResult[,sampleNames]) - 0.03,
-                                 max(permuteResult[,sampleNames])+0.05))+
+       
         geom_segment(mapping =  aes(x = cutoff_score, y = 11, 
                                     xend = cutoff_score, yend =0), 
                      linetype="dashed", colour = 'blue',size = 1)+
