@@ -4,7 +4,8 @@
 \alias{generateNull}
 \title{Permutation test for the derived scores of each sample}
 \usage{
-generateNull(n_up, n_down, rankData, B = 1000, seed = 1)
+generateNull(n_up, n_down, rankData, B = 1000, ncores = 1,
+  seed = sample.int(1e+06, 1), useBPPARAM = NULL)
 }
 \arguments{
 \item{n_up}{integer, the number of genes in the up-regulated gene set}
@@ -16,7 +17,15 @@ generateNull(n_up, n_down, rankData, B = 1000, seed = 1)
 \item{B}{integer, the number of permutation repeats or the number of random
 gene sets to be generated, default as 1000}
 
+\item{ncores, }{integer, the number of CPU cores the function can use}
+
 \item{seed}{integer, set the seed for randomisation}
+
+\item{useBPPARAM, }{the backend the function uses, if NULL is provided, the
+function uses the default parallel backend which is the first on the list
+returned by \code{\link[BiocParallel:registered]{BiocParallel::registered()}} i.e
+\code{BiocParallel::registered()[[1]]} for your machine. It can be changed
+explicitly by passing a BPPARAM}
 }
 \value{
 A matrix of empirical scores for all samples
@@ -35,13 +44,11 @@ scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 n_up = length(GSEABase::geneIds(toy_gs_up))
 n_down = length(GSEABase::geneIds(toy_gs_dn))
 # find out what backends can be registered on your machine
-# the first one is the default backend, and it can be changed explicitly.
 BiocParallel::registered()
-
-# call the permutation function to generate the empirical scores for B times
+# the first one is the default backend
+# ncores = ncores <- parallel::detectCores() - 2 
 permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-seed = 1) 
-
+seed = 1, ncores = 1 ) 
 }
 \seealso{
 \href{http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U}{Post about BiocParallel}

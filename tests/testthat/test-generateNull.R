@@ -10,8 +10,9 @@ test_that("generateNull works", {
  
   
   # call the permutation function to generate the empirical scores for B times.
-  permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-  seed = 1) 
+  permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B = 10, 
+                               ncores = 1, seed = 1, 
+                               useBPPARAM = BiocParallel::registered()[[1]]) 
   expect_equivalent(dim(permuteResult),c(10,ncol(ranked)))
 
 })

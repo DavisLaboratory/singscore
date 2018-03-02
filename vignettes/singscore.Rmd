@@ -9,6 +9,7 @@ vignette: >
   %\VignetteIndexEntry{singscore}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  
 bibliography: ../inst/REFERENCES.bib
 ---
 
@@ -17,14 +18,14 @@ bibliography: ../inst/REFERENCES.bib
   `singscore` implements a simple single-sample gene-set (gene-signature) scoring method which scores individual samples independently without relying on other samples in gene expression datasets. It provides stable scores which are less likely to be affected by varying sample and gene sizes in datasets and unwanted variations across samples. The scoring method uses a rank-based statistics and is quick to compute. For details of the methods please refer to (singscore paper). It also provides various visualisation functions to further explore results of the analysis.
 
 ## Install "singscore" R package
-'singscore' is currently host on github and can be easily installed using
+'singscore' is currently hosted on GitHub and can be easily installed using
 `devtools::install_github()` function provided by **devtools**, (https://cran.r-project.org/package=devtools) 
 ```{r installation, eval=FALSE}
 # You would need to install 'devtools' package first.
 install.packages("devtools")
 
-# And install the 'singscore' packge from the github repository
-# 'singscore' requires these packages to be installed : methods, stats, graphics, ggplot2, ggsci, grDevices,
+# And install the 'singscore' package from the GitHub repository
+# 'singscore' requires these packages to be installed: methods, stats, graphics, ggplot2, ggsci, grDevices,
 #  ggrepel, plotly, tidyr, plyr, magrittr, reshape, edgeR, RColorBrewer, Biobase, GSEABase, BiocParallel
 devtools::install_github('DavisLaboratory/singscore')
 
@@ -33,7 +34,7 @@ devtools::install_github('DavisLaboratory/singscore')
 ##Scoring samples against a gene-set
 ### Load datasets
 
-To illustrate the usage of 'simpleScore()', we first need to load the example datasets. The datasets used in this vignette have been built within the package. You can use the following scripts to load them into your R environment. Detailed steps of obtaining the full datasets are included at the end of the vignette. The 'tgfb_expr_10' dataset was obtained from [@Foroutanmolcanres.0313.2016] and it is a ten-sample subset of the original dataset. We are going to score the integrated TGFb-treated gene expression dataeset (5 control samples, 5 case samples) against a TGFb gene signature with an up-regulated and down-regulated gene-set pair [@Foroutanmolcanres.0313.2016]. 
+To illustrate the usage of 'simpleScore()', we first need to load the example datasets. The datasets used in this vignette have been built within the package. You can use the following scripts to load them into your R environment. Detailed steps of obtaining the full datasets are included at the end of the vignette. The 'tgfb_expr_10' dataset was obtained from [@Foroutanmolcanres.0313.2016] and it is a ten-sample subset of the original dataset. We are going to score the integrated TGFb-treated gene expression dataset (5 control samples, 5 case samples) against a TGFb gene signature with an up-regulated and down-regulated gene-set pair [@Foroutanmolcanres.0313.2016]. 
 
 ```{r loadDataset}
 library(singscore)
@@ -119,7 +120,7 @@ plotDispersion(scoredf,annot =tgfbAnnot$Type,isInteractive = FALSE)
 
 `plotScoreLandscape` plots the scores of the samples against two different gene signatures in a landscape for exploring their relationships.
 
-There are two styles for the landscape plot (i.e scatter and hexBin plot). When the number of samples in the gene expression dataset is above the default threshold (100), `plotScoreLandscape` generates a hex bin plot otherwise a scatter plot. The threshold can be modified by chanding the `hexMin`.
+There are two styles of the landscape plot (i.e scatter and hexBin plot). When the number of samples in the gene expression dataset is above the default threshold (100), `plotScoreLandscape` generates a hex bin plot otherwise a scatter plot. The threshold can be modified by changing the `hexMin`.
 
 In order to better demonstrate the usage of `plotScoreLandscape`, we load some additional datasets consisting of pre-computed scores of larger public datasets.
 `scoredf_ccle_epi` and `scoredf_ccle_mes` are two scored results of a CCLE dataset [@barretina2012cancer] against an epithelial gene signature and mesenchymal gene signature [@Ep-MES] respectively. For details on how to obtain the dataset please see the section at the end of the vignette.
@@ -132,7 +133,7 @@ plotScoreLandscape(scoredf_ccle_epi, scoredf_ccle_mes,
 
 ```
 
-Similarly, pre-computed scores for the [TCGA](https://cancergenome.nih.gov/) breast cancer RNA-seq dataset against epithelial and mesenchymal gene signatures are stored in `scoredf_tcga_epi` and `scoredf_tcga_mes` respectively [@Ep-MES]. Utility of this function is enhanced when the number of samples is large.
+Similarly, pre-computed scores for the [TCGA](https://cancergenome.nih.gov/) breast cancer RNA-seq dataset against epithelial and mesenchymal gene signatures are stored in `scoredf_tcga_epi` and `scoredf_tcga_mes` respectively [@Ep-MES]. The utility of this function is enhanced when the number of samples is large.
 
 ```{r loadTCGA,fig.height = 4, fig.width = 8}
 data("scoredf_tcga_epi")
@@ -146,7 +147,7 @@ tcgaLandscape
 
 ```
 
-You can also project new data points onto the landscape plot generated above by using the `projectScoreLandscape` function. For example, the plot below overlays 3 CCLE samples onto the TCGA epithelial-mesenchymal landscape. Points are labelled with their sample names by default.
+You can also project new data points onto the landscape plot generated above by using the `projectScoreLandscape` function. For example, the plot below overlays 3 CCLE samples onto the TCGA epithelial-mesenchymal landscape. Points are labeled with their sample names by default.
 
 
 ```{r projectScore,fig.height = 4, fig.width = 8}
@@ -177,20 +178,43 @@ projectScoreLandscape(plotObj = tcgaLandscape, scoredf_ccle_epi, scoredf_ccle_me
 
 ### Permutation test
 
-Hypothesis testing of the calculated scores is performed using a permutation test. The null hypothesis is that the gene-set is not enriched in the sample. For each sample, gene labels are randomly shuffled and scores computed against the gene-set. This is done $B$ times to generate and estimate of the null distribution. The `generateNull()` function computes these for multiple samples ($n$) simultaneously resulting in a $n \times B$ matrix with permuted scores along the columns for each sample.
+Hypothesis testing of the calculated scores is performed using a permutation test. The null hypothesis is that the gene-set is not enriched in the sample. For each sample, gene labels are randomly shuffled and scores computed against the gene-set. This is done $B$ times to generate the null distribution. The `generateNull()` function computes these for multiple samples ($n$) simultaneously resulting in an $n \times B$ matrix with permuted scores along the columns for each sample.
 
 The permutation function has parallel computing features provided by using [`BiocParallel`](http://bioconductor.org/packages/release/bioc/html/BiocParallel.html) 
 
 ```{r pvalue, fig.height = 8, fig.width = 10}
-
 n_up <-  length(GSEABase::geneIds(tgfb_gs_up))
 n_down <-  length(GSEABase::geneIds(tgfb_gs_dn))
 
 # This permutation function uses BiocParallel::bplapply() parallel function, by 
 # supplying the first 5 columns of rankData, we generate Null distribution for 
 # the first 5 samples.
-permuteResult <-  generateNull(n_up = n_up, n_down = n_down, rankData[,1:5], 
-                            B = 1000, seed = 1)
+
+# detect how many CPU cores are available for your machine
+# parallel::detectCores()
+
+ncores <- parallel::detectCores() - 2 
+
+# Provide the generateNull() function the number of cores you would like
+# the function to use by passing the ncore parameter
+
+permuteResult <- generateNull(n_up = n_up, n_down = n_down,
+                              rankData = rankData[,1:5],B = 1000,
+                              ncores = ncores,
+                              seed = 1,
+                              useBPPARAM = NULL)
+# Note here, the useBPPARAM parameter allows user to supply a BPPARAM variable 
+# as a parameter which decides the type of parallel ends to use.
+# such as 
+# snow <-  BiocParallel::SnowParam(type = "SOCK")
+# permuteResult <-  generateNull(n_up = n_up, n_down = n_down, rankData[,1:5], 
+#                            B = 1000, seed = 1,ncores = ncores, 
+#                            useBPPARAM = snow)
+# If you are not sure about this, just leave the value as NULL and set how many
+# CPU cores to use via the ncores argument. It will use the default parallel 
+# backend for your machine
+
+# For more information, please see the help page for ?generateNull()
 
 head(permuteResult)
 ```
@@ -219,33 +243,36 @@ plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1])
 
 You can provide multiple sample names to plot these samples in one plot. For example, plot the first 2 samples.
 
-```{r plotNull2, fig.height = 6, fig.width = 8 }
+```{r plotNull2, fig.height = 6, fig.width = 12 }
 # plot the null distributions for the first 2 samples and the p-values
 # We can see from the plot, the control samples are not significant and TGFb 
 # samples are very significant with very low p-values
 plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1:2])
 ```
 
-## Obtaining dataset [To be Continued]
+## More on the datasets 
 
 1. TGFb-EMT data
 
-   In the examples above, we loaded a gene expression matrix data `tgfb_expr_10`. This dataset is a ten-sample subset of a full dataset originally from the integrated TGFb-EMT data published by [@Foroutanmolcanres.0313.2016]. The `tgfb_gs_up` and `tgfb_gs_dn` are the derived up-regulated/down-regulated genes of the TGFb-induced EMT gene signature by [@Foroutanmolcanres.0313.2016].
+   In the examples above, we loaded a gene expression matrix data `tgfb_expr_10`. This dataset is a ten-sample subset of a full dataset originally from the integrated TGFb-EMT data published by [@Foroutanmolcanres.0313.2016]. The full dataset can be accessed here https://figshare.com/articles/comBat_corrected_Foroutan_et_al_2017/5682862. The `tgfb_gs_up` and `tgfb_gs_dn` are the derived up-regulated/down-regulated genes of the TGFb-induced EMT gene signature by [@Foroutanmolcanres.0313.2016] (see Table S1. TGFβ-EMT signature).
 
-If you would like to download the full dataset 
-   Describing how to download and process TGFb-EMT data
 
 2. CCLE dataset
 
-  In the examples above, we loaded two pre-computed singscores data frames of the Cancer Cell Line Encyclopaedia (CCLE) breast cancer cell line RNA-seq data [@barretina2012cancer]. The CCLE dataset was normalised by TPM and can be downloaded from https://www.synapse.org/#!Synapse:syn5612998
-  It was scored against the epithelial and mesenchymal gene signatures respectively with results stored in `scoredf_ccle_epi` & `scoredf_ccle_mes`. 
-  The mesenchymal and epithelial signatures used for scoring the CCLE data were obtained from [@Ep-MES] and can be found in the 'Table S1B. Generic EMT signature for cell line' in the supplementary files.  
+  `scoredf_ccle_epi` & `scoredf_ccle_mes` are two pre-computed singscores (data frames) of The Cancer Cell Line Encyclopaedia (CCLE) breast cancer cell line RNA-seq dataset [@barretina2012cancer]. The CCLE dataset was normalised by TPM and can be downloaded from https://www.synapse.org/#!Synapse:syn5612998 It was scored against the undirected epithelial and mesenchymal gene signatures respectively. The gene signatures were obtained from [@Ep-MES] and can be found in the 'Table S1B. Generic EMT signature for cell line' in the supplementary files.  
+  The gene expression ma
 
 3. TCGA cancer samples dataset
 
-   In the examples above, we loaded two pre-computed singscores data frames of The Cancer Genome Atlas (TCGA) breast cancer RNA-seq data (RSEM normalised) [@TCGAcite]. 
-  The mesenchymal and epithelial signatures used for scoring the TCGA dataset were obtained from [@Ep-MES] be found in the 'Table S1A. Generic EMT signature for tumour' and the scored results are stored in `scoredf_tcga_epi`&`scoredf_tcga_mes`.
+   `scoredf_tcga_epi`&`scoredf_tcga_mes` are two pre-computed singscores (data frames) of The Cancer Genome Atlas (TCGA) breast cancer RNA-seq data (RSEM normalised) [@TCGAcite] against the mesenchymal and epithelial gene signatures respectively. The gene signatures were obtained from [@Ep-MES] and can be found in the 'Table S1A. Generic EMT signature for tumour'. The TCGA dataset was downloaded from The UCSC Cancer Genomics Browser in February 2016  (https://genome-cancer.ucsc.edu)
 
+```{r previewData}
+# preview the scored CCLE samples
+head(scoredf_ccle_epi)
+
+# preview the scored TCGA samples
+head(scoredf_tcga_epi)
+```
 
 ## Session Info
 ```{r sessionInfo}

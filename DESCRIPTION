@@ -5,7 +5,8 @@ Version: 0.99.0
 Authors@R: c(person("Momeneh", "Foroutan", email = "foroutan.m@wehi.edu.au",role = "aut"),
            person("Dharmesh","Bhuva", email = "bhuva.d@wehi.edu.au", role = "aut"),
            person("Ruqian","Lyu", email = "ruqianl@student.unimelb.edu.au", role = c("aut", "cre")))
-Maintainer: Ruqian Lyu <ruqianl@student.unimelb.edu.au>, Momeneh Foroutan <foroutan.m@wehi.edu.au>
+Maintainer: Ruqian Lyu <ruqianl@student.unimelb.edu.au>, Momeneh Foroutan <foroutan.m@wehi.edu.au>,
+            Dharmesh Bhuva <bhuva.d@wehi.edu.au>
 Description: A simple single-sample gene signature scoring method that uses rank-based 
   statistics to analyze the sample's gene expression profile. It scores the expression activities of 
   gene sets at a single-sample level.

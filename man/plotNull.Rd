@@ -42,7 +42,8 @@ n_down = length(GSEABase::geneIds(toy_gs_dn))
 BiocParallel::registered()
 # the first one is the default backend, and it can be changed explicitly.
 permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-seed = 1) # call the permutation function to generate the empirical scores 
+seed = 1,useBPPARAM = NULL) 
+# call the permutation function to generate the empirical scores 
 #for B times.
 pvals <- getPvals(permuteResult,scoredf)
 # plot for all samples

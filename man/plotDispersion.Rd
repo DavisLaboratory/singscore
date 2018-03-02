@@ -15,7 +15,7 @@ needs to be plot. Annotations must be ordered in the same way as the scores}
 
 \item{alpha}{numeric, set the transparency of points}
 
-\item{size}{numeric, Set the size of each point}
+\item{size}{numeric, set the size of each point}
 
 \item{textSize}{numeric, relative text sizes for title, labels, and axis
 values}

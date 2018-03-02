@@ -28,6 +28,6 @@ and Drug Responses of Cancer Patients.” EMBO Molecular Medicine 6 (10).
 Oxford, UK: BlackWell Publishing Ltd: 1279–93 doi:10.15252/emmm.201404208.
 }
 \seealso{
-\code{[scoredf_ccle_epi]}
+\link{scoredf_ccle_epi}
 }
 \keyword{datasets}

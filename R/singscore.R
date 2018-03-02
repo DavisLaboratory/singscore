@@ -11,6 +11,8 @@
 #' @import ggplot2
 #' @import GSEABase
 #' @import tidyr
+#' @import methods
+#' @import grDevices
 #' @importFrom magrittr "%>%"
 #' @importClassesFrom edgeR DGEList
 #' @importClassesFrom Biobase ExpressionSet
@@ -155,7 +157,7 @@ NULL
 #' data.frame has scores for 55 samples. Please refer to the vignettes for
 #' instructions on how to obtain the full datasets.
 #'
-#' @seealso \code{[scoredf_ccle_epi]}
+#' @seealso [scoredf_ccle_epi]
 #' @references Barretina, Jordi, Giordano Caponigro, Nicolas Stransky, Kavitha
 #' Venkatesan, Adam A Margolin, Sungjoon Kim, Christopher J Wilson, et al. 2012.
 #' “The Cancer Cell Line Encyclopedia Enables Predictive Modelling of Anticancer

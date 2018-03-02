@@ -14,18 +14,14 @@ using the \code{\link[=generateNull]{generateNull()}} function}
 function}
 }
 \value{
-Estimated p-values for enrichment of the gene signature in each
-sample. A p-value of 1/B indicates that the estimated p-value is less than
-or equal to 1/B.
+Estimated p-values for enrichment of the signature in each sample. A
+p-value of 1/B indicates that the estimated p-value is less
+than or equal to 1/B.
 }
 \description{
-This function takes the null distribution obtained by using
-\code{\link[=generateNull]{generateNull()}}, and the calculated 'singscore' using \code{\link[=simpleScore]{simpleScore()}} to
-estimate the empirical p-values. The p-values are estimated using a
-two-tailed test. A minimum p-value of 1/B can be achieved with B
-permutations. using formula p = (r+1)/(m+1) where r is the number of
-empirical scores that are larger than the obtained score and m is the total
-number of permutation run which is the B parameter in \code{\link[=generateNull]{generateNull()}}
+With null distributions estimated using the \code{\link[=generateNull]{generateNull()}}
+function, p-values are estimated using a one-tailed test. A minimum
+p-value of 1/B can be achieved with B permutations.
 }
 \examples{
 ranked <- rankGenes(toy_expr)
@@ -35,11 +31,11 @@ n_down = length(GSEABase::geneIds(toy_gs_dn))
 # find out what backends can be registered on your machine
 BiocParallel::registered()
 # the first one is the default backend, and it can be changed explicitly.
+# See vignette for more details
 permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-seed = 1) # call the permutation function to generate the empirical scores 
-#for B times.
+seed = 1, useBPPARAM = NULL) 
+
+# call the permutation function to generate the empirical scores 
+# for B times.
 pvals <- getPvals(permuteResult,scoredf)
-}
-\author{
-Ruqian Lyu
 }
