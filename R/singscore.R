@@ -122,7 +122,7 @@ NULL
 #' @seealso \code{"\linkS4class{GeneSet}"},[tgfb_gs_up]
 "tgfb_gs_dn"
 
-#' Pre-computed singscores of the CCLE dataset against an epithelial gene
+#' Pre-computed scores of the CCLE dataset against an epithelial gene
 #' signature
 #'
 #' This data.frame stores pre-computed scores of the CCLE dataset [Barretina et
@@ -147,7 +147,7 @@ NULL
 "scoredf_ccle_epi"
 
 
-#' Pre-computed singscores of the CCLE dataset against a mesenchymal gene
+#' Pre-computed scores of the CCLE dataset against a mesenchymal gene
 #' signature
 #'
 #' This data.frame stores pre-computed scores of the CCLE dataset [Barretina et
@@ -171,7 +171,7 @@ NULL
 #' 
 "scoredf_ccle_mes"
 
-#' Pre-computed singscores of the TCGA breast cancer gene expression matrix
+#' Pre-computed scores of the TCGA breast cancer gene expression matrix
 #' against an epithelial signature
 #'
 #' This data.frame stores pre-computed scores of the
@@ -192,7 +192,7 @@ NULL
 "scoredf_tcga_epi"
 
 
-#' Pre-computed singscores of the TCGA breast cancer gene expression matrix
+#' Pre-computed scores of the TCGA breast cancer gene expression matrix
 #' against a mesenchymal signature
 #'
 #' This data.frame stores pre-computed scores of the
