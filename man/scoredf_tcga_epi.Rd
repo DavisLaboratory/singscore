@@ -3,7 +3,7 @@
 \docType{data}
 \name{scoredf_tcga_epi}
 \alias{scoredf_tcga_epi}
-\title{Pre-computed singscores of the TCGA breast cancer gene expression matrix
+\title{Pre-computed scores of the TCGA breast cancer gene expression matrix
 against an epithelial signature}
 \format{An object of class \code{data.frame} with 1119 rows and 2 columns.}
 \usage{

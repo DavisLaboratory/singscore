@@ -23,7 +23,7 @@ gene sets to be generated, default as 1000}
 
 \item{useBPPARAM, }{the backend the function uses, if NULL is provided, the
 function uses the default parallel backend which is the first on the list
-returned by \code{\link[BiocParallel:registered]{BiocParallel::registered()}} i.e
+returned by \code{BiocParallel::registered()} i.e
 \code{BiocParallel::registered()[[1]]} for your machine. It can be changed
 explicitly by passing a BPPARAM}
 }

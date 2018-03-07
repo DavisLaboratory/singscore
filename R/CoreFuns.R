@@ -659,7 +659,7 @@ plotRankDensity_intl <- function (rankData,
 #' @param seed integer, set the seed for randomisation
 #' @param useBPPARAM, the backend the function uses, if NULL is provided, the
 #' function uses the default parallel backend which is the first on the list 
-#' returned by [BiocParallel::registered()] i.e 
+#' returned by \code{BiocParallel::registered()} i.e 
 #' \code{BiocParallel::registered()[[1]]} for your machine. It can be changed 
 #' explicitly by passing a BPPARAM 
 #'

@@ -11,7 +11,7 @@ Description: A simple single-sample gene signature scoring method that uses rank
   statistics to analyze the sample's gene expression profile. It scores the expression activities of 
   gene sets at a single-sample level.
 biocViews: Software, GeneExpression, GeneSetEnrichment
-Depends: R (>= 3.4)
+Depends: R (>= 3.5)
 Imports:
     methods,
     stats,

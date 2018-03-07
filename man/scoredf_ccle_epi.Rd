@@ -3,7 +3,7 @@
 \docType{data}
 \name{scoredf_ccle_epi}
 \alias{scoredf_ccle_epi}
-\title{Pre-computed singscores of the CCLE dataset against an epithelial gene
+\title{Pre-computed scores of the CCLE dataset against an epithelial gene
 signature}
 \format{An object of class \code{data.frame} with 55 rows and 2 columns.}
 \usage{
