@@ -36,13 +36,11 @@ sample or multiple samples.
 \examples{
 ranked <- rankGenes(toy_expr)
 scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
-n_up = length(GSEABase::geneIds(toy_gs_up))
-n_down = length(GSEABase::geneIds(toy_gs_dn))
 # find out what backends can be registered on your machine
 BiocParallel::registered()
 # the first one is the default backend, and it can be changed explicitly.
-permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-seed = 1,useBPPARAM = NULL) 
+permuteResult = generateNull(upSet = toy_gs_up, downSet = toy_gs_dn, ranked, 
+B =10, seed = 1,useBPPARAM = NULL) 
 # call the permutation function to generate the empirical scores 
 #for B times.
 pvals <- getPvals(permuteResult,scoredf)

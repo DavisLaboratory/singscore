@@ -31,14 +31,17 @@ library(singscore)
 ## Running singscoring
 
 ```
-#load the example data sets
+# The example data sets
+# We have included several example datasets in the package to illustrate the 
+# usage of scoring and visulisation functions
+
 # expression matrix
-data('tgfb_expr_10')
+str(tgfb_expr_10)
 
 # up gene set
-data('tgfb_gs_up')
+str(tgfb_gs_up)
 # down gene set
-data('tgfb_gs_dn')
+str(tgfb_gs_dn)
 
 # rank the expression matrix first
 rankedData <- rankGenes(tgfb_expr_10)

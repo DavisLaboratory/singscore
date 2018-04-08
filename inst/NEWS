@@ -1,2 +1,4 @@
-version 0.99.0
-First development version release
+version 0.99.2
+-bidirection flag added to simpleScore() function
+-optimise generateNull() function
+-change GSEABase from import to Depends

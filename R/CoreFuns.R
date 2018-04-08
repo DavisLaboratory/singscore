@@ -122,6 +122,73 @@ singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
 }
 
 ################################################################################
+#### =============================== singscoringOneGS()=========================
+################################################################################
+#' scoring single gene set signature in bidirectional manner 
+#'
+#' @param rankData A matrix, ranked gene expression matrix data
+#' @param upSet A GeneSet object, up regulated gene set
+#' @param downSet A GeneSet object, down regulated gene set
+#' @param subSamples A character or vector of sample labels/indices that will be
+#'   used to subset the rankData matrix.All samples will be scored by default.
+#' @param centerScore A Boolean, specifying whether scores should be centred
+#' @param dispersionFun A character, dispersion function with default as 'mad'
+#' @return A data.frame consists of scores and dispersions for all samples
+#' @keywords internal
+#' 
+singscoringOneGS <- function (rankData, upSet, subSamples = NULL,
+                              centerScore = TRUE, dispersionFun = mad) {
+  
+  #subset the data for samples whose calculation is to be performed
+  if (!is.null(subSamples)) {
+    rankData <- rankData[, subSamples, drop = FALSE]
+  }
+  
+  #median center ranks
+  rankData = apply(rankData, 2, function(x) {
+    x = abs(x - ceiling(median(x)))
+    return(x)
+  })
+  
+  #values needed for calculating the boundaries
+  upSigSize <- floor(length(geneIds(upSet))/2) 
+  #number of unique ranks in the geneset
+  nTotalGenes <- ceiling(nrow(rankData)/2) 
+  #number of unique ranks in the matrix
+  
+  #check if there are some missing genes in the geneset
+  missingGenes <- setdiff(geneIds(upSet), rownames(rankData))
+  if (length(missingGenes) > 0) {
+    warningMsg <-
+      paste(length(missingGenes), "genes missing:", sep = ' ')
+    warningMsg <- paste(warningMsg,
+                        paste(missingGenes, collapse = ', '), sep = ' ')
+    warning(warningMsg)
+  }
+  
+  #remove missing genes from signature for further analysis
+  geneIds(upSet) <- setdiff(geneIds(upSet), missingGenes)
+  upRanks <- rankData[geneIds(upSet), , drop = FALSE]
+  upScore <- colMeans(upRanks)
+  lowBound <- (upSigSize + 1) / 2
+  upBound <- (2 * nTotalGenes - upSigSize + 1) / 2
+  normUpScore <- (upScore - lowBound) / (upBound - lowBound)
+  
+  #calculate dispersion
+  upDispersion <- apply(upRanks, 2, dispersionFun)
+  
+  #if centering
+  if (centerScore) {
+    normUpScore <- normUpScore - 0.5
+  }
+  
+  scoredf <-
+    data.frame("TotalScore" = normUpScore, "TotalDispersion" = upDispersion)
+  rownames(scoredf) <- colnames(rankData)
+  return(scoredf)
+}
+
+################################################################################
 #### =============================== plotDispersion() ==========================
 ################################################################################
 
@@ -649,10 +716,18 @@ plotRankDensity_intl <- function (rankData,
 #'   gene set and returns a matrix of scores for all samples. 
 #'   The empirical scores are used to calculate the empirical p-values and plot
 #'   the null distribution. The implementation uses [BiocParallel::bplapply()] 
-#'   for easy access to parallel backends.
-#' @param n_up integer, the number of genes in the up-regulated gene set
-#' @param n_down integer, the number of genes in the down-regulated gene set
+#'   for easy access to parallel backends. Note that one should pass the same 
+#'   values to the `upSet`, `downSet`, `centerScore` and `bidirectional` 
+#'   arguments as what they provide for the `simpleScore()` function to generate
+#'   a proper null distribution.
+#' @param downSet A GeneSet object, down regulated gene set
 #' @param rankData matrix, outcome of function [rankGenes()]
+#' @param centerScore A Boolean, specifying whether scores should be centered
+#'  around 0, default as TRUE
+#' @param bidirectional A boolean flag, it deterimines whether the scoring method
+#'should derive the scores in a bidirectional mannar when the gene signature
+#' only contains one set of gene set (passing the gene set via upSet). This 
+#' parameter becomes irrelevant when both upSet and downSet are provided.
 #' @param B integer, the number of permutation repeats or the number of random 
 #' gene sets to be generated, default as 1000
 #' @param ncores, integer, the number of CPU cores the function can use
@@ -667,21 +742,21 @@ plotRankDensity_intl <- function (rankData,
 #' @seealso 
 #' [Post about BiocParallel](http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U)
 #' `browseVignettes("BiocParallel")`
+#' @keywords internal
 #' @author Ruqian Lyu
 #' @export
-#' @examples
-#' ranked <- rankGenes(toy_expr)
-#' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
-#' n_up = length(GSEABase::geneIds(toy_gs_up))
-#' n_down = length(GSEABase::geneIds(toy_gs_dn))
-#' # find out what backends can be registered on your machine
-#' BiocParallel::registered()
-#' # the first one is the default backend
-#' # ncores = ncores <- parallel::detectCores() - 2 
-#' permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-#' seed = 1, ncores = 1 ) 
-generateNull <- function(n_up, n_down, rankData, B = 1000, ncores = 1, 
-                         seed = sample.int(1E6, 1), useBPPARAM = NULL){
+
+generateNull_intl <- function(upSet, downSet = NULL, rankData, 
+                              centerScore = TRUE,
+                              bidirectional = FALSE, 
+                              B = 1000, ncores = 1,
+                              seed = sample.int(1E6, 1), useBPPARAM = NULL){
+  n_up <- length(GSEABase::geneIds(upSet))
+  if(is.null(downSet)){
+    n_down <- 0
+  } else {
+    n_down <- length(GSEABase::geneIds(downSet))
+  }
   all_genes <- rownames(rankData)
   totalNo <- n_up + n_down
   
@@ -704,12 +779,17 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, ncores = 1,
     if (n_down > 0) {
       upSet <- GeneSet(as.character(tms[1:n_up]))
       downSet <-  GeneSet(as.character(tms[-(1:n_up)]))
-      ss <- singscoring(rankData, upSet = upSet, 
-                                         downSet = downSet)
+      ss <- singscoring(rankData, upSet = upSet, downSet = downSet, 
+                        centerScore = centerScore)
     } else {
       #else all the random generated genes are in upSet
-      ss <- singscoring(rankData, 
-                                         upSet = GeneSet(as.character(tms)))
+      if(bidirectional){
+        ss <- singscoringOneGS(rankData, upSet = GeneSet(as.character(tms)), 
+                          centerScore = centerScore)
+      } else {
+      ss <- singscoring(rankData, upSet = GeneSet(as.character(tms)), 
+                        centerScore = centerScore)
+      }
     }
     ss[, 1]
   }, BPPARAM = useBPPARAM)
@@ -736,14 +816,12 @@ generateNull <- function(n_up, n_down, rankData, B = 1000, ncores = 1,
 #' @examples
 #' ranked <- rankGenes(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
-#' n_up = length(GSEABase::geneIds(toy_gs_up))
-#' n_down = length(GSEABase::geneIds(toy_gs_dn))
 #' # find out what backends can be registered on your machine
 #' BiocParallel::registered()
 #' # the first one is the default backend, and it can be changed explicitly.
 #' # See vignette for more details
-#' permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-#' seed = 1, useBPPARAM = NULL) 
+#' permuteResult = generateNull(upSet = toy_gs_up, downSet = toy_gs_dn, ranked, 
+#' B =10, seed = 1, useBPPARAM = NULL) 
 #' 
 #' # call the permutation function to generate the empirical scores 
 #' # for B times.
@@ -789,13 +867,12 @@ getPvals <- function(permuteResult,scoredf){
 #' @examples
 #' ranked <- rankGenes(toy_expr)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
-#' n_up = length(GSEABase::geneIds(toy_gs_up))
-#' n_down = length(GSEABase::geneIds(toy_gs_dn))
+
 #' # find out what backends can be registered on your machine
 #' BiocParallel::registered()
 #' # the first one is the default backend, and it can be changed explicitly.
-#' permuteResult = generateNull(n_up = n_up, n_down = n_down, ranked, B =10,
-#' seed = 1,useBPPARAM = NULL) 
+#' permuteResult = generateNull(upSet = toy_gs_up, downSet = toy_gs_dn, ranked, 
+#' B =10, seed = 1,useBPPARAM = NULL) 
 #' # call the permutation function to generate the empirical scores 
 #' #for B times.
 #' pvals <- getPvals(permuteResult,scoredf)
@@ -813,9 +890,11 @@ plotNull <- function(permuteResult,
                      labelSize = 5) {
   
   quantile_title <- as.character((1 - cutoff)*100)
-  if(!is.null(sampleNames)){
-    pvals <- pvals[sampleNames, drop = FALSE]
-  }
+  if(is.null(sampleNames)){
+    warning("Please provide which sample's null distribution to
+            plot by specifying the sampleNames argument.") 
+  } else {
+  pvals <- pvals[sampleNames, drop = FALSE]
   pval_r <- as.character(format(pvals[sampleNames],scientific = TRUE,
                                 digits = 3))
   pvalTitle <- paste0(' p-value = ',pval_r)
@@ -828,8 +907,7 @@ plotNull <- function(permuteResult,
   cutoff_annot  <-  data.frame(sampleNames = sampleNames, 
                             cutoff_score = cutoff_score)
   #pDt <-  as.data.frame(pvals)
-  if( !is.null(sampleNames) ){
-    if(length(sampleNames)>1){
+  if(length(sampleNames)>1){
       dt <- as.data.frame(permuteResult[,sampleNames])
       longDt <- reshape::melt(dt,variable_name = "sampleNames")
       resultScs <- scoredf[,1,drop = FALSE]
@@ -893,10 +971,6 @@ plotNull <- function(permuteResult,
         xlab("Scores")+
         ggtitle( paste0(sampleNames," null distribution"))
     }
-  }else{
-    warning("Please provide which sample's null distribution to
-            plot by specifying the sampleNames")
-  }
   plotObj+
     theme_minimal() +
     theme(
@@ -917,4 +991,6 @@ plotNull <- function(permuteResult,
         face = "bold",
         size = rel(textSize),
         hjust = 0.5))
-}
+  }
+  
+  }

@@ -10,19 +10,23 @@
 \title{single-sample gene-set scoring method}
 \usage{
 simpleScore(rankData, upSet, downSet = NULL, subSamples = NULL,
-  centerScore = TRUE, dispersionFun = "mad")
+  centerScore = TRUE, dispersionFun = "mad", bidirectional = FALSE)
 
 \S4method{simpleScore}{ANY,vector,missing}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
+  bidirectional = FALSE)
 
 \S4method{simpleScore}{ANY,GeneSet,missing}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
+  bidirectional = FALSE)
 
 \S4method{simpleScore}{ANY,vector,vector}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
+  bidirectional = FALSE)
 
 \S4method{simpleScore}{ANY,GeneSet,GeneSet}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad")
+  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
+  bidirectional = FALSE)
 }
 \arguments{
 \item{rankData}{A matrix object, ranked gene expression matrix data generated
@@ -41,6 +45,11 @@ subset the rankData matrix. All samples will be scored if not provided}
 around 0, default as TRUE}
 
 \item{dispersionFun}{A character, dispersion function with default being 'mad'}
+
+\item{bidirectional}{A boolean flag, it deterimines whether the scoring method
+should derive the scores in a bidirectional mannar when the gene signature
+only contains one set of gene set (passing the gene set via upSet). This
+parameter becomes irrelevant when both upSet and downSet are provided.}
 }
 \value{
 A data.frame consists of singscores and dispersions for all samples
