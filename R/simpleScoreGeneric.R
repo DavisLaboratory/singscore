@@ -24,10 +24,12 @@ NULL
 #'@param centerScore A Boolean, specifying whether scores should be centered
 #'  around 0, default as TRUE
 #'@param dispersionFun A character, dispersion function with default being 'mad'
-#'@param bidirectional A boolean flag, it deterimines whether the scoring method
-#'should derive the scores in a bidirectional mannar when the gene signature
-#' only contains one set of gene set (passing the gene set via upSet). This 
-#' parameter becomes irrelevant when both upSet and downSet are provided.
+#'@param knownDirection A boolean flag, it deterimines whether the scoring
+#'  method should derive the scores in a directional mannar when the gene
+#'  signature only contains one set of gene set (passing the gene set via
+#'  upSet). It is default as TRUE but one can set the argument to be FALSE to
+#'  derive the score for a single gene set in a undirectional way. This
+#'  parameter becomes irrelevant when both upSet and downSet are provided.
 #'@return A data.frame consists of singscores and dispersions for all samples
 #'
 #' @examples
@@ -47,7 +49,7 @@ setGeneric("simpleScore",
                     subSamples = NULL,
                     centerScore = TRUE,
                     dispersionFun = 'mad',
-                    bidirectional = FALSE)
+                    knownDirection = TRUE)
              standardGeneric("simpleScore"))
 
 #' @rdname simpleScore
@@ -62,21 +64,21 @@ function(rankData,
          subSamples = NULL,
          centerScore = TRUE,
          dispersionFun = 'mad',
-         bidirectional = FALSE) {
+         knownDirection = TRUE) {
   upSet <- GSEABase::GeneSet(as.character(upSet))
-  if(bidirectional){
+  if(knownDirection){
+    df <- singscoring( rankData,
+                       upSet = upSet,
+                       downSet = downSet,
+                       subSamples = subSamples,
+                       centerScore = centerScore,
+                       dispersionFun = dispersionFun)
+  } else {
     df <- singscoringOneGS(rankData,
                            upSet = upSet,
                            subSamples = subSamples,
                            centerScore = centerScore,
                            dispersionFun = dispersionFun)
-  } else {
-  df <- singscoring( rankData,
-                     upSet = upSet,
-                     downSet = downSet,
-                     subSamples = subSamples,
-                     centerScore = centerScore,
-                     dispersionFun = dispersionFun)
   }
   return(df)
 })
@@ -93,20 +95,23 @@ function(rankData,
          subSamples = NULL,
          centerScore = TRUE,
          dispersionFun = 'mad',
-         bidirectional = FALSE) {
-  if(bidirectional){
-    df <- singscoringOneGS(rankData,
-                           upSet = upSet,
-                           subSamples = subSamples,
-                           centerScore = centerScore,
-                           dispersionFun = dispersionFun)
+         knownDirection = TRUE) {
+  if(knownDirection){
+    df <- singscoring(
+      rankData,
+      upSet = upSet,
+      subSamples = subSamples,
+      centerScore = centerScore,
+      dispersionFun = dispersionFun
+    )
   } else {
-    df <- singscoring( rankData,
-                       upSet = upSet,
-                       downSet = downSet,
-                       subSamples = subSamples,
-                       centerScore = centerScore,
-                       dispersionFun = dispersionFun)
+    df <- singscoringOneGS(
+      rankData,
+      upSet = upSet,
+      subSamples = subSamples,
+      centerScore = centerScore,
+      dispersionFun = dispersionFun
+    )
   }
   return(df)
 })
@@ -122,7 +127,7 @@ function(rankData,
          subSamples = NULL,
          centerScore = TRUE,
          dispersionFun = 'mad',
-         bidirectional = FALSE) {
+         knownDirection = TRUE) {
   upSet <- GSEABase::GeneSet(as.character(upSet))
   downSet <- GSEABase::GeneSet(as.character(downSet))
   df <- singscoring( rankData,
@@ -146,7 +151,7 @@ function(rankData,
          subSamples = NULL,
          centerScore = TRUE,
          dispersionFun = 'mad',
-         bidirectional = FALSE) {
+         knownDirection = TRUE) {
  
   df <- singscoring( rankData,
                      upSet = upSet,

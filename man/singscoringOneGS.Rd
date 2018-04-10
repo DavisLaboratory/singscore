@@ -2,7 +2,7 @@
 % Please edit documentation in R/CoreFuns.R
 \name{singscoringOneGS}
 \alias{singscoringOneGS}
-\title{scoring single gene set signature in bidirectional manner}
+\title{scoring single gene set signature when direction of gene set is unknown}
 \usage{
 singscoringOneGS(rankData, upSet, subSamples = NULL, centerScore = TRUE,
   dispersionFun = mad)
@@ -25,6 +25,6 @@ used to subset the rankData matrix.All samples will be scored by default.}
 A data.frame consists of scores and dispersions for all samples
 }
 \description{
-scoring single gene set signature in bidirectional manner
+scoring single gene set signature when direction of gene set is unknown
 }
 \keyword{internal}

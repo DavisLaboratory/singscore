@@ -124,8 +124,8 @@ singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
 ################################################################################
 #### =============================== singscoringOneGS()=========================
 ################################################################################
-#' scoring single gene set signature in bidirectional manner 
-#'
+#' scoring single gene set signature when direction of gene set is unknown
+#' 
 #' @param rankData A matrix, ranked gene expression matrix data
 #' @param upSet A GeneSet object, up regulated gene set
 #' @param downSet A GeneSet object, down regulated gene set
@@ -717,19 +717,21 @@ plotRankDensity_intl <- function (rankData,
 #'   The empirical scores are used to calculate the empirical p-values and plot
 #'   the null distribution. The implementation uses [BiocParallel::bplapply()] 
 #'   for easy access to parallel backends. Note that one should pass the same 
-#'   values to the `upSet`, `downSet`, `centerScore` and `bidirectional` 
+#'   values to the `upSet`, `downSet`, `centerScore` and `knownDirection` 
 #'   arguments as what they provide for the `simpleScore()` function to generate
 #'   a proper null distribution.
 #' @param downSet A GeneSet object, down regulated gene set
 #' @param rankData matrix, outcome of function [rankGenes()]
 #' @param centerScore A Boolean, specifying whether scores should be centered
 #'  around 0, default as TRUE
-#' @param bidirectional A boolean flag, it deterimines whether the scoring method
-#'should derive the scores in a bidirectional mannar when the gene signature
-#' only contains one set of gene set (passing the gene set via upSet). This 
-#' parameter becomes irrelevant when both upSet and downSet are provided.
+#' @param knownDirection A boolean flag, it deterimines whether the scoring
+#'  method should derive the scores in a directional mannar when the gene
+#'  signature only contains one set of gene set (passing the gene set via
+#'  upSet). It is default as TRUE but one can set the argument to be FALSE to
+#'  derive the score for a single gene set in a undirectional way. This
+#'  parameter becomes irrelevant when both upSet and downSet are provided.
 #' @param B integer, the number of permutation repeats or the number of random 
-#' gene sets to be generated, default as 1000
+#' gene sets to be generated, default as 1,000
 #' @param ncores, integer, the number of CPU cores the function can use
 #' @param seed integer, set the seed for randomisation
 #' @param useBPPARAM, the backend the function uses, if NULL is provided, the
@@ -748,7 +750,7 @@ plotRankDensity_intl <- function (rankData,
 
 generateNull_intl <- function(upSet, downSet = NULL, rankData, 
                               centerScore = TRUE,
-                              bidirectional = FALSE, 
+                              knownDirection = TRUE, 
                               B = 1000, ncores = 1,
                               seed = sample.int(1E6, 1), useBPPARAM = NULL){
   n_up <- length(GSEABase::geneIds(upSet))
@@ -783,7 +785,7 @@ generateNull_intl <- function(upSet, downSet = NULL, rankData,
                         centerScore = centerScore)
     } else {
       #else all the random generated genes are in upSet
-      if(bidirectional){
+      if(!knownDirection){
         ss <- singscoringOneGS(rankData, upSet = GeneSet(as.character(tms)), 
                           centerScore = centerScore)
       } else {

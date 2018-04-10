@@ -10,23 +10,23 @@
 \title{Permutation test for the derived scores of each sample}
 \usage{
 generateNull(upSet, downSet = NULL, rankData, centerScore = TRUE,
-  bidirectional = FALSE, B = 1000, ncores = 1, seed = sample.int(1e+06,
+  knownDirection = TRUE, B = 1000, ncores = 1, seed = sample.int(1e+06,
   1), useBPPARAM = NULL)
 
 \S4method{generateNull}{vector,missing}(upSet, downSet = NULL, rankData,
-  centerScore = TRUE, bidirectional = FALSE, B = 1000, ncores = 1,
+  centerScore = TRUE, knownDirection = TRUE, B = 1000, ncores = 1,
   seed = sample.int(1e+06, 1), useBPPARAM = NULL)
 
 \S4method{generateNull}{GeneSet,missing}(upSet, downSet = NULL, rankData,
-  centerScore = TRUE, bidirectional = FALSE, B = 1000, ncores = 1,
+  centerScore = TRUE, knownDirection = TRUE, B = 1000, ncores = 1,
   seed = sample.int(1e+06, 1), useBPPARAM = NULL)
 
 \S4method{generateNull}{vector,vector}(upSet, downSet = NULL, rankData,
-  centerScore = TRUE, bidirectional = FALSE, B = 1000, ncores = 1,
+  centerScore = TRUE, knownDirection = TRUE, B = 1000, ncores = 1,
   seed = sample.int(1e+06, 1), useBPPARAM = NULL)
 
 \S4method{generateNull}{GeneSet,GeneSet}(upSet, downSet = NULL, rankData,
-  centerScore = TRUE, bidirectional = FALSE, B = 1000, ncores = 1,
+  centerScore = TRUE, knownDirection = TRUE, B = 1000, ncores = 1,
   seed = sample.int(1e+06, 1), useBPPARAM = NULL)
 }
 \arguments{
@@ -39,9 +39,11 @@ generateNull(upSet, downSet = NULL, rankData, centerScore = TRUE,
 \item{centerScore}{A Boolean, specifying whether scores should be centered
 around 0, default as TRUE}
 
-\item{bidirectional}{A boolean flag, it deterimines whether the scoring method
-should derive the scores in a bidirectional mannar when the gene signature
-only contains one set of gene set (passing the gene set via upSet). This
+\item{knownDirection}{A boolean flag, it deterimines whether the scoring
+method should derive the scores in a directional mannar when the gene
+signature only contains one set of gene set (passing the gene set via
+upSet). It is default as TRUE but one can set the argument to be FALSE to
+derive the score for a single gene set in a undirectional way. This
 parameter becomes irrelevant when both upSet and downSet are provided.}
 
 \item{B}{integer, the number of permutation repeats or the number of random

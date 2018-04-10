@@ -5,7 +5,7 @@
 \title{Permutation test for the derived scores of each sample}
 \usage{
 generateNull_intl(upSet, downSet = NULL, rankData, centerScore = TRUE,
-  bidirectional = FALSE, B = 1000, ncores = 1, seed = sample.int(1e+06,
+  knownDirection = TRUE, B = 1000, ncores = 1, seed = sample.int(1e+06,
   1), useBPPARAM = NULL)
 }
 \arguments{
@@ -16,13 +16,15 @@ generateNull_intl(upSet, downSet = NULL, rankData, centerScore = TRUE,
 \item{centerScore}{A Boolean, specifying whether scores should be centered
 around 0, default as TRUE}
 
-\item{bidirectional}{A boolean flag, it deterimines whether the scoring method
-should derive the scores in a bidirectional mannar when the gene signature
-only contains one set of gene set (passing the gene set via upSet). This
+\item{knownDirection}{A boolean flag, it deterimines whether the scoring
+method should derive the scores in a directional mannar when the gene
+signature only contains one set of gene set (passing the gene set via
+upSet). It is default as TRUE but one can set the argument to be FALSE to
+derive the score for a single gene set in a undirectional way. This
 parameter becomes irrelevant when both upSet and downSet are provided.}
 
 \item{B}{integer, the number of permutation repeats or the number of random
-gene sets to be generated, default as 1000}
+gene sets to be generated, default as 1,000}
 
 \item{ncores, }{integer, the number of CPU cores the function can use}
 
@@ -44,7 +46,7 @@ gene set and returns a matrix of scores for all samples.
 The empirical scores are used to calculate the empirical p-values and plot
 the null distribution. The implementation uses \code{\link[BiocParallel:bplapply]{BiocParallel::bplapply()}}
 for easy access to parallel backends. Note that one should pass the same
-values to the \code{upSet}, \code{downSet}, \code{centerScore} and \code{bidirectional}
+values to the \code{upSet}, \code{downSet}, \code{centerScore} and \code{knownDirection}
 arguments as what they provide for the \code{simpleScore()} function to generate
 a proper null distribution.
 }

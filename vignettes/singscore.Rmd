@@ -77,11 +77,10 @@ scoredf
 
 # To view more details of the simpleScore, use ?simpleScore
 # Note that, when only one gene set is available in a gene signature, one can 
-# only input values for the upSet argument. In addition, a bidirectional 
-# argument can be set to true if scores are desired to be calculated in a 
-# bidirectional manner 
+# only input values for the upSet argument. In addition, a knownDirection 
+# argument can be set to FALSE if the direction of the gene set is unknown.
 
-# simpleScore(rankData, upSet = tgfb_gs_up, bidirectional = TRUE)
+# simpleScore(rankData, upSet = tgfb_gs_up, knownDirection = FALSE)
 ```
 The returned data.frame consists of the scores for the up- and down- regulated gene-sets along with the combined score (`TotalScore`). Dispersion is calculated using the `mad` function by default and can be substituted by passing another function to the `dispersionFun` argument in `simpleScore()` such as `IQR` to calculate the inter-quartile range.
 
@@ -206,9 +205,9 @@ ncores <- parallel::detectCores() - 2
 # the function to use by passing the ncore parameter
 
 permuteResult <- generateNull(upSet = tgfb_gs_up, downSet = tgfb_gs_dn, 
-                              rankData = rankData[,1:5], 
-                              B = 1000, ncores = ncores, seed = 1, 
-                              useBPPARAM = NULL)
+                              rankData = rankData[,1:5], centerScore = TRUE,
+                              knownDirection = TRUE, B = 1000, ncores = ncores, 
+                              seed = 1, useBPPARAM = NULL)
 # Note here, the useBPPARAM parameter allows user to supply a BPPARAM variable 
 # as a parameter which decides the type of parallel ends to use.
 # such as 
@@ -222,7 +221,7 @@ permuteResult <- generateNull(upSet = tgfb_gs_up, downSet = tgfb_gs_dn,
 
 # For more information, please see the help page for ?generateNull()
 # Please also note that one should pass the same values to the upSet, 
-# downSet, centerScore and bidirectional arguments as what they provide 
+# downSet, centerScore and knownDirection arguments as what they provide 
 # for the simpleScore() function to generate a proper null distribution.
 
 head(permuteResult)
@@ -268,7 +267,7 @@ plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1:2])
 
 2. CCLE dataset
 
-  `scoredf_ccle_epi` and `scoredf_ccle_mes` are two data frames of the pre-computed scores using The Cancer Cell Line Encyclopaedia (CCLE) breast cancer cell line RNA-seq dataset [@barretina2012cancer]. The CCLE dataset was normalised by TPM and can be downloaded from https://www.synapse.org/#!Synapse:syn5612998 Cell lines were scored against the undirected epithelial and mesenchymal gene signatures, which were obtained from [@Ep-MES] and can be found in the 'Table S1B. Generic EMT signature for cell line' in the supplementary files.  
+  `scoredf_ccle_epi` and `scoredf_ccle_mes` are two data frames of the pre-computed scores using The Cancer Cell Line Encyclopaedia (CCLE) breast cancer cell line RNA-seq dataset [@barretina2012cancer]. The CCLE dataset was normalised by TPM and can be downloaded from https://www.synapse.org/#!Synapse:syn5612998 Cell lines were scored against the epithelial and mesenchymal gene signatures, which were obtained from [@Ep-MES] and can be found in the 'Table S1B. Generic EMT signature for cell line' in the supplementary files.  
 
 3. TCGA cancer samples dataset
 

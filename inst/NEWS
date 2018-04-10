@@ -2,3 +2,5 @@ version 0.99.2
 -bidirection flag added to simpleScore() function
 -optimise generateNull() function
 -change GSEABase from import to Depends
+version 0.99.3
+-change argument name bidirectional to knownDirection, default as TRUE

@@ -10,23 +10,23 @@
 \title{single-sample gene-set scoring method}
 \usage{
 simpleScore(rankData, upSet, downSet = NULL, subSamples = NULL,
-  centerScore = TRUE, dispersionFun = "mad", bidirectional = FALSE)
+  centerScore = TRUE, dispersionFun = "mad", knownDirection = TRUE)
 
 \S4method{simpleScore}{ANY,vector,missing}(rankData, upSet, downSet = NULL,
   subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
-  bidirectional = FALSE)
+  knownDirection = TRUE)
 
 \S4method{simpleScore}{ANY,GeneSet,missing}(rankData, upSet, downSet = NULL,
   subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
-  bidirectional = FALSE)
+  knownDirection = TRUE)
 
 \S4method{simpleScore}{ANY,vector,vector}(rankData, upSet, downSet = NULL,
   subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
-  bidirectional = FALSE)
+  knownDirection = TRUE)
 
 \S4method{simpleScore}{ANY,GeneSet,GeneSet}(rankData, upSet, downSet = NULL,
   subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
-  bidirectional = FALSE)
+  knownDirection = TRUE)
 }
 \arguments{
 \item{rankData}{A matrix object, ranked gene expression matrix data generated
@@ -46,9 +46,11 @@ around 0, default as TRUE}
 
 \item{dispersionFun}{A character, dispersion function with default being 'mad'}
 
-\item{bidirectional}{A boolean flag, it deterimines whether the scoring method
-should derive the scores in a bidirectional mannar when the gene signature
-only contains one set of gene set (passing the gene set via upSet). This
+\item{knownDirection}{A boolean flag, it deterimines whether the scoring
+method should derive the scores in a directional mannar when the gene
+signature only contains one set of gene set (passing the gene set via
+upSet). It is default as TRUE but one can set the argument to be FALSE to
+derive the score for a single gene set in a undirectional way. This
 parameter becomes irrelevant when both upSet and downSet are provided.}
 }
 \value{
