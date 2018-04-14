@@ -7,6 +7,7 @@
 \alias{rankGenes,data.frame-method}
 \alias{rankGenes,DGEList-method}
 \alias{rankGenes,ExpressionSet-method}
+\alias{rankGenes,SummarizedExperiment-method}
 \title{Rank genes by the gene expression intensities}
 \usage{
 rankGenes(expreMatrix, tiesMethod = "min")
@@ -18,10 +19,12 @@ rankGenes(expreMatrix, tiesMethod = "min")
 \S4method{rankGenes}{DGEList}(expreMatrix, tiesMethod = "min")
 
 \S4method{rankGenes}{ExpressionSet}(expreMatrix, tiesMethod = "min")
+
+\S4method{rankGenes}{SummarizedExperiment}(expreMatrix, tiesMethod = "min")
 }
 \arguments{
-\item{expreMatrix}{A gene expression matrix or S4 object
-(matrix,data.frame,ExpressionSet,DGEList)}
+\item{expreMatrix}{A gene expression matrix (matrix,data.frame) or S4 object
+(ExpressionSet,DGEList, SummarizedExperiment)}
 
 \item{tiesMethod}{A character indicating what method to use when dealing with
 ties}
@@ -37,11 +40,12 @@ samples in columns, genes in rows, and values being gene expression
 intensity,\code{rankGenes} ranks gene expression intensities in each sample.
 
 It can also work with S4 objects that have gene expression matrix as a
-component (i.e ExpressionSet, DGEList). It calls the \code{rank} function
-in the base package which ranks the gene expression matrix by its absolute
-expression level. If the input is S4 object of \code{DGEList, or 
- ExpressionSet}, it will extract the gene expression matrix from the object
-and rank the genes. The default 'tiesMethod' is set to 'min'.
+component (i.e ExpressionSet, DGEList,SummarizedExperiment). It calls the
+\code{rank} function in the base package which ranks the gene expression
+matrix by its absolute expression level. If the input is S4 object of
+\code{DGEList, ExpressionSet, or SummarizedExperiment}, it will extract the
+gene expression matrix from the object and rank the genes. The default
+'tiesMethod' is set to 'min'.
 }
 \examples{
 rankGenes(toy_expr) # toy_expr is a gene expression matrix, 
@@ -52,5 +56,6 @@ rankGenes(e)
 }
 \seealso{
 \code{\link{rank}} \link[=ExpressionSet-class]{ExpressionSet}
+\link[=SummarizedExperiment-class]{SummarizedExperiment}
 \link[=DGEList-class]{DGEList}
 }

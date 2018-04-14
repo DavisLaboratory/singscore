@@ -62,7 +62,7 @@ NULL
 #' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_gs_dn]
 "toy_gs_up"
 
-#' A sample gene expression data.frame
+#' An example gene expression dataset
 #'
 #' A microarray gene expression dataset that was originally obtained from the
 #' integrated TGFb-EMT data published by (Foroutan et al, 2017). (ComBat
@@ -78,10 +78,10 @@ NULL
 #' @source [Foroutan et
 #'   al,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
 #'
-#' @format A data.frame object
+#' @format A SummarizedExperiment object
 #' @docType data
 #'   
-"tgfb_expr_10"
+"tgfb_expr_10_se"
 
 #' Gene set of up-regulated genes for the TGFb-induced EMT gene signature
 #'

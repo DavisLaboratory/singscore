@@ -15,41 +15,54 @@ bibliography: ../inst/REFERENCES.bib
 
 ## Introduction 
    This vignette demonstrates how to use the functions in R package 'singscore' to score a gene expression dataset against a gene set at a single-sample level and provides visualisation functions to improve interpretation of the results.
+   
   `singscore` implements a simple single-sample gene-set (gene-signature) scoring method which scores individual samples independently without relying on other samples in gene expression datasets. It provides stable scores which are less likely to be affected by varying sample and gene sizes in datasets and unwanted variations across samples. The scoring method uses a rank-based statistics and is quick to compute. For details of the methods please refer to the paper [@Foroutan231217]. It also provides various visualisation functions to further explore results of the analysis.
 
 ## Install "singscore" R package
-'singscore' is currently hosted on GitHub and can be easily installed using
+
+Install 'singscore' from Bioconductor
+```{r installationBio, eval=FALSE}
+source("https://bioconductor.org/biocLite.R")
+biocLite("singscore")
+```
+
+The most updated version of 'singscore' is hosted on GitHub and can be easily installed using
 `devtools::install_github()` function provided by **devtools**, (https://cran.r-project.org/package=devtools) 
-```{r installation, eval=FALSE}
+```{r installationGit, eval=FALSE}
+
 # You would need to install 'devtools' package first.
-install.packages("devtools")
+ install.packages("devtools")
 
 # And install the 'singscore' package from the GitHub repository
 # 'singscore' requires these packages to be installed: methods, stats, graphics, ggplot2, ggsci, grDevices,
 #  ggrepel, plotly, tidyr, plyr, magrittr, reshape, edgeR, RColorBrewer, Biobase, GSEABase, BiocParallel
-devtools::install_github('DavisLaboratory/singscore')
-
+ devtools::install_github('DavisLaboratory/singscore')
 # Set build_vignette = TRUE if would like to browseVignette()
 ```
+
 ##Scoring samples against a gene-set
 ### Load datasets
 
-To illustrate the usage of 'simpleScore()', we first need to load the example datasets. The datasets used in this vignette have been built within the package. You can use the following scripts to load them into your R environment. Detailed steps of obtaining the full datasets are included at the end of the vignette. The 'tgfb_expr_10' dataset was obtained from [@Foroutanmolcanres.0313.2016] and it is a ten-sample subset of the original dataset. We are going to score the integrated TGFb-treated gene expression dataset (5 control samples, 5 case samples) against a TGFb gene signature with an up-regulated and down-regulated gene-set pair [@Foroutanmolcanres.0313.2016]. 
+To illustrate the usage of 'simpleScore()', we first need to load the example datasets. The datasets used in this vignette have been built within the package. You can use the following scripts to load them into your R environment. Detailed steps of obtaining the full datasets are included at the end of the vignette. The 'tgfb_expr_10_se' dataset was obtained from [@Foroutanmolcanres.0313.2016] and it is a ten-sample subset of the original dataset. We are going to score the integrated TGFb-treated gene expression dataset (4 cases and 6 controls) against a TGFb gene signature with an up-regulated and down-regulated gene-set pair [@Foroutanmolcanres.0313.2016]. 
 
-```{r loadDataset}
+```{r loadDataset, message=FALSE}
 library(singscore)
 # The example expression dataset and gene signatures are included in the package
 # distribution, one can directly access them using the variable names
 
-# To see the description of 'tgfb_expr_10','tgfb_gs_up','tgfb_gs_dn', look at 
+# To see the description of 'tgfb_expr_10_se','tgfb_gs_up','tgfb_gs_dn', look at 
 # their help pages using:
 
-# ?tgfb_expr_10
+# ?tgfb_expr_10_se
 # ?tgfb_gs_up
 # ?tgfb_gs_dn
 
-# Have a look at the top 5 rows of tgfb_expr_10
-head(tgfb_expr_10)
+# Have a look at the object tgfb_expr_10_se containing gene expression data
+# for 10 samples 
+tgfb_expr_10_se
+
+# Get the sample names by
+colnames(tgfb_expr_10_se)
 
 # View what tgfb_gs_up/dn contains
 tgfb_gs_up
@@ -68,7 +81,7 @@ To score samples, the gene expression dataset first needs to be ranked using the
 ```{r simplescoring}
 # The recommended method for dealing with ties in ranking is 'min', you can
 # change by specifying 'tiesMethod' parameter for rankGenes function.
-rankData <- rankGenes(tgfb_expr_10)
+rankData <- rankGenes(tgfb_expr_10_se)
 
 # Given the ranked data and gene signature, simpleScore returns the scores and 
 # dispersions for each sample
@@ -108,7 +121,7 @@ Setting `isInteractive = TRUE` generates an interactive plot using the `plotly` 
 Function `plotDispersion` generates the scatter plots of the 'score VS. dispersions' for the total scores, the up scores and the down score of samples. It requires the scored data.frame from `simpleScore` function and annotations (via `annot` parameter) can be used for coloring the points. 
 ```{r plotds, fig.height = 4, fig.width = 8}
 #  Get the annotations of samples by their sample names
-tgfbAnnot <- data.frame(SampleID = colnames(tgfb_expr_10),
+tgfbAnnot <- data.frame(SampleID = colnames(tgfb_expr_10_se),
                        Type = NA)
 tgfbAnnot$Type[grepl("Ctrl", tgfbAnnot$SampleID)] = "Control"
 tgfbAnnot$Type[grepl("TGFb", tgfbAnnot$SampleID)] = "TGFb"
@@ -163,11 +176,12 @@ projectScoreLandscape(plotObj = tcgaLandscape, scoredf_ccle_epi,
                       scoredf_ccle_mes,
                       subSamples = rownames(scoredf_ccle_epi)[c(1,4,5)],
                       annot = rownames(scoredf_ccle_epi)[c(1,4,5)], 
+                      sampleLabels = NULL,
                       isInteractive = FALSE)
 
 ```
 
-Custom labels can be provided by passing a character vector to the `sampleLabels` argument, instead of using the sample names.
+Custom labels can be provided by passing a character vector to the `sampleLabels` argument.
 
 ```{r projectScore2,fig.height = 4, fig.width = 8}
 
@@ -232,11 +246,11 @@ head(permuteResult)
 $p$-values can be estimated using the `getPvals()` function by providing the null distributions calculated above. Unless all permutations are exhausted (mostly infeasible), the minimum $p$-value obtained is $\frac{1}{B}$.
 
 ```{r getPvals, fig.height = 4, fig.width = 8}
-pvals <- getPvals(permuteResult,scoredf)
+pvals <- getPvals(permuteResult,scoredf[1:5,,drop = FALSE])
 
 # getPval returns p-values for each individual sample.
 # show the p-values for first 5 samples
-pvals[1:4,drop = FALSE]
+pvals
 ```
 ### Plot null distribution
 
@@ -262,7 +276,7 @@ plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1:2])
 
 1. TGFb-EMT data
 
-   In the examples above, we loaded a gene expression matrix data `tgfb_expr_10`. This dataset is a ten-sample subset of a full dataset originally from the integrated TGFb-EMT data published by [@Foroutanmolcanres.0313.2016]. The full dataset can be accessed here https://figshare.com/articles/comBat_corrected_Foroutan_et_al_2017/5682862. The `tgfb_gs_up` and `tgfb_gs_dn` are the derived up-regulated/down-regulated genes of the TGFb-induced EMT gene signature by [@Foroutanmolcanres.0313.2016] (see Table S1. TGFβ-EMT signature).
+   In the examples above, we loaded a gene expression matrix data `tgfb_expr_10_se`. This dataset is a ten-sample subset of a full dataset originally from the integrated TGFb-EMT data published by [@Foroutanmolcanres.0313.2016]. The full dataset can be accessed here https://figshare.com/articles/comBat_corrected_Foroutan_et_al_2017/5682862. The `tgfb_gs_up` and `tgfb_gs_dn` are the derived up-regulated/down-regulated genes of the TGFb-induced EMT gene signature by [@Foroutanmolcanres.0313.2016] (see Table S1. TGFβ-EMT signature).
 
 
 2. CCLE dataset

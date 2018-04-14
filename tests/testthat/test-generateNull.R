@@ -36,3 +36,58 @@ test_that("Generic features for generateNull",{
   expect_equivalent(dim(plt2),c(10,ncol(ranked)))
   
 })
+test_that("checking inputs for generateNull",{
+  ranked <- rankGenes(toy_expr)
+  geneIdUp <- GSEABase::geneIds(toy_gs_up)
+  geneIdDn <- GSEABase::geneIds(toy_gs_dn)
+  
+  
+  testthat::expect_error(
+    generateNull(
+      upSet = toy_gs_up,
+      downSet = toy_gs_dn,
+      ranked,
+      B = 10,
+      ncores = 1.1,
+      seed = 1,
+      useBPPARAM = BiocParallel::registered()[[1]]
+    )
+  )
+  
+  testthat::expect_error(
+    generateNull(
+      upSet = toy_gs_up,
+      downSet = toy_gs_dn,
+      ranked,
+      B = 10.1,
+      ncores = 1,
+      seed = 1,
+      useBPPARAM = BiocParallel::registered()[[1]]
+    )
+  )
+  testthat::expect_error(
+    generateNull(
+      upSet = toy_gs_up,
+      downSet = toy_gs_dn,
+      ranked,
+      centerScore = "222",
+      B = 10,
+      ncores = 1,
+      seed = 1,
+      useBPPARAM = BiocParallel::registered()[[1]]
+    )
+  )
+  testthat::expect_error(
+    generateNull(
+      upSet = toy_gs_up,
+      downSet = toy_gs_dn,
+      ranked,
+      centerScore = TRUE,
+      knownDirection = "aaa",
+      B = 10,
+      ncores = 1,
+      seed = 1,
+      useBPPARAM = BiocParallel::registered()[[1]]
+    )
+  )
+})

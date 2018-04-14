@@ -35,16 +35,17 @@ library(singscore)
 # We have included several example datasets in the package to illustrate the 
 # usage of scoring and visulisation functions
 
-# expression matrix
-str(tgfb_expr_10)
-
+# an SummarizedExperiment object containing expression dataset 
+str(tgfb_expr_10_se)
+# Get the counts by 
+SummarizedExperiment::assay(tgfb_expr_10_se)
 # up gene set
 str(tgfb_gs_up)
 # down gene set
 str(tgfb_gs_dn)
 
 # rank the expression matrix first
-rankedData <- rankGenes(tgfb_expr_10)
+rankedData <- rankGenes(tgfb_expr_10_se)
 
 # Call simpleScore function to score each individual sample
 scoredf <- simpleScore(rankedData, tgfb_gs_up,tgfb_gs_dn, centerScore = TRUE)

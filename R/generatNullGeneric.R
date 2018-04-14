@@ -1,5 +1,5 @@
 # generateNull generic function
-#' @include singscore.R CoreFuns.R
+#' @include singscore.R permuTest.R
 NULL
 #' @title Permutation test for the derived scores of each sample
 #'
@@ -76,6 +76,9 @@ function(upSet,
          ncores = 1,
          seed = sample.int(1E6, 1),
          useBPPARAM = NULL) {
+  stopifnot(is.logical(centerScore), is.logical(knownDirection), B%%1==0,
+            ncores%%1==0)
+  
   upSet <- GSEABase::GeneSet(as.character(upSet))
   plt <- generateNull_intl(
     upSet = upSet,
@@ -105,6 +108,8 @@ function(upSet,
          ncores = 1,
          seed = sample.int(1E6, 1),
          useBPPARAM = NULL) {
+  stopifnot(is.logical(centerScore), is.logical(knownDirection), B%%1==0,
+            ncores%%1==0)
   plt <- generateNull_intl(
     upSet = upSet,
     downSet = downSet,
@@ -132,6 +137,8 @@ function(upSet,
          ncores = 1,
          seed = sample.int(1E6, 1),
          useBPPARAM = NULL) {
+  stopifnot(is.logical(centerScore), is.logical(knownDirection), B%%1==0,
+            ncores%%1==0)
   upSet <- GSEABase::GeneSet(as.character(upSet))
   downSet <- GSEABase::GeneSet(as.character(downSet))
   plt <- generateNull_intl(
@@ -162,7 +169,8 @@ function(upSet,
          ncores = 1,
          seed = sample.int(1E6, 1),
          useBPPARAM = NULL) {
-  
+  stopifnot(is.logical(centerScore), is.logical(knownDirection), B%%1==0,
+            ncores%%1==0)
   plt <- generateNull_intl(
     upSet = upSet,
     downSet = downSet,

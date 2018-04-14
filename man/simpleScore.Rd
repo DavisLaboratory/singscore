@@ -10,22 +10,22 @@
 \title{single-sample gene-set scoring method}
 \usage{
 simpleScore(rankData, upSet, downSet = NULL, subSamples = NULL,
-  centerScore = TRUE, dispersionFun = "mad", knownDirection = TRUE)
+  centerScore = TRUE, dispersionFun = mad, knownDirection = TRUE)
 
 \S4method{simpleScore}{ANY,vector,missing}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
+  subSamples = NULL, centerScore = TRUE, dispersionFun = mad,
   knownDirection = TRUE)
 
 \S4method{simpleScore}{ANY,GeneSet,missing}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
+  subSamples = NULL, centerScore = TRUE, dispersionFun = mad,
   knownDirection = TRUE)
 
 \S4method{simpleScore}{ANY,vector,vector}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
+  subSamples = NULL, centerScore = TRUE, dispersionFun = mad,
   knownDirection = TRUE)
 
 \S4method{simpleScore}{ANY,GeneSet,GeneSet}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = "mad",
+  subSamples = NULL, centerScore = TRUE, dispersionFun = mad,
   knownDirection = TRUE)
 }
 \arguments{
@@ -44,7 +44,7 @@ subset the rankData matrix. All samples will be scored if not provided}
 \item{centerScore}{A Boolean, specifying whether scores should be centered
 around 0, default as TRUE}
 
-\item{dispersionFun}{A character, dispersion function with default being 'mad'}
+\item{dispersionFun}{A function, dispersion function with default being \code{mad}}
 
 \item{knownDirection}{A boolean flag, it deterimines whether the scoring
 method should derive the scores in a directional mannar when the gene

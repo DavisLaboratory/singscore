@@ -1,4 +1,4 @@
-#' @include singscore.R CoreFuns.R
+#' @include singscore.R plot.R
 NULL
 
 #' Plot the densities of ranks for one sample

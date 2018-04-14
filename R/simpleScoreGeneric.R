@@ -1,4 +1,4 @@
-#' @include singscore.R CoreFuns.R
+#' @include singscore.R rankAndScoring.R
 NULL
 
 #'@title single-sample gene-set scoring method
@@ -23,7 +23,7 @@ NULL
 #'  down-regulated gene set or NULL where only a single gene set is provided
 #'@param centerScore A Boolean, specifying whether scores should be centered
 #'  around 0, default as TRUE
-#'@param dispersionFun A character, dispersion function with default being 'mad'
+#'@param dispersionFun A function, dispersion function with default being `mad`
 #'@param knownDirection A boolean flag, it deterimines whether the scoring
 #'  method should derive the scores in a directional mannar when the gene
 #'  signature only contains one set of gene set (passing the gene set via
@@ -48,7 +48,7 @@ setGeneric("simpleScore",
                     downSet = NULL,
                     subSamples = NULL,
                     centerScore = TRUE,
-                    dispersionFun = 'mad',
+                    dispersionFun = mad,
                     knownDirection = TRUE)
              standardGeneric("simpleScore"))
 
@@ -63,8 +63,9 @@ function(rankData,
          downSet = NULL,
          subSamples = NULL,
          centerScore = TRUE,
-         dispersionFun = 'mad',
+         dispersionFun = mad,
          knownDirection = TRUE) {
+  stopifnot(is.logical(centerScore), is.logical(knownDirection))
   upSet <- GSEABase::GeneSet(as.character(upSet))
   if(knownDirection){
     df <- singscoring( rankData,
@@ -94,8 +95,9 @@ function(rankData,
          downSet = NULL,
          subSamples = NULL,
          centerScore = TRUE,
-         dispersionFun = 'mad',
+         dispersionFun = mad,
          knownDirection = TRUE) {
+  stopifnot(is.logical(centerScore), is.logical(knownDirection))
   if(knownDirection){
     df <- singscoring(
       rankData,
@@ -126,8 +128,9 @@ function(rankData,
          downSet = NULL,
          subSamples = NULL,
          centerScore = TRUE,
-         dispersionFun = 'mad',
+         dispersionFun = mad,
          knownDirection = TRUE) {
+  stopifnot(is.logical(centerScore), is.logical(knownDirection))
   upSet <- GSEABase::GeneSet(as.character(upSet))
   downSet <- GSEABase::GeneSet(as.character(downSet))
   df <- singscoring( rankData,
@@ -150,9 +153,9 @@ function(rankData,
          downSet = NULL,
          subSamples = NULL,
          centerScore = TRUE,
-         dispersionFun = 'mad',
+         dispersionFun = mad,
          knownDirection = TRUE) {
- 
+  stopifnot(is.logical(centerScore), is.logical(knownDirection))
   df <- singscoring( rankData,
                      upSet = upSet,
                      downSet = downSet,

@@ -1,12 +1,10 @@
 Package: singscore
 Type: Package
 Title: Rank-based single-sample gene set scoring method
-Version: 0.99.3
-Authors@R: c(person("Momeneh", "Foroutan", email = "foroutan.m@wehi.edu.au",role = "aut"),
-           person("Dharmesh","Bhuva", email = "bhuva.d@wehi.edu.au", role = "aut"),
+Version: 0.99.4
+Authors@R: c(person("Momeneh", "Foroutan", email = "foroutan.m@wehi.edu.au", role = c("aut", "ctb")),
+           person("Dharmesh","Bhuva", email = "bhuva.d@wehi.edu.au", role = c("aut", "ctb")),
            person("Ruqian","Lyu", email = "ruqianl@student.unimelb.edu.au", role = c("aut", "cre")))
-Maintainer: Ruqian Lyu <ruqianl@student.unimelb.edu.au>, Momeneh Foroutan <foroutan.m@wehi.edu.au>,
-            Dharmesh Bhuva <bhuva.d@wehi.edu.au>
 Description: A simple single-sample gene signature scoring method that uses rank-based 
   statistics to analyze the sample's gene expression profile. It scores the expression activities of 
   gene sets at a single-sample level.
@@ -28,7 +26,9 @@ Imports:
     edgeR,
     RColorBrewer,
     Biobase,
-    BiocParallel
+    BiocParallel,
+    SummarizedExperiment,
+    matrixStats
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -36,8 +36,10 @@ RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 Collate: 
     'singscore.R'
-    'CoreFuns.R'
+    'rankAndScoring.R'
+    'permuTest.R'
     'generatNullGeneric.R'
+    'plot.R'
     'plotRankDensityGeneric.R'
     'rankGenesGeneric.R'
     'simpleScoreGeneric.R'

@@ -47,3 +47,19 @@ test_that("score calculation works well when direction is unknown", {
   expect_that(scoredfUp, is_equivalent_to(data.frame(-1.5, 0)))
   
 })
+
+test_that("input checkings for simpleScore works", {
+  df <- as.data.frame(c(1,2,5,5))
+  colnames(df) <- 'test'
+  dfrMin <- rankGenes(df, tiesMethod = 'min')
+  rownames(dfrMin) <- c(1,2,3,4)
+  
+  expect_error(
+    simpleScore(
+      dfrMin,
+      upSet = GSEABase::GeneSet(as.character(c(3, 4))),
+      centerScore = TRUE,
+      knownDirection = "FAsss"
+    )
+  )
+})

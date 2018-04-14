@@ -28,3 +28,15 @@ test_that("Generic features for plotRankDensity",{
   expect_that(plt, is_equivalent_to(plt1))
   
 })
+
+test_that("input checkings work for plotRankDensity",{
+  ranked <- rankGenes(toy_expr)
+  geneIdUp <- GSEABase::geneIds(toy_gs_up)
+  geneIdDn <- GSEABase::geneIds(toy_gs_dn)
+
+  expect_error(plotRankDensity(ranked[,2,drop = FALSE], upSet = geneIdUp, 
+                               textSize = "ss"))
+  expect_error(plotRankDensity(ranked[,2,drop = FALSE], upSet = geneIdUp, 
+                               isInteractive = "KK"))
+  
+})

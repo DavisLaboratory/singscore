@@ -12,5 +12,6 @@ test_that("plotDis works", {
   # annotation must have same length with samples if not NULL
   testthat::expect_error(plotDispersion(scoredf, annot = c(1)))
   testthat::expect_error(plotDispersion(scoredf, annot = c(1,2,3)))
+  testthat::expect_error(plotDispersion(scoredf, textSize = "ss"))
   
 })
