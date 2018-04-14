@@ -5,7 +5,7 @@ version 0.99.2
 version 0.99.3
 -change argument name bidirectional to knownDirection, default as TRUE
 
-version 0.99.4
+version 0.99.5
 - represent expression data in SummarizedExperiement dataset
 - function input checkings 
 - R code re-organised
