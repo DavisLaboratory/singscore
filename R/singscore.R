@@ -16,6 +16,7 @@
 #' @importFrom magrittr "%>%"
 #' @importClassesFrom edgeR DGEList
 #' @importClassesFrom Biobase ExpressionSet
+#' @import SummarizedExperiment
 #' @docType package
 #' @name singscore
 NULL
