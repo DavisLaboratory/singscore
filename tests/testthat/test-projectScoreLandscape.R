@@ -1,7 +1,7 @@
 context("projectScoreLandscape")
 
 test_that("projectScoreLandscape works", {
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
   scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
   psl <- plotScoreLandscape(scoredf1, scoredf2)

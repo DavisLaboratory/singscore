@@ -22,7 +22,7 @@ NULL
 #' @return  A ggplot object (or a plotly object) with a rank density plot
 #'  overlayed with a barcode plot
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankGenes(toy_expr_se)
 #' plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up)
 #' 
 #'@export

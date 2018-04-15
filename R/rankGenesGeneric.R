@@ -24,10 +24,13 @@ NULL
 #'@return The ranked gene expression matrix that has samples in columns and
 #'  genes in rows
 #' @examples
-#' rankGenes(toy_expr) # toy_expr is a gene expression matrix, 
+#' rankGenes(toy_expr_se) # toy_expr_se is a gene expression dataset
 #' tiesMethod = 'min'
+#' # get counts from toy_expr_se
+#' counts <- SummarizedExperiment::assay(toy_expr_se)
 #' # or it can be a ExpressionSet object
-#' e <- Biobase::ExpressionSet(assayData = as.matrix(toy_expr))
+#' 
+#' e <- Biobase::ExpressionSet(assayData = as.matrix(counts))
 #' rankGenes(e) 
 #'@seealso \code{\link{rank}} [ExpressionSet][ExpressionSet-class]
 #'[SummarizedExperiment][SummarizedExperiment-class]

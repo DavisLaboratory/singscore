@@ -74,7 +74,7 @@ arguments as what they provide for the \code{simpleScore()} function to generate
 a proper null distribution.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankGenes(toy_expr_se)
 scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 
 # find out what backends can be registered on your machine

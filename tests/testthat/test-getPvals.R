@@ -1,7 +1,7 @@
 context("getPvals")
 
 test_that("getPvals works", {
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   
   n_down = length(GSEABase::geneIds(toy_gs_dn))
   # find out what backends can be registered on your machine
@@ -18,7 +18,7 @@ test_that("getPvals works", {
   expect_equivalent(length(pvals),2)
 })
 test_that("getPvals input checking works", {
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   
   n_down = length(GSEABase::geneIds(toy_gs_dn))
   # find out what backends can be registered on your machine

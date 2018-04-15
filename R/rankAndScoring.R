@@ -21,7 +21,7 @@ NULL
 #' @seealso 
 #' [rankGenes()]
 #' @examples
-#' \dontrun{ranked <- rankExpr(toy_expr)}
+#' \dontrun{ranked <- rankExpr(toy_expr_se)}
 rankExpr <- function(exprsM, tiesMethod = "min") {
   rname<- rownames(exprsM)
   cname <- colnames(exprsM)

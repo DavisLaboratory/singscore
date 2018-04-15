@@ -52,7 +52,7 @@ of these ranks. Ranks are normalized by dividing them by the maximum rank.
 Densities are estimated using KDE.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankGenes(toy_expr_se)
 plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up)
 
 }

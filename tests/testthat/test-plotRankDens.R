@@ -1,7 +1,7 @@
 context("testing plotRankDensity function ")
 
 test_that("plotRankDensity is plotting", {
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   plt <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up)
   plt2 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up,
                          downSet = toy_gs_dn)
@@ -11,7 +11,7 @@ test_that("plotRankDensity is plotting", {
 })
 
 test_that("Generic features for plotRankDensity",{
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   geneIdUp <- GSEABase::geneIds(toy_gs_up)
   geneIdDn <- GSEABase::geneIds(toy_gs_dn)
   
@@ -30,7 +30,7 @@ test_that("Generic features for plotRankDensity",{
 })
 
 test_that("input checkings work for plotRankDensity",{
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   geneIdUp <- GSEABase::geneIds(toy_gs_up)
   geneIdDn <- GSEABase::geneIds(toy_gs_dn)
 

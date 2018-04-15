@@ -23,7 +23,7 @@ NULL
 #' values
 #' @param isInteractive Boolean, determine whether the plot is interactive
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankGenes(toy_expr_se)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 #' plotDispersion(scoredf)
 #' plotDispersion(scoredf, isInteractive = TRUE)
@@ -167,7 +167,7 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #' @return A ggplot object, a scatter plot, demonstrating the relationship
 #'   between scores from two signatures on the same set of samples.
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankGenes(toy_expr_se)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 #' scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
 #' plotScoreLandscape(scoredf, scoredf2)
@@ -271,7 +271,7 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #' @seealso 
 #' [plotScoreLandscape()]
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankGenes(toy_expr_se)
 #' scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 #' scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
 #' psl <- plotScoreLandscape(scoredf1, scoredf2)
@@ -284,13 +284,14 @@ projectScoreLandscape <- function(plotObj = NULL,
                                   sampleLabels = NULL,
                                   annot = NULL,
                                   isInteractive = FALSE){
-  if (! is.ggplot(plotObj)) {
-    stop('Please provide a ggplot object returned by plotScoreLandscape() (',
+  # stop and print message
+  if (!is.ggplot(plotObj)) {
+    stop('Please provide a ggplot object generated using plotScoreLandscape() (',
          class(plotObj)[1], ' object given)')
   }
   
   # create data frame with the new data
-  # subsetting the two data frames, scoredfs
+  # subsetting the two data frames, scoredfs then checks the data dimensions
   if(! is.null(subSamples)){
     scoredf1 <- scoredf1[subSamples,]
     scoredf2 <- scoredf2[subSamples,]
@@ -301,7 +302,6 @@ projectScoreLandscape <- function(plotObj = NULL,
     if(anyNA(scoredf2)){
       message('some selected samples not exist in provided scoredf2')
       scoredf2 <- na.omit(scoredf2)
-      
     }
   }
   #if no sample labels are provided
@@ -312,6 +312,9 @@ projectScoreLandscape <- function(plotObj = NULL,
       stop("sampleLabels must contain the same number of labels with the number 
            of samples in scoredf")
   }
+  
+  stopifnot(dim(scoredf1)[1] == dim(scoredf2)[1],
+            rownames(scoredf1) == rownames(scoredf2))
   
   if (is.null(annot)) {
     annot = ''
@@ -556,16 +559,15 @@ plotRankDensity_intl <- function (rankData,
 #' @param pvals A vector, estimated p-values using the [getPvals()] function
 #' `permuteResult`,`scoredf` and `pvals` are the results for the same samples.
 #' 
-#' @param sampleNames A character vector, sample IDs, default as NULL and all 
-#' samples' null distributions will be plotted, which does not produce proper
-#' plot when there are many samples.
+#' @param sampleNames A character vector, sample IDs for which null
+#'   distributions will be plotted
 #' @param textSize numeric, size of axes labels, axes values and title
 #' @param labelSize numeric, size of label texts
 #' @param cutoff numeric, the cutoff value for determining significance
 #' @return a ggplot object
 #' @author Ruqian Lyu
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankGenes(toy_expr_se)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 
 #' # find out what backends can be registered on your machine
@@ -588,6 +590,8 @@ plotNull <- function(permuteResult,
                      cutoff = 0.01,
                      textSize = 2,
                      labelSize = 5) {
+  
+  stopifnot(!is.null(sampleNames))
   
   quantile_title <- as.character((1 - cutoff)*100)
   if(is.null(sampleNames)){

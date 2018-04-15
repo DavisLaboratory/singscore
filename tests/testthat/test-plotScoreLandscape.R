@@ -1,7 +1,7 @@
 context("plotScoreLandscape")
 
 test_that("plotScoreLandscape works", {
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   scoredf <- singscoring(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
   scoredf2 <- singscoring(ranked, upSet = toy_gs_up)
   
@@ -19,7 +19,7 @@ test_that("plotScoreLandscape works", {
   
 })
 test_that("input checkings for plotScoreLandscape work", {
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   scoredf <- singscoring(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
   scoredf2 <- singscoring(ranked, upSet = toy_gs_up)
   

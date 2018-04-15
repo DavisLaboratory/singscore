@@ -33,7 +33,7 @@ NULL
 #'@return A data.frame consists of singscores and dispersions for all samples
 #'
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankGenes(toy_expr_se)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 #' # toy_gs_up is a GeneSet object, alternatively a vector of gene ids may also 
 #' # be supplied.

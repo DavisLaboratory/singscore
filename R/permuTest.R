@@ -108,7 +108,7 @@ generateNull_intl <- function(upSet, downSet = NULL, rankData,
 #'   than or equal to 1/B.
 
 #' @examples
-#' ranked <- rankGenes(toy_expr)
+#' ranked <- rankGenes(toy_expr_se)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 #' # find out what backends can be registered on your machine
 #' BiocParallel::registered()
@@ -128,11 +128,11 @@ getPvals <- function(permuteResult,scoredf){
   resultSc <- t(scoredf[, 1, drop = FALSE])
   # combine the permutation with the result score for the computation of P values
   # p = (r+1)/(m+1)
-  empirScore_re <- rbind(permuteResult, as.numeric(resultSc))
-  B <- nrow(empirScore_re) - 1
+ 
+  B <- nrow(permuteResult)
   # x[length(x)] is the calculated score
-  pvals <- colSums( empirScore_re[-nrow(empirScore_re), ] > 
-                      matrix(empirScore_re[ nrow(empirScore_re), ])) /B
+  pvals <- colSums(permuteResult > matrix(1, nrow = nrow(permuteResult), 
+                                  ncol = 1) %*% resultSc) / B
   pvals <- sapply(pvals, max, 1/B)
   return(pvals)
 }

@@ -27,7 +27,7 @@ NULL
 #' The data was created by sampling 2 samples and 20 genes from the dataset by
 #' Foroutan et al, 2017.
 #'
-#' @format A data frame of 2 samples each with 20 genes \describe{
+#' @format A SummarizedExperiment of 2 samples each with 20 genes \describe{
 #'   \item{D_Ctrl_R1}{a control sample} \item{D_TGFb_R1}{a TGFb-treated sample}
 #'   }
 #' @docType data
@@ -40,7 +40,7 @@ NULL
 #'   al.,2017](http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313)
 #'
 #'
-"toy_expr"
+"toy_expr_se"
 
 #' A gene set object of down-regulated genes for the toy dataset
 #'
@@ -49,7 +49,7 @@ NULL
 #'
 #' @format A GSEABase::GeneSet object with 5 genes
 #' @docType data
-#' @seealso \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_gs_up]
+#' @seealso \code{"\linkS4class{GeneSet}"},[toy_expr_se],[toy_gs_up]
 "toy_gs_dn"
 
 #' A gene set object of up-regulated genes for the toy dataset
@@ -60,7 +60,7 @@ NULL
 #' @format A GeneSet object with 5 genes
 #' @docType data
 #' @seealso 
-#' \code{"\linkS4class{GeneSet}"},[toy_expr],[toy_gs_dn]
+#' \code{"\linkS4class{GeneSet}"},[toy_expr_se],[toy_gs_dn]
 "toy_gs_up"
 
 #' An example gene expression dataset

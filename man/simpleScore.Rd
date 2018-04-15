@@ -68,7 +68,7 @@ to pass the gene set while the \code{downSet} argument is set to
 ontologies where the nature of the genes is unknown (up- or down-regulated).
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankGenes(toy_expr_se)
 scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 # toy_gs_up is a GeneSet object, alternatively a vector of gene ids may also 
 # be supplied.

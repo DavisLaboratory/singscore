@@ -41,7 +41,7 @@ column names "TotalScore" "TotalDispersion" "UpScore" "UpDispersion"
 "DownScore" "DownDispersion" and rows names as samples.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankGenes(toy_expr_se)
 scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
 plotScoreLandscape(scoredf, scoredf2)

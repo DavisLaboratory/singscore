@@ -13,6 +13,6 @@ A GeneSet object with 5 genes randomly selected from the toy dataset. These
 genes are independent of those in \link{toy_gs_up}
 }
 \seealso{
-\code{"\linkS4class{GeneSet}"},\link{toy_expr},\link{toy_gs_up}
+\code{"\linkS4class{GeneSet}"},\link{toy_expr_se},\link{toy_gs_up}
 }
 \keyword{datasets}

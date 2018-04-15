@@ -1,7 +1,7 @@
 context("generateNull")
 
 test_that("generateNull works", {
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
  
   n_down = length(GSEABase::geneIds(toy_gs_dn))
   # find out what backends can be registered on your machine
@@ -17,7 +17,7 @@ test_that("generateNull works", {
 
 })
 test_that("Generic features for generateNull",{
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   geneIdUp <- GSEABase::geneIds(toy_gs_up)
   geneIdDn <- GSEABase::geneIds(toy_gs_dn)
   
@@ -37,7 +37,7 @@ test_that("Generic features for generateNull",{
   
 })
 test_that("checking inputs for generateNull",{
-  ranked <- rankGenes(toy_expr)
+  ranked <- rankGenes(toy_expr_se)
   geneIdUp <- GSEABase::geneIds(toy_gs_up)
   geneIdDn <- GSEABase::geneIds(toy_gs_dn)
   

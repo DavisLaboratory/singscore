@@ -24,7 +24,7 @@ function, p-values are estimated using a one-tailed test. A minimum p-value
 of 1/B can be achieved with B permutations.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankGenes(toy_expr_se)
 scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 # find out what backends can be registered on your machine
 BiocParallel::registered()

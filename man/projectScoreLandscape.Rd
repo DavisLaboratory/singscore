@@ -43,7 +43,7 @@ points onto the landscape plot and returns a new ggplot object with
 projected data points.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankGenes(toy_expr_se)
 scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
 psl <- plotScoreLandscape(scoredf1, scoredf2)

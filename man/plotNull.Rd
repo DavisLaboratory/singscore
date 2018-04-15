@@ -17,9 +17,8 @@ function}
 \item{pvals}{A vector, estimated p-values using the \code{\link[=getPvals]{getPvals()}} function
 \code{permuteResult},\code{scoredf} and \code{pvals} are the results for the same samples.}
 
-\item{sampleNames}{A character vector, sample IDs, default as NULL and all
-samples' null distributions will be plotted, which does not produce proper
-plot when there are many samples.}
+\item{sampleNames}{A character vector, sample IDs for which null
+distributions will be plotted}
 
 \item{cutoff}{numeric, the cutoff value for determining significance}
 
@@ -37,7 +36,7 @@ and plots the density curves of permuted scores for the provided samples via
 sample or multiple samples.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankGenes(toy_expr_se)
 scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 # find out what backends can be registered on your machine
 BiocParallel::registered()

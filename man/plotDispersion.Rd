@@ -36,7 +36,7 @@ To be specific, you need to have columns names "TotalScore"
 and rows names as samples.
 }
 \examples{
-ranked <- rankGenes(toy_expr)
+ranked <- rankGenes(toy_expr_se)
 scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 plotDispersion(scoredf)
 plotDispersion(scoredf, isInteractive = TRUE)
