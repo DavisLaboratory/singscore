@@ -6,7 +6,7 @@
 #' scores and gene sets along with visualisations to enable exploration of
 #' results.
 #' 
-#' @import stats
+#' @importFrom stats mad median na.omit quantile
 #' @import graphics
 #' @import ggplot2
 #' @import GSEABase

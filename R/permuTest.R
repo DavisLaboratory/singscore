@@ -128,17 +128,12 @@ getPvals <- function(permuteResult,scoredf){
   resultSc <- t(scoredf[, 1, drop = FALSE])
   # combine the permutation with the result score for the computation of P values
   # p = (r+1)/(m+1)
-  empirScore_re <- rbind(permuteResult, as.character(resultSc))
-  
+  empirScore_re <- rbind(permuteResult, as.numeric(resultSc))
+  B <- nrow(empirScore_re) - 1
   # x[length(x)] is the calculated score
-  
-  pvals <- apply(empirScore_re,2,function(x, B = dim(permuteResult)[1]){
-    # x = abs(as.numeric(x)) #to enable a two-tailed test
-    p = sum(x[1:B] > x[B + 1]) / B
-    p = max(p, 1 / B)
-    
-    return(p)
-  })
+  pvals <- colSums( empirScore_re[-nrow(empirScore_re), ] > 
+                      matrix(empirScore_re[ nrow(empirScore_re), ])) /B
+  pvals <- sapply(pvals, max, 1/B)
   return(pvals)
 }
 
