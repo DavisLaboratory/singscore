@@ -37,7 +37,6 @@ NULL
 #' @seealso 
 #' [Post about BiocParallel](http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U)
 #' `browseVignettes("BiocParallel")`
-#' @keywords internal
 #' @author Ruqian Lyu
 #' @export
 #' @examples

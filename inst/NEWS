@@ -14,3 +14,6 @@ verion 0.99.8
 - vectorize getPvals
 - make toy_epxr_se
 
+version 0.99.9
+- remove internal keyword from generateNull
+

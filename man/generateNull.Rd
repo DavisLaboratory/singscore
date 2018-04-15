@@ -91,4 +91,3 @@ centerScore = TRUE, B =10, seed = 1, ncores = 1 )
 \author{
 Ruqian Lyu
 }
-\keyword{internal}
