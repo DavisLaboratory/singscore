@@ -8,7 +8,7 @@ projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2, subSamples = NULL,
   sampleLabels = NULL, annot = NULL, isInteractive = FALSE)
 }
 \arguments{
-\item{plotObj}{a dataframe, resulted from \code{\link[=plotScoreLandscape]{plotScoreLandscape()}}}
+\item{plotObj}{a ggplot object, resulted from \code{\link[=plotScoreLandscape]{plotScoreLandscape()}}}
 
 \item{scoredf1}{data.frame, result of the simpleScore() function which scores
 the gene expression matrix against a gene set of interest}

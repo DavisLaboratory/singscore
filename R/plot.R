@@ -153,19 +153,19 @@ plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
 #'   column names "TotalScore" "TotalDispersion" "UpScore" "UpDispersion"
 #'   "DownScore" "DownDispersion" and rows names as samples.
 #'   
-#' @param scoredf1 data.frame, result of the simpleScore() function which scores
-#'   the gene expression matrix against a gene set of interest
-#' @param scoredf2 data.frame, result of the simpleScore() function which scores
-#'   the gene expression matrix against another gene set of interest
-#' @param scorenames character vector of length 2, names for the two scored gene
-#'   set/signatures stored in scoredf1 and scoredf2
-#' @param isInteractive boolean, whether the plot is interactive default as
-#'   FALSE
-#' @param textSize numeric, set the text size for the plot, default as 1.5
-#' @param hexMin integer, the threshold which decides whether hex bin plot or
-#'   scatter plot is displayed, default as 100
-#' @return A ggplot object, a scatter plot, demonstrating the relationship
-#'   between scores from two signatures on the same set of samples.
+  #' @param scoredf1 data.frame, result of the simpleScore() function which scores
+  #'   the gene expression matrix against a gene set of interest
+  #' @param scoredf2 data.frame, result of the simpleScore() function which scores
+  #'   the gene expression matrix against another gene set of interest
+  #' @param scorenames character vector of length 2, names for the two scored gene
+  #'   set/signatures stored in scoredf1 and scoredf2
+  #' @param isInteractive boolean, whether the plot is interactive default as
+  #'   FALSE
+  #' @param textSize numeric, set the text size for the plot, default as 1.5
+  #' @param hexMin integer, the threshold which decides whether hex bin plot or
+  #'   scatter plot is displayed, default as 100
+  #' @return A ggplot object, a scatter plot, demonstrating the relationship
+  #'   between scores from two signatures on the same set of samples.
 #' @examples
 #' ranked <- rankGenes(toy_expr_se)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
@@ -248,7 +248,7 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #'  points onto the landscape plot and returns a new ggplot object with
 #'  projected data points.
 #'
-#'@param plotObj a dataframe, resulted from [plotScoreLandscape()]
+#'@param plotObj a ggplot object, resulted from [plotScoreLandscape()]
 #'@param scoredf1 data.frame, result of the simpleScore() function which scores
 #'  the gene expression matrix against a gene set of interest
 #'@param scoredf2 data.frame, result of the simpleScore() function which scores

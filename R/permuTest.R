@@ -38,7 +38,6 @@ NULL
 #' `browseVignettes("BiocParallel")`
 #' @keywords internal
 #' @author Ruqian Lyu
-#' @export
 
 generateNull_intl <- function(upSet, downSet = NULL, rankData, 
                               centerScore = TRUE,
