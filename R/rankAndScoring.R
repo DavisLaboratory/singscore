@@ -137,13 +137,14 @@ singscoring <- function (rankData, upSet, downSet = NULL, subSamples = NULL,
 #' @param downSet A GeneSet object, down regulated gene set
 #' @param subSamples A character or vector of sample labels/indices that will be
 #'   used to subset the rankData matrix.All samples will be scored by default.
-#' @param centerScore A Boolean, specifying whether scores should be centred
+#' @param centerScore A Boolean, specifying whether scores should be centred, 
+#'   default as FALSE
 #' @param dispersionFun A character, dispersion function with default as 'mad'
 #' @return A data.frame consists of scores and dispersions for all samples
 #' @keywords internal
 #' 
 singscoringOneGS <- function (rankData, upSet, subSamples = NULL,
-                              centerScore = TRUE, dispersionFun = mad) {
+                              centerScore = FALSE, dispersionFun = mad) {
   
   #subset the data for samples whose calculation is to be performed
   if (!is.null(subSamples)) {

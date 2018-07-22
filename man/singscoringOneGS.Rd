@@ -4,7 +4,7 @@
 \alias{singscoringOneGS}
 \title{scoring single gene set signature when direction of gene set is unknown}
 \usage{
-singscoringOneGS(rankData, upSet, subSamples = NULL, centerScore = TRUE,
+singscoringOneGS(rankData, upSet, subSamples = NULL, centerScore = FALSE,
   dispersionFun = mad)
 }
 \arguments{
@@ -15,7 +15,8 @@ singscoringOneGS(rankData, upSet, subSamples = NULL, centerScore = TRUE,
 \item{subSamples}{A character or vector of sample labels/indices that will be
 used to subset the rankData matrix.All samples will be scored by default.}
 
-\item{centerScore}{A Boolean, specifying whether scores should be centred}
+\item{centerScore}{A Boolean, specifying whether scores should be centred,
+default as FALSE}
 
 \item{dispersionFun}{A character, dispersion function with default as 'mad'}
 

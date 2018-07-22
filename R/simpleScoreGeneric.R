@@ -78,7 +78,6 @@ function(rankData,
     df <- singscoringOneGS(rankData,
                            upSet = upSet,
                            subSamples = subSamples,
-                           centerScore = centerScore,
                            dispersionFun = dispersionFun)
   }
   return(df)
@@ -111,7 +110,6 @@ function(rankData,
       rankData,
       upSet = upSet,
       subSamples = subSamples,
-      centerScore = centerScore,
       dispersionFun = dispersionFun
     )
   }
