@@ -1,0 +1,6 @@
+pandoc: 1.19.2.1
+pkgdown: 1.1.0.9000
+pkgdown_sha: c990ad4daa65267cbd90ab7f1438bab329da3bc0
+articles:
+  singscore: singscore.html
+

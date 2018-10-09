@@ -10,8 +10,8 @@
 \title{Permutation test for the derived scores of each sample}
 \usage{
 generateNull(upSet, downSet = NULL, rankData, centerScore = TRUE,
-  knownDirection = TRUE, B = 1000, ncores = 1, seed = sample.int(1e+06,
-  1), useBPPARAM = NULL)
+  knownDirection = TRUE, B = 1000, ncores = 1,
+  seed = sample.int(1e+06, 1), useBPPARAM = NULL)
 
 \S4method{generateNull}{vector,missing}(upSet, downSet = NULL, rankData,
   centerScore = TRUE, knownDirection = TRUE, B = 1000, ncores = 1,

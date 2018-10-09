@@ -20,7 +20,8 @@ rankGenes(expreMatrix, tiesMethod = "min")
 
 \S4method{rankGenes}{ExpressionSet}(expreMatrix, tiesMethod = "min")
 
-\S4method{rankGenes}{SummarizedExperiment}(expreMatrix, tiesMethod = "min")
+\S4method{rankGenes}{SummarizedExperiment}(expreMatrix,
+  tiesMethod = "min")
 }
 \arguments{
 \item{expreMatrix}{A gene expression matrix (matrix,data.frame) or S4 object

@@ -1,4 +1,6 @@
-# Overview
+# singscore <img src="singscore_sticker.png" align="right"  height="130" width="120" alt="logo"/>
+
+## Overview
 
 'singscore' is a gene-set scoring R package which implements a simple single-sample gene-set (or gene-signature) scoring method. It uses rank-based statistics to analyze the each sample's gene expression profile and scores the expression activities of gene sets at a single-sample level.
 

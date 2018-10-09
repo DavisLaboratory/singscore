@@ -10,8 +10,8 @@ signature}
 scoredf_ccle_epi
 }
 \description{
-This data.frame stores pre-computed scores of the CCLE dataset \href{https://www.nature.com/articles/nature11003}{Barretina etal} calculated using the
-\code{\link[=simpleScore]{simpleScore()}} function against the epithelial gene signature from \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan,Tuan Zea et al}. The
+This data.frame stores pre-computed scores of the CCLE dataset \href{https://www.nature.com/articles/nature11003}{Barretina et al} calculated using the
+\code{\link[=simpleScore]{simpleScore()}} function against the epithelial gene signature from \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}. The
 data.frame has scores for 55 samples. Please refer to the vignettes for
 instructions on how to obtain the full datasets.
 }
