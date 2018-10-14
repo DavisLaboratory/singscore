@@ -43,6 +43,8 @@ for easy access to parallel backends. Note that one should pass the same
 values to the upSet, downSet, centerScore and bidirectional
 arguments as what they provide for the simpleScore() function to generate
 a proper null distribution." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -226,7 +228,7 @@ explicitly by passing a BPPARAM</p></td>
 <span class='co'># find out what backends can be registered on your machine</span>
 <span class='kw pkg'>BiocParallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/BiocParallel/topics/register'>registered</a></span>()</div><div class='output co'>#&gt; $MulticoreParam
 #&gt; class: MulticoreParam
-#&gt;   bpisup: FALSE; bpnworkers: 6; bptasks: 0; bpjobname: BPJOB
+#&gt;   bpisup: FALSE; bpnworkers: 44; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
 #&gt;   bptimeout: 2592000; bpprogressbar: FALSE
 #&gt;   bpRNGseed: 
@@ -236,7 +238,7 @@ explicitly by passing a BPPARAM</p></td>
 #&gt; 
 #&gt; $SnowParam
 #&gt; class: SnowParam
-#&gt;   bpisup: FALSE; bpnworkers: 6; bptasks: 0; bpjobname: BPJOB
+#&gt;   bpisup: FALSE; bpnworkers: 44; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
 #&gt;   bptimeout: 2592000; bpprogressbar: FALSE
 #&gt;   bpRNGseed: 

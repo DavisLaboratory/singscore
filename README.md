@@ -1,4 +1,4 @@
-# singscore <img src="singscore_sticker.png" align="right"  height="130" width="120" alt="logo"/>
+# singscore <img src="man/figures/logo.png" align="right"  height="140" width="120" alt="logo"/>
 
 ## Overview
 
