@@ -159,7 +159,7 @@ Similarly, pre-computed scores for the [TCGA](https://cancergenome.nih.gov/) bre
 ```{r loadTCGA,fig.height = 4, fig.width = 8}
 
 tcgaLandscape <- plotScoreLandscape(scoredf_tcga_epi, scoredf_tcga_mes, 
-                   scorenames = c('tcga-EPI','tcga-MES'), isInteractive = FALSE)
+                   scorenames = c('tcga_EPI','tcga_MES'), isInteractive = FALSE)
 
 tcgaLandscape
 
