@@ -8,7 +8,7 @@
 \item{D_Ctrl_R1}{a control sample} \item{D_TGFb_R1}{a TGFb-treated sample}
 }}
 \source{
-\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan etal.,2017}
+\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al.,2017}
 }
 \usage{
 toy_expr_se

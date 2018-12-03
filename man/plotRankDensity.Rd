@@ -18,8 +18,8 @@ plotRankDensity(rankData, upSet, downSet = NULL, isInteractive = FALSE,
 \S4method{plotRankDensity}{ANY,GeneSet,missing}(rankData, upSet,
   downSet = NULL, isInteractive = FALSE, textSize = 1.5)
 
-\S4method{plotRankDensity}{ANY,vector,vector}(rankData, upSet, downSet = NULL,
-  isInteractive = FALSE, textSize = 1.5)
+\S4method{plotRankDensity}{ANY,vector,vector}(rankData, upSet,
+  downSet = NULL, isInteractive = FALSE, textSize = 1.5)
 
 \S4method{plotRankDensity}{ANY,GeneSet,GeneSet}(rankData, upSet,
   downSet = NULL, isInteractive = FALSE, textSize = 1.5)

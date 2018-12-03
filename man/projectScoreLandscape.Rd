@@ -4,8 +4,9 @@
 \alias{projectScoreLandscape}
 \title{Project data on the landscape plot obtained from \code{plotScoreLandscape()}}
 \usage{
-projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2, subSamples = NULL,
-  sampleLabels = NULL, annot = NULL, isInteractive = FALSE)
+projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2,
+  subSamples = NULL, sampleLabels = NULL, annot = NULL,
+  isInteractive = FALSE)
 }
 \arguments{
 \item{plotObj}{a ggplot object, resulted from \code{\link[=plotScoreLandscape]{plotScoreLandscape()}}}

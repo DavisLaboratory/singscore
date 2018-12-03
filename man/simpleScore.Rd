@@ -12,21 +12,21 @@
 simpleScore(rankData, upSet, downSet = NULL, subSamples = NULL,
   centerScore = TRUE, dispersionFun = mad, knownDirection = TRUE)
 
-\S4method{simpleScore}{ANY,vector,missing}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = mad,
-  knownDirection = TRUE)
+\S4method{simpleScore}{ANY,vector,missing}(rankData, upSet,
+  downSet = NULL, subSamples = NULL, centerScore = TRUE,
+  dispersionFun = mad, knownDirection = TRUE)
 
-\S4method{simpleScore}{ANY,GeneSet,missing}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = mad,
-  knownDirection = TRUE)
+\S4method{simpleScore}{ANY,GeneSet,missing}(rankData, upSet,
+  downSet = NULL, subSamples = NULL, centerScore = TRUE,
+  dispersionFun = mad, knownDirection = TRUE)
 
-\S4method{simpleScore}{ANY,vector,vector}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = mad,
-  knownDirection = TRUE)
+\S4method{simpleScore}{ANY,vector,vector}(rankData, upSet,
+  downSet = NULL, subSamples = NULL, centerScore = TRUE,
+  dispersionFun = mad, knownDirection = TRUE)
 
-\S4method{simpleScore}{ANY,GeneSet,GeneSet}(rankData, upSet, downSet = NULL,
-  subSamples = NULL, centerScore = TRUE, dispersionFun = mad,
-  knownDirection = TRUE)
+\S4method{simpleScore}{ANY,GeneSet,GeneSet}(rankData, upSet,
+  downSet = NULL, subSamples = NULL, centerScore = TRUE,
+  dispersionFun = mad, knownDirection = TRUE)
 }
 \arguments{
 \item{rankData}{A matrix object, ranked gene expression matrix data generated

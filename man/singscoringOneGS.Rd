@@ -4,8 +4,8 @@
 \alias{singscoringOneGS}
 \title{scoring single gene set signature when direction of gene set is unknown}
 \usage{
-singscoringOneGS(rankData, upSet, subSamples = NULL, centerScore = FALSE,
-  dispersionFun = mad)
+singscoringOneGS(rankData, upSet, subSamples = NULL,
+  centerScore = FALSE, dispersionFun = mad)
 }
 \arguments{
 \item{rankData}{A matrix, ranked gene expression matrix data}

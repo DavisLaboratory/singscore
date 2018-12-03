@@ -12,7 +12,7 @@ scoredf_tcga_mes
 \description{
 This data.frame stores pre-computed scores of the
 \href{https://cancergenome.nih.gov}{TCGA} dataset calculated using the
-\code{\link[=simpleScore]{simpleScore()}} function against the mesenchymal gene signature from \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan,Tuan Zea et al}.
+\code{\link[=simpleScore]{simpleScore()}} function against the mesenchymal gene signature from \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4287932/}{Tan, Tuan Zea et al}.
 Please refer to the vignettes for instructions on how to obtain the full
 datasets.
 }

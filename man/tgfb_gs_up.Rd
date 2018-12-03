@@ -6,7 +6,7 @@
 \title{Gene set of up-regulated genes for the TGFb-induced EMT gene signature}
 \format{A GeneSet object}
 \source{
-\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan etal,2017}
+\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al,2017}
 }
 \usage{
 tgfb_gs_up

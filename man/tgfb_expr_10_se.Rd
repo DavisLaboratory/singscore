@@ -6,7 +6,7 @@
 \title{An example gene expression dataset}
 \format{A SummarizedExperiment object}
 \source{
-\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan etal,2017}
+\href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al,2017}
 }
 \usage{
 tgfb_expr_10_se
