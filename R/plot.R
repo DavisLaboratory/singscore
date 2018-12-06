@@ -323,6 +323,8 @@ projectScoreLandscape <- function(plotObj = NULL,
   
   
   plabs = c(plotObj$labels$x, plotObj$labels$y)
+  plabs = gsub("`","",plabs)
+
   Annotation <- NULL
   SampleLabel <- NULL
   colnames(newdata) = c(plabs, 'SampleLabel')
