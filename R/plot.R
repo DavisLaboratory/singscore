@@ -51,7 +51,7 @@ processAnnotation <- function(df, annot) {
   return(annot)
 }
 
-getColorScale <- function(annot, title) {
+getColorScale <- function(annot) {
   #specify a discrete scale for categoricals
   if (is.factor(annot)) {
     #specify a discrete scale for categoricals
@@ -78,15 +78,17 @@ getColorScale <- function(annot, title) {
 #' Plot the score v.s. despersion for all samples
 #' @description This function takes the output from the simpleScore() function
 #'   and generates scatter plots of score vs. dispersion for the total
-#'   score, the up score and the down score of samples. If you wish to use the 
+#'   score, the up score and the down score of samples. If you wish to use the
 #'   plotting function but with some customized inputs (instead of outputs from
-#'   `simpleScore` function), you need to make sure the formats are the same. 
+#'   `simpleScore` function), you need to make sure the formats are the same.
 #'   To be specific, you need to have columns names "TotalScore"
-#'   "TotalDispersion" "UpScore" "UpDispersion" "DownScore" "DownDispersion" 
+#'   "TotalDispersion" "UpScore" "UpDispersion" "DownScore" "DownDispersion"
 #'   and rows names as samples.
 #' @param scoredf data.frame, generated using the [simpleScore()] function
-#' @param annot any numeric or factor annotation provided by the user that
-#'   needs to be plot. Annotations must be ordered in the same way as the scores
+#' @param annot any numeric, character or factor annotation provided by the user that
+#' needs to be plot. Alternatively, this can be a character specifying the
+#' column of scoredf holding the annotation. Annotations must be ordered in the
+#' same way as the scores
 #' @param annot_name character, legend title for the annotation
 #' @param alpha numeric, set the transparency of points
 #' @param size numeric, set the size of each point
@@ -110,8 +112,7 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
   if (is.null(annot_name) &&
       is.character(annot) &&
       length(annot) == 1 &&
-      annot %in% colnames(scoredf)
-  ){
+      annot %in% colnames(scoredf)) {
     annot_name = annot
   }
   annot = processAnnotation(scoredf, annot)
@@ -147,19 +148,18 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
   
   #facet up/down pair
   if (sum(score_cols) > 2) {
-    p1 = p1 + facet_wrap(~ Type, scales = 'free_y')
+    p1 = p1 + facet_wrap( ~ Type, scales = 'free_y')
   }
   
   #remove legend if no annotation provided
-  if (all(annot %in% '')){
-    p1 = p1 + theme(legend.position="none")
+  if (all(annot %in% '')) {
+    p1 = p1 + theme(legend.position = "none")
   }
   
   if (isInteractive) {
     ply = plotly::ggplotly(p1)
     return(ply)
-  }
-  else{
+  } else{
     return(p1)
   }
 }
@@ -178,20 +178,20 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
 #'   need to make sure the formats are the same To be specific, you need to have
 #'   column names "TotalScore" "TotalDispersion" "UpScore" "UpDispersion"
 #'   "DownScore" "DownDispersion" and rows names as samples.
-#'   
-  #' @param scoredf1 data.frame, result of the simpleScore() function which scores
-  #'   the gene expression matrix against a gene set of interest
-  #' @param scoredf2 data.frame, result of the simpleScore() function which scores
-  #'   the gene expression matrix against another gene set of interest
-  #' @param scorenames character vector of length 2, names for the two scored gene
-  #'   set/signatures stored in scoredf1 and scoredf2
-  #' @param isInteractive boolean, whether the plot is interactive default as
-  #'   FALSE
-  #' @param textSize numeric, set the text size for the plot, default as 1.5
-  #' @param hexMin integer, the threshold which decides whether hex bin plot or
-  #'   scatter plot is displayed, default as 100
-  #' @return A ggplot object, a scatter plot, demonstrating the relationship
-  #'   between scores from two signatures on the same set of samples.
+#'
+#' @param scoredf1 data.frame, result of the simpleScore() function which scores
+#'   the gene expression matrix against a gene set of interest
+#' @param scoredf2 data.frame, result of the simpleScore() function which scores
+#'   the gene expression matrix against another gene set of interest
+#' @param scorenames character vector of length 2, names for the two scored gene
+#'   set/signatures stored in scoredf1 and scoredf2
+#' @param isInteractive boolean, whether the plot is interactive default as
+#'   FALSE
+#' @param textSize numeric, set the text size for the plot, default as 1.5
+#' @param hexMin integer, the threshold which decides whether hex bin plot or
+#'   scatter plot is displayed, default as 100
+#' @return A ggplot object, a scatter plot, demonstrating the relationship
+#'   between scores from two signatures on the same set of samples.
 #' @examples
 #' ranked <- rankGenes(toy_expr_se)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
@@ -205,7 +205,7 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
             rownames(scoredf1) == rownames(scoredf2))
   
   #default axes labels
-  if (length(scorenames) == 0){
+  if (length(scorenames) == 0) {
     scorenames = c('Signature 1', 'Signature 2')
   }
   
@@ -221,10 +221,10 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
     getTheme(textSize) #specify the theme
   
   # choose plot according to the number of observations
-  if(nrow(scoredf1) < hexMin){
+  if (nrow(scoredf1) < hexMin) {
     #use scatter plot for fewer points
     p1 = p1 + geom_point(colour = 'blue')
-  }else{
+  } else{
     p1 = p1 + geom_hex(colour = 'white') +
       scale_fill_distiller(palette = 'RdPu', direction = 1)
   }
@@ -246,111 +246,130 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 ####============================ projectScoreLandscape() =======================
 ################################################################################
 
-#'Project data on the landscape plot obtained from \code{plotScoreLandscape()}
+#' Project data on the landscape plot obtained from \code{plotScoreLandscape()}
 #'
-#'@description This function takes the output (ggplot object) of the function
-#'  \code{plotScoreLandscape()} and a new dataset. It projects the new data
-#'  points onto the landscape plot and returns a new ggplot object with
-#'  projected data points.
+#' @description This function takes the output (ggplot object) of the function
+#'   \code{plotScoreLandscape()} and a new dataset. It projects the new data
+#'   points onto the landscape plot and returns a new ggplot object with
+#'   projected data points.
 #'
-#'@param plotObj a ggplot object, resulted from [plotScoreLandscape()]
-#'@param scoredf1 data.frame, result of the simpleScore() function which scores
-#'  the gene expression matrix against a gene set of interest
-#'@param scoredf2 data.frame, result of the simpleScore() function which scores
-#'  the gene expression matrix against another gene set of interest. Scores in
-#'  scoredf1 and scoredf2 consist of the new data points that will be projected
-#'  on the `plotObj` landscape plot.
-#'@param subSamples vector of character or indices for subsetting the scoredfs,
-#'  default as NULL and all samples in scoredfs will be plotted. The subsetted
-#'  samples are projected onto the landscape plot of `plotObj`.
-#'@param sampleLabels vector of character, sample names to display, ordered in
-#'  the same way as samples are ordered in the 'scoredfs' data matrix, default
-#'  as NULL which means the projected points are not labelled.
-#'@param annot vector of characters, annotations used to colour the data and
-#'  should have the same number of samples as in scoredfs
-#'@param isInteractive boolean, whether the plot is interactive default as
+#' @param plotObj a ggplot object, resulted from [plotScoreLandscape()]
+#' @param scoredf1 data.frame, result of the simpleScore() function which scores
+#'   the gene expression matrix against a gene set of interest
+#' @param scoredf2 data.frame, result of the simpleScore() function which scores
+#'   the gene expression matrix against another gene set of interest. Scores in
+#'   scoredf1 and scoredf2 consist of the new data points that will be projected
+#'   on the `plotObj` landscape plot.
+#' @param subSamples vector of character or indices for subsetting the scoredfs,
+#'   default as NULL and all samples in scoredfs will be plotted. The subsetted
+#'   samples are projected onto the landscape plot of `plotObj`.
+#' @param sampleLabels vector of character, sample names to display, ordered in
+#'   the same way as samples are ordered in the 'scoredfs' data matrix, default
+#'   as NULL which means the projected points are not labelled.
+#' @param annot any numeric, character or factor annotation provided by the user
+#'   that needs to be plot. Alternatively, this can be a character specifying
+#'   the column of scoredf1 holding the annotation. Annotations must be ordered
+#'   in the same way as the scores
+#' @param annot_name character, legend title for the annotation
+#' @param isInteractive boolean, whether the plot is interactive default as
 #'   FALSE
-#' 
+#'
 #' @return New data points on the already plotted ggplot object from
 #'   plotScoreLanscape()
-#' @seealso 
-#' [plotScoreLandscape()]
-#' @examples
-#' ranked <- rankGenes(toy_expr_se)
-#' scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
-#' scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
-#' psl <- plotScoreLandscape(scoredf1, scoredf2)
-#' projectScoreLandscape(psl,scoredf1, scoredf2)
+#' @seealso [plotScoreLandscape()]
+#'  @examples
+#'  ranked <- rankGenes(toy_expr_se)
+#'  scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+#'  scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
+#'  psl <- plotScoreLandscape(scoredf1, scoredf2)
+#'  projectScoreLandscape(psl,scoredf1, scoredf2)
 #' @export
 projectScoreLandscape <- function(plotObj = NULL,
                                   scoredf1,
                                   scoredf2,
+                                  annot = NULL,
+                                  annot_name = NULL,
                                   subSamples = NULL,
                                   sampleLabels = NULL,
-                                  annot = NULL,
                                   isInteractive = FALSE){
-  # stop and print message
+  #stop and print message
   if (!is.ggplot(plotObj)) {
-    stop('Please provide a ggplot object generated using plotScoreLandscape() (',
-         class(plotObj)[1], ' object given)')
+    stop(
+      'Please provide a ggplot object generated using plotScoreLandscape() (',
+      class(plotObj)[1],
+      ' object given)'
+    )
   }
   
-  # create data frame with the new data
-  # subsetting the two data frames, scoredfs then checks the data dimensions
-  if(! is.null(subSamples)){
-    scoredf1 <- scoredf1[subSamples,]
-    scoredf2 <- scoredf2[subSamples,]
-    if(anyNA(scoredf1)){
-      message('some selected samples not exist in provided scoredf1')
-      scoredf1 <- na.omit(scoredf1)
-    }
-    if(anyNA(scoredf2)){
-      message('some selected samples not exist in provided scoredf2')
-      scoredf2 <- na.omit(scoredf2)
-    }
-  }
-  #if no sample labels are provided
-  if (is.null(sampleLabels)) {
-    sampleLabels <- ""
-  }else{
-    if(length(sampleLabels) != nrow(scoredf1))
-      stop("sampleLabels must contain the same number of labels with the number 
-           of samples in scoredf")
-  }
-  
+  #check that the score dataframe have the same number of samples and names are
+  #are the same too
   stopifnot(dim(scoredf1)[1] == dim(scoredf2)[1],
             rownames(scoredf1) == rownames(scoredf2))
   
-  if (is.null(annot)) {
-    annot = ''
+  #create data frame with the new data
+  #subsetting the two data frames, scoredfs then checks the data dimensions
+  if (!is.null(subSamples)) {
+    scoredf1 = scoredf1[subSamples, ]
+    scoredf2 = scoredf2[subSamples, ]
+    if (anyNA(scoredf1)) {
+      message('some selected samples not exist in provided scoredf1')
+      scoredf1 = na.omit(scoredf1)
+    }
+    if (anyNA(scoredf2)) {
+      message('some selected samples not exist in provided scoredf2')
+      scoredf2 = na.omit(scoredf2)
+    }
   }
-  newdata = data.frame(scoredf1$TotalScore, scoredf2$TotalScore, sampleLabels)
   
+  #if no sample labels are provided
+  if (is.null(sampleLabels)) {
+    sampleLabels = ""
+  } else{
+    if (length(sampleLabels) != nrow(scoredf1))
+      stop(
+        "sampleLabels must contain the same number of labels with the number of samples in scoredf"
+      )
+  }
   
-  plabs = c(plotObj$labels$x, plotObj$labels$y)
-  Annotation <- NULL
-  SampleLabel <- NULL
-  colnames(newdata) = c(plabs, 'SampleLabel')
-  newdata[, 'Annotation'] = annot #need to make it work for factor
+  #process annotations - set annot_name to annot if its a column reference
+  if (is.null(annot_name) &&
+      is.character(annot) &&
+      length(annot) == 1 &&
+      annot %in% colnames(scoredf)) {
+    annot_name = annot
+  }
+  annot = processAnnotation(scoredf1, annot)
+  newdata = data.frame(
+    'sc1' = scoredf1$TotalScore,
+    'sc2' = scoredf2$TotalScore,
+    'SampleLabel' = sampleLabels,
+    'Class' = annot
+  )
   
-  #need to deal with legends in both interactive and non-interactive
-  if (!isInteractive) {
-    #add layer with new data
-    pproj = plotObj + geom_point(
-      data = newdata,
-      aes(text = SampleLabel, colour = Annotation),
+  #setup plot
+  p1 = plotObj +
+    geom_point(
+      aes(text = SampleLabel, colour = Class),
       shape = 21,
       fill = 'white',
       size = 2,
-      stroke = 2
-    ) + ggsci::scale_color_npg()
-    
-    
+      stroke = 2,
+      data = newdata
+    ) + getColorScale(annot) +
+    labs(colour = annot_name)
+  
+  #remove legend if no annotation provided
+  if (all(annot %in% '')) {
+    p1 = p1 + guides(colour = FALSE)
+  }
+  
+  #need to deal with legends in both interactive and non-interactive
+  if (!isInteractive) {
     #label samples
-    pproj = pproj +
+    p1 = p1 +
       ggrepel::geom_label_repel(
         data = newdata,
-        aes(label = SampleLabel, colour = Annotation),
+        aes(label = SampleLabel, colour = Class),
         show.legend = FALSE
       ) 
   } else if(isInteractive) {
@@ -364,7 +383,7 @@ projectScoreLandscape <- function(plotObj = NULL,
     npgpal = ggsci::pal_npg('nrc')(length(levels(newdata$Annotation)))
     ply = ply %>%
       plotly::add_trace(data = newdata,
-                        color = ~Annotation,
+                        color = ~ Class,
                         colors = npgpal,
                         type = 'scatter',
                         mode = 'markers',
@@ -385,7 +404,7 @@ projectScoreLandscape <- function(plotObj = NULL,
     return(ply)
   }
   
-  return(pproj)
+  return(p1)
 }
 
 ################################################################################
