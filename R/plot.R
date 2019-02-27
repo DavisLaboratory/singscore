@@ -466,7 +466,7 @@ plotRankDensity_intl <- function (rankData,
   #bar plot preparations
   ymap = c(0, 0)
   yendmap = ymap + 0.3
-  colmap = c(RColorBrewer::brewer.pal(8, "Set1")[c(1, 2)])
+  colmap = c(RColorBrewer::brewer.pal(8, "Accent")[c(1, 2)])
   typemap = c('Up-regulated gene', 'Down-regulated gene')
   names(colmap) = names(ymap)  = c('Up Gene-set', 'Down Gene-set')
   names(yendmap) = names(typemap) = c('Up Gene-set', 'Down Gene-set')
