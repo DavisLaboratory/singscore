@@ -1,5 +1,75 @@
-#' @include singscore.R
+#' @include singscore.R 
+#' @import ggplot2
 NULL
+
+#default theme
+getTheme <- function(rl = 1.2) {
+  current_theme = ggplot2::theme_minimal() +
+    ggplot2::theme(
+      panel.border = element_rect(colour = 'black', fill = NA),
+      panel.grid.minor = element_blank(),
+      axis.title = element_text(size = rel(rl) * 1.1),
+      axis.text = element_text(size = rel(rl)),
+      plot.title = element_text(size = rel(rl)),
+      strip.background = element_rect(fill = NA, colour = 'black'),
+      strip.text = element_text(size = rel(rl)),
+      legend.text = element_text(size = rel(rl)),
+      legend.title = element_text(size = rel(rl), face = 'italic'),
+      legend.position = 'bottom',
+      legend.direction = 'horizontal'
+    )
+  
+  return(current_theme)
+}
+
+isScoreCol <- function(c) {
+  cnames = paste0(rep(c('Total', 'Up', 'Down'), each = 2), c('Score', 'Dispersion'))
+  return(c %in% cnames)
+}
+
+#process annotation field for plots. annot could be a vector of annotations, or
+#a column name from the score dataframe
+processAnnotation <- function(df, annot) {
+  #return vector of empty strings if nothing is specified
+  if (is.null(annot))
+    annot = rep('', nrow(df))
+  
+  #characters will either be column names or character annotations
+  if (is.character(annot)) {
+    if (length(annot) == 1) {
+      #a column name has been specified, extract the annotation
+      annot = df[[annot]]
+    }
+    #convert char annot to factor
+    annot = as.factor(annot)
+  }
+  
+  #check length of annotation matches number of observations
+  stopifnot(length(annot) == nrow(df))
+  
+  #do nothing if numeric
+  return(annot)
+}
+
+getColorScale <- function(annot, title) {
+  #specify a discrete scale for categoricals
+  if (is.factor(annot)) {
+    #specify a discrete scale for categoricals
+    if (length(levels(annot)) > 8) {
+      warning('Too many levels of the annotation, using default ggplot2 colours')
+      return(NULL)
+    } else{
+      return(ggplot2::scale_colour_brewer(palette = 'Dark2'))
+    }
+  }
+  
+  #specify a continous scale for numerics
+  if (is.numeric(annot)) {
+    return(ggplot2::scale_colour_viridis_c())
+  }
+  
+  return(NULL)
+}
 
 ################################################################################
 #### =============================== plotDispersion() ==========================
@@ -15,8 +85,9 @@ NULL
 #'   "TotalDispersion" "UpScore" "UpDispersion" "DownScore" "DownDispersion" 
 #'   and rows names as samples.
 #' @param scoredf data.frame, generated using the [simpleScore()] function
-#' @param annot annot any numeric or factor annotation provided by the user that
+#' @param annot any numeric or factor annotation provided by the user that
 #'   needs to be plot. Annotations must be ordered in the same way as the scores
+#' @param annot_name character, legend title for the annotation
 #' @param alpha numeric, set the transparency of points
 #' @param size numeric, set the size of each point
 #' @param textSize numeric, relative text sizes for title, labels, and axis
@@ -29,112 +100,67 @@ NULL
 #' plotDispersion(scoredf, isInteractive = TRUE)
 #' @return A ggplot object
 #' @export
-plotDispersion <- function(scoredf, annot = NULL, alpha = 1, size = 1,
-                           textSize = 1.5, isInteractive=FALSE){
+plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1, 
+                           size = 1, textSize = 1.2, isInteractive=FALSE){
+  #parameter type checks
   stopifnot(is.numeric(alpha), is.numeric(size), is.numeric(textSize), 
-            is.logical(isInteractive) )
-  if (is.null(annot)) {
-    annot = rep('', nrow(scoredf))
+            is.logical(isInteractive))
+  
+  #process annotations - set annot_name to annot if its a column reference
+  if (is.null(annot_name) &&
+      is.character(annot) &&
+      length(annot) == 1 &&
+      annot %in% colnames(scoredf)
+  ){
+    annot_name = annot
   }
-  # annotation has the same length with number of rows in scoredf
-  stopifnot(dim(scoredf)[1] == length(annot))
-  #name annots
-  annot = as.factor(annot)
-  names(annot) = rownames(scoredf)
+  annot = processAnnotation(scoredf, annot)
   
   #transform data for plot
   plotdf = scoredf
   plotdf['SampleID'] = rownames(plotdf)
   plotdf['Class'] = annot
+  plotdf['Type'] = 'Total'
   
-  if (ncol(scoredf) > 2) {
-    total = cbind(plotdf[, c(1:2, 7:8)], 'Total Score')
-    up = cbind(plotdf[, c(3:4, 7:8)], 'Up Score')
-    down = cbind(plotdf[, c(5:6, 7:8)], 'Down Score')
-    colnames(total) = colnames(up) = colnames(down) = 1:ncol(total)
-    plotdf = rbind(total, up, down)
-  }
-  colnames(plotdf)[1:4] = c('Score', 'Dispersion', 'SampleID', 'Annotation')
-  Annotation <- NULL
-  Score <- NULL
-  Dispersion <- NULL
-  SampleID <- NULL
-  
-  #Scatter plot
-  p = with(plotdf,{ ggplot(plotdf, aes(Score, Dispersion, text = SampleID))})
-  #colour by classification
-  if (is.null(annot)) {
-    p = p + geom_point(alpha = alpha, size = size)
+  #for up-down signatures, melt the dataframe
+  score_cols = isScoreCol(colnames(plotdf))
+  if (sum(score_cols) > 2) {
+    nsamp = nrow(plotdf)
+    idvars = colnames(plotdf)[!score_cols]
+    plotdf = reshape2::melt(plotdf, id.vars = idvars)
+    plotdf$Type = rep(c('Total', 'Up', 'Down'), each = nsamp * 2)
+    plotdf$variable = rep(c('Score', 'Dispersion'), each = nsamp)
+    df_form = as.formula(paste0(paste(idvars, collapse = ' + '), ' ~ variable'))
+    plotdf = dcast(plotdf, df_form, value.var = 'value')
   } else{
-    p = p + geom_point(aes(colour = Annotation), alpha = alpha, size = size)
-  }
-  #up/down?
-  if (ncol(scoredf) > 2) {
-    colnames(plotdf)[5] = 'Type'
-    p = p + facet_wrap( ~ plotdf$Type, scales = 'free')
-  }
-  n_color = length(unique(plotdf$Annotation))
-  
-  
-  #plot colour scheme
-  if (is.factor(annot)) {
-    if (n_color == 1 | n_color > 10) {
-      p = p + 
-        scale_color_manual(values = RColorBrewer::brewer.pal(8,'Set1')[4])
-    } else if(n_color <= 10){
-      p = p + ggsci::scale_colour_npg()
-    }
-    
-    #throw warning for n_color > 10
-    if (n_color > 10) {
-      warning('Too many levels of the annotation (max 10 allowed), not 
-              colouring by annotations')
-    }
-    } else {
-      p = p + ggsci::scale_colour_gsea()
+    sc_col = isScoreCol(colnames(plotdf))
+    colnames(plotdf)[sc_col] = substring(colnames(plotdf)[sc_col], first = 6)
   }
   
-  p = p +
+  #setup plot
+  p1 = ggplot(plotdf, aes(Score, Dispersion, colour = Class, text = SampleID)) +
     ggtitle('Score vs Dispersion') +
-    theme_minimal() +
-    theme(
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
-      axis.title = element_text(size = rel(textSize)),
-      axis.text.x = element_text(angle = 0, size = rel(textSize)),
-      axis.text.y = element_text(angle = 0, size = rel(textSize)),
-      strip.background = element_rect(colour = "#f0f0f0",
-                                      fill = "#f0f0f0"),
-      strip.text = element_text(size = rel(textSize)),
-      axis.line = element_line(colour = "black"),
-      axis.ticks = element_line(),
-      legend.position = "bottom",
-      legend.direction = "horizontal",
-      legend.margin = margin(unit(0, "cm")),
-      legend.title = element_text(face = "italic"),
-      plot.title = element_text(
-        face = "bold",
-        size = rel(textSize),
-        hjust = 0.5
-      )
-    )
+    geom_point(size = size, alpha = alpha) + #add scatter layer
+    getColorScale(annot) + #add colour layer
+    labs(colour = annot_name) + #annotation title
+    getTheme(textSize) #specify the theme
   
-  #if no annotation provided
-  if(all(annot %in% '')){
-    p = p + theme(legend.position="none")
+  #facet up/down pair
+  if (sum(score_cols) > 2) {
+    p1 = p1 + facet_wrap(~ Type, scales = 'free_y')
   }
+  
+  #remove legend if no annotation provided
+  if (all(annot %in% '')){
+    p1 = p1 + theme(legend.position="none")
+  }
+  
   if (isInteractive) {
-    
-    # replace params as ggplot objects are mutable
-    oldparams = p$layers[[1]]$aes_params
-    p$layers[[1]]$aes_params = NULL
-    ply = plotly::ggplotly(p)
-    p$layers[[1]]$aes_params = oldparams
-    
+    ply = plotly::ggplotly(p1)
     return(ply)
   }
   else{
-    return(p)
+    return(p1)
   }
 }
 
@@ -326,7 +352,7 @@ projectScoreLandscape <- function(plotObj = NULL,
   Annotation <- NULL
   SampleLabel <- NULL
   colnames(newdata) = c(plabs, 'SampleLabel')
-  newdata[, 'Annotation'] = as.factor(annot) #need to make it work for factor
+  newdata[, 'Annotation'] = annot #need to make it work for factor
   
   #need to deal with legends in both interactive and non-interactive
   if (!isInteractive) {
