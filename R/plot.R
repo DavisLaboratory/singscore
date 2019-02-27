@@ -227,7 +227,9 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
     #use scatter plot for fewer points
     p1 = p1 + geom_point(colour = 'blue')
   } else{
-    p1 = p1 + geom_hex(colour = 'white') +
+  	#number of bins to use for the hexbin plot
+  	numbins = round(sqrt(nrow(plotdf)))
+    p1 = p1 + geom_hex(colour = 'white', bins = numbins) +
       scale_fill_distiller(palette = 'RdPu', direction = 1)
   }
 

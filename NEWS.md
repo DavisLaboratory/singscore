@@ -2,6 +2,7 @@
 * allow continous and discrete annotations for plotDispersion and projectScoreLandscape
 * plot theme updated
 * citation updated: cite the singscore manuscript
+* number of bins for the hexbin plot in plotLandscape is determined from the data
 
 # singscore 1.2.2
 * created a website for the package
