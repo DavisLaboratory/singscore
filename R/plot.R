@@ -425,109 +425,84 @@ plotRankDensity_intl <- function (rankData,
   #values needed for calculating the boundaries
   upSigSize = length(geneIds(upSet))
   nTotalGenes = nrow(rankData)
-  #browser()
-  #check if there are some missing genes in the geneset
-  missingGenes = setdiff(geneIds(upSet), rownames(rankData))
-  if (length(missingGenes) > 0) {
-    warningMsg = paste(length(missingGenes), 'genes missing:', sep = ' ')
-    warningMsg = paste(warningMsg, paste(missingGenes, collapse = ', '),
-                       sep = ' ')
-    warning(warningMsg)
-  }
 
   #remove missing genes from signature for further analysis
+  missingGenes = setdiff(geneIds(upSet), rownames(rankData))
   geneIds(upSet) = setdiff(geneIds(upSet), missingGenes)
   upRanks = rankData[geneIds(upSet), , drop = FALSE] / nrow(rankData)
   upRank = data.frame(upRanks, type = "Up Gene-set")
   allRanks = upRank
 
   if (!is.null(downSet)) {
-    #check if there are some missing genes in the geneset
+  	#remove missing genes from signature for further analysis
     missingGenes = setdiff(geneIds(downSet), rownames(rankData))
-    if (length(missingGenes) > 0) {
-      warningMsg = paste(length(missingGenes), 'genes missing:',
-                         sep = ' ')
-      warningMsg = paste(warningMsg,
-                         paste(missingGenes, collapse = ', '), sep = ' ')
-      warning(warningMsg)
-    }
-
-    #remove missing genes from signature for further analysis
     geneIds(downSet) = setdiff(geneIds(downSet), missingGenes)
     downRanks = rankData[geneIds(downSet), , drop = FALSE] / nrow(rankData)
     downRank = data.frame(downRanks, type =  "Down Gene-set")
     allRanks = rbind(upRank, downRank)
   }
-  Ranks <- NULL
-  upDown <- NULL
-  EntrezID <- NULL
-  colnames(allRanks) <- c("Ranks", "upDown")
-  allRanks$EntrezID <- row.names(allRanks)
+  colnames(allRanks) = c("Ranks", "upDown")
+  allRanks$EntrezID = row.names(allRanks)
 
-
-  #bar plot preparations
+  #barcode plot preparations
   ymap = c(0, 0)
   yendmap = ymap + 0.3
   colmap = c(RColorBrewer::brewer.pal(8, "Accent")[c(1, 2)])
   typemap = c('Up-regulated gene', 'Down-regulated gene')
   names(colmap) = names(ymap)  = c('Up Gene-set', 'Down Gene-set')
   names(yendmap) = names(typemap) = c('Up Gene-set', 'Down Gene-set')
-  ..density.. <- NULL
 
   #plot density and calculate max density and barcode line heights and
   #positions
-  p =with(allRanks,{
-    ggplot(allRanks, aes(x = Ranks, col = upDown)) +
-      stat_density(aes(y = ..density..), geom = 'line', position = 'identity')
-  })
+  p1 = ggplot(allRanks, aes(x = Ranks, col = upDown)) +
+  	stat_density(aes(y = ..density..), geom = 'line', position = 'identity')
 
-  dens = ggplot_build(p)$data[[1]]$density
+  #update y-positions for barcode of up-set
+  dens = ggplot_build(p1)$data[[1]]$density
   ymap[1] = round(max(dens), digits = 1) + 0.1
   ymap[2] = round(min(dens), digits = 1) - 0.1
   bcheight = (max(dens) - min(dens))
-  bcheight = bcheight/ifelse(is.null(downSet), 4, 3)
-  yendmap = ymap + c(1, -1) * bcheight
+  bcheight = bcheight / ifelse(is.null(downSet), 4, 3)
+  yendmap = ymap + c(1,-1) * bcheight
 
   #plot barcode plot
   #text aes useful for the plotly plot, so supress the warnings
-  #
-  p = suppressWarnings( p + geom_segment(aes(
-    y = ymap[upDown],
-    xend = Ranks,
-    yend = yendmap[upDown],
-    text = paste0(typemap[upDown], '\nGene symbol: ', EntrezID)
-  ),alpha = 0.8) +
-    scale_colour_manual(values = colmap,
-                        guide = guide_legend(title = "Type")))
-
-  #publication quality plot
-  p = p + ggtitle('Rank density') +
-    xlab('Normalised Ranks') +
-    ylab('Density') +
-    getTheme(textSize)
+  p1 = p1 +
+  	geom_segment(aes(
+  		y = ymap[upDown],
+  		xend = Ranks,
+  		yend = yendmap[upDown],
+  		text = paste0(typemap[upDown], '\nGene symbol: ', EntrezID)
+  	), alpha = 0.75) +
+  	scale_colour_manual(values = colmap) +
+  	labs(colour = 'Type') +
+  	ggtitle('Rank density') +
+  	xlab('Normalised Ranks') +
+  	ylab('Density') +
+  	getTheme(textSize)
 
   #if single geneset, remove legend
   if (is.null(downSet)) {
-    p = p + theme(legend.position = 'none')
+    p1 = p1 + theme(legend.position = 'none')
   }
 
   if (isInteractive) {
-    #Horizontal legend not supported by plotly yet so re-orient after
-    #creating plotly object
-    ply = suppressWarnings(plotly::ggplotly(p, tooltip = c('text', 'x')))
-    ply = ply %>% plotly::layout(
-      legend = list(
-        orientation = 'h',
-        xanchor = 'center',
-        x = 0.5,
-        yanchor = 'top',
-        y = -0.25
-      ), yaxis =list(
-        fixedrange = TRUE
-      ))
-    return(ply)
+  	#Horizontal legend not supported by plotly yet so re-orient after
+  	#creating plotly object
+  	ply = plotly::ggplotly(p1, tooltip = c('text', 'x'))
+  	ply = ply %>% plotly::layout(
+  		legend = list(
+  			orientation = 'h',
+  			xanchor = 'center',
+  			x = 0.5,
+  			yanchor = 'top',
+  			y = -0.25
+  		),
+  		yaxis = list(fixedrange = TRUE)
+  	)
+  	return(ply)
   } else{
-    return(p)
+  	return(p1)
   }
 }
 
