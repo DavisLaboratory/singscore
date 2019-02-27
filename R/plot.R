@@ -199,67 +199,46 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
 #' plotScoreLandscape(scoredf, scoredf2)
 #' @export
 plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
-                               textSize = 1.5, isInteractive = FALSE, 
+                               textSize = 1.2, isInteractive = FALSE, 
                                hexMin = 100){
-  stopifnot(dim(scoredf1)[1] == dim(scoredf2)[1],
+  stopifnot(nrow(scoredf1) == nrow(scoredf2),
             rownames(scoredf1) == rownames(scoredf2))
   
+  #default axes labels
   if (length(scorenames) == 0){
     scorenames = c('Signature 1', 'Signature 2')
   }
+  
+  #create data structure for plot
   plotdf = data.frame(scoredf1$TotalScore, scoredf2$TotalScore)
-  colnames(plotdf) = scorenames
+  colnames(plotdf) = c('sc1', 'sc2')
   
-  # generate labels
-  pxlab = paste0('`', scorenames[1], '`')
-  pylab = paste0('`', scorenames[2], '`')
+  #setup plot
+  p1 = ggplot(plotdf, aes(sc1, sc2)) +
+    ggtitle('Signature landscape') +
+    xlab(scorenames[1]) + #label the x-axis
+    ylab(scorenames[2]) + #label the y-axis
+    getTheme(textSize) #specify the theme
+  
+  # choose plot according to the number of observations
   if(nrow(scoredf1) < hexMin){
-    p = ggplot(plotdf, aes_string(pxlab, pylab)) +
-      geom_point(colour = 'blue') +
-      scale_fill_distiller(palette = 'RdPu', direction = 1)
-    p = p +
-      ggtitle('Signature landscape')
+    #use scatter plot for fewer points
+    p1 = p1 + geom_point(colour = 'blue')
   }else{
-    p = ggplot(plotdf, aes_string(pxlab, pylab)) +
-      geom_hex(colour = 'white') +
+    p1 = p1 + geom_hex(colour = 'white') +
       scale_fill_distiller(palette = 'RdPu', direction = 1)
-    p = p +
-      ggtitle('Signature landscape')
   }
-  
-  p = p+ 
-    theme_minimal() +
-    theme(
-      panel.grid.minor = element_blank(),
-      axis.title = element_text(size = rel(textSize)),
-      axis.text.x = element_text(angle = 0, size = rel(textSize)),
-      axis.text.y = element_text(angle = 0, size = rel(textSize)),
-      strip.background = element_rect(colour = "#f0f0f0",
-                                      fill = "#f0f0f0"),
-      strip.text = element_text(size = rel(textSize)),
-      axis.line = element_line(colour = "black"),
-      axis.ticks = element_line(),
-      legend.margin = margin(unit(0, "cm")),
-      legend.title = element_text(face = "italic",
-                                  size = rel(max(1, textSize * 0.55))),
-      legend.text = element_text(size = rel(max(1, textSize * 0.5))),
-      plot.title = element_text(
-        face = "bold",
-        size = rel(textSize),
-        hjust = 0.5
-      )
-    )
   
   if (isInteractive) {
     #replace params as ggplot objects are mutable
-    oldparams = p$layers[[1]]$aes_params
-    p$layers[[1]]$aes_params = NULL
-    ply = plotly::ggplotly(p)
-    p$layers[[1]]$aes_params = oldparams
-    
+    #white colour for bins looks bad on interactive and static looks bad without
+    oldparams = p1$layers[[1]]$aes_params
+    p1$layers[[1]]$aes_params = NULL
+    ply = plotly::ggplotly(p1)
+    p1$layers[[1]]$aes_params = oldparams
     return(ply)
   } else{
-    return(p)
+    return(p1)
   }
 }
 
