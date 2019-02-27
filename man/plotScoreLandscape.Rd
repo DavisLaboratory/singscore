@@ -5,7 +5,7 @@
 \title{Plot landscape of two gene signatures scores}
 \usage{
 plotScoreLandscape(scoredf1, scoredf2, scorenames = c(),
-  textSize = 1.5, isInteractive = FALSE, hexMin = 100)
+  textSize = 1.2, isInteractive = FALSE, hexMin = 100)
 }
 \arguments{
 \item{scoredf1}{data.frame, result of the simpleScore() function which scores

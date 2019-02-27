@@ -108,4 +108,4 @@ plotScoreLandscape(scoredf_tcga_epi, scoredf_tcga_mes,
 `browseVignettes('singscore')`
 
 ### Linked Article
-[Defining a landscape of molecular phenotypes using a simple single sample scoring method](https://www.biorxiv.org/content/early/2017/12/08/231217 )
+[Single sample scoring of molecular phenotypes](https://doi.org/10.1186/s12859-018-2435-4)

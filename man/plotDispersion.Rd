@@ -4,14 +4,18 @@
 \alias{plotDispersion}
 \title{Plot the score v.s. despersion for all samples}
 \usage{
-plotDispersion(scoredf, annot = NULL, alpha = 1, size = 1,
-  textSize = 1.5, isInteractive = FALSE)
+plotDispersion(scoredf, annot = NULL, annot_name = "", alpha = 1,
+  size = 1, textSize = 1.2, isInteractive = FALSE)
 }
 \arguments{
 \item{scoredf}{data.frame, generated using the \code{\link[=simpleScore]{simpleScore()}} function}
 
-\item{annot}{annot any numeric or factor annotation provided by the user that
-needs to be plot. Annotations must be ordered in the same way as the scores}
+\item{annot}{any numeric, character or factor annotation provided by the user that
+needs to be plot. Alternatively, this can be a character specifying the
+column of scoredf holding the annotation. Annotations must be ordered in the
+same way as the scores}
+
+\item{annot_name}{character, legend title for the annotation}
 
 \item{alpha}{numeric, set the transparency of points}
 
