@@ -1,6 +1,7 @@
 # singscore 1.3.2
 * allow continous and discrete annotations for plotDispersion and projectScoreLandscape
 * plot theme updated
+* citation updated: cite the singscore manuscript
 
 # singscore 1.2.2
 * created a website for the package
