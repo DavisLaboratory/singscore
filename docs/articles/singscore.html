@@ -6,15 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>singscore • singscore</title>
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="singscore">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
-<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -32,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
       </span>
     </div>
 
@@ -76,7 +75,7 @@
       <h1>singscore</h1>
                         <h4 class="author">Ruqian Lyu</h4>
             
-            <h4 class="date">2018-10-15</h4>
+            <h4 class="date">2019-02-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DavisLaboratory/singscore/blob/master/vignettes/singscore.Rmd"><code>vignettes/singscore.Rmd</code></a></small>
       <div class="hidden name"><code>singscore.Rmd</code></div>
@@ -89,22 +88,22 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>This vignette demonstrates how to use the functions in R package ‘singscore’ to score a gene expression dataset against a gene set at a single-sample level and provides visualisation functions to improve interpretation of the results.</p>
-<p><code>singscore</code> implements a simple single-sample gene-set (gene-signature) scoring method which scores individual samples independently without relying on other samples in gene expression datasets. It provides stable scores which are less likely to be affected by varying sample and gene sizes in datasets and unwanted variations across samples. The scoring method uses a rank-based statistics and is quick to compute. For details of the methods please refer to the paper <span class="citation">(Foroutan, Bhuva, et al. 2017)</span>. It also provides various visualisation functions to further explore results of the analysis.</p>
+<p><code>singscore</code> implements a simple single-sample gene-set (gene-signature) scoring method which scores individual samples independently without relying on other samples in gene expression datasets. It provides stable scores which are less likely to be affected by varying sample and gene sizes in datasets and unwanted variations across samples. The scoring method uses a rank-based statistics and is quick to compute. For details of the methods please refer to the paper <span class="citation">(Foroutan et al. 2018)</span>. It also provides various visualisation functions to further explore results of the analysis.</p>
 </div>
 <div id="install-singscore-r-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install-singscore-r-package" class="anchor"></a>Install “singscore” R package</h2>
 <p>Install ‘singscore’ from Bioconductor</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
 <span class="kw">biocLite</span>(<span class="st">"singscore"</span>)</code></pre></div>
-<p>The most updated version of ‘singscore’ is hosted on GitHub and can be easily installed using <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github()</a></code> function provided by <strong>devtools</strong>, (<a href="https://cran.r-project.org/package=devtools" class="uri">https://cran.r-project.org/package=devtools</a>)</p>
+<p>The most updated version of ‘singscore’ is hosted on GitHub and can be easily installed using <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github()</a></code> function provided by <strong>devtools</strong>, (<a href="https://cran.r-project.org/package=devtools" class="uri">https://cran.r-project.org/package=devtools</a>)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You would need to install 'devtools' package first.</span>
- <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
+ <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)
 
 <span class="co"># And install the 'singscore' package from the GitHub repository</span>
 <span class="co"># 'singscore' requires these packages to be installed: methods, stats, graphics, ggplot2, ggsci, grDevices,</span>
 <span class="co">#  ggrepel, plotly, tidyr, plyr, magrittr, reshape, edgeR, RColorBrewer, Biobase, GSEABase, BiocParallel</span>
- devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">'DavisLaboratory/singscore'</span>)
+ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">'DavisLaboratory/singscore'</span>)
 <span class="co"># Set build_vignette = TRUE if would like to browseVignette()</span></code></pre></div>
 </div>
 <div id="scoring-samples-against-a-gene-set" class="section level2">
@@ -113,8 +112,8 @@
 <div id="load-datasets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#load-datasets" class="anchor"></a>Load datasets</h3>
-<p>To illustrate the usage of ‘simpleScore()’, we first need to load the example datasets. The datasets used in this vignette have been built within the package. You can use the following scripts to load them into your R environment. Detailed steps of obtaining the full datasets are included at the end of the vignette. The ‘tgfb_expr_10_se’ dataset was obtained from <span class="citation">(Foroutan, Cursons, et al. 2017)</span> and it is a ten-sample subset of the original dataset. We are going to score the integrated TGFb-treated gene expression dataset (4 cases and 6 controls) against a TGFb gene signature with an up-regulated and down-regulated gene-set pair <span class="citation">(Foroutan, Cursons, et al. 2017)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(singscore)
+<p>To illustrate the usage of ‘simpleScore()’, we first need to load the example datasets. The datasets used in this vignette have been built within the package. You can use the following scripts to load them into your R environment. Detailed steps of obtaining the full datasets are included at the end of the vignette. The ‘tgfb_expr_10_se’ dataset was obtained from <span class="citation">(Foroutan et al. 2017)</span> and it is a ten-sample subset of the original dataset. We are going to score the integrated TGFb-treated gene expression dataset (4 cases and 6 controls) against a TGFb gene signature with an up-regulated and down-regulated gene-set pair <span class="citation">(Foroutan et al. 2017)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(singscore)
 <span class="co"># The example expression dataset and gene signatures are included in the package</span>
 <span class="co"># distribution, one can directly access them using the variable names</span>
 
@@ -137,7 +136,7 @@ tgfb_expr_10_se</code></pre></div>
 ## colnames(10): D_Ctrl_R1 D_TGFb_R1 ... Hil_Ctrl_R1 Hil_Ctrl_R2
 ## colData names(1): Treatment</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get the sample names by</span>
-<span class="kw">colnames</span>(tgfb_expr_10_se)</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(tgfb_expr_10_se)</code></pre></div>
 <pre><code>##  [1] "D_Ctrl_R1"   "D_TGFb_R1"   "D_Ctrl_R2"   "D_TGFb_R2"   "Hes_Ctrl_R1"
 ##  [6] "Hes_TGFb_R1" "Hes_Ctrl_R2" "Hes_TGFb_R2" "Hil_Ctrl_R1" "Hil_Ctrl_R2"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># View what tgfb_gs_up/dn contains</span>
@@ -154,9 +153,9 @@ tgfb_gs_up</code></pre></div>
 ## collectionType: Null 
 ## details: use 'details(object)'</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get the size of the gene sets</span>
-<span class="kw">length</span>(GSEABase<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GSEABase/topics/GeneSet-class">geneIds</a></span>(tgfb_gs_up))</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(GSEABase<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/GSEABase/topics/GeneSet-class">geneIds</a></span>(tgfb_gs_up))</code></pre></div>
 <pre><code>## [1] 193</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(GSEABase<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GSEABase/topics/GeneSet-class">geneIds</a></span>(tgfb_gs_dn))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(GSEABase<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/GSEABase/topics/GeneSet-class">geneIds</a></span>(tgfb_gs_dn))</code></pre></div>
 <pre><code>## [1] 108</code></pre>
 </div>
 <div id="sample-scoring" class="section level3">
@@ -212,7 +211,7 @@ scoredf</code></pre></div>
 <p>Scores of each sample are stored in <code>scoredf</code>. We can use the <code>plotRankDensity</code> function to plot the ranks of genes in the gene-sets for a specific sample. We plot the rank distribution for the second sample in <code>rankData</code> which combines a density plot (densities calculated using KDE) with a barcode plot. Please note that since we are subsetting the data.frame rankData by one column, we set <code>drop = FALSE</code> to maintain the structure of the data.frame/matrix.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  You can provide the upSet alone when working with unpaired gene-sets </span>
 <span class="co"># We plot the second sample in rankData, view it by </span>
-<span class="kw">head</span>(rankData[,<span class="dv">2</span>,<span class="dt">drop =</span> <span class="ot">FALSE</span>])</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(rankData[,<span class="dv">2</span>,<span class="dt">drop =</span> <span class="ot">FALSE</span>])</code></pre></div>
 <pre><code>##    D_TGFb_R1
 ## 2       1255
 ## 9       7611
@@ -230,16 +229,19 @@ scoredf</code></pre></div>
 <a href="#plot-dispersions-of-scores" class="anchor"></a>Plot dispersions of scores</h3>
 <p>Function <code>plotDispersion</code> generates the scatter plots of the ‘score VS. dispersions’ for the total scores, the up scores and the down score of samples. It requires the scored data.frame from <code>simpleScore</code> function and annotations (via <code>annot</code> parameter) can be used for coloring the points.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  Get the annotations of samples by their sample names</span>
-tgfbAnnot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">SampleID =</span> <span class="kw">colnames</span>(tgfb_expr_10_se),
+tgfbAnnot &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">SampleID =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(tgfb_expr_10_se),
                        <span class="dt">Type =</span> <span class="ot">NA</span>)
-tgfbAnnot<span class="op">$</span>Type[<span class="kw">grepl</span>(<span class="st">"Ctrl"</span>, tgfbAnnot<span class="op">$</span>SampleID)] =<span class="st"> "Control"</span>
-tgfbAnnot<span class="op">$</span>Type[<span class="kw">grepl</span>(<span class="st">"TGFb"</span>, tgfbAnnot<span class="op">$</span>SampleID)] =<span class="st"> "TGFb"</span>
+tgfbAnnot<span class="op">$</span>Type[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"Ctrl"</span>, tgfbAnnot<span class="op">$</span>SampleID)] =<span class="st"> "Control"</span>
+tgfbAnnot<span class="op">$</span>Type[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"TGFb"</span>, tgfbAnnot<span class="op">$</span>SampleID)] =<span class="st"> "TGFb"</span>
 
 <span class="co"># Sample annotations</span>
 tgfbAnnot<span class="op">$</span>Type</code></pre></div>
 <pre><code>##  [1] "Control" "TGFb"    "Control" "TGFb"    "Control" "TGFb"    "Control"
 ##  [8] "TGFb"    "Control" "Control"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotDispersion.html">plotDispersion</a></span>(scoredf,<span class="dt">annot =</span> tgfbAnnot<span class="op">$</span>Type,<span class="dt">isInteractive =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## Warning in if (is.character(annot) &amp; length(annot) == 1 &amp; annot %in%
+## colnames(df)) {: the condition has length &gt; 1 and only the first element
+## will be used</code></pre>
 <p><img src="singscore_files/figure-html/plotds-1.png" width="768"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To see an interactive version powered by 'plotly', simply set the </span>
 <span class="co"># 'isInteractive' = TRUE, i.e :</span>
@@ -253,11 +255,11 @@ tgfbAnnot<span class="op">$</span>Type</code></pre></div>
 <p>There are two styles of the landscape plot (i.e scatter and hexBin plot). When the number of samples in the gene expression dataset is above the default threshold (100), <code>plotScoreLandscape</code> generates a hex bin plot otherwise a scatter plot. The threshold can be modified by changing the <code>hexMin</code>.</p>
 <p>In order to better demonstrate the usage of <code>plotScoreLandscape</code>, we load some additional datasets consisting of pre-computed scores of larger public datasets. <code>scoredf_ccle_epi</code> and <code>scoredf_ccle_mes</code> are two scored results of a CCLE dataset <span class="citation">(Barretina et al. 2012)</span> against an epithelial gene signature and mesenchymal gene signature <span class="citation">(Tan et al. 2014)</span> respectively. For details on how to obtain the dataset please see the section at the end of the vignette.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotScoreLandscape.html">plotScoreLandscape</a></span>(scoredf_ccle_epi, scoredf_ccle_mes, 
-                   <span class="dt">scorenames =</span> <span class="kw">c</span>(<span class="st">'ccle-EPI'</span>,<span class="st">'ccle-MES'</span>),<span class="dt">hexMin =</span> <span class="dv">10</span>)</code></pre></div>
+                   <span class="dt">scorenames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'ccle-EPI'</span>,<span class="st">'ccle-MES'</span>),<span class="dt">hexMin =</span> <span class="dv">10</span>)</code></pre></div>
 <p><img src="singscore_files/figure-html/loadCCLE-1.png" width="768"></p>
 <p>Similarly, pre-computed scores for the <a href="https://cancergenome.nih.gov/">TCGA</a> breast cancer RNA-seq dataset against epithelial and mesenchymal gene signatures are stored in <code>scoredf_tcga_epi</code> and <code>scoredf_tcga_mes</code> respectively <span class="citation">(Tan et al. 2014)</span>. The utility of this function is enhanced when the number of samples is large.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tcgaLandscape &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plotScoreLandscape.html">plotScoreLandscape</a></span>(scoredf_tcga_epi, scoredf_tcga_mes, 
-                   <span class="dt">scorenames =</span> <span class="kw">c</span>(<span class="st">'tcga-EPI'</span>,<span class="st">'tcga-MES'</span>), <span class="dt">isInteractive =</span> <span class="ot">FALSE</span>)
+                   <span class="dt">scorenames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'tcga-EPI'</span>,<span class="st">'tcga-MES'</span>), <span class="dt">isInteractive =</span> <span class="ot">FALSE</span>)
 
 tcgaLandscape</code></pre></div>
 <p><img src="singscore_files/figure-html/loadTCGA-1.png" width="768"></p>
@@ -266,18 +268,24 @@ tcgaLandscape</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Project on the above generated 'tcgaLandscape' plot</span>
 <span class="kw"><a href="../reference/projectScoreLandscape.html">projectScoreLandscape</a></span>(<span class="dt">plotObj =</span> tcgaLandscape, scoredf_ccle_epi, 
                       scoredf_ccle_mes,
-                      <span class="dt">subSamples =</span> <span class="kw">rownames</span>(scoredf_ccle_epi)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>)],
-                      <span class="dt">annot =</span> <span class="kw">rownames</span>(scoredf_ccle_epi)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>)], 
+                      <span class="dt">subSamples =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(scoredf_ccle_epi)[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>)],
+                      <span class="dt">annot =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(scoredf_ccle_epi)[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>)], 
                       <span class="dt">sampleLabels =</span> <span class="ot">NULL</span>,
                       <span class="dt">isInteractive =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## Warning in if (is.character(annot) &amp; length(annot) == 1 &amp; annot %in%
+## colnames(df)) {: the condition has length &gt; 1 and only the first element
+## will be used</code></pre>
 <pre><code>## Warning: Ignoring unknown aesthetics: text</code></pre>
 <p><img src="singscore_files/figure-html/projectScore-1.png" width="768"></p>
 <p>Custom labels can be provided by passing a character vector to the <code>sampleLabels</code> argument.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/projectScoreLandscape.html">projectScoreLandscape</a></span>(<span class="dt">plotObj =</span> tcgaLandscape, scoredf_ccle_epi, scoredf_ccle_mes,
-                      <span class="dt">subSamples =</span> <span class="kw">rownames</span>(scoredf_ccle_epi)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">9</span>)],
-                      <span class="dt">sampleLabels =</span> <span class="kw">c</span>(<span class="st">'l1'</span>,<span class="st">'l2'</span>,<span class="st">'l3'</span>,<span class="st">'l4'</span>,<span class="st">'l5'</span>),
-                      <span class="dt">annot =</span> <span class="kw">rownames</span>(scoredf_ccle_epi)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">9</span>)], 
+                      <span class="dt">subSamples =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(scoredf_ccle_epi)[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">9</span>)],
+                      <span class="dt">sampleLabels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'l1'</span>,<span class="st">'l2'</span>,<span class="st">'l3'</span>,<span class="st">'l4'</span>,<span class="st">'l5'</span>),
+                      <span class="dt">annot =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(scoredf_ccle_epi)[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">9</span>)], 
                       <span class="dt">isInteractive =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## Warning in if (is.character(annot) &amp; length(annot) == 1 &amp; annot %in%
+## colnames(df)) {: the condition has length &gt; 1 and only the first element
+## will be used</code></pre>
 <pre><code>## Warning: Ignoring unknown aesthetics: text</code></pre>
 <p><img src="singscore_files/figure-html/projectScore2-1.png" width="768"></p>
 </div>
@@ -300,7 +308,7 @@ tcgaLandscape</code></pre></div>
 <span class="co"># detect how many CPU cores are available for your machine</span>
 <span class="co"># parallel::detectCores()</span>
 
-ncores &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/parallel/topics/detectCores">detectCores</a></span>() <span class="op">-</span><span class="st"> </span><span class="dv">2</span> 
+ncores &lt;-<span class="st"> </span>parallel<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/parallel/topics/detectCores">detectCores</a></span>() <span class="op">-</span><span class="st"> </span><span class="dv">2</span> 
 
 <span class="co"># Provide the generateNull() function the number of cores you would like</span>
 <span class="co"># the function to use by passing the ncore parameter</span>
@@ -325,7 +333,7 @@ permuteResult &lt;-<span class="st"> </span><span class="kw"><a href="../referen
 <span class="co"># downSet, centerScore and knownDirection arguments as what they provide </span>
 <span class="co"># for the simpleScore() function to generate a proper null distribution.</span>
 
-<span class="kw">head</span>(permuteResult)</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(permuteResult)</code></pre></div>
 <pre><code>##    D_Ctrl_R1   D_TGFb_R1  D_Ctrl_R2   D_TGFb_R2 Hes_Ctrl_R1
 ## 1 0.01718855 0.005707284 0.01798685 0.002767871 0.013006266
 ## 2 0.02130207 0.017943832 0.02158246 0.015729994 0.017255527
@@ -344,19 +352,19 @@ permuteResult &lt;-<span class="st"> </span><span class="kw"><a href="../referen
 <span class="co"># show the p-values for first 5 samples</span>
 pvals</code></pre></div>
 <pre><code>##   D_Ctrl_R1   D_TGFb_R1   D_Ctrl_R2   D_TGFb_R2 Hes_Ctrl_R1 
-##       0.989       0.001       0.995       0.001       0.545</code></pre>
+##       0.993       0.001       0.995       0.001       0.525</code></pre>
 </div>
 <div id="plot-null-distribution" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plot-null-distribution" class="anchor"></a>Plot null distribution</h3>
 <p>Plot the null distributions for the first sample with the estimated <span class="math inline">\(p\)</span>-value labelled. The function uses the <code>sampleNames</code> parameter to decide which samples to plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotNull.html">plotNull</a></span>(permuteResult,scoredf,pvals,<span class="dt">sampleNames =</span> <span class="kw">names</span>(pvals)[<span class="dv">1</span>])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotNull.html">plotNull</a></span>(permuteResult,scoredf,pvals,<span class="dt">sampleNames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(pvals)[<span class="dv">1</span>])</code></pre></div>
 <p><img src="singscore_files/figure-html/plotNull1-1.png" width="768"></p>
 <p>You can provide multiple sample names to plot these samples in one plot. For example, plot the first 2 samples.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the null distributions for the first 2 samples and the p-values</span>
 <span class="co"># We can see from the plot, the control samples are not significant and TGFb </span>
 <span class="co"># samples are very significant with very low p-values</span>
-<span class="kw"><a href="../reference/plotNull.html">plotNull</a></span>(permuteResult,scoredf,pvals,<span class="dt">sampleNames =</span> <span class="kw">names</span>(pvals)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</code></pre></div>
+<span class="kw"><a href="../reference/plotNull.html">plotNull</a></span>(permuteResult,scoredf,pvals,<span class="dt">sampleNames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(pvals)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</code></pre></div>
 <pre><code>## Using  as id variables</code></pre>
 <p><img src="singscore_files/figure-html/plotNull2-1.png" width="1152"></p>
 </div>
@@ -367,7 +375,7 @@ pvals</code></pre></div>
 <ol style="list-style-type: decimal">
 <li>TGFb-EMT data</li>
 </ol>
-<p>In the examples above, we loaded a gene expression matrix data <code>tgfb_expr_10_se</code>. This dataset is a ten-sample subset of a full dataset originally from the integrated TGFb-EMT data published by <span class="citation">(Foroutan, Cursons, et al. 2017)</span>. The full dataset can be accessed here <a href="https://figshare.com/articles/comBat_corrected_Foroutan_et_al_2017/5682862" class="uri">https://figshare.com/articles/comBat_corrected_Foroutan_et_al_2017/5682862</a>. The <code>tgfb_gs_up</code> and <code>tgfb_gs_dn</code> are the derived up-regulated/down-regulated genes of the TGFb-induced EMT gene signature by <span class="citation">(Foroutan, Cursons, et al. 2017)</span> (see Table S1. TGFβ-EMT signature).</p>
+<p>In the examples above, we loaded a gene expression matrix data <code>tgfb_expr_10_se</code>. This dataset is a ten-sample subset of a full dataset originally from the integrated TGFb-EMT data published by <span class="citation">(Foroutan et al. 2017)</span>. The full dataset can be accessed here <a href="https://figshare.com/articles/comBat_corrected_Foroutan_et_al_2017/5682862" class="uri">https://figshare.com/articles/comBat_corrected_Foroutan_et_al_2017/5682862</a>. The <code>tgfb_gs_up</code> and <code>tgfb_gs_dn</code> are the derived up-regulated/down-regulated genes of the TGFb-induced EMT gene signature by <span class="citation">(Foroutan et al. 2017)</span> (see Table S1. TGFβ-EMT signature).</p>
 <ol start="2" style="list-style-type: decimal">
 <li>CCLE dataset</li>
 </ol>
@@ -377,7 +385,7 @@ pvals</code></pre></div>
 </ol>
 <p><code>scoredf_tcga_epi</code> and <code>scoredf_tcga_mes</code> are two data frames of the pre-computed scores using The Cancer Genome Atlas (TCGA) breast cancer RNA-seq data (RSEM normalised) <span class="citation">(The Cancer Genome Atlas Network 2012)</span> against the epithelial and mesenchymal gene signatures respectively. The gene signatures were obtained from <span class="citation">(Tan et al. 2014)</span> and can be found in the ‘Table S1A. Generic EMT signature for tumour’. The TCGA dataset was downloaded from The UCSC Cancer Genomics Browser in February 2016 (<a href="https://genome-cancer.ucsc.edu" class="uri">https://genome-cancer.ucsc.edu</a>)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># preview the scored CCLE samples</span>
-<span class="kw">head</span>(scoredf_ccle_epi)</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(scoredf_ccle_epi)</code></pre></div>
 <pre><code>##           TotalScore TotalDispersion
 ## HCC2157   0.22060031        5926.693
 ## AU565     0.30387843        3884.412
@@ -386,7 +394,7 @@ pvals</code></pre></div>
 ## Hs.739.T -0.06886754        4281.007
 ## HCC2218   0.31230039        3331.402</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># preview the scored TCGA samples</span>
-<span class="kw">head</span>(scoredf_tcga_epi)</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(scoredf_tcga_epi)</code></pre></div>
 <pre><code>##                 TotalScore TotalDispersion
 ## TCGA.3C.AAAU.01  0.2722128        3952.612
 ## TCGA.3C.AALI.01  0.3209824        2835.472
@@ -398,71 +406,65 @@ pvals</code></pre></div>
 <div id="session-info" class="section level2">
 <h2 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session Info</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()</code></pre></div>
-<pre><code>## R version 3.5.0 (2018-04-23)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: CentOS release 6.4 (Final)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/sessionInfo">sessionInfo</a></span>()</code></pre></div>
+<pre><code>## R version 3.5.1 (2018-07-02)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS  10.14
 ## 
 ## Matrix products: default
-## BLAS: /wehisan/general/system/bioinf-software/bioinfsoftware/R/R-3.5.0/lib64/R/lib/libRblas.so
-## LAPACK: /wehisan/general/system/bioinf-software/bioinfsoftware/R/R-3.5.0/lib64/R/lib/libRlapack.so
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
 ## 
 ## locale:
-##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
-##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
-##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
-##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## [1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
 ## 
 ## attached base packages:
 ## [1] stats4    parallel  stats     graphics  grDevices utils     datasets 
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] hexbin_1.27.2        singscore_1.0.0      GSEABase_1.41.3     
-##  [4] graph_1.57.1         annotate_1.57.3      XML_3.98-1.11       
-##  [7] AnnotationDbi_1.41.6 IRanges_2.13.29      S4Vectors_0.17.43   
-## [10] Biobase_2.39.2       BiocGenerics_0.25.3 
+##  [1] hexbin_1.27.2        singscore_1.1.2      GSEABase_1.42.0     
+##  [4] graph_1.58.0         annotate_1.58.0      XML_3.98-1.16       
+##  [7] AnnotationDbi_1.42.1 IRanges_2.14.10      S4Vectors_0.18.3    
+## [10] Biobase_2.40.0       BiocGenerics_0.26.0 
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] edgeR_3.22.3                tidyr_0.8.1                
 ##  [3] bit64_0.9-7                 assertthat_0.2.0           
 ##  [5] blob_1.1.1                  GenomeInfoDbData_1.1.0     
 ##  [7] ggrepel_0.8.0               yaml_2.2.0                 
-##  [9] pillar_1.2.3                RSQLite_2.1.0              
+##  [9] pillar_1.3.0                RSQLite_2.1.1              
 ## [11] backports_1.1.2             lattice_0.20-35            
 ## [13] glue_1.3.0                  limma_3.36.2               
 ## [15] digest_0.6.17               RColorBrewer_1.1-2         
-## [17] GenomicRanges_1.31.23       XVector_0.19.9             
-## [19] colorspace_1.4-0            htmltools_0.3.6            
+## [17] GenomicRanges_1.32.6        XVector_0.20.0             
+## [19] colorspace_1.3-2            htmltools_0.3.6            
 ## [21] Matrix_1.2-14               plyr_1.8.4                 
-## [23] pkgconfig_2.0.2             zlibbioc_1.25.0            
-## [25] purrr_0.2.5                 xtable_1.8-3               
-## [27] scales_0.5.0                BiocParallel_1.13.3        
+## [23] pkgconfig_2.0.2             zlibbioc_1.26.0            
+## [25] purrr_0.2.5                 xtable_1.8-2               
+## [27] scales_1.0.0                BiocParallel_1.14.2        
 ## [29] tibble_1.4.2                ggplot2_3.0.0              
-## [31] SummarizedExperiment_1.9.18 lazyeval_0.2.1             
+## [31] SummarizedExperiment_1.10.1 lazyeval_0.2.1             
 ## [33] magrittr_1.5                crayon_1.3.4               
 ## [35] memoise_1.1.0               evaluate_0.11              
 ## [37] fs_1.2.6                    MASS_7.3-50                
-## [39] xml2_1.2.0                  tools_3.5.0                
-## [41] matrixStats_0.53.1          stringr_1.3.1              
-## [43] locfit_1.5-9.1              munsell_0.4.3              
-## [45] ggsci_2.9                   DelayedArray_0.5.35        
-## [47] bindrcpp_0.2.2              compiler_3.5.0             
-## [49] pkgdown_1.1.0.9000          GenomeInfoDb_1.15.5        
-## [51] rlang_0.2.2                 grid_3.5.0                 
-## [53] RCurl_1.95-4.10             rstudioapi_0.8             
-## [55] labeling_0.3                bitops_1.0-6               
-## [57] rmarkdown_1.10              gtable_0.2.0               
-## [59] reshape_0.8.7               DBI_0.8                    
-## [61] roxygen2_6.1.0              reshape2_1.4.3             
-## [63] R6_2.3.0                    knitr_1.20                 
-## [65] dplyr_0.7.5                 bit_1.1-13                 
-## [67] bindr_0.1.1                 commonmark_1.5             
-## [69] rprojroot_1.3-2             desc_1.2.0                 
-## [71] stringi_1.2.3               Rcpp_0.12.17               
-## [73] tidyselect_0.2.4</code></pre>
+## [39] xml2_1.2.0                  tools_3.5.1                
+## [41] matrixStats_0.54.0          stringr_1.3.1              
+## [43] locfit_1.5-9.1              munsell_0.5.0              
+## [45] DelayedArray_0.6.5          bindrcpp_0.2.2             
+## [47] compiler_3.5.1              pkgdown_1.3.0              
+## [49] GenomeInfoDb_1.16.0         rlang_0.2.2                
+## [51] grid_3.5.1                  RCurl_1.95-4.11            
+## [53] rstudioapi_0.8              labeling_0.3               
+## [55] bitops_1.0-6                rmarkdown_1.10             
+## [57] gtable_0.2.0                reshape_0.8.7              
+## [59] DBI_1.0.0                   roxygen2_6.1.0             
+## [61] reshape2_1.4.3              R6_2.3.0                   
+## [63] knitr_1.20                  dplyr_0.7.6                
+## [65] bit_1.1-14                  bindr_0.1.1                
+## [67] commonmark_1.6              rprojroot_1.3-2            
+## [69] desc_1.2.0                  stringi_1.2.4              
+## [71] Rcpp_0.12.18                tidyselect_0.2.4</code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
@@ -472,7 +474,7 @@ pvals</code></pre></div>
 <p>Barretina, Jordi, Giordano Caponigro, Nicolas Stransky, Kavitha Venkatesan, Adam A Margolin, Sungjoon Kim, Christopher J Wilson, et al. 2012. “The Cancer Cell Line Encyclopedia Enables Predictive Modelling of Anticancer Drug Sensitivity.” <em>Nature</em> 483 (7391): 603–7.</p>
 </div>
 <div id="ref-Foroutan231217">
-<p>Foroutan, Momeneh, Dharmesh Bhuva, Kristy Horan, Ruqian Lyu, Joseph Cursons, and Melissa J Davis. 2017. “Defining a Landscape of Molecular Phenotypes Using a Simple Single Sample Scoring Method.” <em>bioRxiv</em>. Cold Spring Harbor Laboratory. doi:<a href="https://doi.org/10.1101/231217">10.1101/231217</a>.</p>
+<p>Foroutan, Momeneh, Dharmesh D Bhuva, Ruqian Lyu, Kristy Horan, Joseph Cursons, and Melissa J Davis. 2018. “Single Sample Scoring of Molecular Phenotypes.” <em>BMC Bioinformatics</em> 19 (1). BioMed Central: 404. doi:<a href="https://doi.org/10.1186/s12859-018-2435-4">10.1186/s12859-018-2435-4</a>.</p>
 </div>
 <div id="ref-Foroutanmolcanres-0313-2016">
 <p>Foroutan, Momeneh, Joseph Cursons, Soroor Hediyeh-Zadeh, Erik W Thompson, and Melissa J Davis. 2017. “A Transcriptional Program for Detecting Tgfbeta-Induced Emt in Cancer.” <em>Molecular Cancer Research</em>. American Association for Cancer Research. doi:<a href="https://doi.org/10.1158/1541-7786.MCR-16-0313">10.1158/1541-7786.MCR-16-0313</a>.</p>
@@ -512,9 +514,8 @@ pvals</code></pre></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
-
       </footer>
 </div>
 

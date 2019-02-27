@@ -4,8 +4,8 @@
 \alias{projectScoreLandscape}
 \title{Project data on the landscape plot obtained from \code{plotScoreLandscape()}}
 \usage{
-projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2,
-  subSamples = NULL, sampleLabels = NULL, annot = NULL,
+projectScoreLandscape(plotObj = NULL, scoredf1, scoredf2, annot = NULL,
+  annot_name = NULL, subSamples = NULL, sampleLabels = NULL,
   isInteractive = FALSE)
 }
 \arguments{
@@ -19,6 +19,13 @@ the gene expression matrix against another gene set of interest. Scores in
 scoredf1 and scoredf2 consist of the new data points that will be projected
 on the \code{plotObj} landscape plot.}
 
+\item{annot}{any numeric, character or factor annotation provided by the user
+that needs to be plot. Alternatively, this can be a character specifying
+the column of scoredf1 holding the annotation. Annotations must be ordered
+in the same way as the scores}
+
+\item{annot_name}{character, legend title for the annotation}
+
 \item{subSamples}{vector of character or indices for subsetting the scoredfs,
 default as NULL and all samples in scoredfs will be plotted. The subsetted
 samples are projected onto the landscape plot of \code{plotObj}.}
@@ -26,9 +33,6 @@ samples are projected onto the landscape plot of \code{plotObj}.}
 \item{sampleLabels}{vector of character, sample names to display, ordered in
 the same way as samples are ordered in the 'scoredfs' data matrix, default
 as NULL which means the projected points are not labelled.}
-
-\item{annot}{vector of characters, annotations used to colour the data and
-should have the same number of samples as in scoredfs}
 
 \item{isInteractive}{boolean, whether the plot is interactive default as
 FALSE}
@@ -43,13 +47,12 @@ This function takes the output (ggplot object) of the function
 points onto the landscape plot and returns a new ggplot object with
 projected data points.
 }
-\examples{
+\seealso{
+\code{\link[=plotScoreLandscape]{plotScoreLandscape()}}
+@examples
 ranked <- rankGenes(toy_expr_se)
 scoredf1 <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
 psl <- plotScoreLandscape(scoredf1, scoredf2)
 projectScoreLandscape(psl,scoredf1, scoredf2)
-}
-\seealso{
-\code{\link[=plotScoreLandscape]{plotScoreLandscape()}}
 }

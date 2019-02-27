@@ -41,9 +41,9 @@ scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 # find out what backends can be registered on your machine
 BiocParallel::registered()
 # the first one is the default backend, and it can be changed explicitly.
-permuteResult = generateNull(upSet = toy_gs_up, downSet = toy_gs_dn, ranked, 
-B =10, seed = 1,useBPPARAM = NULL) 
-# call the permutation function to generate the empirical scores 
+permuteResult = generateNull(upSet = toy_gs_up, downSet = toy_gs_dn, ranked,
+B =10, seed = 1,useBPPARAM = NULL)
+# call the permutation function to generate the empirical scores
 #for B times.
 pvals <- getPvals(permuteResult,scoredf)
 # plot for all samples
