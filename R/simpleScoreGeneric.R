@@ -12,7 +12,7 @@ NULL
 #'  to pass the gene set while the \code{downSet} argument is set to
 #'  \code{NULL}. This setting is ideal for gene sets representing gene
 #'  ontologies where the nature of the genes is unknown (up- or down-regulated).
-#'  
+#'
 #'@param rankData A matrix object, ranked gene expression matrix data generated
 #'  using the [rankGenes()] function
 #'@param subSamples A vector of sample labels/indices that will be used to
@@ -35,10 +35,10 @@ NULL
 #' @examples
 #' ranked <- rankGenes(toy_expr_se)
 #' scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
-#' # toy_gs_up is a GeneSet object, alternatively a vector of gene ids may also 
+#' # toy_gs_up is a GeneSet object, alternatively a vector of gene ids may also
 #' # be supplied.
-#'@seealso 
-#'\code{\link{rank}} 
+#'@seealso
+#'\code{\link{rank}}
 #'\code{"\linkS4class{GeneSet}"}
 #'
 #'@export
@@ -65,21 +65,18 @@ function(rankData,
          centerScore = TRUE,
          dispersionFun = mad,
          knownDirection = TRUE) {
+
   stopifnot(is.logical(centerScore), is.logical(knownDirection))
-  upSet <- GSEABase::GeneSet(as.character(upSet))
-  if(knownDirection){
-    df <- singscoring( rankData,
-                       upSet = upSet,
-                       downSet = downSet,
-                       subSamples = subSamples,
-                       centerScore = centerScore,
-                       dispersionFun = dispersionFun)
-  } else {
-    df <- singscoringOneGS(rankData,
-                           upSet = upSet,
-                           subSamples = subSamples,
-                           dispersionFun = dispersionFun)
-  }
+  upSet = GSEABase::GeneSet(as.character(upSet))
+  df = singleSingscore(
+    rankData,
+    upSet,
+    downSet = downSet,
+    subSamples = subSamples,
+    centerScore = centerScore,
+    dispersionFun = mad,
+    knownDirection = knownDirection
+  )
   return(df)
 })
 
@@ -96,25 +93,20 @@ function(rankData,
          centerScore = TRUE,
          dispersionFun = mad,
          knownDirection = TRUE) {
+
   stopifnot(is.logical(centerScore), is.logical(knownDirection))
-  if(knownDirection){
-    df <- singscoring(
-      rankData,
-      upSet = upSet,
-      subSamples = subSamples,
-      centerScore = centerScore,
-      dispersionFun = dispersionFun
-    )
-  } else {
-    df <- singscoringOneGS(
-      rankData,
-      upSet = upSet,
-      subSamples = subSamples,
-      dispersionFun = dispersionFun
-    )
-  }
+  df = singleSingscore(
+    rankData,
+    upSet,
+    downSet = downSet,
+    subSamples = subSamples,
+    centerScore = centerScore,
+    dispersionFun = mad,
+    knownDirection = knownDirection
+  )
   return(df)
 })
+
 #' @rdname simpleScore
 setMethod("simpleScore", signature(
   rankData = 'ANY',
@@ -128,15 +120,19 @@ function(rankData,
          centerScore = TRUE,
          dispersionFun = mad,
          knownDirection = TRUE) {
+
   stopifnot(is.logical(centerScore), is.logical(knownDirection))
-  upSet <- GSEABase::GeneSet(as.character(upSet))
-  downSet <- GSEABase::GeneSet(as.character(downSet))
-  df <- singscoring( rankData,
-                     upSet = upSet,
-                     downSet = downSet,
-                     subSamples = subSamples,
-                     centerScore = centerScore,
-                     dispersionFun = dispersionFun)
+  upSet = GSEABase::GeneSet(as.character(upSet))
+  downSet = GSEABase::GeneSet(as.character(downSet))
+  df = singleSingscore(
+    rankData,
+    upSet,
+    downSet = downSet,
+    subSamples = subSamples,
+    centerScore = centerScore,
+    dispersionFun = mad,
+    knownDirection = knownDirection
+  )
   return(df)
 })
 
@@ -153,13 +149,17 @@ function(rankData,
          centerScore = TRUE,
          dispersionFun = mad,
          knownDirection = TRUE) {
+
   stopifnot(is.logical(centerScore), is.logical(knownDirection))
-  df <- singscoring( rankData,
-                     upSet = upSet,
-                     downSet = downSet,
-                     subSamples = subSamples,
-                     centerScore = centerScore)
+  df = singleSingscore(
+    rankData,
+    upSet,
+    downSet = downSet,
+    subSamples = subSamples,
+    centerScore = centerScore,
+    dispersionFun = mad,
+    knownDirection = knownDirection
+  )
+
   return(df)
 })
-
-

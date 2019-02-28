@@ -1,6 +1,6 @@
 # singscore 1.3.2
 * allow continous and discrete annotations for `plotDispersion` and `projectScoreLandscape`
-* plot theme updated
+* plot themes updated
 * citation updated: cite the singscore manuscript
 * number of bins for the hexbin plot in `plotLandscape` is determined from the data
 * fixed bug in calculation of scores. Boundary calculation was previously done with all genes in the gene-set. It should be done with genes in the gene-set **and** in the data (i.e. after filtering out those not measured in the data).

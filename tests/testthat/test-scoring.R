@@ -1,11 +1,9 @@
-library(GSEABase)
-
 context("test-scoring")
 
 test_that("checkGenes works", {
-  gs1 = GeneSet(as.character(1:3))
-  gs2 = GeneSet(as.character(9:11))
-  gs3 = GeneSet(as.character(101:103))
+  gs1 = as.character(1:3)
+  gs2 = as.character(9:11)
+  gs3 = as.character(101:103)
   bg = as.character(1:10)
 
   expect_equal(checkGenes(gs1, bg), gs1)
