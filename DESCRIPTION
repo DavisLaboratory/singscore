@@ -29,7 +29,8 @@ Imports:
     BiocParallel,
     SummarizedExperiment,
     matrixStats,
-    reshape2
+    reshape2,
+    S4Vectors
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

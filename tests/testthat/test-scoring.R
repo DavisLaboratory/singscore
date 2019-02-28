@@ -1,14 +1,16 @@
+library(GSEABase)
+
 context("test-scoring")
 
 test_that("checkGenes works", {
-  gs1 = as.character(1:3)
-  gs2 = as.character(9:11)
-  gs3 = as.character(101:103)
+  gs1 = GeneSet(as.character(1:3))
+  gs2 = GeneSet(as.character(9:11))
+  gs3 = GeneSet(as.character(101:103))
   bg = as.character(1:10)
 
-  expect_equal(checkGenes(gs1, bg), gs1)
-  expect_equal(checkGenes(gs2, bg), c('9', '10'))
-  expect_equal(length(checkGenes(gs3, bg)), 0)
+  expect_equal(geneIds(checkGenes(gs1, bg)), geneIds(gs1))
+  expect_equal(geneIds(checkGenes(gs2, bg)), c('9', '10'))
+  expect_equal(length(geneIds(checkGenes(gs3, bg))), 0)
 })
 
 test_that("calcBounds works", {

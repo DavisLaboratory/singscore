@@ -33,14 +33,27 @@ rankExpr <- function(exprsM, tiesMethod = "min") {
 #helper: check if all genes in the gene set are in the data
 checkGenes <- function (geneset, background) {
   #check if there are some missing genes in the geneset
-  missingGenes = setdiff(geneset, background)
+  missingGenes = setdiff(geneIds(geneset), background)
   if (length(missingGenes) > 0) {
     warningMsg = paste(length(missingGenes), "genes missing:", sep = ' ')
     warningMsg = paste(warningMsg, paste(missingGenes, collapse = ', '), sep = ' ')
     warning(warningMsg)
   }
+  geneIds(geneset) = setdiff(geneIds(geneset), missingGenes)
 
-  return(setdiff(geneset, missingGenes))
+  return(geneset)
+}
+
+checkGenesMulti <- function(geneset_colc, background) {
+  geneset_colc = endoapply(geneset_colc, function(geneset) {
+    geneIds(geneset) = intersect(geneIds(geneset), background)
+    return(geneset)
+  })
+
+  #remove genesets with no genes
+  geneset_colc = geneset_colc[sapply(geneset_colc, function(x) length(geneIds(x))) > 0]
+
+  return(geneset_colc)
 }
 
 #helper: compute the theoretical boundaries of scores when direction is KNOWN.
@@ -52,6 +65,12 @@ calcBounds <- function(gsSize, bgSize) {
   return(list('lowBound' = lowBound, 'upBound' = upBound))
 }
 
+calcBoundsMulti <- function(gsSizes, bgSize) {
+  bounds = lapply(gsSizes, calcBounds, bgSize)
+
+  return(bounds)
+}
+
 #helper: compute the theoretical boundaries of scores when direction is UNKNOWN.
 # Should be used after filtering out missing genes
 calcBoundsUnknownDir <- function(gsSize, bgSize) {
@@ -59,6 +78,13 @@ calcBoundsUnknownDir <- function(gsSize, bgSize) {
   bgSize = ceiling(bgSize / 2) #number of unique ranks in the matrix
 
   return(calcBounds(gsSize, bgSize))
+}
+
+calcBoundsUnknownDirMulti <- function(gsSizes, bgSize) {
+  gsSizes = floor(gsSizes / 2) #number of unique ranks in the geneset
+  bgSize = ceiling(bgSize / 2) #number of unique ranks in the matrix
+
+  return(calcBoundsMulti(gsSizes, bgSize))
 }
 
 #helper: empty data frame of results
@@ -115,6 +141,7 @@ calcScoresUpDn <- function(ranks, upset, downset, dispersionFun, upbounds, downb
   return(totalscores)
 }
 
+#singscore function for a single geneset/signature
 singleSingscore <-
   function (rankData,
             upSet,
@@ -133,7 +160,7 @@ singleSingscore <-
     center_offset = ifelse(centerScore, -0.5, 0)
 
     #3.1 filter genes - return empty data.frame if no scores
-    geneIds(upSet) = checkGenes(geneIds(upSet), rownames(rankData))
+    upSet = checkGenes(upSet, rownames(rankData))
     if (length(geneIds(upSet)) == 0)
       return(emptyScoreDf(onegs = is.null(downSet)))
 
@@ -159,7 +186,7 @@ singleSingscore <-
     #for two gene sets
     if (!is.null(downSet)) {
       #3.2 filter genes - return empty data.frame if no scores
-      geneIds(downSet) = checkGenes(geneIds(downSet), rownames(rankData))
+      downSet = checkGenes(downSet, rownames(rankData))
       if (length(geneIds(downSet)) == 0)
         return(emptyScoreDf(onegs = FALSE))
 
@@ -190,4 +217,104 @@ singleSingscore <-
     rownames(scores) = colnames(rankData)
 
     return(scores)
+  }
+
+#singscore function for a multiple geneset/signature
+multiSingscore <-
+  function (rankData,
+            upSetColc,
+            downSetColc = NULL,
+            subSamples = NULL,
+            centerScore = TRUE,
+            dispersionFun = mad,
+            knownDirection = TRUE) {
+
+    #1. subset the data for samples whose calculation is to be performed
+    if (!is.null(subSamples)) {
+      rankData <- rankData[, subSamples, drop = FALSE]
+    }
+
+    #2. center scores?
+    center_offset = ifelse(centerScore, -0.5, 0)
+
+    #3.1 filter genes - empty genesets will be removed
+    upNames = names(upSetColc)
+    upSetColc = checkGenesMulti(upSetColc, rownames(rankData))
+    if (length(upSetColc) == 0)
+      return(NULL)
+
+    #known direction
+    upSizes = sapply(upSetColc, function(x) length(geneIds(x)))
+    if (!knownDirection) {
+      #2.3 do not center scores
+      warning('\'centerScore\' is disabled for this setting')
+      center_offset = 0
+
+      #modify rank matrix
+      rankData = apply(rankData, 2, function(x) {
+        x = abs(x - ceiling(median(x)))
+        return(x)
+      })
+
+      #4.3 calculate bounds
+      upset_bounds = calcBoundsUnknownDirMulti(upSizes, nrow(rankData))
+    } else {
+      #4.1 calculate bounds
+      upset_bounds = calcBoundsMulti(upSizes, nrow(rankData))
+    }
+
+    #for two gene sets
+    if (!is.null(downSetColc)) {
+      #3.2 filter genes - empty genesets will be removed
+      downNames = names(downSetColc)
+      downSetColc = checkGenesMulti(downSetColc, rownames(rankData))
+      if (length(downSetColc) == 0)
+        return(NULL)
+
+      #drop those not matching with upSets
+      stopifnot(all(upNames == downNames))
+      commonNames = intersect(upNames, downNames)
+      downSetColc = downSetColc[names(downSetColc) %in% commonNames]
+
+      #4.2 calculate bounds
+      downSizes = sapply(downSetColc, function(x) length(geneIds(x)))
+      downset_bounds = calcBoundsMulti(downSizes, nrow(rankData))
+
+      #check that names match
+      upselect = names(upSetColc) %in% commonNames
+      upSetColc = upSetColc[upselect]
+      upset_bounds = lapply(upset_bounds, function(x) x[upselect])
+
+      #5.2 compute scores
+      scores = mapply(
+        calcScoresUpDn,
+        list(rankData),
+        upSetColc,
+        downSetColc,
+        list(dispersionFun),
+        upset_bounds,
+        downset_bounds,
+        center_offset
+      )
+    } else{
+      #5.1 & 5.3 compute scores
+      scores = mapply(
+        calcScores,
+        list(rankData),
+        upSetColc,
+        list(dispersionFun),
+        upset_bounds,
+        center_offset
+      )
+    }
+
+    #6 process the results
+    dispersions = scores['TotalDispersion', ]
+    dispersions = t(mapply(c, dispersions))
+    scores = scores['TotalScore', ]
+    scores = t(mapply(c, scores))
+    colnames(scores) = colnames(dispersions) = colnames(rankData)
+    rownames(scores) = rownames(dispersions) = upNames
+
+    return(list('Scores' = scores, 'Dispersions' = dispersions))
   }
