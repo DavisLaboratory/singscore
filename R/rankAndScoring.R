@@ -131,7 +131,7 @@ calcScoresUpDn <- function(ranks, upset, downset, dispersionFun, upbounds, downb
   #compute total scores
   totalscores = list(
     'TotalScore' = upscores$TotalScore + dnscores$TotalScore,
-    'TotalDispersion' = upscores$TotalDispersion + dnscores$TotalDispersion,
+    'TotalDispersion' = (upscores$TotalDispersion + dnscores$TotalDispersion) / 2,
     'UpScore' = upscores$TotalScore,
     'UpDispersion' = upscores$TotalDispersion,
     'DownScore' = dnscores$TotalScore,
