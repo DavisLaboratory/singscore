@@ -75,7 +75,7 @@
       <h1>singscore</h1>
                         <h4 class="author">Ruqian Lyu</h4>
             
-            <h4 class="date">2019-02-27</h4>
+            <h4 class="date">2019-03-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DavisLaboratory/singscore/blob/master/vignettes/singscore.Rmd"><code>vignettes/singscore.Rmd</code></a></small>
       <div class="hidden name"><code>singscore.Rmd</code></div>
@@ -96,14 +96,14 @@
 <p>Install ‘singscore’ from Bioconductor</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
 <span class="kw">biocLite</span>(<span class="st">"singscore"</span>)</code></pre></div>
-<p>The most updated version of ‘singscore’ is hosted on GitHub and can be easily installed using <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github()</a></code> function provided by <strong>devtools</strong>, (<a href="https://cran.r-project.org/package=devtools" class="uri">https://cran.r-project.org/package=devtools</a>)</p>
+<p>The most updated version of ‘singscore’ is hosted on GitHub and can be easily installed using <code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github()</a></code> function provided by <strong>devtools</strong>, (<a href="https://cran.r-project.org/package=devtools" class="uri">https://cran.r-project.org/package=devtools</a>)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You would need to install 'devtools' package first.</span>
  <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)
 
 <span class="co"># And install the 'singscore' package from the GitHub repository</span>
 <span class="co"># 'singscore' requires these packages to be installed: methods, stats, graphics, ggplot2, ggsci, grDevices,</span>
 <span class="co">#  ggrepel, plotly, tidyr, plyr, magrittr, reshape, edgeR, RColorBrewer, Biobase, GSEABase, BiocParallel</span>
- devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">'DavisLaboratory/singscore'</span>)
+ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">'DavisLaboratory/singscore'</span>)
 <span class="co"># Set build_vignette = TRUE if would like to browseVignette()</span></code></pre></div>
 </div>
 <div id="scoring-samples-against-a-gene-set" class="section level2">
@@ -221,6 +221,7 @@ scoredf</code></pre></div>
 ## 14     10013</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotRankDensity.html">plotRankDensity</a></span>(rankData[,<span class="dv">2</span>,<span class="dt">drop =</span> <span class="ot">FALSE</span>], <span class="dt">upSet =</span> tgfb_gs_up, 
                 <span class="dt">downSet =</span> tgfb_gs_dn, <span class="dt">isInteractive =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## Warning: Ignoring unknown aesthetics: text</code></pre>
 <p><img src="singscore_files/figure-html/plotdt-1.png" width="768"></p>
 <p>Setting <code>isInteractive = TRUE</code> generates an interactive plot using the <code>plotly</code> package. Hovering over the bars in the interactive plot allows you to get information such as the normalised rank (between 0 and 1) and ID of the gene represented by the bar. For the rest of the plotting functions, the <code>isInteractive = TRUE</code> argument has the same behavior.</p>
 </div>
@@ -407,9 +408,9 @@ pvals</code></pre></div>
 <h2 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session Info</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/sessionInfo">sessionInfo</a></span>()</code></pre></div>
-<pre><code>## R version 3.5.1 (2018-07-02)
+<pre><code>## R version 3.5.2 (2018-12-20)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Running under: macOS  10.14
+## Running under: macOS Mojave 10.14
 ## 
 ## Matrix products: default
 ## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
@@ -423,48 +424,48 @@ pvals</code></pre></div>
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] hexbin_1.27.2        singscore_1.1.2      GSEABase_1.42.0     
-##  [4] graph_1.58.0         annotate_1.58.0      XML_3.98-1.16       
-##  [7] AnnotationDbi_1.42.1 IRanges_2.14.10      S4Vectors_0.18.3    
-## [10] Biobase_2.40.0       BiocGenerics_0.26.0 
+##  [1] hexbin_1.27.2        singscore_1.3.2      GSEABase_1.44.0     
+##  [4] graph_1.60.0         annotate_1.60.0      XML_3.98-1.16       
+##  [7] AnnotationDbi_1.44.0 IRanges_2.16.0       S4Vectors_0.20.1    
+## [10] Biobase_2.42.0       BiocGenerics_0.28.0 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] edgeR_3.22.3                tidyr_0.8.1                
+##  [1] edgeR_3.24.3                tidyr_0.8.3                
 ##  [3] bit64_0.9-7                 assertthat_0.2.0           
-##  [5] blob_1.1.1                  GenomeInfoDbData_1.1.0     
+##  [5] blob_1.1.1                  GenomeInfoDbData_1.2.0     
 ##  [7] ggrepel_0.8.0               yaml_2.2.0                 
-##  [9] pillar_1.3.0                RSQLite_2.1.1              
-## [11] backports_1.1.2             lattice_0.20-35            
-## [13] glue_1.3.0                  limma_3.36.2               
-## [15] digest_0.6.17               RColorBrewer_1.1-2         
-## [17] GenomicRanges_1.32.6        XVector_0.20.0             
-## [19] colorspace_1.3-2            htmltools_0.3.6            
-## [21] Matrix_1.2-14               plyr_1.8.4                 
-## [23] pkgconfig_2.0.2             zlibbioc_1.26.0            
-## [25] purrr_0.2.5                 xtable_1.8-2               
-## [27] scales_1.0.0                BiocParallel_1.14.2        
-## [29] tibble_1.4.2                ggplot2_3.0.0              
-## [31] SummarizedExperiment_1.10.1 lazyeval_0.2.1             
+##  [9] pillar_1.3.1                RSQLite_2.1.1              
+## [11] backports_1.1.3             lattice_0.20-38            
+## [13] glue_1.3.0                  limma_3.38.3               
+## [15] digest_0.6.18               RColorBrewer_1.1-2         
+## [17] GenomicRanges_1.34.0        XVector_0.22.0             
+## [19] colorspace_1.4-0            htmltools_0.3.6            
+## [21] Matrix_1.2-15               plyr_1.8.4                 
+## [23] pkgconfig_2.0.2             zlibbioc_1.28.0            
+## [25] purrr_0.3.1                 xtable_1.8-3               
+## [27] scales_1.0.0                BiocParallel_1.16.6        
+## [29] tibble_2.0.1                ggplot2_3.1.0              
+## [31] SummarizedExperiment_1.12.0 lazyeval_0.2.1             
 ## [33] magrittr_1.5                crayon_1.3.4               
-## [35] memoise_1.1.0               evaluate_0.11              
-## [37] fs_1.2.6                    MASS_7.3-50                
-## [39] xml2_1.2.0                  tools_3.5.1                
-## [41] matrixStats_0.54.0          stringr_1.3.1              
-## [43] locfit_1.5-9.1              munsell_0.5.0              
-## [45] DelayedArray_0.6.5          bindrcpp_0.2.2             
-## [47] compiler_3.5.1              pkgdown_1.3.0              
-## [49] GenomeInfoDb_1.16.0         rlang_0.2.2                
-## [51] grid_3.5.1                  RCurl_1.95-4.11            
-## [53] rstudioapi_0.8              labeling_0.3               
-## [55] bitops_1.0-6                rmarkdown_1.10             
-## [57] gtable_0.2.0                reshape_0.8.7              
-## [59] DBI_1.0.0                   roxygen2_6.1.0             
-## [61] reshape2_1.4.3              R6_2.3.0                   
-## [63] knitr_1.20                  dplyr_0.7.6                
-## [65] bit_1.1-14                  bindr_0.1.1                
-## [67] commonmark_1.6              rprojroot_1.3-2            
-## [69] desc_1.2.0                  stringi_1.2.4              
-## [71] Rcpp_0.12.18                tidyselect_0.2.4</code></pre>
+## [35] memoise_1.1.0               evaluate_0.13              
+## [37] fs_1.2.6                    MASS_7.3-51.1              
+## [39] xml2_1.2.0                  tools_3.5.2                
+## [41] matrixStats_0.54.0          stringr_1.4.0              
+## [43] munsell_0.5.0               locfit_1.5-9.1             
+## [45] DelayedArray_0.8.0          compiler_3.5.2             
+## [47] pkgdown_1.3.0               GenomeInfoDb_1.18.2        
+## [49] rlang_0.3.1                 grid_3.5.2                 
+## [51] RCurl_1.95-4.11             rstudioapi_0.9.0           
+## [53] labeling_0.3                bitops_1.0-6               
+## [55] rmarkdown_1.11              gtable_0.2.0               
+## [57] reshape_0.8.8               DBI_1.0.0                  
+## [59] roxygen2_6.1.1              reshape2_1.4.3             
+## [61] R6_2.4.0                    knitr_1.21                 
+## [63] dplyr_0.8.0.1               bit_1.1-14                 
+## [65] commonmark_1.7              rprojroot_1.3-2            
+## [67] desc_1.2.0                  stringi_1.3.1              
+## [69] Rcpp_1.0.0                  tidyselect_0.2.5           
+## [71] xfun_0.5</code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">

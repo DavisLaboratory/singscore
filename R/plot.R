@@ -10,7 +10,7 @@ getTheme <- function(rl = 1.2) {
       panel.grid.minor = element_blank(),
       axis.title = element_text(size = rel(rl) * 1.1),
       axis.text = element_text(size = rel(rl)),
-      plot.title = element_text(size = rel(rl)),
+      plot.title = element_text(size = rel(rl ^ 2)),
       strip.background = element_rect(fill = NA, colour = 'black'),
       strip.text = element_text(size = rel(rl)),
       legend.text = element_text(size = rel(rl)),
