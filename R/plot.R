@@ -149,7 +149,7 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
 
   #facet up/down pair
   if (sum(score_cols) > 2) {
-    p1 = p1 + facet_wrap( ~ Type, scales = 'free_y')
+    p1 = p1 + facet_wrap( ~ Type, scales = 'free')
   }
 
   #remove legend if no annotation provided
