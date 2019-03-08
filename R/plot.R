@@ -139,6 +139,9 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
     colnames(plotdf)[sc_col] = substring(colnames(plotdf)[sc_col], first = 6)
   }
 
+  #convert Type to factors
+  plotdf$Type = factor(plotdf$Type, levels = c('Total', 'Up', 'Down'))
+
   #setup plot
   p1 = ggplot(plotdf, aes(Score, Dispersion, colour = Class, text = SampleID)) +
     ggtitle('Score vs Dispersion') +
