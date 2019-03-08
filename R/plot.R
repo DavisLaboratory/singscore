@@ -35,7 +35,7 @@ processAnnotation <- function(df, annot) {
     annot = rep('', nrow(df))
 
   #characters will either be column names or character annotations
-  if (is.character(annot) & length(annot) == 1 & annot %in% colnames(df)) {
+  if (is.character(annot) && length(annot) == 1 && annot %in% colnames(df)) {
   	#a column name has been specified, extract the annotation
   	annot = df[[annot]]
   }
