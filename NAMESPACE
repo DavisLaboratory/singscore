@@ -2,6 +2,7 @@
 
 export(generateNull)
 export(getPvals)
+export(multiScore)
 export(plotDispersion)
 export(plotNull)
 export(plotRankDensity)

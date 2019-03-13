@@ -41,6 +41,7 @@ Collate:
     'rankAndScoring.R'
     'permuTest.R'
     'generatNullGeneric.R'
+    'multiScoreGeneric.R'
     'plot.R'
     'plotRankDensityGeneric.R'
     'rankGenesGeneric.R'

@@ -67,7 +67,7 @@ test_that("score calculation works well when direction is unknown", {
                            centerScore = TRUE, knownDirection = FALSE)
 
   expect_that(dim(scoredfUp), equals(c(1,2)))
-  expect_that(scoredfUp, is_equivalent_to(data.frame(-1.5, 0)))
+  expect_that(scoredfUp, is_equivalent_to(data.frame(-1, 0)))
 
 })
 
@@ -83,6 +83,13 @@ test_that("input checkings for simpleScore works", {
       upSet = GSEABase::GeneSet(as.character(c(3, 4))),
       centerScore = TRUE,
       knownDirection = "FAsss"
+    )
+  )
+  expect_error(
+    simpleScore(
+      dfrMin[, 1],
+      upSet = GSEABase::GeneSet(as.character(c(3, 4))),
+      centerScore = TRUE
     )
   )
 })
