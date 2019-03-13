@@ -1,15 +1,12 @@
 # singscore 1.3.2
-* allow continous and discrete annotations for plotDispersion and projectScoreLandscape
-* plot theme updated
+* allow continous and discrete annotations for `plotDispersion` and `projectScoreLandscape`
+* plot themes updated
 * citation updated: cite the singscore manuscript
-* number of bins for the hexbin plot in plotLandscape is determined from the data
+* number of bins for the hexbin plot in `plotLandscape` is determined from the data
+* fixed bug in calculation of scores. Boundary calculation was previously done with all genes in the gene-set. It should be done with genes present in both the gene-set and the data (i.e. after filtering out those not measured in the data).
+* TotalDispersion now estimated as the mean of dispersions from the up- and down-regulated gene sets instead of the sum (previous estimate divided by 2)
 
 # singscore 1.2.2
-* created a website for the package
-* added ORCID IDs for authors
-* added sticker for package
-
-# singscore 1.1.2
 * created a website for the package
 * added ORCID IDs for authors
 * added sticker for package

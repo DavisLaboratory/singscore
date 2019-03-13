@@ -2,7 +2,7 @@ context("plotDis")
 
 test_that("plotDispersion checks works", {
   ranked <- rankGenes(toy_expr_se)
-  scoredf <- singscoring(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
+  scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
   plt1 <- plotDispersion(scoredf)
   plt2 <- plotDispersion(scoredf, annot = c(1,2))
 

@@ -80,9 +80,9 @@ scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 # find out what backends can be registered on your machine
 BiocParallel::registered()
 # the first one is the default backend
-# ncores = ncores <- parallel::detectCores() - 2 
-permuteResult = generateNull(upSet = toy_gs_up, downSet = toy_gs_dn, ranked, 
-centerScore = TRUE, B =10, seed = 1, ncores = 1 ) 
+# ncores = ncores <- parallel::detectCores() - 2
+permuteResult = generateNull(upSet = toy_gs_up, downSet = toy_gs_dn, ranked,
+centerScore = TRUE, B =10, seed = 1, ncores = 1 )
 }
 \seealso{
 \href{http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U}{Post about BiocParallel}

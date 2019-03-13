@@ -10,7 +10,7 @@ getTheme <- function(rl = 1.2) {
       panel.grid.minor = element_blank(),
       axis.title = element_text(size = rel(rl) * 1.1),
       axis.text = element_text(size = rel(rl)),
-      plot.title = element_text(size = rel(rl)),
+      plot.title = element_text(size = rel(rl ^ 2)),
       strip.background = element_rect(fill = NA, colour = 'black'),
       strip.text = element_text(size = rel(rl)),
       legend.text = element_text(size = rel(rl)),
@@ -35,7 +35,7 @@ processAnnotation <- function(df, annot) {
     annot = rep('', nrow(df))
 
   #characters will either be column names or character annotations
-  if (is.character(annot) & length(annot) == 1 & annot %in% colnames(df)) {
+  if (is.character(annot) && length(annot) == 1 && annot %in% colnames(df)) {
   	#a column name has been specified, extract the annotation
   	annot = df[[annot]]
   }
@@ -132,12 +132,15 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
     plotdf = reshape2::melt(plotdf, id.vars = idvars)
     plotdf$Type = rep(c('Total', 'Up', 'Down'), each = nsamp * 2)
     plotdf$variable = rep(c('Score', 'Dispersion'), each = nsamp)
-    df_form = as.formula(paste0(paste(idvars, collapse = ' + '), ' ~ variable'))
+    df_form = stats::as.formula(paste0(paste(idvars, collapse = ' + '), ' ~ variable'))
     plotdf = reshape2::dcast(plotdf, df_form, value.var = 'value')
   } else{
     sc_col = isScoreCol(colnames(plotdf))
     colnames(plotdf)[sc_col] = substring(colnames(plotdf)[sc_col], first = 6)
   }
+
+  #convert Type to factors
+  plotdf$Type = factor(plotdf$Type, levels = c('Total', 'Up', 'Down'))
 
   #setup plot
   p1 = ggplot(plotdf, aes(Score, Dispersion, colour = Class, text = SampleID)) +
@@ -149,7 +152,7 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
 
   #facet up/down pair
   if (sum(score_cols) > 2) {
-    p1 = p1 + facet_wrap( ~ Type, scales = 'free_y')
+    p1 = p1 + facet_wrap( ~ Type, scales = 'free')
   }
 
   #remove legend if no annotation provided

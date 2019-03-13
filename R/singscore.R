@@ -5,7 +5,7 @@
 #' perform hypothesis testing and provides visualisations to enable diagnosis of
 #' scores and gene sets along with visualisations to enable exploration of
 #' results.
-#' 
+#'
 #' @importFrom stats mad median na.omit quantile
 #' @import graphics
 #' @import ggplot2
@@ -14,6 +14,7 @@
 #' @import methods
 #' @import grDevices
 #' @importFrom magrittr "%>%"
+#' @importFrom S4Vectors endoapply
 #' @importClassesFrom edgeR DGEList
 #' @importClassesFrom Biobase ExpressionSet
 #' @import SummarizedExperiment
@@ -59,7 +60,7 @@ NULL
 #'
 #' @format A GeneSet object with 5 genes
 #' @docType data
-#' @seealso 
+#' @seealso
 #' \code{"\linkS4class{GeneSet}"},[toy_expr_se],[toy_gs_dn]
 "toy_gs_up"
 
@@ -81,7 +82,7 @@ NULL
 #'
 #' @format A SummarizedExperiment object
 #' @docType data
-#'   
+#'
 "tgfb_expr_10_se"
 
 #' Gene set of up-regulated genes for the TGFb-induced EMT gene signature
@@ -144,7 +145,7 @@ NULL
 #'   Transition Spectrum Quantification and Its Efficacy in Deciphering Survival
 #'   and Drug Responses of Cancer Patients.” EMBO Molecular Medicine 6 (10).
 #'   Oxford, UK: BlackWell Publishing Ltd: 1279–93. doi:10.15252/emmm.201404208.
-#'   
+#'
 "scoredf_ccle_epi"
 
 
@@ -169,7 +170,7 @@ NULL
 #' Transition Spectrum Quantification and Its Efficacy in Deciphering Survival
 #' and Drug Responses of Cancer Patients.” EMBO Molecular Medicine 6 (10).
 #' Oxford, UK: BlackWell Publishing Ltd: 1279–93 doi:10.15252/emmm.201404208.
-#' 
+#'
 "scoredf_ccle_mes"
 
 #' Pre-computed scores of the TCGA breast cancer gene expression matrix
@@ -189,7 +190,7 @@ NULL
 #'   in Deciphering Survival and Drug Responses of Cancer Patients.” EMBO
 #'   Molecular Medicine 6 (10). Oxford, UK: BlackWell Publishing Ltd: 1279–93
 #'   doi:10.15252/emmm.201404208.
-#'   
+#'
 "scoredf_tcga_epi"
 
 
@@ -210,5 +211,5 @@ NULL
 #'   in Deciphering Survival and Drug Responses of Cancer Patients.” EMBO
 #'   Molecular Medicine 6 (10). Oxford, UK: BlackWell Publishing Ltd: 1279–93
 #'   doi:10.15252/emmm.201404208.
-#'   
+#'
 "scoredf_tcga_mes"

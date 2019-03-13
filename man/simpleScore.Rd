@@ -3,28 +3,28 @@
 \docType{methods}
 \name{simpleScore}
 \alias{simpleScore}
-\alias{simpleScore,ANY,vector,missing-method}
-\alias{simpleScore,ANY,GeneSet,missing-method}
-\alias{simpleScore,ANY,vector,vector-method}
-\alias{simpleScore,ANY,GeneSet,GeneSet-method}
+\alias{simpleScore,matrix,vector,missing-method}
+\alias{simpleScore,matrix,GeneSet,missing-method}
+\alias{simpleScore,matrix,vector,vector-method}
+\alias{simpleScore,matrix,GeneSet,GeneSet-method}
 \title{single-sample gene-set scoring method}
 \usage{
 simpleScore(rankData, upSet, downSet = NULL, subSamples = NULL,
   centerScore = TRUE, dispersionFun = mad, knownDirection = TRUE)
 
-\S4method{simpleScore}{ANY,vector,missing}(rankData, upSet,
+\S4method{simpleScore}{matrix,vector,missing}(rankData, upSet,
   downSet = NULL, subSamples = NULL, centerScore = TRUE,
   dispersionFun = mad, knownDirection = TRUE)
 
-\S4method{simpleScore}{ANY,GeneSet,missing}(rankData, upSet,
+\S4method{simpleScore}{matrix,GeneSet,missing}(rankData, upSet,
   downSet = NULL, subSamples = NULL, centerScore = TRUE,
   dispersionFun = mad, knownDirection = TRUE)
 
-\S4method{simpleScore}{ANY,vector,vector}(rankData, upSet,
+\S4method{simpleScore}{matrix,vector,vector}(rankData, upSet,
   downSet = NULL, subSamples = NULL, centerScore = TRUE,
   dispersionFun = mad, knownDirection = TRUE)
 
-\S4method{simpleScore}{ANY,GeneSet,GeneSet}(rankData, upSet,
+\S4method{simpleScore}{matrix,GeneSet,GeneSet}(rankData, upSet,
   downSet = NULL, subSamples = NULL, centerScore = TRUE,
   dispersionFun = mad, knownDirection = TRUE)
 }
@@ -42,16 +42,16 @@ down-regulated gene set or NULL where only a single gene set is provided}
 subset the rankData matrix. All samples will be scored if not provided}
 
 \item{centerScore}{A Boolean, specifying whether scores should be centered
-around 0, default as TRUE}
+around 0, default as TRUE. Note: scores never centered if \code{knownDirection = FALSE}}
 
 \item{dispersionFun}{A function, dispersion function with default being \code{mad}}
 
-\item{knownDirection}{A boolean flag, it deterimines whether the scoring
-method should derive the scores in a directional mannar when the gene
-signature only contains one set of gene set (passing the gene set via
-upSet). It is default as TRUE but one can set the argument to be FALSE to
-derive the score for a single gene set in a undirectional way. This
-parameter becomes irrelevant when both upSet and downSet are provided.}
+\item{knownDirection}{A boolean, determining whether the gene set should be
+considered to be directional or not. A gene set is directional if the type
+of genes in it are known i.e. up- or down-regulated. This should be set to
+TRUE if the gene set is composed of both up- AND down-regulated genes.
+Defaults to TRUE. This parameter becomes irrelevant when both upSet(Colc)
+and downSet(Colc) are provided.}
 }
 \value{
 A data.frame consists of singscores and dispersions for all samples
@@ -70,10 +70,9 @@ ontologies where the nature of the genes is unknown (up- or down-regulated).
 \examples{
 ranked <- rankGenes(toy_expr_se)
 scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
-# toy_gs_up is a GeneSet object, alternatively a vector of gene ids may also 
+# toy_gs_up is a GeneSet object, alternatively a vector of gene ids may also
 # be supplied.
 }
 \seealso{
-\code{\link{rank}}
-\code{"\linkS4class{GeneSet}"}
+\code{\link{rank}} \code{"\linkS4class{GeneSet}"}
 }
