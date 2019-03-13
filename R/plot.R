@@ -132,7 +132,7 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
     plotdf = reshape2::melt(plotdf, id.vars = idvars)
     plotdf$Type = rep(c('Total', 'Up', 'Down'), each = nsamp * 2)
     plotdf$variable = rep(c('Score', 'Dispersion'), each = nsamp)
-    df_form = as.formula(paste0(paste(idvars, collapse = ' + '), ' ~ variable'))
+    df_form = stats::as.formula(paste0(paste(idvars, collapse = ' + '), ' ~ variable'))
     plotdf = reshape2::dcast(plotdf, df_form, value.var = 'value')
   } else{
     sc_col = isScoreCol(colnames(plotdf))
