@@ -73,7 +73,7 @@ a proper null distribution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ a proper null distribution." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Permutation test for the derived scores of each sample</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DavisLaboratory/singscore/blob/master/R/generatNullGeneric.R'><code>R/generatNullGeneric.R</code></a></small>
+    
     <div class="hidden name"><code>generateNull.Rd</code></div>
     </div>
 
@@ -227,9 +227,9 @@ explicitly by passing a BPPARAM</p></td>
 <span class='co'># find out what backends can be registered on your machine</span>
 <span class='kw pkg'>BiocParallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/BiocParallel/topics/register'>registered</a></span>()</div><div class='output co'>#&gt; $MulticoreParam
 #&gt; class: MulticoreParam
-#&gt;   bpisup: FALSE; bpnworkers: 6; bptasks: 0; bpjobname: BPJOB
+#&gt;   bpisup: FALSE; bpnworkers: 44; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
-#&gt;   bptimeout: 2592000; bpprogressbar: FALSE; bpexportglobals: TRUE
+#&gt;   bptimeout: 2592000; bpprogressbar: FALSE
 #&gt;   bpRNGseed: 
 #&gt;   bplogdir: NA
 #&gt;   bpresultdir: NA
@@ -237,9 +237,9 @@ explicitly by passing a BPPARAM</p></td>
 #&gt; 
 #&gt; $SnowParam
 #&gt; class: SnowParam
-#&gt;   bpisup: FALSE; bpnworkers: 6; bptasks: 0; bpjobname: BPJOB
+#&gt;   bpisup: FALSE; bpnworkers: 44; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
-#&gt;   bptimeout: 2592000; bpprogressbar: FALSE; bpexportglobals: TRUE
+#&gt;   bptimeout: 2592000; bpprogressbar: FALSE
 #&gt;   bpRNGseed: 
 #&gt;   bplogdir: NA
 #&gt;   bpresultdir: NA
@@ -249,10 +249,10 @@ explicitly by passing a BPPARAM</p></td>
 #&gt; class: SerialParam
 #&gt;   bpisup: TRUE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
-#&gt;   bptimeout: 2592000; bpprogressbar: FALSE; bpexportglobals: TRUE
+#&gt;   bptimeout: 2592000; bpprogressbar: FALSE
 #&gt;   bplogdir: NA
 #&gt; </div><div class='input'><span class='co'># the first one is the default backend</span>
-<span class='co'># ncores = ncores &lt;- parallel::detectCores() - 2 </span>
+<span class='co'># ncores = ncores &lt;- parallel::detectCores() - 2</span>
 <span class='no'>permuteResult</span> <span class='kw'>=</span> <span class='fu'>generateNull</span>(<span class='kw'>upSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_up</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_dn</span>, <span class='no'>ranked</span>,
 <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>B</span> <span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span> )</div></pre>
   </div>

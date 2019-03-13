@@ -68,7 +68,7 @@ sample or multiple samples." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -111,7 +111,7 @@ sample or multiple samples." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot the empirically estimated null distribution and associated p-values</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DavisLaboratory/singscore/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
+    
     <div class="hidden name"><code>plotNull.Rd</code></div>
     </div>
 
@@ -177,7 +177,7 @@ distributions will be plotted</p></td>
 #&gt; class: MulticoreParam
 #&gt;   bpisup: FALSE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
-#&gt;   bptimeout: 2592000; bpprogressbar: FALSE; bpexportglobals: TRUE
+#&gt;   bptimeout: 2592000; bpprogressbar: FALSE
 #&gt;   bpRNGseed: 1
 #&gt;   bplogdir: NA
 #&gt;   bpresultdir: NA
@@ -185,9 +185,9 @@ distributions will be plotted</p></td>
 #&gt; 
 #&gt; $SnowParam
 #&gt; class: SnowParam
-#&gt;   bpisup: FALSE; bpnworkers: 6; bptasks: 0; bpjobname: BPJOB
+#&gt;   bpisup: FALSE; bpnworkers: 44; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
-#&gt;   bptimeout: 2592000; bpprogressbar: FALSE; bpexportglobals: TRUE
+#&gt;   bptimeout: 2592000; bpprogressbar: FALSE
 #&gt;   bpRNGseed: 
 #&gt;   bplogdir: NA
 #&gt;   bpresultdir: NA
@@ -197,7 +197,7 @@ distributions will be plotted</p></td>
 #&gt; class: SerialParam
 #&gt;   bpisup: TRUE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
-#&gt;   bptimeout: 2592000; bpprogressbar: FALSE; bpexportglobals: TRUE
+#&gt;   bptimeout: 2592000; bpprogressbar: FALSE
 #&gt;   bplogdir: NA
 #&gt; </div><div class='input'><span class='co'># the first one is the default backend, and it can be changed explicitly.</span>
 <span class='no'>permuteResult</span> <span class='kw'>=</span> <span class='fu'><a href='generateNull.html'>generateNull</a></span>(<span class='kw'>upSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_up</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_dn</span>, <span class='no'>ranked</span>,

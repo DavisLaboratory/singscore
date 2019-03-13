@@ -21,7 +21,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-home">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -72,7 +72,11 @@
 
       
       </header><div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
+    
+
+    
+    
 <div id="singscore" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#singscore" class="anchor"></a>singscore <img src="reference/figures/logo.png" align="right" height="140" width="120" alt="logo">
@@ -80,104 +84,26 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>‘singscore’ is a gene-set scoring R package which implements a simple single-sample gene-set (or gene-signature) scoring method. It uses rank-based statistics to analyze the each sample’s gene expression profile and scores the expression activities of gene sets at a single-sample level.</p>
+<p>‘singscore’ is an R/Bioconductor package which implements the simple single-sample gene-set (or gene-signature) scoring method proposed by Foroutan <em>et al.</em> (2018). It uses rank-based statistics to analyze each sample’s gene expression profile and scores the expression activities of gene sets at a single-sample level.</p>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting Started</h2>
-<p>These instructions will get you to install the package up and running on your local machine. Please be aware that the package is still under development and we aim to submit the release version to <a href="https://www.bioconductor.org">Bioconductor</a>. If you experience any issues, please let us know via email </p>
-<ul>
-<li> Ruqian Lyu <a href="mailto:lyu.r@wehi.edu.au">lyu.r@wehi.edu.au</a> </li> <li> Momeneh Foroutan <a href="mailto:foroutan.m@wehi.edu.au">foroutan.m@wehi.edu.au</a>
-</li> <li> Dharmesh Bhuva <a href="mailto:bhuva.d@wehi.edu.au">bhuva.d@wehi.edu.au</a> </li> <li> Joseph Cursons <a href="mailto:cursons.j@wehi.edu.au">cursons.j@wehi.edu.au</a>
-</li> <li> Melissa Davis <a href="mailto:davis.m@wehi.edu.au">davis.m@wehi.edu.au</a>
-</li> </ul>
-<div id="prerequisites" class="section level3">
-<h3 class="hasAnchor">
-<a href="#prerequisites" class="anchor"></a>Prerequisites</h3>
-<p>To install the package from git hub, install the package ‘devtools’ first and then use the function <code>install_github</code> to install ‘singscore’ by running the following script</p>
+<p>These instructions will get you to install the package up and running on your local machine. If you experience any issues, please raise a GitHub issue at <a href="https://github.com/DavisLaboratory/singscore/issues" class="uri">https://github.com/DavisLaboratory/singscore/issues</a>.</p>
+<pre><code># build_vignettes = TRUE to build vignettes upon installation
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("singscore", version = "3.8")</code></pre>
 </div>
-<div id="installing" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installing" class="anchor"></a>Installing</h3>
-<pre><code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages('devtools')
-# build_vignettes = TRUE to build vignettes upon installation
-devtools::install_github('DavisLaboratory/singscore', build_vignettes = TRUE)
-library(singscore)</a></code></pre>
-</div>
-</div>
-<div id="running-singscoring" class="section level2">
+<div id="documentation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#running-singscoring" class="anchor"></a>Running singscoring</h2>
-<pre><code><a href="https://www.rdocumentation.org/packages/utils/topics/str"># The example data sets
-# We have included several example datasets in the package to illustrate the 
-# usage of scoring and visulisation functions
-
-# an SummarizedExperiment object containing expression dataset 
-str(tgfb_expr_10_se)
-# Get the counts by 
-SummarizedExperiment::assay(tgfb_expr_10_se)
-# up gene set
-str(tgfb_gs_up)
-# down gene set
-str(tgfb_gs_dn)
-
-# rank the expression matrix first
-rankedData &lt;- rankGenes(tgfb_expr_10_se)
-
-# Call simpleScore function to score each individual sample
-scoredf &lt;- simpleScore(rankedData, tgfb_gs_up,tgfb_gs_dn, centerScore = TRUE)
-
-scoredf
-##               TotalScore TotalDispersion    UpScore UpDispersion
-## D_Ctrl_R1   -0.088097993        5734.697 0.06096415     3119.390
-## D_TGFb_R1    0.286994210        4435.939 0.24931565     2352.886
-## D_Ctrl_R2   -0.098964086        5722.836 0.06841242     3129.769
-## D_TGFb_R2    0.270721958        4757.663 0.25035661     2470.012
-## Hes_Ctrl_R1 -0.002084788        5492.292 0.08046490     3134.216
-## Hes_TGFb_R1  0.176122839        5195.030 0.22894035     2416.638
-## Hes_Ctrl_R2  0.016883867        5401.112 0.08817828     3138.664
-## Hes_TGFb_R2  0.188466953        4910.371 0.23895473     2324.717
-## Hil_Ctrl_R1 -0.061991164        6078.660 0.08314254     3553.792
-## Hil_Ctrl_R2 -0.064937366        5918.539 0.07433863     3396.637
-##               DownScore DownDispersion
-## D_Ctrl_R1   -0.14906214       2615.306
-## D_TGFb_R1    0.03767856       2083.053
-## D_Ctrl_R2   -0.16737650       2593.067
-## D_TGFb_R2    0.02036534       2287.652
-## Hes_Ctrl_R1 -0.08254969       2358.075
-## Hes_TGFb_R1 -0.05281751       2778.392
-## Hes_Ctrl_R2 -0.07129441       2262.448
-## Hes_TGFb_R2 -0.05048778       2585.654
-## Hil_Ctrl_R1 -0.14513371       2524.868
-## Hil_Ctrl_R2 -0.13927600       2521.903
-</a></code></pre>
+<a href="#documentation" class="anchor"></a>Documentation</h2>
+<p>The package comes with a vignette showing how the different functions in the package can be used to perform a gene-set enrichment analysis on a single sample level. Pre-built vignettes can be accessed via <a href="https://bioconductor.org/packages/release/bioc/vignettes/singscore/inst/doc/singscore.html">Bioconductor</a> or <a href="https://davislaboratory.github.io/singscore/articles/singscore.html">the GitHub IO page</a>.</p>
 </div>
-<div id="produced-rank-density-plot" class="section level2">
+<div id="references" class="section level2">
 <h2 class="hasAnchor">
-<a href="#produced-rank-density-plot" class="anchor"></a>Produced rank density plot</h2>
-<p><code><a href="reference/plotRankDensity.html">plotRankDensity()</a></code> takes a single column data frame, which is a subset of the ranked data obtained from <code><a href="reference/rankGenes.html">rankGenes()</a></code>function, and gene sets, and it returns plots visualising the density and the rugs of the ranks.</p>
-<pre><code><a href="reference/plotRankDensity.html">plotRankDensity(rankedData[,2,drop = FALSE], upSet = tgfb_gs_up, 
-                downSet = tgfb_gs_dn, isInteractive = FALSE)
-</a></code></pre>
-<p>Which can produce</p>
-<p><img src="https://user-images.githubusercontent.com/12887308/37870731-5583c39e-3028-11e8-9ddb-5d197c05d55a.png"></p>
-</div>
-<div id="plot-score-landscape" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plot-score-landscape" class="anchor"></a>Plot Score Landscape</h2>
-<p>plotScoreLandscape plots the scores of the samples against two different gene signatures in a landscape for exploring the replationships of gene signatures.</p>
-<pre><code><a href="https://www.rdocumentation.org/packages/utils/topics/data">data("scoredf_tcga_epi")
-data("scoredf_tcga_mes")
-plotScoreLandscape(scoredf_tcga_epi, scoredf_tcga_mes, 
-                   scorenames = c('tcga-EPI','tcga-MES'), isInteractive = FALSE)
-</a></code></pre>
-<p><img src="https://user-images.githubusercontent.com/12887308/37870753-d12692ba-3028-11e8-9aaf-37bceef5722b.png"></p>
-<p><strong>For more examples, please refer to the vigntte included in the package by</strong> <code><a href="https://www.rdocumentation.org/packages/utils/topics/browseVignettes">browseVignettes('singscore')</a></code></p>
-<div id="linked-article" class="section level3">
-<h3 class="hasAnchor">
-<a href="#linked-article" class="anchor"></a>Linked Article</h3>
-<p><a href="https://doi.org/10.1186/s12859-018-2435-4">Single sample scoring of molecular phenotypes</a></p>
-</div>
+<a href="#references" class="anchor"></a>References</h2>
+<p>Foroutan, Momeneh, Dharmesh D Bhuva, Ruqian Lyu, Kristy Horan, Joseph Cursons, and Melissa J Davis. 2018. “Single Sample Scoring of Molecular Phenotypes.” BMC Bioinformatics 19 (1). BioMed Central: 404. doi: <a href="https://doi.org/10.1186/s12859-018-2435-4">10.1186/s12859-018-2435-4</a>.</p>
 </div>
 </div>
   </div>
@@ -187,8 +113,6 @@ plotScoreLandscape(scoredf_tcga_epi, scoredf_tcga_mes,
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from BIOC at <br><a href="https://www.bioconductor.org/packages/singscore">https://​www.bioconductor.org/​packages/​singscore</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/DavisLaboratory/singscore">https://​github.com/​DavisLaboratory/​singscore</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/DavisLaboratory/singscore/issues">https://​github.com/​DavisLaboratory/​singscore/​issues</a>
 </li>
@@ -215,8 +139,10 @@ plotScoreLandscape(scoredf_tcga_epi, scoredf_tcga_mes,
 </ul>
 </div>
 
-  </div>
+      </div>
+
 </div>
+
 
       <footer><div class="copyright">
   <p>Developed by Momeneh Foroutan, Dharmesh Bhuva, Ruqian Lyu.</p>

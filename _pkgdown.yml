@@ -12,6 +12,7 @@ reference:
   - starts_with('project')
   - starts_with('rank')
   - starts_with('simple')
+  - starts_with('multi')
   - starts_with('singscore')
 - title: All datasets
   desc: ~

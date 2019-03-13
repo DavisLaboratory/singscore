@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>single-sample gene-set scoring method — simpleScore • singscore</title>
+<title>single-sample gene-set scoring method for multiple signatures — multiScore • singscore</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,17 +30,15 @@
 
 
 
-<meta property="og:title" content="single-sample gene-set scoring method — simpleScore" />
+<meta property="og:title" content="single-sample gene-set scoring method for multiple signatures — multiScore" />
 
 <meta property="og:description" content="This function computes 'singscores' using a ranked gene
-expression matrix obtained from the rankGenes() function and a gene set or
-a pair of up-regulated and down-regulated gene sets. It returns a data.frame
-of scores and dispersions for each sample. The gene sets can be in vector
-format or as GeneSet objects (from GSEABase packages). If samples need to be
-scored against a single gene set, the upSet argument should be used
-to pass the gene set while the downSet argument is set to
-NULL. This setting is ideal for gene sets representing gene
-ontologies where the nature of the genes is unknown (up- or down-regulated)." />
+expression matrix obtained from the rankGenes() function and a
+GeneSetCollection object or a list of GeneSet objects. It returns a list of
+two matrices containing the scores and dispersions. This function should be
+used when scoring needs to be performed for multiple signatures. It is
+faster than applying simpleScore() across the different signatures
+independently." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -115,47 +113,46 @@ ontologies where the nature of the genes is unknown (up- or down-regulated)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>single-sample gene-set scoring method</h1>
+    <h1>single-sample gene-set scoring method for multiple signatures</h1>
     
-    <div class="hidden name"><code>simpleScore.Rd</code></div>
+    <div class="hidden name"><code>multiScore.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
     <p>This function computes 'singscores' using a ranked gene
-expression matrix obtained from the <code><a href='rankGenes.html'>rankGenes()</a></code> function and a gene set or
-a pair of up-regulated and down-regulated gene sets. It returns a data.frame
-of scores and dispersions for each sample. The gene sets can be in vector
-format or as GeneSet objects (from GSEABase packages). If samples need to be
-scored against a single gene set, the <code>upSet</code> argument should be used
-to pass the gene set while the <code>downSet</code> argument is set to
-<code>NULL</code>. This setting is ideal for gene sets representing gene
-ontologies where the nature of the genes is unknown (up- or down-regulated).</p>
+expression matrix obtained from the <code><a href='rankGenes.html'>rankGenes()</a></code> function and a
+GeneSetCollection object or a list of GeneSet objects. It returns a list of
+two matrices containing the scores and dispersions. This function should be
+used when scoring needs to be performed for multiple signatures. It is
+faster than applying <code><a href='simpleScore.html'>simpleScore()</a></code> across the different signatures
+independently.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>simpleScore</span>(<span class='no'>rankData</span>, <span class='no'>upSet</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>multiScore</span>(<span class='no'>rankData</span>, <span class='no'>upSetColc</span>, <span class='no'>downSetColc</span>, <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dispersionFun</span> <span class='kw'>=</span> <span class='no'>mad</span>, <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='co'># S4 method for matrix,vector,missing</span>
-<span class='fu'>simpleScore</span>(<span class='no'>rankData</span>, <span class='no'>upSet</span>,
-  <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='co'># S4 method for matrix,GeneSetCollection,missing</span>
+<span class='fu'>multiScore</span>(<span class='no'>rankData</span>,
+  <span class='no'>upSetColc</span>, <span class='no'>downSetColc</span>, <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>dispersionFun</span> <span class='kw'>=</span> <span class='no'>mad</span>, <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='co'># S4 method for matrix,GeneSet,missing</span>
-<span class='fu'>simpleScore</span>(<span class='no'>rankData</span>, <span class='no'>upSet</span>,
-  <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+
+  <span class='co'># S4 method for matrix,GeneSetCollection,GeneSetCollection</span>
+<span class='fu'>multiScore</span>(<span class='no'>rankData</span>,
+  <span class='no'>upSetColc</span>, <span class='no'>downSetColc</span>, <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>dispersionFun</span> <span class='kw'>=</span> <span class='no'>mad</span>, <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='co'># S4 method for matrix,vector,vector</span>
-<span class='fu'>simpleScore</span>(<span class='no'>rankData</span>, <span class='no'>upSet</span>,
-  <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='co'># S4 method for matrix,list,missing</span>
+<span class='fu'>multiScore</span>(<span class='no'>rankData</span>, <span class='no'>upSetColc</span>,
+  <span class='no'>downSetColc</span>, <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>dispersionFun</span> <span class='kw'>=</span> <span class='no'>mad</span>, <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='co'># S4 method for matrix,GeneSet,GeneSet</span>
-<span class='fu'>simpleScore</span>(<span class='no'>rankData</span>, <span class='no'>upSet</span>,
-  <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>dispersionFun</span> <span class='kw'>=</span> <span class='no'>mad</span>, <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='co'># S4 method for matrix,list,list</span>
+<span class='fu'>multiScore</span>(<span class='no'>rankData</span>, <span class='no'>upSetColc</span>, <span class='no'>downSetColc</span>,
+  <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dispersionFun</span> <span class='kw'>=</span> <span class='no'>mad</span>,
+  <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,14 +163,14 @@ ontologies where the nature of the genes is unknown (up- or down-regulated).</p>
 using the <code><a href='rankGenes.html'>rankGenes()</a></code> function</p></td>
     </tr>
     <tr>
-      <th>upSet</th>
-      <td><p>A GeneSet object or character vector of gene IDs of up-regulated
-gene set or a gene set where the nature of genes is not known</p></td>
+      <th>upSetColc</th>
+      <td><p>A GeneSetCollection object or a list of GeneSet objects of
+up-regulated (or mixed, see <code><a href='simpleScore.html'>simpleScore</a></code>) gene sets.</p></td>
     </tr>
     <tr>
-      <th>downSet</th>
-      <td><p>A GeneSet object or character vector of gene IDs of
-down-regulated gene set or NULL where only a single gene set is provided</p></td>
+      <th>downSetColc</th>
+      <td><p>A GeneSetCollection object or a list of GeneSet objects of
+down-regulated gene sets. NULL otherwise.</p></td>
     </tr>
     <tr>
       <th>subSamples</th>
@@ -202,7 +199,7 @@ and downSet(Colc) are provided.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.frame consists of singscores and dispersions for all samples</p>
+    <p>A list of two matrices containing the scores and dispersions</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -211,9 +208,8 @@ and downSet(Colc) are provided.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ranked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rankGenes.html'>rankGenes</a></span>(<span class='no'>toy_expr_se</span>)
-<span class='no'>scoredf</span> <span class='kw'>&lt;-</span> <span class='fu'>simpleScore</span>(<span class='no'>ranked</span>, <span class='kw'>upSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_up</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_dn</span>)
-<span class='co'># toy_gs_up is a GeneSet object, alternatively a vector of gene ids may also</span>
-<span class='co'># be supplied.</span></div></pre>
+<span class='no'>gslist</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>toy_gs_up</span>, <span class='no'>toy_gs_up</span>)
+<span class='no'>gscolc</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>GSEABase</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/GSEABase/topics/GeneSetCollection-methods'>GeneSetCollection</a></span>(<span class='no'>gslist</span>)</div><div class='output co'>#&gt; <span class='error'>Error in validObject(.Object): invalid class “GeneSetCollection” object: each setName must be distinct</span></div><div class='input'><span class='no'>scoredf</span> <span class='kw'>&lt;-</span> <span class='fu'>multiScore</span>(<span class='no'>ranked</span>, <span class='kw'>upSetColc</span> <span class='kw'>=</span> <span class='no'>gscolc</span>)</div><div class='output co'>#&gt; <span class='error'>Error in multiScore(ranked, upSetColc = gscolc): object 'gscolc' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

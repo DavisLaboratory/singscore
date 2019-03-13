@@ -2,11 +2,12 @@
 title: "singscore"
 author: "Ruqian Lyu"
 date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_document:
-    toc: true
+package: singscore
+output:
+  BiocStyle::html_document:
+    toc_float: true
 vignette: >
-  %\VignetteIndexEntry{singscore}
+  %\VignetteIndexEntry{1. Differential co-expression analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   
