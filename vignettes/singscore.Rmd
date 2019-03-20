@@ -23,8 +23,9 @@ bibliography: ../inst/REFERENCES.bib
 
 Install 'singscore' from Bioconductor
 ```{r installationBio, eval=FALSE}
-source("https://bioconductor.org/biocLite.R")
-biocLite("singscore")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("singscore")
 ```
 
 The most updated version of 'singscore' is hosted on GitHub and can be easily installed using
@@ -160,7 +161,7 @@ Similarly, pre-computed scores for the [TCGA](https://cancergenome.nih.gov/) bre
 ```{r loadTCGA,fig.height = 4, fig.width = 8}
 
 tcgaLandscape <- plotScoreLandscape(scoredf_tcga_epi, scoredf_tcga_mes, 
-                   scorenames = c('tcga-EPI','tcga-MES'), isInteractive = FALSE)
+                   scorenames = c('tcga_EPI','tcga_MES'), isInteractive = FALSE)
 
 tcgaLandscape
 
