@@ -1,5 +1,5 @@
 # singscore 1.3.2
-* allow continous and discrete annotations for `plotDispersion` and `projectScoreLandscape`
+* allow continous and discrete annotations for `plotDispersion` and `projectScoreLandscape`. Annotations can now be part of the score data.frame and then specified as a column name
 * plot themes updated
 * citation updated: cite the singscore manuscript
 * number of bins for the hexbin plot in `plotLandscape` is determined from the data
