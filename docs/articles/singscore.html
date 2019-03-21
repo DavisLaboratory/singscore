@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.4</span>
       </span>
     </div>
 
@@ -75,7 +75,7 @@
       <h1>singscore</h1>
                         <h4 class="author">Ruqian Lyu</h4>
             
-            <h4 class="date">2019-03-13</h4>
+            <h4 class="date">2019-03-21</h4>
       
       
       <div class="hidden name"><code>singscore.Rmd</code></div>
@@ -94,8 +94,9 @@
 <h2 class="hasAnchor">
 <a href="#install-singscore-r-package" class="anchor"></a>Install “singscore” R package</h2>
 <p>Install ‘singscore’ from Bioconductor</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
-<span class="kw">biocLite</span>(<span class="st">"singscore"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ns-load">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="dt">quietly=</span><span class="ot">TRUE</span>))
+    <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"BiocManager"</span>)
+BiocManager<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="st">"singscore"</span>)</code></pre></div>
 <p>The most updated version of ‘singscore’ is hosted on GitHub and can be easily installed using <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github()</a></code> function provided by <strong>devtools</strong>, (<a href="https://cran.r-project.org/package=devtools" class="uri">https://cran.r-project.org/package=devtools</a>)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You would need to install 'devtools' package first.</span>
  <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)
@@ -257,7 +258,7 @@ tgfbAnnot<span class="op">$</span>Type</code></pre></div>
 <p><img src="singscore_files/figure-html/loadCCLE-1.png" width="768"></p>
 <p>Similarly, pre-computed scores for the <a href="https://cancergenome.nih.gov/">TCGA</a> breast cancer RNA-seq dataset against epithelial and mesenchymal gene signatures are stored in <code>scoredf_tcga_epi</code> and <code>scoredf_tcga_mes</code> respectively <span class="citation">(Tan et al. 2014)</span>. The utility of this function is enhanced when the number of samples is large.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tcgaLandscape &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plotScoreLandscape.html">plotScoreLandscape</a></span>(scoredf_tcga_epi, scoredf_tcga_mes, 
-                   <span class="dt">scorenames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'tcga-EPI'</span>,<span class="st">'tcga-MES'</span>), <span class="dt">isInteractive =</span> <span class="ot">FALSE</span>)
+                   <span class="dt">scorenames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'tcga_EPI'</span>,<span class="st">'tcga_MES'</span>), <span class="dt">isInteractive =</span> <span class="ot">FALSE</span>)
 
 tcgaLandscape</code></pre></div>
 <p><img src="singscore_files/figure-html/loadTCGA-1.png" width="768"></p>
@@ -420,7 +421,7 @@ pvals</code></pre></div>
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] hexbin_1.27.2        singscore_1.4.0      GSEABase_1.42.0     
+##  [1] hexbin_1.27.2        singscore_1.3.4      GSEABase_1.42.0     
 ##  [4] graph_1.58.0         annotate_1.58.0      XML_3.98-1.11       
 ##  [7] AnnotationDbi_1.44.0 IRanges_2.14.10      S4Vectors_0.18.3    
 ## [10] Biobase_2.40.0       BiocGenerics_0.26.0  BiocStyle_2.8.2     
@@ -507,7 +508,7 @@ pvals</code></pre></div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Momeneh Foroutan, Dharmesh Bhuva, Ruqian Lyu.</p>
+  <p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
 </div>
 
 <div class="pkgdown">
