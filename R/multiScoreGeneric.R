@@ -20,7 +20,10 @@ NULL
 #'
 #' @examples
 #' ranked <- rankGenes(toy_expr_se)
-#' gslist <- list(toy_gs_up, toy_gs_up)
+#' setName(toy_gs_up)  = "toy_gs_up"
+#' setName(toy_gs_dn)  = "toy_gs_dn"
+#' gslist <- list(toy_gs_up, toy_gs_dn)
+#' 
 #' gscolc <- GSEABase::GeneSetCollection(gslist)
 #' scoredf <- multiScore(ranked, upSetColc = gscolc)
 #'@seealso \code{\link{rank}} \code{"\linkS4class{GeneSet}"}
