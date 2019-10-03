@@ -31,8 +31,10 @@ default as NULL and all samples in scoredfs will be plotted. The subsetted
 samples are projected onto the landscape plot of \code{plotObj}.}
 
 \item{sampleLabels}{vector of character, sample names to display, ordered in
-the same way as samples are ordered in the 'scoredfs' data matrix, default
-as NULL which means the projected points are not labelled.}
+the same way as samples are ordered in the 'scoredfs' data.frames and with
+labels for all samples. Samples whose labels should not be displayed should
+be left as empty strings or NAs. Default as NULL which means the projected
+points are not labelled.}
 
 \item{isInteractive}{boolean, whether the plot is interactive default as
 FALSE}

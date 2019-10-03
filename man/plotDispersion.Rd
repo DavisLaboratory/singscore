@@ -4,8 +4,9 @@
 \alias{plotDispersion}
 \title{Plot the score v.s. despersion for all samples}
 \usage{
-plotDispersion(scoredf, annot = NULL, annot_name = "", alpha = 1,
-  size = 1, textSize = 1.2, isInteractive = FALSE)
+plotDispersion(scoredf, annot = NULL, annot_name = "",
+  sampleLabels = NULL, alpha = 1, size = 1, textSize = 1.2,
+  isInteractive = FALSE)
 }
 \arguments{
 \item{scoredf}{data.frame, generated using the \code{\link[=simpleScore]{simpleScore()}} function}
@@ -16,6 +17,12 @@ column of scoredf holding the annotation. Annotations must be ordered in the
 same way as the scores}
 
 \item{annot_name}{character, legend title for the annotation}
+
+\item{sampleLabels}{vector of character, sample names to display, ordered in
+the same way as samples are ordered in the 'scoredf' data.frame and with
+labels for all samples. Samples whose labels should not be displayed should
+be left as empty strings or NAs. Default as NULL which means the projected
+points are not labelled.}
 
 \item{alpha}{numeric, set the transparency of points}
 

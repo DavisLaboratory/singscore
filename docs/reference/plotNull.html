@@ -68,7 +68,7 @@ sample or multiple samples." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
       </span>
     </div>
 
@@ -177,28 +177,30 @@ distributions will be plotted</p></td>
 #&gt; class: MulticoreParam
 #&gt;   bpisup: FALSE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
-#&gt;   bptimeout: 2592000; bpprogressbar: FALSE
-#&gt;   bpRNGseed: 1
+#&gt;   bpRNGseed: 1; bptimeout: 2592000; bpprogressbar: FALSE
+#&gt;   bpexportglobals: TRUE
 #&gt;   bplogdir: NA
 #&gt;   bpresultdir: NA
 #&gt;   cluster type: FORK
 #&gt; 
 #&gt; $SnowParam
 #&gt; class: SnowParam
-#&gt;   bpisup: FALSE; bpnworkers: 44; bptasks: 0; bpjobname: BPJOB
+#&gt;   bpisup: FALSE; bpnworkers: 30; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
-#&gt;   bptimeout: 2592000; bpprogressbar: FALSE
-#&gt;   bpRNGseed: 
+#&gt;   bpRNGseed: ; bptimeout: 2592000; bpprogressbar: FALSE
+#&gt;   bpexportglobals: TRUE
 #&gt;   bplogdir: NA
 #&gt;   bpresultdir: NA
 #&gt;   cluster type: SOCK
 #&gt; 
 #&gt; $SerialParam
 #&gt; class: SerialParam
-#&gt;   bpisup: TRUE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB
+#&gt;   bpisup: FALSE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
-#&gt;   bptimeout: 2592000; bpprogressbar: FALSE
+#&gt;   bpRNGseed: ; bptimeout: 2592000; bpprogressbar: FALSE
+#&gt;   bpexportglobals: TRUE
 #&gt;   bplogdir: NA
+#&gt;   bpresultdir: NA
 #&gt; </div><div class='input'><span class='co'># the first one is the default backend, and it can be changed explicitly.</span>
 <span class='no'>permuteResult</span> <span class='kw'>=</span> <span class='fu'><a href='generateNull.html'>generateNull</a></span>(<span class='kw'>upSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_up</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_dn</span>, <span class='no'>ranked</span>,
 <span class='kw'>B</span> <span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1</span>,<span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)

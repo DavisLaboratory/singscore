@@ -72,7 +72,7 @@ and rows names as samples." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
       </span>
     </div>
 
@@ -132,8 +132,9 @@ and rows names as samples.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotDispersion</span>(<span class='no'>scoredf</span>, <span class='kw'>annot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annot_name</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>textSize</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>isInteractive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>plotDispersion</span>(<span class='no'>scoredf</span>, <span class='kw'>annot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annot_name</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>sampleLabels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>textSize</span> <span class='kw'>=</span> <span class='fl'>1.2</span>,
+  <span class='kw'>isInteractive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,6 +153,14 @@ same way as the scores</p></td>
     <tr>
       <th>annot_name</th>
       <td><p>character, legend title for the annotation</p></td>
+    </tr>
+    <tr>
+      <th>sampleLabels</th>
+      <td><p>vector of character, sample names to display, ordered in
+the same way as samples are ordered in the 'scoredf' data.frame and with
+labels for all samples. Samples whose labels should not be displayed should
+be left as empty strings or NAs. Default as NULL which means the projected
+points are not labelled.</p></td>
     </tr>
     <tr>
       <th>alpha</th>

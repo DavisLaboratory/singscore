@@ -1,23 +1,6 @@
 #' @include singscore.R
 NULL
 
-#' Rank gene expression matrix
-#' @description Given a gene expression matrix and a tiesMethod (character),
-#'   this fucntion calls the 'rank' function from 'base' package which ranks the
-#'   gene expression matrix by gene's expression level. The default tiesMethod
-#'   is 'min'. There is a generic version of this function, details can be found
-#'   via the link in the see also section down at the bottom. It is suggested to
-#'   use the generic function 'rankExpr' which can accept multiple data formats
-#'   as input.
-#' @param exprsM A matrix, gene expression matrix
-#' @param tiesMethod A character, default as 'min'
-#' @return A matrix that has samples in colunm and genes in rows. Values are the
-#'   ranks of each gene in each sample.
-#' @keywords internal
-#' @seealso
-#' [rankGenes()]
-#' @examples
-#' \dontrun{ranked <- rankExpr(toy_expr_se)}
 rankExpr <- function(exprsM, tiesMethod = "min") {
   rname<- rownames(exprsM)
   cname <- colnames(exprsM)

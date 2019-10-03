@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 'singscore' is an R/Bioconductor package which implements the simple single-sample gene-set (or gene-signature) scoring method proposed by Foroutan *et al.* (2018). It uses rank-based statistics to analyze each sample's gene expression profile and scores the expression activities of gene sets at a single-sample level.
 
+We have written up a **new** workflow package demonstrating application of singscore to infer mutation status in the TCGA acute myeloid leukemia cohort. Refer to the published workflow at <https://f1000research.com/articles/8-776/v2>. It is also available as a R/Bioconductor workflow package `SingscoreAMLMutations`.
+
 ## Getting Started
 
 These instructions will get you to install the package up and running on your local machine. If you experience any issues, please raise a GitHub issue at <https://github.com/DavisLaboratory/singscore/issues>.

@@ -91,6 +91,11 @@ getColorScale <- function(annot) {
 #' column of scoredf holding the annotation. Annotations must be ordered in the
 #' same way as the scores
 #' @param annot_name character, legend title for the annotation
+#' @param sampleLabels vector of character, sample names to display, ordered in
+#'   the same way as samples are ordered in the 'scoredf' data.frame and with
+#'   labels for all samples. Samples whose labels should not be displayed should
+#'   be left as empty strings or NAs. Default as NULL which means the projected
+#'   points are not labelled.
 #' @param alpha numeric, set the transparency of points
 #' @param size numeric, set the size of each point
 #' @param textSize numeric, relative text sizes for title, labels, and axis
@@ -103,7 +108,7 @@ getColorScale <- function(annot) {
 #' plotDispersion(scoredf, isInteractive = TRUE)
 #' @return A ggplot object
 #' @export
-plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
+plotDispersion <- function(scoredf, annot = NULL, annot_name = '', sampleLabels = NULL, alpha = 1,
                            size = 1, textSize = 1.2, isInteractive=FALSE){
   #parameter type checks
   stopifnot(is.numeric(alpha), is.numeric(size), is.numeric(textSize),
@@ -117,12 +122,28 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
     annot_name = annot
   }
   annot = processAnnotation(scoredf, annot)
+  
+  #sample labelling
+  sampleText = ''
+  if (is.null(sampleLabels)) {
+    sampleLabels = ""
+    sampleText = rownames(scoredf)
+  } else{
+    if (length(sampleLabels) != nrow(scoredf))
+      stop(
+        "sampleLabels must contain the same number of labels with the number of samples in scoredf"
+      )
+    sampleLabels[is.na(sampleLabels)] = ""
+    sampleText = paste(paste('SampleID', rownames(scoredf), sep = ': '),
+                       paste('Label', sampleLabels, sep = ': '), sep = '\n')
+  }
 
   #transform data for plot
   plotdf = scoredf
-  plotdf['SampleID'] = rownames(plotdf)
   plotdf['Class'] = annot
   plotdf['Type'] = 'Total'
+  plotdf['SampleLabel'] = sampleLabels
+  plotdf['SampleText'] = sampleText
 
   #for up-down signatures, melt the dataframe
   score_cols = isScoreCol(colnames(plotdf))
@@ -143,7 +164,7 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
   plotdf$Type = factor(plotdf$Type, levels = c('Total', 'Up', 'Down'))
 
   #setup plot
-  p1 = ggplot(plotdf, aes(Score, Dispersion, colour = Class, text = SampleID)) +
+  p1 = ggplot(plotdf, aes(Score, Dispersion, colour = Class, text = SampleText)) +
     ggtitle('Score vs Dispersion') +
     geom_point(size = size, alpha = alpha) + #add scatter layer
     getColorScale(annot) + #add colour layer
@@ -164,6 +185,7 @@ plotDispersion <- function(scoredf, annot = NULL, annot_name = '', alpha = 1,
     ply = plotly::ggplotly(p1)
     return(ply)
   } else{
+    p1 = p1 + ggrepel::geom_label_repel(aes(label = SampleLabel), show.legend = FALSE)
     return(p1)
   }
 }
@@ -271,8 +293,10 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
 #'   default as NULL and all samples in scoredfs will be plotted. The subsetted
 #'   samples are projected onto the landscape plot of `plotObj`.
 #' @param sampleLabels vector of character, sample names to display, ordered in
-#'   the same way as samples are ordered in the 'scoredfs' data matrix, default
-#'   as NULL which means the projected points are not labelled.
+#'   the same way as samples are ordered in the 'scoredfs' data.frames and with
+#'   labels for all samples. Samples whose labels should not be displayed should
+#'   be left as empty strings or NAs. Default as NULL which means the projected
+#'   points are not labelled.
 #' @param annot any numeric, character or factor annotation provided by the user
 #'   that needs to be plot. Alternatively, this can be a character specifying
 #'   the column of scoredf1 holding the annotation. Annotations must be ordered
@@ -328,14 +352,19 @@ projectScoreLandscape <- function(plotObj = NULL,
     }
   }
 
-  #if no sample labels are provided
+  #sample labelling
+  sampleText = ''
   if (is.null(sampleLabels)) {
     sampleLabels = ""
+    sampleText = rownames(scoredf1)
   } else{
     if (length(sampleLabels) != nrow(scoredf1))
       stop(
         "sampleLabels must contain the same number of labels with the number of samples in scoredf"
       )
+    sampleLabels[is.na(sampleLabels)] = ""
+    sampleText = paste(paste('SampleID', rownames(scoredf1), sep = ': '),
+                       paste('Label', sampleLabels, sep = ': '), sep = '\n')
   }
 
   #process annotations - set annot_name to annot if its a column reference
@@ -350,13 +379,14 @@ projectScoreLandscape <- function(plotObj = NULL,
     'sc1' = scoredf1$TotalScore,
     'sc2' = scoredf2$TotalScore,
     'SampleLabel' = sampleLabels,
+    'SampleText' = sampleText,
     'Class' = annot
   )
 
   #setup plot
   p1 = plotObj +
     geom_point(
-      aes(text = SampleLabel, colour = Class),
+      aes(text = SampleText, colour = Class),
       shape = 21,
       fill = 'white',
       size = 2,

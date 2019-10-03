@@ -1,3 +1,7 @@
+# singscore 1.5.1
+* added link to the F1000research published workflow that demonstrates usage of singscore on a real dataset (https://f1000research.com/articles/8-776/v2)
+* allow labelling of samples on dispersion plots (`plotDispersion`) in a similar manner to landscape plots (`projectScoreLandscape`)
+
 # singscore 1.3.2
 * allow continous and discrete annotations for `plotDispersion` and `projectScoreLandscape`. Annotations can now be part of the score data.frame and then specified as a column name
 * plot themes updated
