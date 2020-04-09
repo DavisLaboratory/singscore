@@ -7,19 +7,19 @@ output:
   BiocStyle::html_document:
     toc_float: true
 vignette: >
-  %\VignetteIndexEntry{1. Differential co-expression analysis}
+  %\VignetteIndexEntry{Single sample scoring}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   
 bibliography: ../inst/REFERENCES.bib
 ---
 
-## Introduction 
+# Introduction 
    This vignette demonstrates how to use the functions in R package 'singscore' to score a gene expression dataset against a gene set at a single-sample level and provides visualisation functions to improve interpretation of the results.
    
   `singscore` implements a simple single-sample gene-set (gene-signature) scoring method which scores individual samples independently without relying on other samples in gene expression datasets. It provides stable scores which are less likely to be affected by varying sample and gene sizes in datasets and unwanted variations across samples. The scoring method uses a rank-based statistics and is quick to compute. For details of the methods please refer to the paper [@Foroutan231217]. It also provides various visualisation functions to further explore results of the analysis.
 
-## Install "singscore" R package
+# Install "singscore" R package
 
 Install 'singscore' from Bioconductor
 ```{r installationBio, eval=FALSE}
@@ -42,8 +42,8 @@ The most updated version of 'singscore' is hosted on GitHub and can be easily in
 # Set build_vignette = TRUE if would like to browseVignette()
 ```
 
-##Scoring samples against a gene-set
-### Load datasets
+#Scoring samples against a gene-set
+## Load datasets
 
 To illustrate the usage of 'simpleScore()', we first need to load the example datasets. The datasets used in this vignette have been built within the package. You can use the following scripts to load them into your R environment. Detailed steps of obtaining the full datasets are included at the end of the vignette. The 'tgfb_expr_10_se' dataset was obtained from [@Foroutanmolcanres.0313.2016] and it is a ten-sample subset of the original dataset. We are going to score the integrated TGFb-treated gene expression dataset (4 cases and 6 controls) against a TGFb gene signature with an up-regulated and down-regulated gene-set pair [@Foroutanmolcanres.0313.2016]. 
 
@@ -76,7 +76,7 @@ length(GSEABase::geneIds(tgfb_gs_dn))
 ```
 
 
-### Sample Scoring
+## Sample Scoring
 To score samples, the gene expression dataset first needs to be ranked using the `rankGenes()` function which returns a rank matrix. This matrix along with the signatures are then passed to the `simpleScore()` function which returns a data.frame containing the scores for each sample. When only a single gene-set is available (i.e. not an up- and down- regulated pair), the same function can be called by setting the `upSet` argument to the gene-set.
 
 
@@ -99,11 +99,11 @@ scoredf
 ```
 The returned data.frame consists of the scores for the up- and down- regulated gene-sets along with the combined score (`TotalScore`). Dispersion is calculated using the `mad` function by default and can be substituted by passing another function to the `dispersionFun` argument in `simpleScore()` such as `IQR` to calculate the inter-quartile range.
 
-## Visualisation and diagnostic functions
+# Visualisation and diagnostic functions
 
 In this section, we show example usages of the visualisation functions included in this package.
 
-### Plot Rank Densities
+## Plot Rank Densities
 Scores of each sample are stored in `scoredf`. We can use the `plotRankDensity` function to plot the ranks of genes in the gene-sets for a specific sample. We plot the rank distribution for the second sample in `rankData` which combines a density plot (densities calculated using KDE) with a barcode plot. Please note that since we are subsetting the data.frame rankData by one column, we set `drop = FALSE` to maintain the structure of the data.frame/matrix.
 
 
@@ -119,7 +119,7 @@ plotRankDensity(rankData[,2,drop = FALSE], upSet = tgfb_gs_up,
 Setting `isInteractive = TRUE` generates an interactive plot using the `plotly` package. Hovering over the bars in the interactive plot allows you to get information such as the normalised rank (between 0 and 1) and ID of the gene represented by the bar. For the rest of the plotting functions, the `isInteractive = TRUE` argument has the same behavior.
 
 
-### Plot dispersions of scores
+## Plot dispersions of scores
 Function `plotDispersion` generates the scatter plots of the 'score VS. dispersions' for the total scores, the up scores and the down score of samples. It requires the scored data.frame from `simpleScore` function and annotations (via `annot` parameter) can be used for coloring the points. 
 ```{r plotds, fig.height = 4, fig.width = 8}
 #  Get the annotations of samples by their sample names
@@ -140,7 +140,7 @@ plotDispersion(scoredf,annot = tgfbAnnot$Type,isInteractive = FALSE)
 
 
 ``` 
-### Plot score landscape
+## Plot score landscape
 
 `plotScoreLandscape` plots the scores of the samples against two different gene signatures in a landscape for exploring their relationships.
 
@@ -195,9 +195,9 @@ projectScoreLandscape(plotObj = tcgaLandscape, scoredf_ccle_epi, scoredf_ccle_me
 
 ```
 
-## Estimate empirical p-values for the obtained scores in individual samples and plot null distributions
+# Estimate empirical p-values for the obtained scores in individual samples and plot null distributions
 
-### Permutation test
+## Permutation test
 
 Hypothesis testing of the calculated scores is performed using a permutation test. The null hypothesis is that the gene-set is not enriched in the sample. For each sample, gene labels are randomly shuffled and scores computed against the gene-set. This is done $B$ times to generate the null distribution. The `generateNull()` function computes these for multiple samples ($n$) simultaneously resulting in an $n \times B$ matrix with permuted scores along the columns for each sample.
 
@@ -243,7 +243,7 @@ permuteResult <- generateNull(upSet = tgfb_gs_up, downSet = tgfb_gs_dn,
 head(permuteResult)
 ```
 
-### Estimate empirical p-values
+## Estimate empirical p-values
 
 $p$-values can be estimated using the `getPvals()` function by providing the null distributions calculated above. Unless all permutations are exhausted (mostly infeasible), the minimum $p$-value obtained is $\frac{1}{B}$.
 
@@ -254,7 +254,7 @@ pvals <- getPvals(permuteResult,scoredf[1:5,,drop = FALSE])
 # show the p-values for first 5 samples
 pvals
 ```
-### Plot null distribution
+## Plot null distribution
 
 Plot the null distributions for the first sample with the estimated $p$-value labelled. The function uses the `sampleNames` parameter to decide which samples to plot.
 
@@ -274,7 +274,7 @@ You can provide multiple sample names to plot these samples in one plot. For exa
 plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1:2])
 ```
 
-## More on the datasets 
+# More on the datasets 
 
 1. TGFb-EMT data
 
@@ -297,7 +297,7 @@ head(scoredf_ccle_epi)
 head(scoredf_tcga_epi)
 ```
 
-## Session Info
+# Session Info
 ```{r sessionInfo}
 sessionInfo()
 ```
