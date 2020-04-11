@@ -3,7 +3,6 @@
 \docType{package}
 \name{singscore}
 \alias{singscore}
-\alias{singscore-package}
 \title{singscore: A package for deriving gene-set scores at a single sample level}
 \description{
 The package provides functions for calculating gene-set enrichment scores at

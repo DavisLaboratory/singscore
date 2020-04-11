@@ -4,8 +4,13 @@
 \alias{plotRankDensity_intl}
 \title{Plot the densities of ranks for one sample}
 \usage{
-plotRankDensity_intl(rankData, upSet, downSet = NULL,
-  isInteractive = FALSE, textSize = 1.2)
+plotRankDensity_intl(
+  rankData,
+  upSet,
+  downSet = NULL,
+  isInteractive = FALSE,
+  textSize = 1.2
+)
 }
 \arguments{
 \item{rankData}{one column of the ranked gene expression matrix obtained from

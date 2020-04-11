@@ -2,14 +2,30 @@
 NULL
 
 rankExpr <- function(exprsM, tiesMethod = "min") {
-  rname<- rownames(exprsM)
-  cname <- colnames(exprsM)
-  rankedData <- matrixStats::colRanks(as.matrix(exprsM),
+  rname= rownames(exprsM)
+  cname = colnames(exprsM)
+  rankedData = matrixStats::colRanks(as.matrix(exprsM),
                                       ties.method = tiesMethod,
                                       preserveShape = TRUE)
-  rownames(rankedData) <- rname
-  colnames(rankedData) <- cname
+  rownames(rankedData) = rname
+  colnames(rankedData) = cname
   return (rankedData)
+}
+
+rankExprStable <- function(exprsM, tiesMethod = "min", stgenes) {
+  stgenes = intersect(stgenes, rownames(exprsM))
+  stopifnot(length(stgenes) > 0)
+  
+  rname = rownames(exprsM)
+  cname = colnames(exprsM)
+  
+  rankedData = apply(exprsM, 2, function(x) {
+    rowSums(outer(x, x[stgenes], '>')) + 1
+  })
+  
+  rownames(rankedData) = rname
+  colnames(rankedData) = cname
+  return(rankedData)
 }
 
 #define the main helper functions

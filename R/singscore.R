@@ -15,6 +15,7 @@
 #' @import grDevices
 #' @importFrom magrittr "%>%"
 #' @importFrom S4Vectors endoapply
+#' @importFrom reshape2 acast
 #' @importClassesFrom edgeR DGEList
 #' @importClassesFrom Biobase ExpressionSet
 #' @import SummarizedExperiment

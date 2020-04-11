@@ -4,7 +4,9 @@
 \name{toy_gs_up}
 \alias{toy_gs_up}
 \title{A gene set object of up-regulated genes for the toy dataset}
-\format{A GeneSet object with 5 genes}
+\format{
+A GeneSet object with 5 genes
+}
 \usage{
 toy_gs_up
 }

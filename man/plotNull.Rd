@@ -4,8 +4,15 @@
 \alias{plotNull}
 \title{Plot the empirically estimated null distribution and associated p-values}
 \usage{
-plotNull(permuteResult, scoredf, pvals, sampleNames = NULL,
-  cutoff = 0.01, textSize = 2, labelSize = 5)
+plotNull(
+  permuteResult,
+  scoredf,
+  pvals,
+  sampleNames = NULL,
+  cutoff = 0.01,
+  textSize = 2,
+  labelSize = 5
+)
 }
 \arguments{
 \item{permuteResult}{A matrix, null distributions for each sample generated

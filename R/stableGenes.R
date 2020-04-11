@@ -1,4 +1,4 @@
-#' Get a list of stably expressed genes
+#' @title Get a list of stably expressed genes
 #'
 #' @description Get a list of genes that are stably expressed in cancer and
 #'   normal solid tissue.
@@ -17,6 +17,7 @@
 #' getStableGenes(5)
 #' getStableGenes(5, id = 'ensembl')
 #' getStableGenes(5, type = 'blood')
+#' 
 getStableGenes <- function(n_stable, type = c('carcinoma', 'blood'), id = c('geneid', 'ensembl')) {
   #get params
   type = match.arg(type)
@@ -31,7 +32,7 @@ getStableGenes <- function(n_stable, type = c('carcinoma', 'blood'), id = c('gen
   #compute combined ranks
   rankmat = st_ranks[, c(id, 'type')]
   rankmat$prodrank = rowSums(log(st_ranks[, dsnames]))
-  rankmat = reshape2::acast(rankmat, formula(paste(id, 'type', sep = '~')), value.var = 'prodrank')
+  rankmat = reshape2::acast(rankmat, stats::formula(paste(id, 'type', sep = '~')), value.var = 'prodrank')
   rankmat = apply(rankmat, 2, rank, na.last = 'keep')
   rankmat = rankmat[!is.na(rankmat[, 'strank']), , drop = FALSE]
   rankmat = rankmat[rankmat[, 'strank'] <= n_stable, ]

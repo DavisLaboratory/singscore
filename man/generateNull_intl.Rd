@@ -4,9 +4,17 @@
 \alias{generateNull_intl}
 \title{Permutation test for the derived scores of each sample}
 \usage{
-generateNull_intl(upSet, downSet = NULL, rankData, centerScore = TRUE,
-  knownDirection = TRUE, B = 1000, ncores = 1,
-  seed = sample.int(1e+06, 1), useBPPARAM = NULL)
+generateNull_intl(
+  upSet,
+  downSet = NULL,
+  rankData,
+  centerScore = TRUE,
+  knownDirection = TRUE,
+  B = 1000,
+  ncores = 1,
+  seed = sample.int(1e+06, 1),
+  useBPPARAM = NULL
+)
 }
 \arguments{
 \item{downSet}{A GeneSet object, down regulated gene set}

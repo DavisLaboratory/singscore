@@ -4,9 +4,11 @@
 \name{toy_expr_se}
 \alias{toy_expr_se}
 \title{A toy gene expression dataset of two samples}
-\format{A SummarizedExperiment of 2 samples each with 20 genes \describe{
+\format{
+A SummarizedExperiment of 2 samples each with 20 genes \describe{
 \item{D_Ctrl_R1}{a control sample} \item{D_TGFb_R1}{a TGFb-treated sample}
-}}
+}
+}
 \source{
 \href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al.,2017}
 }

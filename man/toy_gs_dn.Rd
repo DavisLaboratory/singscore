@@ -4,7 +4,9 @@
 \name{toy_gs_dn}
 \alias{toy_gs_dn}
 \title{A gene set object of down-regulated genes for the toy dataset}
-\format{A GSEABase::GeneSet object with 5 genes}
+\format{
+A GSEABase::GeneSet object with 5 genes
+}
 \usage{
 toy_gs_dn
 }

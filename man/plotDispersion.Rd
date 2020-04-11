@@ -4,9 +4,16 @@
 \alias{plotDispersion}
 \title{Plot the score v.s. despersion for all samples}
 \usage{
-plotDispersion(scoredf, annot = NULL, annot_name = "",
-  sampleLabels = NULL, alpha = 1, size = 1, textSize = 1.2,
-  isInteractive = FALSE)
+plotDispersion(
+  scoredf,
+  annot = NULL,
+  annot_name = "",
+  sampleLabels = NULL,
+  alpha = 1,
+  size = 1,
+  textSize = 1.2,
+  isInteractive = FALSE
+)
 }
 \arguments{
 \item{scoredf}{data.frame, generated using the \code{\link[=simpleScore]{simpleScore()}} function}

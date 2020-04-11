@@ -4,7 +4,9 @@
 \name{tgfb_expr_10_se}
 \alias{tgfb_expr_10_se}
 \title{An example gene expression dataset}
-\format{A SummarizedExperiment object}
+\format{
+A SummarizedExperiment object
+}
 \source{
 \href{http://mcr.aacrjournals.org/content/early/2017/01/21/1541-7786.MCR-16-0313}{Foroutan et al,2017}
 }
