@@ -60,7 +60,7 @@ simpleScore(
 }
 \arguments{
 \item{rankData}{A matrix object, ranked gene expression matrix data generated
-using the \code{\link[=rankGenes]{rankGenes()}} function}
+using the \code{\link[=rankGenes]{rankGenes()}} function (make sure this matrix is not modified)}
 
 \item{upSet}{A GeneSet object or character vector of gene IDs of up-regulated
 gene set or a gene set where the nature of genes is not known}
@@ -87,14 +87,14 @@ and downSet(Colc) are provided.}
 A data.frame consists of singscores and dispersions for all samples
 }
 \description{
-This function computes 'singscores' using a ranked gene
-expression matrix obtained from the \code{\link[=rankGenes]{rankGenes()}} function and a gene set or
-a pair of up-regulated and down-regulated gene sets. It returns a data.frame
-of scores and dispersions for each sample. The gene sets can be in vector
-format or as GeneSet objects (from GSEABase packages). If samples need to be
-scored against a single gene set, the \code{upSet} argument should be used
-to pass the gene set while the \code{downSet} argument is set to
-\code{NULL}. This setting is ideal for gene sets representing gene
+This function computes 'singscores' using an \strong{unmodified}ranked
+gene expression matrix obtained from the \code{\link[=rankGenes]{rankGenes()}} function and a gene
+set or a pair of up-regulated and down-regulated gene sets. It returns a
+data.frame of scores and dispersions for each sample. The gene sets can be
+in vector format or as GeneSet objects (from GSEABase packages). If samples
+need to be scored against a single gene set, the \code{upSet} argument
+should be used to pass the gene set while the \code{downSet} argument is set
+to \code{NULL}. This setting is ideal for gene sets representing gene
 ontologies where the nature of the genes is unknown (up- or down-regulated).
 }
 \examples{

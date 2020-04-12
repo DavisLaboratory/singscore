@@ -65,22 +65,22 @@ test_that("Stable genes based ranking", {
   matrixData = matrix(c(1,2,5,5))
   rownames(matrixData) = LETTERS[1:4]
   
-  expect_equal(as.vector(rankGenes(matrixData, stableGenes = c('A', 'C'))), c(1, 2, 2, 2))
+  expect_equal(as.vector(rankGenes(matrixData, stableGenes = c('A', 'C'))), c(1, 2, 2, 2) / 3)
   expect_equal(as.vector(rankGenes(
     data.frame(matrixData), stableGenes = c('A', 'C')
-  )), c(1, 2, 2, 2))
+  )), c(1, 2, 2, 2) / 3)
   expect_equal(as.vector(rankGenes(
     edgeR::DGEList(matrixData), stableGenes = c('A', 'C')
-  )), c(1, 2, 2, 2))
+  )), c(1, 2, 2, 2) / 3)
   expect_equal(as.vector(rankGenes(
     Biobase::ExpressionSet(matrixData), stableGenes = c('A', 'C')
-  )), c(1, 2, 2, 2))
+  )), c(1, 2, 2, 2) / 3)
   expect_equal(as.vector(
     rankGenes(
       SummarizedExperiment::SummarizedExperiment(assays = list(matrixData)),
       stableGenes = c('A', 'C')
     )
-  ), c(1, 2, 2, 2))
+  ), c(1, 2, 2, 2) / 3)
 })
 
 test_that(" input checkings work for rankGenes", {

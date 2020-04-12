@@ -3,18 +3,18 @@ NULL
 
 #'@title single-sample gene-set scoring method
 #'
-#'@description This function computes 'singscores' using a ranked gene
-#'  expression matrix obtained from the [rankGenes()] function and a gene set or
-#'  a pair of up-regulated and down-regulated gene sets. It returns a data.frame
-#'  of scores and dispersions for each sample. The gene sets can be in vector
-#'  format or as GeneSet objects (from GSEABase packages). If samples need to be
-#'  scored against a single gene set, the \code{upSet} argument should be used
-#'  to pass the gene set while the \code{downSet} argument is set to
-#'  \code{NULL}. This setting is ideal for gene sets representing gene
+#'@description This function computes 'singscores' using an **unmodified**ranked
+#'  gene expression matrix obtained from the [rankGenes()] function and a gene
+#'  set or a pair of up-regulated and down-regulated gene sets. It returns a
+#'  data.frame of scores and dispersions for each sample. The gene sets can be
+#'  in vector format or as GeneSet objects (from GSEABase packages). If samples
+#'  need to be scored against a single gene set, the \code{upSet} argument
+#'  should be used to pass the gene set while the \code{downSet} argument is set
+#'  to \code{NULL}. This setting is ideal for gene sets representing gene
 #'  ontologies where the nature of the genes is unknown (up- or down-regulated).
 #'
 #'@param rankData A matrix object, ranked gene expression matrix data generated
-#'  using the [rankGenes()] function
+#'  using the [rankGenes()] function (make sure this matrix is not modified)
 #'@param subSamples A vector of sample labels/indices that will be used to
 #'  subset the rankData matrix. All samples will be scored if not provided
 #'@param upSet A GeneSet object or character vector of gene IDs of up-regulated

@@ -60,7 +60,7 @@ multiScore(
 }
 \arguments{
 \item{rankData}{A matrix object, ranked gene expression matrix data generated
-using the \code{\link[=rankGenes]{rankGenes()}} function}
+using the \code{\link[=rankGenes]{rankGenes()}} function (make sure this matrix is not modified)}
 
 \item{upSetColc}{A GeneSetCollection object or a list of GeneSet objects of
 up-regulated (or mixed, see \code{\link{simpleScore}}) gene sets.}

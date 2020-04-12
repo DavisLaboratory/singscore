@@ -9,6 +9,9 @@ rankExpr <- function(exprsM, tiesMethod = "min") {
                                       preserveShape = TRUE)
   rownames(rankedData) = rname
   colnames(rankedData) = cname
+  
+  #indicator of the type of ranks
+  attr(rankedData, 'stable') = FALSE
   return (rankedData)
 }
 
@@ -29,6 +32,9 @@ rankExprStable <- function(exprsM, tiesMethod = "min", stgenes) {
   
   rownames(rankedData) = rname
   colnames(rankedData) = cname
+  
+  #indicator of the type of ranks
+  attr(rankedData, 'stable') = TRUE
   return(rankedData)
 }
 
@@ -61,33 +67,38 @@ checkGenesMulti <- function(geneset_colc, background) {
 
 #helper: compute the theoretical boundaries of scores when direction is KNOWN.
 # Should be used after filtering out missing genes
-calcBounds <- function(gsSize, bgSize) {
-  lowBound = (gsSize + 1) / 2
-  upBound = (2 * bgSize - gsSize + 1) / 2
+calcBounds <- function(gsSize, bgSize, stableSc = FALSE) {
+  if (stableSc) {
+    lowBound = 0
+    upBound = 1
+  } else {
+    lowBound = (gsSize + 1) / 2
+    upBound = (2 * bgSize - gsSize + 1) / 2
+  }
 
   return(list('lowBound' = lowBound, 'upBound' = upBound))
 }
 
-calcBoundsMulti <- function(gsSizes, bgSize) {
-  bounds = lapply(gsSizes, calcBounds, bgSize)
+calcBoundsMulti <- function(gsSizes, bgSize, stableSc = FALSE) {
+  bounds = lapply(gsSizes, calcBounds, bgSize, stableSc)
 
   return(bounds)
 }
 
 #helper: compute the theoretical boundaries of scores when direction is UNKNOWN.
 # Should be used after filtering out missing genes
-calcBoundsUnknownDir <- function(gsSize, bgSize) {
+calcBoundsUnknownDir <- function(gsSize, bgSize, stableSc = FALSE) {
   gsSize = floor(gsSize / 2) #number of unique ranks in the geneset
   bgSize = ceiling(bgSize / 2) #number of unique ranks in the matrix
 
-  return(calcBounds(gsSize, bgSize))
+  return(calcBounds(gsSize, bgSize, stableSc))
 }
 
-calcBoundsUnknownDirMulti <- function(gsSizes, bgSize) {
+calcBoundsUnknownDirMulti <- function(gsSizes, bgSize, stableSc = FALSE) {
   gsSizes = floor(gsSizes / 2) #number of unique ranks in the geneset
   bgSize = ceiling(bgSize / 2) #number of unique ranks in the matrix
 
-  return(calcBoundsMulti(gsSizes, bgSize))
+  return(calcBoundsMulti(gsSizes, bgSize, stableSc))
 }
 
 #helper: empty data frame of results
@@ -153,6 +164,8 @@ singleSingscore <-
             centerScore = TRUE,
             dispersionFun = mad,
             knownDirection = TRUE) {
+    #0. determine type of singscore being used
+    stableSc = attr(rankData, 'stable')
 
     #1. subset the data for samples whose calculation is to be performed
     if (!is.null(subSamples)) {
@@ -180,10 +193,10 @@ singleSingscore <-
       })
 
       #4.3 calculate bounds
-      upset_bounds = calcBoundsUnknownDir(length(geneIds(upSet)), nrow(rankData))
+      upset_bounds = calcBoundsUnknownDir(length(geneIds(upSet)), nrow(rankData), stableSc)
     } else {
       #4.1 calculate bounds
-      upset_bounds = calcBounds(length(geneIds(upSet)), nrow(rankData))
+      upset_bounds = calcBounds(length(geneIds(upSet)), nrow(rankData), stableSc)
     }
 
     #for two gene sets
@@ -194,7 +207,7 @@ singleSingscore <-
         return(emptyScoreDf(onegs = FALSE))
 
       #4.2 calculate bounds
-      downset_bounds = calcBounds(length(geneIds(downSet)), nrow(rankData))
+      downset_bounds = calcBounds(length(geneIds(downSet)), nrow(rankData), stableSc)
 
       #5.2 compute scores
       scores = calcScoresUpDn(
@@ -231,7 +244,9 @@ multiSingscore <-
             centerScore = TRUE,
             dispersionFun = mad,
             knownDirection = TRUE) {
-
+    #0. determine type of singscore being used
+    stableSc = attr(rankData, 'stable')
+    
     #1. subset the data for samples whose calculation is to be performed
     if (!is.null(subSamples)) {
       rankData <- rankData[, subSamples, drop = FALSE]
@@ -260,10 +275,10 @@ multiSingscore <-
       })
 
       #4.3 calculate bounds
-      upset_bounds = calcBoundsUnknownDirMulti(upSizes, nrow(rankData))
+      upset_bounds = calcBoundsUnknownDirMulti(upSizes, nrow(rankData), stableSc)
     } else {
       #4.1 calculate bounds
-      upset_bounds = calcBoundsMulti(upSizes, nrow(rankData))
+      upset_bounds = calcBoundsMulti(upSizes, nrow(rankData), stableSc)
     }
 
     #for two gene sets
@@ -281,7 +296,7 @@ multiSingscore <-
 
       #4.2 calculate bounds
       downSizes = sapply(downSetColc, function(x) length(geneIds(x)))
-      downset_bounds = calcBoundsMulti(downSizes, nrow(rankData))
+      downset_bounds = calcBoundsMulti(downSizes, nrow(rankData), stableSc)
 
       #check that names match
       upselect = names(upSetColc) %in% commonNames
