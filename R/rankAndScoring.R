@@ -328,11 +328,20 @@ multiSingscore <-
 
     #6 process the results
     dispersions = scores['TotalDispersion', ]
-    dispersions = t(mapply(c, dispersions))
+    dispersions = mapply(c, dispersions)
     scores = scores['TotalScore', ]
-    scores = t(mapply(c, scores))
-    colnames(scores) = colnames(dispersions) = colnames(rankData)
+    scores = mapply(c, scores)
+    
+    #create the correct return structure
+    if (is.matrix(scores) & is.matrix(dispersions)) {
+      scores = t(scores)
+      dispersions = t(dispersions)
+    } else {
+      scores = matrix(scores, ncol = 1)
+      dispersions = matrix(dispersions, ncol = 1)
+    }
     rownames(scores) = rownames(dispersions) = upNames
+    colnames(scores) = colnames(dispersions) = colnames(rankData)
 
     return(list('Scores' = scores, 'Dispersions' = dispersions))
   }
