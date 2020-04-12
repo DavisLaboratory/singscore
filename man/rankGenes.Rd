@@ -34,7 +34,8 @@ stable genes dependent version of singscore}
 }
 \value{
 The ranked gene expression matrix that has samples in columns and
-genes in rows
+genes in rows. Unit normalised ranks are returned if data is ranked using
+stable genes
 }
 \description{
 The \code{rankGenes} function is a generic function that can deal

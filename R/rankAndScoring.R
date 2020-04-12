@@ -19,9 +19,13 @@ rankExprStable <- function(exprsM, tiesMethod = "min", stgenes) {
   rname = rownames(exprsM)
   cname = colnames(exprsM)
   
+  #compute ranks
   rankedData = apply(exprsM, 2, function(x) {
     rowSums(outer(x, x[stgenes], '>')) + 1
   })
+  
+  #normlise ranks
+  rankedData = rankedData / (length(stgenes) + 1)
   
   rownames(rankedData) = rname
   colnames(rankedData) = cname

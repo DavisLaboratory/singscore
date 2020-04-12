@@ -26,18 +26,19 @@ NULL
 #'@name rankGenes
 #'
 #'@return The ranked gene expression matrix that has samples in columns and
-#'  genes in rows
+#'  genes in rows. Unit normalised ranks are returned if data is ranked using
+#'  stable genes
 #'@examples
 #' rankGenes(toy_expr_se) # toy_expr_se is a gene expression dataset
-#' 
+#'
 #' # ExpressionSet object
 #' emat <- SummarizedExperiment::assay(toy_expr_se)
 #' e <- Biobase::ExpressionSet(assayData = as.matrix(emat))
 #' rankGenes(e)
-#' 
+#'
 #' #scoring using the stable version of singscore
 #' rankGenes(e, stableGenes = c('2', '20', '25'))
-#' 
+#'
 #' \dontrun{
 #' #for real cancer or blood datasets, use getStableGenes()
 #' rankGenes(cancer_expr, stableGenes = getStableGenes(5))
