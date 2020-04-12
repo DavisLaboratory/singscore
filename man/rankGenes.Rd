@@ -30,7 +30,9 @@ ties}
 
 \item{stableGenes}{character, containing a list of stable genes to be used to
 rank genes using expression of stable genes. This is required when using the
-stable genes dependent version of singscore}
+stable genes dependent version of singscore (see details in \code{simpleScore}).
+Stable genes for solid cancers (carcinomas) and blood transcriptomes can be
+obtained using the \code{getStableGenes} function}
 }
 \value{
 The ranked gene expression matrix that has samples in columns and
@@ -69,6 +71,8 @@ rankGenes(blood_expr, stableGenes = getStableGenes(5, type = 'blood'))
 }
 }
 \seealso{
-\code{\link{rank}} \link[=ExpressionSet-class]{ExpressionSet}
-\link[=SummarizedExperiment-class]{SummarizedExperiment} \link[=DGEList-class]{DGEList}
+\code{\link{getStableGenes}}, \code{\link{simpleScore}},
+\code{\link{rank}}, \link[=ExpressionSet-class]{"ExpressionSet"},
+\link[=SummarizedExperiment-class]{"SummarizedExperiment"},
+\link[=DGEList-class]{"DGEList"}
 }

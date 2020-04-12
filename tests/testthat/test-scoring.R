@@ -93,3 +93,19 @@ test_that("input checkings for simpleScore works", {
     )
   )
 })
+
+test_that('scoring using stable genes', {
+  df = as.data.frame(c(1,2,5,5,5))
+  rownames(df) = LETTERS[1:5]
+  colnames(df) = 'test'
+  dfrMin = rankGenes(df, tiesMethod = 'min', stableGenes = c('A', 'C'))
+  gsDn = GSEABase::GeneSet(as.character(c('A')))
+  GSEABase::setName(gsDn) = 'Dn'
+  gsUp = GSEABase::GeneSet(as.character(c('D', 'E')))
+  GSEABase::setName(gsUp) = 'Up'
+  
+  expect_equal(simpleScore(dfrMin, gsUp)$TotalScore, 1/6)
+  expect_equal(simpleScore(dfrMin, gsDn)$TotalScore, -1/6)
+  expect_equal(simpleScore(dfrMin, gsUp, gsDn)$TotalScore, 1/3)
+  expect_equal(simpleScore(dfrMin, gsUp, gsDn, knownDirection = FALSE)$TotalScore, 2/3)
+})

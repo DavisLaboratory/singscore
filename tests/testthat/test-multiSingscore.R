@@ -46,3 +46,42 @@ test_that("multiSingscore works", {
   expect_equal(ncol(multiScore(eranks, gsc_up, gsc_dn)$Score), 6)
   expect_equal(ncol(multiScore(eranks, gsc_up, knownDirection = FALSE)$Score), 6)
 })
+
+test_that('Multiscore works for a single sample', {
+  set.seed(36)
+  
+  #generate geneset collection
+  gsl = lapply(1:20, function(x)
+    GeneSet(as.character(sample.int(100, 5)), setName = LETTERS[ceiling(x / 2)]))
+  gsc_up = gsl[(1:20) %% 2 == 0]
+  gsc_dn = gsl[(1:20) %% 2 == 1]
+  
+  #generate data
+  emat = matrix(rnorm(6 * 80), ncol = 6)
+  rownames(emat) = as.character(21:100)
+  
+  #single sample measurements given
+  eranks = rankGenes(emat[, 1, drop = FALSE])
+  expect_length(multiScore(eranks, gsc_up, knownDirection = FALSE), 2)
+  
+  #single sample selected
+  eranks = rankGenes(emat)
+  expect_length(multiScore(eranks, gsc_up, subSamples = 1, knownDirection = FALSE), 2)
+  
+  #single sample with a list of just one geneset
+  expect_length(multiScore(eranks, gsc_up[1], subSamples = 1, knownDirection = FALSE), 2)
+})
+
+test_that('Multiscore using stable genes evaluates correctly', {
+  df = as.data.frame(c(1,2,5,5,5))
+  rownames(df) = LETTERS[1:5]
+  colnames(df) = 'test'
+  gsDn = GSEABase::GeneSet(as.character(c('A')))
+  GSEABase::setName(gsDn) = 'Dn'
+  gsUp = GSEABase::GeneSet(as.character(c('D', 'E')))
+  GSEABase::setName(gsUp) = 'Up'
+  gslist = list(gsUp, gsDn)
+  
+  eranks = rankGenes(df, tiesMethod = 'min', stableGenes = c('A', 'C'))
+  expect_equal(as.vector(multiScore(eranks, gslist)$Scores), c(1/6, -1/6))
+})

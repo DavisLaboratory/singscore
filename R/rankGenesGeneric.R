@@ -21,7 +21,9 @@ NULL
 #'  ties
 #'@param stableGenes character, containing a list of stable genes to be used to
 #'  rank genes using expression of stable genes. This is required when using the
-#'  stable genes dependent version of singscore
+#'  stable genes dependent version of singscore (see details in `simpleScore`).
+#'  Stable genes for solid cancers (carcinomas) and blood transcriptomes can be
+#'  obtained using the `getStableGenes` function
 #'
 #'@name rankGenes
 #'
@@ -44,8 +46,10 @@ NULL
 #' rankGenes(cancer_expr, stableGenes = getStableGenes(5))
 #' rankGenes(blood_expr, stableGenes = getStableGenes(5, type = 'blood'))
 #' }
-#'@seealso \code{\link{rank}} [ExpressionSet][ExpressionSet-class]
-#'  [SummarizedExperiment][SummarizedExperiment-class] [DGEList][DGEList-class]
+#'@seealso \code{\link{getStableGenes}}, \code{\link{simpleScore}},
+#'  \code{\link{rank}}, ["ExpressionSet"][ExpressionSet-class],
+#'  ["SummarizedExperiment"][SummarizedExperiment-class],
+#'  ["DGEList"][DGEList-class]
 #'
 #'
 #'@export

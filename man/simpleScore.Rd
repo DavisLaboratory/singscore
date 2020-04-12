@@ -60,7 +60,8 @@ simpleScore(
 }
 \arguments{
 \item{rankData}{A matrix object, ranked gene expression matrix data generated
-using the \code{\link[=rankGenes]{rankGenes()}} function (make sure this matrix is not modified)}
+using the \code{\link[=rankGenes]{rankGenes()}} function (make sure this matrix is not modified, see
+details)}
 
 \item{upSet}{A GeneSet object or character vector of gene IDs of up-regulated
 gene set or a gene set where the nature of genes is not known}
@@ -87,15 +88,38 @@ and downSet(Colc) are provided.}
 A data.frame consists of singscores and dispersions for all samples
 }
 \description{
-This function computes 'singscores' using an \strong{unmodified}ranked
-gene expression matrix obtained from the \code{\link[=rankGenes]{rankGenes()}} function and a gene
-set or a pair of up-regulated and down-regulated gene sets. It returns a
-data.frame of scores and dispersions for each sample. The gene sets can be
+This function computes 'singscores' using an \strong{unmodified}
+ranked gene expression matrix obtained from the \code{\link[=rankGenes]{rankGenes()}} function and a
+gene set or a pair of up-regulated and down-regulated gene sets. It returns
+a data.frame of scores and dispersions for each sample. The gene sets can be
 in vector format or as GeneSet objects (from GSEABase packages). If samples
 need to be scored against a single gene set, the \code{upSet} argument
 should be used to pass the gene set while the \code{downSet} argument is set
 to \code{NULL}. This setting is ideal for gene sets representing gene
 ontologies where the nature of the genes is unknown (up- or down-regulated).
+}
+\details{
+Signature scores can be computed using transcriptome-wide
+measurements or using a smaller set of measuremnts. If ranks are computed
+using the default invocation of \code{rankgenes}, the former method is applied
+where the rank of each gene in the signature is computed relative to all
+other genes in the dataset. Accuracy of this approximation of the relative
+expression of a gene will be improved if all or most transctripts are
+measured in the experiment. This was the approach proposed in the original
+manucript of singscore (Foroutan M, Bhuva DD, et al 2018).
+
+If instead a selected panel of genes is measured (such as from nanostring or
+RT-qPCR), a different rank approximation methods using a small set of stable
+genes can be used. This approach only requires measurements of genes in the
+signature and a small set of stable genes. This approach of scoring can be
+invoked by producing a rank matrix by passing in the \code{stableGenes} argument
+of \code{rankGenes}. Stable genes in solid cancers and in blood can be retrieved
+using \code{getStableGenes}. Upon providing a set of stable genes, \code{rankGenes}
+automatically ranks all genes relative to these stable genes. When
+\code{simpleScore} is provided with a rank matrix constructed using stable genes,
+it automatically computes scores using a new approach. Details of the set of
+stable genes, the new rank estimation approach and the new scoring approach
+will soon be published (manuscript in preparation).
 }
 \examples{
 ranked <- rankGenes(toy_expr_se)
@@ -103,6 +127,12 @@ scoredf <- simpleScore(ranked, upSet = toy_gs_up, downSet = toy_gs_dn)
 # toy_gs_up is a GeneSet object, alternatively a vector of gene ids may also
 # be supplied.
 }
+\references{
+Foroutan, M., Bhuva, D. D., Lyu, R., Horan, K., Cursons, J., &
+Davis, M. J. (2018). Single sample scoring of molecular phenotypes. BMC
+bioinformatics, 19(1), 1-10.
+}
 \seealso{
-\code{\link{rank}} \code{"\linkS4class{GeneSet}"}
+\code{\link{rankGenes}}, \code{\link{getStableGenes}},
+\code{\link{rank}}, \code{"\linkS4class{GeneSet}"}
 }
