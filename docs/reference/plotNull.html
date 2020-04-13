@@ -8,21 +8,36 @@
 
 <title>Plot the empirically estimated null distribution and associated p-values — plotNull • singscore</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,15 +45,14 @@
 
 
 
-<meta property="og:title" content="Plot the empirically estimated null distribution and associated p-values — plotNull" />
 
+<meta property="og:title" content="Plot the empirically estimated null distribution and associated p-values — plotNull" />
 <meta property="og:description" content="This function takes the results from function generateNull()
 and plots the density curves of permuted scores for the provided samples via
 sampleNames parameter. It can plot null distribution(s) for a single
 sample or multiple samples." />
-
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,9 +66,10 @@ sample or multiple samples." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -68,7 +83,7 @@ sample or multiple samples." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.2</span>
       </span>
     </div>
 
@@ -90,7 +105,6 @@ sample or multiple samples." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/DavisLaboratory/singscore">
@@ -105,28 +119,34 @@ sample or multiple samples." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot the empirically estimated null distribution and associated p-values</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/DavisLaboratory/singscore/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
     <div class="hidden name"><code>plotNull.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This function takes the results from function <code><a href='generateNull.html'>generateNull()</a></code>
 and plots the density curves of permuted scores for the provided samples via
 <code>sampleNames</code> parameter. It can plot null distribution(s) for a single
 sample or multiple samples.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>plotNull</span>(<span class='no'>permuteResult</span>, <span class='no'>scoredf</span>, <span class='no'>pvals</span>, <span class='kw'>sampleNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cutoff</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>textSize</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>labelSize</span> <span class='kw'>=</span> <span class='fl'>5</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>plotNull</span>(
+  <span class='no'>permuteResult</span>,
+  <span class='no'>scoredf</span>,
+  <span class='no'>pvals</span>,
+  <span class='kw'>sampleNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cutoff</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+  <span class='kw'>textSize</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>labelSize</span> <span class='kw'>=</span> <span class='fl'>5</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -163,17 +183,16 @@ distributions will be plotted</p></td>
       <td><p>numeric, size of label texts</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a ggplot object</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ranked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rankGenes.html'>rankGenes</a></span>(<span class='no'>toy_expr_se</span>)
 <span class='no'>scoredf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='simpleScore.html'>simpleScore</a></span>(<span class='no'>ranked</span>, <span class='kw'>upSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_up</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_dn</span>)
 <span class='co'># find out what backends can be registered on your machine</span>
-<span class='kw pkg'>BiocParallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/BiocParallel/topics/register'>registered</a></span>()</div><div class='output co'>#&gt; $MulticoreParam
+<span class='kw pkg'>BiocParallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/BiocParallel/man/register.html'>registered</a></span>()</div><div class='output co'>#&gt; $MulticoreParam
 #&gt; class: MulticoreParam
 #&gt;   bpisup: FALSE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
@@ -208,23 +227,16 @@ distributions will be plotted</p></td>
 <span class='co'>#for B times.</span>
 <span class='no'>pvals</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getPvals.html'>getPvals</a></span>(<span class='no'>permuteResult</span>,<span class='no'>scoredf</span>)
 <span class='co'># plot for all samples</span>
-<span class='fu'>plotNull</span>(<span class='no'>permuteResult</span>,<span class='no'>scoredf</span>,<span class='no'>pvals</span>,<span class='kw'>sampleNames</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>pvals</span>))</div><div class='output co'>#&gt; <span class='message'>Using  as id variables</span></div><div class='img'><img src='plotNull-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>#plot for the first sample</span>
-<span class='fu'>plotNull</span>(<span class='no'>permuteResult</span>,<span class='no'>scoredf</span>,<span class='no'>pvals</span>,<span class='kw'>sampleNames</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>pvals</span>)[<span class='fl'>1</span>])</div><div class='img'><img src='plotNull-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotNull</span>(<span class='no'>permuteResult</span>,<span class='no'>scoredf</span>,<span class='no'>pvals</span>,<span class='kw'>sampleNames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>pvals</span>))</div><div class='output co'>#&gt; <span class='message'>Using  as id variables</span></div><div class='img'><img src='plotNull-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>#plot for the first sample</span>
+<span class='fu'>plotNull</span>(<span class='no'>permuteResult</span>,<span class='no'>scoredf</span>,<span class='no'>pvals</span>,<span class='kw'>sampleNames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>pvals</span>)[<span class='fl'>1</span>])</div><div class='img'><img src='plotNull-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Ruqian Lyu</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -232,13 +244,16 @@ distributions will be plotted</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

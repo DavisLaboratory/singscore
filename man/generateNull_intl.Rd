@@ -8,6 +8,7 @@ generateNull_intl(
   upSet,
   downSet = NULL,
   rankData,
+  subSamples = NULL,
   centerScore = TRUE,
   knownDirection = TRUE,
   B = 1000,

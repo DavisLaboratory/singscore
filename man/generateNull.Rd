@@ -12,6 +12,7 @@ generateNull(
   upSet,
   downSet = NULL,
   rankData,
+  subSamples = NULL,
   centerScore = TRUE,
   knownDirection = TRUE,
   B = 1000,
@@ -24,6 +25,7 @@ generateNull(
   upSet,
   downSet = NULL,
   rankData,
+  subSamples = NULL,
   centerScore = TRUE,
   knownDirection = TRUE,
   B = 1000,
@@ -36,6 +38,7 @@ generateNull(
   upSet,
   downSet = NULL,
   rankData,
+  subSamples = NULL,
   centerScore = TRUE,
   knownDirection = TRUE,
   B = 1000,
@@ -48,6 +51,7 @@ generateNull(
   upSet,
   downSet = NULL,
   rankData,
+  subSamples = NULL,
   centerScore = TRUE,
   knownDirection = TRUE,
   B = 1000,
@@ -60,6 +64,7 @@ generateNull(
   upSet,
   downSet = NULL,
   rankData,
+  subSamples = NULL,
   centerScore = TRUE,
   knownDirection = TRUE,
   B = 1000,
@@ -69,21 +74,28 @@ generateNull(
 )
 }
 \arguments{
-\item{upSet}{GeneSet object or a vector of gene Ids, up-regulated gene set}
+\item{upSet}{A GeneSet object or character vector of gene IDs of up-regulated
+gene set or a gene set where the nature of genes is not known}
 
-\item{downSet}{GeneSet object or a vector of gene Ids, down-regulated gene}
+\item{downSet}{A GeneSet object or character vector of gene IDs of
+down-regulated gene set or NULL where only a single gene set is provided}
 
-\item{rankData}{matrix, outcome of function \code{\link[=rankGenes]{rankGenes()}}}
+\item{rankData}{A matrix object, ranked gene expression matrix data generated
+using the \code{\link[=rankGenes]{rankGenes()}} function (make sure this matrix is not modified, see
+details)}
+
+\item{subSamples}{A vector of sample labels/indices that will be used to
+subset the rankData matrix. All samples will be scored if not provided}
 
 \item{centerScore}{A Boolean, specifying whether scores should be centered
-around 0, default as TRUE}
+around 0, default as TRUE. Note: scores never centered if \code{knownDirection = FALSE}}
 
-\item{knownDirection}{A boolean flag, it deterimines whether the scoring
-method should derive the scores in a directional mannar when the gene
-signature only contains one set of gene set (passing the gene set via
-upSet). It is default as TRUE but one can set the argument to be FALSE to
-derive the score for a single gene set in a undirectional way. This
-parameter becomes irrelevant when both upSet and downSet are provided.}
+\item{knownDirection}{A boolean, determining whether the gene set should be
+considered to be directional or not. A gene set is directional if the type
+of genes in it are known i.e. up- or down-regulated. This should be set to
+TRUE if the gene set is composed of both up- AND down-regulated genes.
+Defaults to TRUE. This parameter becomes irrelevant when both upSet(Colc)
+and downSet(Colc) are provided.}
 
 \item{B}{integer, the number of permutation repeats or the number of random
 gene sets to be generated, default as 1000}

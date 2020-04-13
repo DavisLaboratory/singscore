@@ -8,21 +8,36 @@
 
 <title>Permutation test for the derived scores of each sample — generateNull • singscore</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Permutation test for the derived scores of each sample — generateNull" />
 
+<meta property="og:title" content="Permutation test for the derived scores of each sample — generateNull" />
 <meta property="og:description" content="This function generates a number of random gene sets that
 have the same number of genes as the scored gene set. It scores each random
 gene set and returns a matrix of scores for all samples.
@@ -41,9 +56,8 @@ for easy access to parallel backends. Note that one should pass the same
 values to the upSet, downSet, centerScore and bidirectional
 arguments as what they provide for the simpleScore() function to generate
 a proper null distribution." />
-
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -57,9 +71,10 @@ a proper null distribution." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -73,7 +88,7 @@ a proper null distribution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.2</span>
       </span>
     </div>
 
@@ -95,7 +110,6 @@ a proper null distribution." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/DavisLaboratory/singscore">
@@ -110,82 +124,135 @@ a proper null distribution." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Permutation test for the derived scores of each sample</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/DavisLaboratory/singscore/blob/master/R/generatNullGeneric.R'><code>R/generatNullGeneric.R</code></a></small>
     <div class="hidden name"><code>generateNull.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This function generates a number of random gene sets that
 have the same number of genes as the scored gene set. It scores each random
 gene set and returns a matrix of scores for all samples.
 The empirical scores are used to calculate the empirical p-values and plot
-the null distribution. The implementation uses <code><a href='https://www.rdocumentation.org/packages/BiocParallel/topics/bplapply'>BiocParallel::bplapply()</a></code>
+the null distribution. The implementation uses <code><a href='https://rdrr.io/pkg/BiocParallel/man/bplapply.html'>BiocParallel::bplapply()</a></code>
 for easy access to parallel backends. Note that one should pass the same
 values to the <code>upSet</code>, <code>downSet</code>, <code>centerScore</code> and <code>bidirectional</code>
 arguments as what they provide for the <code><a href='simpleScore.html'>simpleScore()</a></code> function to generate
 a proper null distribution.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>generateNull</span>(<span class='no'>upSet</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>rankData</span>, <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>), <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>generateNull</span>(
+  <span class='no'>upSet</span>,
+  <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>rankData</span>,
+  <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>),
+  <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
 <span class='co'># S4 method for vector,missing</span>
-<span class='fu'>generateNull</span>(<span class='no'>upSet</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>rankData</span>,
-  <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>), <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>generateNull</span>(
+  <span class='no'>upSet</span>,
+  <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>rankData</span>,
+  <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>),
+  <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
 <span class='co'># S4 method for GeneSet,missing</span>
-<span class='fu'>generateNull</span>(<span class='no'>upSet</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>rankData</span>,
-  <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>), <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>generateNull</span>(
+  <span class='no'>upSet</span>,
+  <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>rankData</span>,
+  <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>),
+  <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
 <span class='co'># S4 method for vector,vector</span>
-<span class='fu'>generateNull</span>(<span class='no'>upSet</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>rankData</span>,
-  <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>), <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>generateNull</span>(
+  <span class='no'>upSet</span>,
+  <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>rankData</span>,
+  <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>),
+  <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
 <span class='co'># S4 method for GeneSet,GeneSet</span>
-<span class='fu'>generateNull</span>(<span class='no'>upSet</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>rankData</span>,
-  <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>), <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+<span class='fu'>generateNull</span>(
+  <span class='no'>upSet</span>,
+  <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>rankData</span>,
+  <span class='kw'>subSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>knownDirection</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></span>(<span class='fl'>1e+06</span>, <span class='fl'>1</span>),
+  <span class='kw'>useBPPARAM</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>upSet</th>
-      <td><p>GeneSet object or a vector of gene Ids, up-regulated gene set</p></td>
+      <td><p>A GeneSet object or character vector of gene IDs of up-regulated
+gene set or a gene set where the nature of genes is not known</p></td>
     </tr>
     <tr>
       <th>downSet</th>
-      <td><p>GeneSet object or a vector of gene Ids, down-regulated gene</p></td>
+      <td><p>A GeneSet object or character vector of gene IDs of
+down-regulated gene set or NULL where only a single gene set is provided</p></td>
     </tr>
     <tr>
       <th>rankData</th>
-      <td><p>matrix, outcome of function <code><a href='rankGenes.html'>rankGenes()</a></code></p></td>
+      <td><p>A matrix object, ranked gene expression matrix data generated
+using the <code><a href='rankGenes.html'>rankGenes()</a></code> function (make sure this matrix is not modified, see
+details)</p></td>
+    </tr>
+    <tr>
+      <th>subSamples</th>
+      <td><p>A vector of sample labels/indices that will be used to
+subset the rankData matrix. All samples will be scored if not provided</p></td>
     </tr>
     <tr>
       <th>centerScore</th>
       <td><p>A Boolean, specifying whether scores should be centered
-around 0, default as TRUE</p></td>
+around 0, default as TRUE. Note: scores never centered if <code>knownDirection = FALSE</code></p></td>
     </tr>
     <tr>
       <th>knownDirection</th>
-      <td><p>A boolean flag, it deterimines whether the scoring
-method should derive the scores in a directional mannar when the gene
-signature only contains one set of gene set (passing the gene set via
-upSet). It is default as TRUE but one can set the argument to be FALSE to
-derive the score for a single gene set in a undirectional way. This
-parameter becomes irrelevant when both upSet and downSet are provided.</p></td>
+      <td><p>A boolean, determining whether the gene set should be
+considered to be directional or not. A gene set is directional if the type
+of genes in it are known i.e. up- or down-regulated. This should be set to
+TRUE if the gene set is composed of both up- AND down-regulated genes.
+Defaults to TRUE. This parameter becomes irrelevant when both upSet(Colc)
+and downSet(Colc) are provided.</p></td>
     </tr>
     <tr>
       <th>B</th>
@@ -204,28 +271,26 @@ gene sets to be generated, default as 1000</p></td>
       <th>useBPPARAM, </th>
       <td><p>the backend the function uses, if NULL is provided, the
 function uses the default parallel backend which is the first on the list
-returned by <code><a href='https://www.rdocumentation.org/packages/BiocParallel/topics/register'>BiocParallel::registered()</a></code> i.e
+returned by <code><a href='https://rdrr.io/pkg/BiocParallel/man/register.html'>BiocParallel::registered()</a></code> i.e
 <code>BiocParallel::registered()[[1]]</code> for your machine. It can be changed
 explicitly by passing a BPPARAM</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A matrix of empirical scores for all samples</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='http://lcolladotor.github.io/2016/03/07/BiocParallel/#.WgXMF61L28U'>Post about BiocParallel</a>
-<code><a href='https://www.rdocumentation.org/packages/utils/topics/browseVignettes'>browseVignettes("BiocParallel")</a></code></p></div>
-    
+<code><a href='https://rdrr.io/r/utils/browseVignettes.html'>browseVignettes("BiocParallel")</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ranked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rankGenes.html'>rankGenes</a></span>(<span class='no'>toy_expr_se</span>)
 <span class='no'>scoredf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='simpleScore.html'>simpleScore</a></span>(<span class='no'>ranked</span>, <span class='kw'>upSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_up</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_dn</span>)
 
 <span class='co'># find out what backends can be registered on your machine</span>
-<span class='kw pkg'>BiocParallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/BiocParallel/topics/register'>registered</a></span>()</div><div class='output co'>#&gt; $MulticoreParam
+<span class='kw pkg'>BiocParallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/BiocParallel/man/register.html'>registered</a></span>()</div><div class='output co'>#&gt; $MulticoreParam
 #&gt; class: MulticoreParam
 #&gt;   bpisup: FALSE; bpnworkers: 30; bptasks: 0; bpjobname: BPJOB
 #&gt;   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE
@@ -258,22 +323,13 @@ explicitly by passing a BPPARAM</p></td>
 <span class='no'>permuteResult</span> <span class='kw'>=</span> <span class='fu'>generateNull</span>(<span class='kw'>upSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_up</span>, <span class='kw'>downSet</span> <span class='kw'>=</span> <span class='no'>toy_gs_dn</span>, <span class='no'>ranked</span>,
 <span class='kw'>centerScore</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>B</span> <span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>1</span> )</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Ruqian Lyu</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -281,13 +337,16 @@ explicitly by passing a BPPARAM</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

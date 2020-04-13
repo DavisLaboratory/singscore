@@ -98,8 +98,8 @@ independently.
 }
 \examples{
 ranked <- rankGenes(toy_expr_se)
-setName(toy_gs_up)  = "toy_gs_up"
-setName(toy_gs_dn)  = "toy_gs_dn"
+GSEABase::setName(toy_gs_up)  = "toy_gs_up"
+GSEABase::setName(toy_gs_dn)  = "toy_gs_dn"
 gslist <- list(toy_gs_up, toy_gs_dn)
 
 gscolc <- GSEABase::GeneSetCollection(gslist)

@@ -49,6 +49,7 @@ To illustrate the usage of 'simpleScore()', we first need to load the example da
 
 ```{r loadDataset, message=FALSE}
 library(singscore)
+library(GSEABase)
 # The example expression dataset and gene signatures are included in the package
 # distribution, one can directly access them using the variable names
 
@@ -76,7 +77,7 @@ length(GSEABase::geneIds(tgfb_gs_dn))
 ```
 
 
-## Sample Scoring
+## Sample scoring
 To score samples, the gene expression dataset first needs to be ranked using the `rankGenes()` function which returns a rank matrix. This matrix along with the signatures are then passed to the `simpleScore()` function which returns a data.frame containing the scores for each sample. When only a single gene-set is available (i.e. not an up- and down- regulated pair), the same function can be called by setting the `upSet` argument to the gene-set.
 
 
@@ -99,11 +100,56 @@ scoredf
 ```
 The returned data.frame consists of the scores for the up- and down- regulated gene-sets along with the combined score (`TotalScore`). Dispersion is calculated using the `mad` function by default and can be substituted by passing another function to the `dispersionFun` argument in `simpleScore()` such as `IQR` to calculate the inter-quartile range.
 
+## Sample scoring with a reduced number of measurements
+
+Singscore requires transcriptome-wide measurements whereby all or most transcripts are measured. This is required to assess the expression of a gene in relation to the transcriptome. Panel-based transcriptomic assays measure a much smaller selection of transcripts therefore assessing the relative expression of each gene becomes a challenge. In such a setting, stably expressed genes can be used to assess relative expression. Expression of such genes is invariable across samples therefore they can be used to calibrate sample-wise gene expression measurements. This property allows for estimation of transcriptome-wide ranks with a small set of measurements inclusing a small set of stable genes. Detailed explanation of the rank estimation procedure using this logic is available in Bhuva et al. (2020) (manuscript in preparation).
+
+Stably expressed genes in carcinoma transcriptomes and blood can be obtained using the `getStableGenes` function.
+
+```{r}
+#get the top 5 stable genes in carcinomas
+getStableGenes(5, type = 'carcinoma')
+
+#get the top 5 stable genes in blood
+getStableGenes(5, type = 'blood')
+
+#get ensembl IDs instead of gene symbold
+getStableGenes(5, type = 'carcinoma', id = 'ensembl')
+```
+
+This list can be used to score samples using a variant of singscore called *stingscore*.
+
+```{r}
+#here we specify a custom set of genes (Entrez IDs)
+stable_genes <-  c('8315', '9391', '23435', '3190')
+
+#create a dataset with a reduced set of genes (signature genes and stable genes)
+measured <-  unique(c(stable_genes, geneIds(tgfb_gs_up), geneIds(tgfb_gs_dn)))
+small_tgfb_expr_10 <-  tgfb_expr_10_se[measured, ]
+dim(small_tgfb_expr_10)
+
+#rank genes using stable genes
+rankData_st <-  rankGenes(small_tgfb_expr_10, stableGenes = stable_genes)
+head(rankData_st)
+
+#score samples using stingscore
+#simpleScore invoked with the new rank matrix will execute the stingscore
+#   algorithm
+scoredf_st <- simpleScore(rankData_st, upSet = tgfb_gs_up, downSet = tgfb_gs_dn)
+scoredf_st
+
+#plot the two scores against each other
+plot(scoredf$TotalScore, scoredf_st$TotalScore)
+abline(coef = c(0, 1), lty = 2)
+```
+
+Scores computed using the classic singscore and the modified stingscore will be similar (correlated if not equal) if the selection of stable genes is good. Ideal stable genes will have stable gene expression across the samples being investigated and should cover a wide range of the expression spectrum. The genes produced by `getStableGenes` fulfill these conditions. Our approach using the product of ranks can be used to determine a set of stable genes for a new context (manuscript in preparation).
+
 # Visualisation and diagnostic functions
 
 In this section, we show example usages of the visualisation functions included in this package.
 
-## Plot Rank Densities
+## Plot rank densities
 Scores of each sample are stored in `scoredf`. We can use the `plotRankDensity` function to plot the ranks of genes in the gene-sets for a specific sample. We plot the rank distribution for the second sample in `rankData` which combines a density plot (densities calculated using KDE) with a barcode plot. Please note that since we are subsetting the data.frame rankData by one column, we set `drop = FALSE` to maintain the structure of the data.frame/matrix.
 
 
@@ -215,15 +261,24 @@ The permutation function has parallel computing features provided by using [`Bio
 # detect how many CPU cores are available for your machine
 # parallel::detectCores()
 
-ncores <- parallel::detectCores() - 2 
+ncores <- 1
 
 # Provide the generateNull() function the number of cores you would like
 # the function to use by passing the ncore parameter
 
-permuteResult <- generateNull(upSet = tgfb_gs_up, downSet = tgfb_gs_dn, 
-                              rankData = rankData[,1:5], centerScore = TRUE,
-                              knownDirection = TRUE, B = 1000, ncores = ncores, 
-                              seed = 1, useBPPARAM = NULL)
+permuteResult <-
+  generateNull(
+    upSet = tgfb_gs_up,
+    downSet = tgfb_gs_dn,
+    rankData = rankData,
+    subSamples = 1:5,
+    centerScore = TRUE,
+    knownDirection = TRUE,
+    B = 1000,
+    ncores = ncores,
+    seed = 1,
+    useBPPARAM = NULL
+  )
 # Note here, the useBPPARAM parameter allows user to supply a BPPARAM variable 
 # as a parameter which decides the type of parallel ends to use.
 # such as 
@@ -248,7 +303,7 @@ head(permuteResult)
 $p$-values can be estimated using the `getPvals()` function by providing the null distributions calculated above. Unless all permutations are exhausted (mostly infeasible), the minimum $p$-value obtained is $\frac{1}{B}$.
 
 ```{r getPvals, fig.height = 4, fig.width = 8}
-pvals <- getPvals(permuteResult,scoredf[1:5,,drop = FALSE])
+pvals <- getPvals(permuteResult, scoredf, subSamples = 1:5)
 
 # getPval returns p-values for each individual sample.
 # show the p-values for first 5 samples
@@ -261,7 +316,7 @@ Plot the null distributions for the first sample with the estimated $p$-value la
 
 ```{r plotNull1, fig.height = 4, fig.width = 8 }
 
-plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1])
+plotNull(permuteResult, scoredf, pvals, sampleNames = names(pvals)[1])
 
 ```
 
@@ -271,7 +326,7 @@ You can provide multiple sample names to plot these samples in one plot. For exa
 # plot the null distributions for the first 2 samples and the p-values
 # We can see from the plot, the control samples are not significant and TGFb 
 # samples are very significant with very low p-values
-plotNull(permuteResult,scoredf,pvals,sampleNames = names(pvals)[1:2])
+plotNull(permuteResult, scoredf, pvals, sampleNames = names(pvals)[1:2])
 ```
 
 # More on the datasets 

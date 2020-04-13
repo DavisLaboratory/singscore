@@ -12,17 +12,8 @@ NULL
 #'   values to the `upSet`, `downSet`, `centerScore` and `bidirectional`
 #'   arguments as what they provide for the `simpleScore()` function to generate
 #'   a proper null distribution.
-#' @param upSet GeneSet object or a vector of gene Ids, up-regulated gene set
-#' @param downSet GeneSet object or a vector of gene Ids, down-regulated gene
-#' @param rankData matrix, outcome of function [rankGenes()]
-#' @param centerScore A Boolean, specifying whether scores should be centered
-#'  around 0, default as TRUE
-#' @param knownDirection A boolean flag, it deterimines whether the scoring
-#'  method should derive the scores in a directional mannar when the gene
-#'  signature only contains one set of gene set (passing the gene set via
-#'  upSet). It is default as TRUE but one can set the argument to be FALSE to
-#'  derive the score for a single gene set in a undirectional way. This
-#'  parameter becomes irrelevant when both upSet and downSet are provided.
+#' 
+#' @inheritParams simpleScore
 #' @param B integer, the number of permutation repeats or the number of random
 #' gene sets to be generated, default as 1000
 #' @param ncores, integer, the number of CPU cores the function can use
@@ -53,6 +44,7 @@ setGeneric("generateNull",
            function(upSet,
                     downSet = NULL,
                     rankData,
+                    subSamples = NULL,
                     centerScore = TRUE,
                     knownDirection = TRUE,
                     B = 1000,
@@ -69,6 +61,7 @@ setMethod("generateNull", signature(
 function(upSet,
          downSet = NULL,
          rankData,
+         subSamples = NULL,
          centerScore = TRUE,
          knownDirection = TRUE,
          B = 1000,
@@ -76,14 +69,12 @@ function(upSet,
          seed = sample.int(1E6, 1),
          useBPPARAM = NULL) {
 
-  stopifnot(is.logical(centerScore), is.logical(knownDirection), B%%1==0,
-            ncores%%1==0)
-
   upSet <- GSEABase::GeneSet(as.character(upSet))
-  plt <- generateNull_intl(
+  plt <- generateNull(
     upSet = upSet,
     downSet = downSet,
     rankData = rankData,
+    subSamples = subSamples,
     centerScore = centerScore,
     knownDirection = knownDirection,
     B = B,
@@ -102,6 +93,7 @@ setMethod("generateNull", signature(
 function(upSet,
          downSet = NULL,
          rankData,
+         subSamples = NULL,
          centerScore = TRUE,
          knownDirection = TRUE,
          B = 1000,
@@ -115,6 +107,7 @@ function(upSet,
     upSet = upSet,
     downSet = downSet,
     rankData = rankData,
+    subSamples = subSamples,
     centerScore = centerScore,
     knownDirection = knownDirection,
     B = B,
@@ -133,6 +126,7 @@ setMethod("generateNull", signature(
 function(upSet,
          downSet = NULL,
          rankData,
+         subSamples = NULL,
          centerScore = TRUE,
          knownDirection = TRUE,
          B = 1000,
@@ -140,14 +134,13 @@ function(upSet,
          seed = sample.int(1E6, 1),
          useBPPARAM = NULL) {
 
-  stopifnot(is.logical(centerScore), is.logical(knownDirection), B%%1==0,
-            ncores%%1==0)
   upSet <- GSEABase::GeneSet(as.character(upSet))
   downSet <- GSEABase::GeneSet(as.character(downSet))
-  plt <- generateNull_intl(
+  plt <- generateNull(
     upSet = upSet,
     downSet = downSet,
     rankData = rankData,
+    subSamples = subSamples,
     centerScore = centerScore,
     knownDirection = knownDirection,
     B = B,
@@ -166,6 +159,7 @@ setMethod("generateNull", signature(
 function(upSet,
          downSet = NULL,
          rankData,
+         subSamples = NULL,
          centerScore = TRUE,
          knownDirection = TRUE,
          B = 1000,
@@ -179,6 +173,7 @@ function(upSet,
     upSet = upSet,
     downSet = downSet,
     rankData = rankData,
+    subSamples = subSamples,
     centerScore = centerScore,
     knownDirection = knownDirection,
     B = B,

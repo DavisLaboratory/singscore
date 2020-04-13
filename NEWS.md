@@ -1,3 +1,9 @@
+# singscore 1.8.0
+* implemented a novel approach to scoring that uses measurements from panel-based tests such as RT-qPCR and nanostring
+* implemented a function that returns a set of stable genes we have identified in carcinomas and in blood
+* fixed bugs in the multiScore function that produced errors when scoring a single sample
+* fixed bugs in the vignette
+
 # singscore 1.5.1
 * added link to the F1000research published workflow that demonstrates usage of singscore on a real dataset (https://f1000research.com/articles/8-776/v2)
 * allow labelling of samples on dispersion plots (`plotDispersion`) in a similar manner to landscape plots (`projectScoreLandscape`)

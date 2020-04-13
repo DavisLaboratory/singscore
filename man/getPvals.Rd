@@ -4,7 +4,7 @@
 \alias{getPvals}
 \title{Estimate the empirical p-values}
 \usage{
-getPvals(permuteResult, scoredf)
+getPvals(permuteResult, scoredf, subSamples = NULL)
 }
 \arguments{
 \item{permuteResult}{A matrix, null distributions for each sample generated
@@ -12,11 +12,14 @@ using the \code{\link[=generateNull]{generateNull()}} function}
 
 \item{scoredf}{A dataframe, the scored results of samples under test
 generated using the \code{\link[=simpleScore]{simpleScore()}} function}
+
+\item{subSamples}{A vector of sample labels/indices that will be used to
+subset the score matrix. All samples will be scored if not provided}
 }
 \value{
 Estimated p-values for enrichment of the signature in each sample. A
-p-value of 1/B indicates that the estimated p-value is less
-than or equal to 1/B.
+p-value of 1/B indicates that the estimated p-value is less than or equal
+to 1/B.
 }
 \description{
 With null distributions estimated using the \code{\link[=generateNull]{generateNull()}}

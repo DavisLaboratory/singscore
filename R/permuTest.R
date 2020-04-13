@@ -39,11 +39,18 @@ NULL
 #' @keywords internal
 #' @author Ruqian Lyu
 
-generateNull_intl <- function(upSet, downSet = NULL, rankData,
+generateNull_intl <- function(upSet, downSet = NULL, rankData, 
+                              subSamples = NULL,
                               centerScore = TRUE,
                               knownDirection = TRUE,
                               B = 1000, ncores = 1,
                               seed = sample.int(1E6, 1), useBPPARAM = NULL){
+  if (!is.null(subSamples)) {
+    stableSc <- attr(rankData, 'stable')
+    rankData <- rankData[, subSamples, drop = FALSE]
+    attr(rankData, 'stable') <- stableSc
+  }
+  
   n_up <- length(GSEABase::geneIds(upSet))
   if(is.null(downSet)){
     n_down <- 0
@@ -91,10 +98,12 @@ generateNull_intl <- function(upSet, downSet = NULL, rankData,
 #'   using the [generateNull()] function
 #' @param scoredf A dataframe, the scored results of samples under test
 #'   generated using the [simpleScore()] function
+#' @param subSamples A vector of sample labels/indices that will be used to
+#'   subset the score matrix. All samples will be scored if not provided
 #'
 #' @return Estimated p-values for enrichment of the signature in each sample. A
-#'   p-value of 1/B indicates that the estimated p-value is less
-#'   than or equal to 1/B.
+#'   p-value of 1/B indicates that the estimated p-value is less than or equal
+#'   to 1/B.
 
 #' @examples
 #' ranked <- rankGenes(toy_expr_se)
@@ -110,9 +119,12 @@ generateNull_intl <- function(upSet, downSet = NULL, rankData,
 #' # for B times.
 #' pvals <- getPvals(permuteResult,scoredf)
 #' @export
-getPvals <- function(permuteResult,scoredf){
-
-  stopifnot(dim(permuteResult)[2] == dim(scoredf)[1])
+getPvals <- function(permuteResult, scoredf, subSamples = NULL){
+  if (!is.null(subSamples)) {
+    scoredf <- scoredf[subSamples, , drop = FALSE]
+  }
+  
+  stopifnot(ncol(permuteResult) == nrow(scoredf))
 
   resultSc <- t(scoredf[, 1, drop = FALSE])
   # combine the permutation with the result score for the computation of P values

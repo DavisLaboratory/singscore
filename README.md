@@ -15,14 +15,14 @@ These instructions will get you to install the package up and running on your lo
     # build_vignettes = TRUE to build vignettes upon installation
     if (!requireNamespace("BiocManager", quietly = TRUE))
         install.packages("BiocManager")
-    BiocManager::install("singscore", version = "3.8")
+    BiocManager::install("singscore")
 
 Documentation
 -------------
 
 The package comes with a vignette showing how the different functions in the package can be used to perform a gene-set enrichment analysis on a single sample level. Pre-built vignettes can be accessed via [Bioconductor](https://bioconductor.org/packages/release/bioc/vignettes/singscore/inst/doc/singscore.html) or [the GitHub IO page](https://davislaboratory.github.io/singscore/articles/singscore.html).
 
-A detailed workflow on using singscore to analyse the TCGA acute myeloid leukemia (AML) data is available as part of the **---------** R/Bioconductor package.
+A detailed workflow on using singscore to analyse the TCGA acute myeloid leukemia (AML) data is available as part of the [SingscoreAMLMutations](https://doi.org/10.18129/B9.bioc.SingscoreAMLMutations) R/Bioconductor package.
 
 References
 ----------
