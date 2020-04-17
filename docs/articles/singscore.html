@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.3</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
       <h1 data-toc-skip>singscore</h1>
                         <h4 class="author">Ruqian Lyu</h4>
             
-            <h4 class="date">2020-04-13</h4>
+            <h4 class="date">2020-04-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DavisLaboratory/singscore/blob/master/vignettes/singscore.Rmd"><code>vignettes/singscore.Rmd</code></a></small>
       <div class="hidden name"><code>singscore.Rmd</code></div>
@@ -412,13 +412,13 @@
 <span class="co"># for the simpleScore() function to generate a proper null distribution.</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">permuteResult</span>)</pre></body></html></div>
-<pre><code>##      D_Ctrl_R1     D_TGFb_R1    D_Ctrl_R2     D_TGFb_R2  Hes_Ctrl_R1
-## 1  0.019971223  0.0211110041  0.012373145  0.0139291989  0.015229466
-## 2 -0.013478508 -0.0279823278 -0.011681197 -0.0279498856 -0.020516542
-## 3 -0.007621490 -0.0128715325 -0.006735819 -0.0158490649 -0.004672112
-## 4  0.064000397  0.0617204020  0.067007491  0.0613224930  0.061926638
-## 5  0.018242684  0.0227562356  0.013420627  0.0239172684  0.021506861
-## 6 -0.006875305  0.0003943495 -0.005049058 -0.0003235853 -0.004703585</code></pre>
+<pre><code>##     D_Ctrl_R1    D_TGFb_R1    D_Ctrl_R2    D_TGFb_R2  Hes_Ctrl_R1
+## 1 -0.05682173 -0.032457705 -0.050855768 -0.030649067 -0.046174823
+## 2 -0.01417528 -0.009707977 -0.011952349 -0.011102685 -0.014937300
+## 3  0.01200191  0.018539172  0.009122433  0.014090692  0.020741985
+## 4 -0.02454460 -0.024698814 -0.027624771 -0.024818584 -0.019656054
+## 5  0.03352702  0.027606055  0.027908416  0.024662055  0.030168712
+## 6 -0.01317022 -0.004350444 -0.014679771 -0.003662747 -0.009803084</code></pre>
 </div>
 <div id="estimate-empirical-p-values" class="section level2">
 <h2 class="hasAnchor">
@@ -430,7 +430,7 @@
 <span class="co"># show the p-values for first 5 samples</span>
 <span class="no">pvals</span></pre></body></html></div>
 <pre><code>##   D_Ctrl_R1   D_TGFb_R1   D_Ctrl_R2   D_TGFb_R2 Hes_Ctrl_R1 
-##       0.995       0.001       0.998       0.001       0.512</code></pre>
+##       0.996       0.001       0.998       0.001       0.530</code></pre>
 </div>
 <div id="plot-null-distribution" class="section level2">
 <h2 class="hasAnchor">
@@ -511,7 +511,7 @@
 ##  [1] GSEABase_1.48.0      graph_1.64.0         annotate_1.64.0     
 ##  [4] XML_3.99-0.3         AnnotationDbi_1.48.0 IRanges_2.20.2      
 ##  [7] S4Vectors_0.24.4     Biobase_2.46.0       BiocGenerics_0.32.0 
-## [10] singscore_1.7.2      BiocStyle_2.14.4    
+## [10] singscore_1.7.3      BiocStyle_2.14.4    
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] edgeR_3.28.1                tidyr_1.0.2                

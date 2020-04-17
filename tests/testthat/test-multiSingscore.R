@@ -45,6 +45,16 @@ test_that("multiSingscore works", {
   expect_equal(ncol(multiScore(eranks, gsc_up)$Score), 6)
   expect_equal(ncol(multiScore(eranks, gsc_up, gsc_dn)$Score), 6)
   expect_equal(ncol(multiScore(eranks, gsc_up, knownDirection = FALSE)$Score), 6)
+  
+  #with an empty GeneSet in the list
+  geneIds(gsc_dn[[3]]) = as.character(1000:1005)
+  expect_equal(is.array(multiScore(eranks, gsc_dn[1])$Score), TRUE)
+  expect_equal(length(multiScore(eranks, gsc_dn)), 2)
+  expect_equal(ncol(multiScore(eranks, gsc_dn)$Score), 6)
+  expect_equal(nrow(multiScore(eranks, gsc_dn)$Score), length(gsc_up))
+  expect_true(all(is.na(multiScore(eranks, gsc_dn)$Score['C', ])))
+  expect_equal(nrow(multiScore(eranks, gsc_up, gsc_dn)$Score), length(gsc_up))
+  expect_true(all(is.na(multiScore(eranks, gsc_up, gsc_dn)$Score['C', ])))
 })
 
 test_that('Multiscore works for a single sample', {

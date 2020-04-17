@@ -15,7 +15,8 @@ NULL
 #'@param upSetColc A GeneSetCollection object or a list of GeneSet objects of
 #'  up-regulated (or mixed, see \code{\link{simpleScore}}) gene sets.
 #'@param downSetColc A GeneSetCollection object or a list of GeneSet objects of
-#'  down-regulated gene sets. NULL otherwise.
+#'  down-regulated gene sets. NULL otherwise. Names of gene sets wihtin this
+#'  collection/list should be the same as those of the upSetColc
 #'@return A list of two matrices containing the scores and dispersions
 #'
 #' @examples
@@ -23,7 +24,7 @@ NULL
 #' GSEABase::setName(toy_gs_up)  = "toy_gs_up"
 #' GSEABase::setName(toy_gs_dn)  = "toy_gs_dn"
 #' gslist <- list(toy_gs_up, toy_gs_dn)
-#' 
+#'
 #' gscolc <- GSEABase::GeneSetCollection(gslist)
 #' scoredf <- multiScore(ranked, upSetColc = gscolc)
 #'@seealso \code{\link{rank}} \code{"\linkS4class{GeneSet}"}

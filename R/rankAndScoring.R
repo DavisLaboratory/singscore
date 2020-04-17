@@ -285,13 +285,14 @@ multiSingscore <-
     if (!is.null(downSetColc)) {
       #3.2 filter genes - empty genesets will be removed
       downNames = names(downSetColc)
+      stopifnot(all(upNames == downNames))
+      
       downSetColc = checkGenesMulti(downSetColc, rownames(rankData))
       if (length(downSetColc) == 0)
         return(NULL)
 
       #drop those not matching with upSets
-      stopifnot(all(upNames == downNames))
-      commonNames = intersect(upNames, downNames)
+      commonNames = intersect(names(upSetColc), names(downSetColc))
       downSetColc = downSetColc[names(downSetColc) %in% commonNames]
 
       #4.2 calculate bounds
@@ -301,7 +302,7 @@ multiSingscore <-
       #check that names match
       upselect = names(upSetColc) %in% commonNames
       upSetColc = upSetColc[upselect]
-      upset_bounds = lapply(upset_bounds, function(x) x[upselect])
+      upset_bounds = upset_bounds[upselect]
 
       #5.2 compute scores
       scores = mapply(
@@ -340,8 +341,20 @@ multiSingscore <-
       scores = matrix(scores, ncol = 1)
       dispersions = matrix(dispersions, ncol = 1)
     }
-    rownames(scores) = rownames(dispersions) = upNames
+    rownames(scores) = rownames(dispersions) = names(upSetColc)
     colnames(scores) = colnames(dispersions) = colnames(rankData)
+    
+    #create NA entries for empty gene sets
+    if (nrow(scores) < length(upNames)) {
+      #create NA matrix
+      naNames = setdiff(upNames, rownames(scores))
+      namat = matrix(NA, nrow = length(naNames), ncol = ncol(scores))
+      rownames(namat) = naNames
+      
+      #combine to score and dispersion matrices
+      scores = rbind(scores, namat)[upNames, ]
+      dispersions = rbind(dispersions, namat)[upNames, ]
+    }
 
     return(list('Scores' = scores, 'Dispersions' = dispersions))
   }
