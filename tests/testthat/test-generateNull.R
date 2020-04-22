@@ -14,6 +14,12 @@ test_that("generateNull works", {
                                B = 10, ncores = 1, seed = 1, 
                                useBPPARAM = BiocParallel::registered()[[1]]) 
   expect_equivalent(dim(permuteResult),c(10,ncol(ranked)))
+  
+  #test with one gene set
+  permuteResult = generateNull(upSet = toy_gs_up, rankData = ranked, 
+                               B = 10, ncores = 1, seed = 1, 
+                               useBPPARAM = BiocParallel::registered()[[1]]) 
+  expect_equivalent(dim(permuteResult),c(10,ncol(ranked)))
 
 })
 test_that("Generic features for generateNull",{

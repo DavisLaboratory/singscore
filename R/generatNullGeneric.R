@@ -56,7 +56,7 @@ setGeneric("generateNull",
 #' @rdname generateNull
 setMethod("generateNull", signature(
   upSet = 'vector',
-  downSet = 'missing'
+  downSet = 'ANY'
 ),
 function(upSet,
          downSet = NULL,
@@ -88,7 +88,7 @@ function(upSet,
 #' @rdname generateNull
 setMethod("generateNull", signature(
   upSet = 'GeneSet',
-  downSet = 'missing'
+  downSet = 'ANY'
 ),
 function(upSet,
          downSet = NULL,

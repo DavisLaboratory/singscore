@@ -2,8 +2,8 @@
 % Please edit documentation in R/generatNullGeneric.R
 \name{generateNull}
 \alias{generateNull}
-\alias{generateNull,vector,missing-method}
-\alias{generateNull,GeneSet,missing-method}
+\alias{generateNull,vector,ANY-method}
+\alias{generateNull,GeneSet,ANY-method}
 \alias{generateNull,vector,vector-method}
 \alias{generateNull,GeneSet,GeneSet-method}
 \title{Permutation test for the derived scores of each sample}
@@ -21,7 +21,7 @@ generateNull(
   useBPPARAM = NULL
 )
 
-\S4method{generateNull}{vector,missing}(
+\S4method{generateNull}{vector,ANY}(
   upSet,
   downSet = NULL,
   rankData,
@@ -34,7 +34,7 @@ generateNull(
   useBPPARAM = NULL
 )
 
-\S4method{generateNull}{GeneSet,missing}(
+\S4method{generateNull}{GeneSet,ANY}(
   upSet,
   downSet = NULL,
   rankData,

@@ -2,6 +2,7 @@
 * implemented a novel approach to scoring that uses measurements from panel-based tests such as RT-qPCR and nanostring
 * implemented a function that returns a set of stable genes we have identified in carcinomas and in blood
 * fixed bugs in the multiScore function that produced errors when scoring a single sample
+* fixed bugs in the generateNull function that produced errors when assessing a single geneset
 * fixed bugs in the vignette
 
 # singscore 1.5.1

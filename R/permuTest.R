@@ -77,10 +77,15 @@ generateNull_intl <- function(upSet, downSet = NULL, rankData,
     #execute code
     tms <-  sample(all_genes, size = totalNo, replace = FALSE)
     upSet <- GeneSet(as.character(tms[1:n_up]))
-    downSet <-  GeneSet(as.character(tms[-(1:n_up)]))
-    ss <- simpleScore(rankData, upSet = upSet, downSet = downSet,
-                      centerScore = centerScore)
-    ss[, 1]
+    if (n_down == 0) {
+      ss <- simpleScore(rankData, upSet = upSet, centerScore = centerScore)
+      ss[, 1]
+    } else{
+      downSet <- GeneSet(as.character(tms[-(1:n_up)]))
+      ss <- simpleScore(rankData, upSet = upSet, downSet = downSet,
+                        centerScore = centerScore)
+      ss[, 1]
+    }
   }, BPPARAM = useBPPARAM)
 
   r <- plyr::ldply(r)

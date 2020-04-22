@@ -1,7 +1,7 @@
 Package: singscore
 Type: Package
 Title: Rank-based single-sample gene set scoring method
-Version: 1.7.3
+Version: 1.7.4
 Authors@R: c(
             person("Ruqian","Lyu", email = "ruqianl@student.unimelb.edu.au", role = c("aut", "ctb")),
             person("Momeneh", "Foroutan", email = "foroutan.m@wehi.edu.au", role = c("aut", "ctb"), comment = c(ORCID = '0000-0002-1440-0457')),
