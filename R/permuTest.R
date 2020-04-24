@@ -51,11 +51,15 @@ generateNull_intl <- function(upSet, downSet = NULL, rankData,
     attr(rankData, 'stable') <- stableSc
   }
   
+  upSet <- checkGenes(upSet, rownames(rankData))
   n_up <- length(GSEABase::geneIds(upSet))
+  stopifnot(n_up > 0)
   if(is.null(downSet)){
     n_down <- 0
   } else {
+    downSet <- checkGenes(downSet, rownames(rankData))
     n_down <- length(GSEABase::geneIds(downSet))
+    stopifnot(n_down > 0)
   }
   all_genes <- rownames(rankData)
   totalNo <- n_up + n_down
