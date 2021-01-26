@@ -24,9 +24,8 @@ test_that("Generic features for plotRankDensity",{
   expect_true(ggplot2::is.ggplot(plt))
   expect_true(ggplot2::is.ggplot(plt2))
   expect_true(ggplot2::is.ggplot(plt3))
-  expect_that(plt2, is_equivalent_to(plt3))
-  expect_that(plt, is_equivalent_to(plt1))
-  
+  expect_equivalent(plt2$data, plt3$data)
+  expect_equivalent(plt2$data, plt3$data)
 })
 
 test_that("input checkings work for plotRankDensity",{
