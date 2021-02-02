@@ -135,7 +135,6 @@ function(upSet,
          useBPPARAM = NULL) {
 
   upSet <- GSEABase::GeneSet(as.character(upSet))
-  downSet <- GSEABase::GeneSet(as.character(downSet))
   plt <- generateNull(
     upSet = upSet,
     downSet = downSet,
