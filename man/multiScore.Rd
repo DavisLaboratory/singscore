@@ -63,12 +63,14 @@ multiScore(
 using the \code{\link[=rankGenes]{rankGenes()}} function (make sure this matrix is not modified, see
 details)}
 
-\item{upSetColc}{A GeneSetCollection object or a list of GeneSet objects of
-up-regulated (or mixed, see \code{\link{simpleScore}}) gene sets.}
+\item{upSetColc}{A GeneSetCollection object, a list of GeneSet objects, or a
+list of character vectors of up-regulated (or mixed, see
+\code{\link{simpleScore}}) gene sets.}
 
-\item{downSetColc}{A GeneSetCollection object or a list of GeneSet objects of
-down-regulated gene sets. NULL otherwise. Names of gene sets wihtin this
-collection/list should be the same as those of the upSetColc}
+\item{downSetColc}{A GeneSetCollection object, a list of GeneSet objects, or a
+list of character vectors of down-regulated gene sets. NULL otherwise. Names
+of gene sets within this collection/list should be the same as those of the
+upSetColc}
 
 \item{subSamples}{A vector of sample labels/indices that will be used to
 subset the rankData matrix. All samples will be scored if not provided}

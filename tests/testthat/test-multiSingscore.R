@@ -24,11 +24,20 @@ test_that("multiSingscore works", {
     GeneSet(as.character(sample.int(100, 5)), setName = LETTERS[ceiling(x / 2)]))
   gsc_up = gsl[(1:20) %% 2 == 0]
   gsc_dn = gsl[(1:20) %% 2 == 1]
+  gsl_up = geneIds(GeneSetCollection(gsc_up))
+  gsl_dn = geneIds(GeneSetCollection(gsc_dn))
 
   #generate data
   emat = matrix(rnorm(6 * 80), ncol = 6)
   rownames(emat) = as.character(21:100)
   eranks = rankGenes(emat)
+
+  #with lists of characters
+  expect_equal(is.array(multiScore(eranks, gsl_up[1])$Score), TRUE)
+  expect_equal(length(multiScore(eranks, gsl_up)), 2)
+  expect_equal(ncol(multiScore(eranks, gsl_up)$Score), 6)
+  expect_equal(ncol(multiScore(eranks, gsl_up, gsl_dn)$Score), 6)
+  expect_equal(ncol(multiScore(eranks, gsl_up, knownDirection = FALSE)$Score), 6)
 
   #with lists of GeneSets
   expect_equal(is.array(multiScore(eranks, gsc_up[1])$Score), TRUE)
