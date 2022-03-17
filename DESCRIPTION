@@ -55,7 +55,8 @@ Suggests:
     hexbin,
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    covr
 VignetteBuilder: knitr
 URL: https://davislaboratory.github.io/singscore
 BugReports: https://github.com/DavisLaboratory/singscore/issues
