@@ -3,7 +3,7 @@ singscore <img src="man/figures/logo.png" align="right"  height="140" width="120
 ==============================================================================================
 
 [![R-CMD-check](https://github.com/DavisLaboratory/singscore/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/DavisLaboratory/singscore/actions)
-[![codecov](https://codecov.io/gh/DavisLaboratory/vissE/branch/main/graph/badge.svg?token=8JHZB1GN26)](https://codecov.io/gh/DavisLaboratory/vissE)
+[![codecov](https://codecov.io/gh/DavisLaboratory/singscore/branch/master/graph/badge.svg?token=OWOL51QJD1)](https://codecov.io/gh/DavisLaboratory/singscore)
 [![BioC status](https://bioconductor.org/shields/years-in-bioc/singscore.svg)](https://bioconductor.org/packages/singscore/)
 
 Overview
