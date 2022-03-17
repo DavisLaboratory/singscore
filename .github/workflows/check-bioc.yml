@@ -273,11 +273,11 @@ jobs:
         shell: Rscript {0}
 
       - name: Install package
-        if: github.ref == 'refs/heads/https://github.com/DavisLaboratory/singscore/actions/runs/1995815107' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        if: github.ref == 'refs/heads/master' && env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: R CMD INSTALL .
 
       - name: Build and deploy pkgdown site
-        if: github.ref == 'refs/heads/https://github.com/DavisLaboratory/singscore/actions/runs/1995815107' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        if: github.ref == 'refs/heads/master' && env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
