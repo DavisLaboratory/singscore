@@ -18,6 +18,12 @@ bibliography: ../inst/REFERENCES.bib
 
 This vignette demonstrates how to use the functions in R package 'singscore' to score a gene expression dataset against a gene set at a single-sample level and provides visualisation functions to improve interpretation of the results.
 
+Please cite the following papers when using this package:
+
+```{r}
+citation('singscore')
+```
+
 `singscore` implements a simple single-sample gene-set (gene-signature) scoring method which scores individual samples independently without relying on other samples in gene expression datasets. It provides stable scores which are less likely to be affected by varying sample and gene sizes in datasets and unwanted variations across samples. The scoring method uses a rank-based statistics and is quick to compute. For details of the methods please refer to the paper [@Foroutan231217]. It also provides various visualisation functions to further explore results of the analysis.
 
 Additional packages we have developed can enhance the singscore workflow:
