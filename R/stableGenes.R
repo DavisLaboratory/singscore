@@ -18,7 +18,7 @@
 #' getStableGenes(5, id = 'ensembl')
 #' getStableGenes(5, type = 'blood')
 #' 
-getStableGenes <- function(n_stable, type = c('carcinoma', 'blood'), id = c('geneid', 'ensembl')) {
+getStableGenes <- function(n_stable, type = c('carcinoma', 'blood', 'protein'), id = c('geneid', 'ensembl')) {
   #get params
   type = match.arg(type)
   id = match.arg(id)
@@ -26,7 +26,8 @@ getStableGenes <- function(n_stable, type = c('carcinoma', 'blood'), id = c('gen
   #select datasets to use
   dsnames = switch (type,
     'carcinoma' = c('TCGA carcinomas', 'CCLE carcinoma-derived'),
-    'blood' = c('TCGA other', 'CCLE other')
+    'blood' = c('TCGA other', 'CCLE other'),
+    'protein' = c('CCLE TMT', 'CPTAC Colon LFQ', 'CPTAC Breast Ratios', 'CPTAC3 GBM Ratios')
   )
   
   #compute combined ranks
