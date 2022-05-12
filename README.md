@@ -1,34 +1,71 @@
 
-singscore <img src="man/figures/logo.png" align="right"  height="140" width="120" alt="logo"/>
-==============================================================================================
+# singscore <img src="man/figures/logo.png" align="right"  height="140" width="120" alt="logo"/>
 
-[![R-CMD-check](https://github.com/DavisLaboratory/singscore/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/DavisLaboratory/singscore/actions)
-[![codecov](https://codecov.io/gh/DavisLaboratory/singscore/branch/master/graph/badge.svg?token=OWOL51QJD1)](https://codecov.io/gh/DavisLaboratory/singscore)
-[![BioC status](https://bioconductor.org/shields/years-in-bioc/singscore.svg)](https://bioconductor.org/packages/singscore/)
+## Overview
 
-Overview
---------
+‘singscore’ is an R/Bioconductor package which implements the simple
+single-sample gene-set (or gene-signature) scoring method proposed by
+Foroutan *et al.* (2018) and Bhuva *et al.* (2020). It uses rank-based
+statistics to analyze each sample’s gene expression profile and scores
+the expression activities of gene sets at a single-sample level.
 
-'singscore' is an R/Bioconductor package which implements the simple single-sample gene-set (or gene-signature) scoring method proposed by Foroutan *et al.* (2018). It uses rank-based statistics to analyze each sample's gene expression profile and scores the expression activities of gene sets at a single-sample level.
+Additional packages we have developed can enhance the singscore
+workflow:
 
-Getting Started
----------------
+1.  [`msigdb`](https://www.bioconductor.org/packages/release/data/experiment/html/msigdb.html) -
+    A package that provides gene-sets from the molecular signatures
+    database (MSigDB) as a `GeneSetCollection` object that is compatible
+    with `singscore`.
+2.  [`vissE`](https://www.bioconductor.org/packages/release/bioc/html/vissE.html) -
+    A package that can summarise and aid in the interpretation of a list
+    of significant gene-sets identified by `singscore` (see
+    [tutorial](https://davislaboratory.github.io/GenesetAnalysisWorkflow/)).
+3.  [`emtdata`](https://www.bioconductor.org/packages/release/data/experiment/html/emtdata.html) -
+    The full EMT dataset used in this tutorial (with additional EMT
+    related datasets).
 
-These instructions will get you to install the package up and running on your local machine. If you experience any issues, please raise a GitHub issue at <https://github.com/DavisLaboratory/singscore/issues>.
+We have also published and made openly available the extensive tutorials
+below that demonstrate the variety of ways in which `singscore` can be
+used to gain a better functional understanding of molecular data:
+
+1.  [Using singscore to predict mutation status in acute myeloid
+    leukemia from transcriptomic
+    signatures](https://f1000research.com/articles/8-776).
+2.  [Gene-set enrichment analysis
+    workshop](https://davislaboratory.github.io/GenesetAnalysisWorkflow/) -
+    available through the
+    [Orchestra](http://app.orchestra.cancerdatasci.org/) platform
+    (search “WEHI Masterclass Day 4: Functional Analysis, single sample
+    gene set analysis”).
+
+## Getting Started
+
+These instructions will get you to install the package up and running on
+your local machine. If you experience any issues, please raise a GitHub
+issue at <https://github.com/DavisLaboratory/singscore/issues>.
 
     # build_vignettes = TRUE to build vignettes upon installation
     if (!requireNamespace("BiocManager", quietly = TRUE))
         install.packages("BiocManager")
-    BiocManager::install("singscore")
+    BiocManager::install("singscore", version = "3.8")
 
-Documentation
--------------
+## Documentation
 
-The package comes with a vignette showing how the different functions in the package can be used to perform a gene-set enrichment analysis on a single sample level. Pre-built vignettes can be accessed via [Bioconductor](https://bioconductor.org/packages/release/bioc/vignettes/singscore/inst/doc/singscore.html) or [the GitHub IO page](https://davislaboratory.github.io/singscore/articles/singscore.html).
+The package comes with a vignette showing how the different functions in
+the package can be used to perform a gene-set enrichment analysis on a
+single sample level. Pre-built vignettes can be accessed via
+[Bioconductor](https://bioconductor.org/packages/release/bioc/vignettes/singscore/inst/doc/singscore.html)
+or [the GitHub IO
+page](https://davislaboratory.github.io/singscore/articles/singscore.html).
 
-A detailed workflow on using singscore to analyse the TCGA acute myeloid leukemia (AML) data is available as part of the [SingscoreAMLMutations](https://doi.org/10.18129/B9.bioc.SingscoreAMLMutations) R/Bioconductor package.
+## References
 
-References
-----------
+Foroutan M, Bhuva D, Lyu R, Horan K, Cursons J, Davis M (2018). “Single
+sample scoring of molecular phenotypes.” *BMC bioinformatics*, *19*(1),
+404. doi:
+[10.1186/s12859-018-2435-4](https://doi.org/10.1186/s12859-018-2435-4).
 
-Foroutan, Momeneh, Dharmesh D Bhuva, Ruqian Lyu, Kristy Horan, Joseph Cursons, and Melissa J Davis. 2018. “Single Sample Scoring of Molecular Phenotypes.” BMC Bioinformatics 19 (1). BioMed Central: 404. doi: [10.1186/s12859-018-2435-4](https://doi.org/10.1186/s12859-018-2435-4).
+Bhuva D, Cursons J, Davis M (2020). “Stable gene expression for
+normalisation and single-sample scoring.” *Nucleic Acids Research*,
+*48*(19), e113. doi:
+[10.1093/nar/gkaa802](https://doi.org/10.1093/nar/gkaa802).

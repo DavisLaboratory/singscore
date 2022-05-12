@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Additional packages we have developed can enhance the singscore workflow:
 
-1.[`msigdb`](https://www.bioconductor.org/packages/release/data/experiment/html/msigdb.html) - A package that provides gene-sets from the molecular signatures database (MSigDB) as a `GeneSetCollection` object that is compatible with `singscore`.
+1. [`msigdb`](https://www.bioconductor.org/packages/release/data/experiment/html/msigdb.html) - A package that provides gene-sets from the molecular signatures database (MSigDB) as a `GeneSetCollection` object that is compatible with `singscore`.
 2. [`vissE`](https://www.bioconductor.org/packages/release/bioc/html/vissE.html) - A package that can summarise and aid in the interpretation of a list of significant gene-sets identified by `singscore` (see [tutorial](https://davislaboratory.github.io/GenesetAnalysisWorkflow/)).
 3. [`emtdata`](https://www.bioconductor.org/packages/release/data/experiment/html/emtdata.html) - The full EMT dataset used in this tutorial (with additional EMT related datasets).
 
