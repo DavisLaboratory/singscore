@@ -33,7 +33,11 @@ getStableGenes <- function(n_stable, type = c('carcinoma', 'blood', 'protein'), 
   #compute combined ranks
   rankmat = st_ranks[, c(id, 'type')]
   rankmat$prodrank = rowSums(log(st_ranks[, dsnames]))
-  rankmat = reshape2::acast(rankmat, stats::formula(paste(id, 'type', sep = '~')), value.var = 'prodrank')
+  rankmat = reshape2::acast(rankmat,
+                            stats::formula(paste(id, 'type', sep = '~')),
+                            value.var = 'prodrank',
+                            fun.aggregate = mean,
+                            na.rm = TRUE)
   rankmat = apply(rankmat, 2, rank, na.last = 'keep')
   rankmat = rankmat[!is.na(rankmat[, 'strank']), , drop = FALSE]
   rankmat = rankmat[rankmat[, 'strank'] <= n_stable, ]

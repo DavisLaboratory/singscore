@@ -6,7 +6,7 @@
 \usage{
 getStableGenes(
   n_stable,
-  type = c("carcinoma", "blood"),
+  type = c("carcinoma", "blood", "protein"),
   id = c("geneid", "ensembl")
 )
 }
