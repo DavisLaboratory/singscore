@@ -53,7 +53,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { os: ubuntu-latest, r: '4.2', bioc: '3.17', allow_failure: false, cont: "bioconductor/bioconductor_docker:devel", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest" }
+          - { os: ubuntu-latest, r: '4.2', bioc: '3.16', allow_failure: false, cont: "bioconductor/bioconductor_docker:devel", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest" }
           - { os: macOS-latest, r: '4.2', bioc: '3.16', allow_failure: false}
           - { os: windows-latest, r: '4.2', bioc: '3.16', allow_failure: true}
           ## Check https://github.com/r-lib/actions/tree/master/examples
