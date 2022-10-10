@@ -18,7 +18,7 @@ normal solid tissue."><meta property="og:image" content="/logo.png"><!-- mathjax
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -58,40 +58,47 @@ normal solid tissue.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getStableGenes</span><span class="op">(</span>
-  <span class="va">n_stable</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"carcinoma"</span>, <span class="st">"blood"</span><span class="op">)</span>,
-  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"geneid"</span>, <span class="st">"ensembl"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getStableGenes</span><span class="op">(</span></span>
+<span>  <span class="va">n_stable</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"carcinoma"</span>, <span class="st">"blood"</span>, <span class="st">"protein"</span><span class="op">)</span>,</span>
+<span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"geneid"</span>, <span class="st">"ensembl"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>n_stable</dt>
 <dd><p>numeric, number of stable genes to retrieve</p></dd>
+
+
 <dt>type</dt>
 <dd><p>character, type of stable genes requested, stable genes in
 "carcinoma" or stable genes in "blood"</p></dd>
+
+
 <dt>id</dt>
 <dd><p>character, gene identifier required. This can be either "geneid"
 for symbols or "ensembl" ensembl id)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a character vector with gene IDs sorted by their expected expression
+    
+
+<p>a character vector with gene IDs sorted by their expected expression
 levels in the requested tissue</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">getStableGenes</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">getStableGenes</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "RBM45"  "BRAP"   "CIAO1"  "TARDBP" "HNRNPK"</span>
-<span class="r-in"><span class="fu">getStableGenes</span><span class="op">(</span><span class="fl">5</span>, id <span class="op">=</span> <span class="st">'ensembl'</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">getStableGenes</span><span class="op">(</span><span class="fl">5</span>, id <span class="op">=</span> <span class="st">'ensembl'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ENSG00000155636" "ENSG00000089234" "ENSG00000144021" "ENSG00000120948"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5] "ENSG00000165119"</span>
-<span class="r-in"><span class="fu">getStableGenes</span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'blood'</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">getStableGenes</span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'blood'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "RBM45"  "BRAP"   "GOSR1"  "IWS1"   "HNRNPK"</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -102,12 +109,11 @@ levels in the requested tissue</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

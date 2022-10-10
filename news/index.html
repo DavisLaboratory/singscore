@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -52,41 +52,25 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.8.0" id="singscore-180">singscore 1.8.0<a class="anchor" aria-label="anchor" href="#singscore-180"></a></h2>
-<ul><li>implemented a novel approach to scoring that uses measurements from
-panel-based tests such as RT-qPCR and nanostring</li>
-<li>implemented a function that returns a set of stable genes we have
-identified in carcinomas and in blood</li>
-<li>fixed bugs in the multiScore function that produced errors when
-scoring a single sample</li>
-<li>fixed bugs in the generateNull function that produced errors when
-assessing a single geneset</li>
+<ul><li>implemented a novel approach to scoring that uses measurements from panel-based tests such as RT-qPCR and nanostring</li>
+<li>implemented a function that returns a set of stable genes we have identified in carcinomas and in blood</li>
+<li>fixed bugs in the multiScore function that produced errors when scoring a single sample</li>
+<li>fixed bugs in the generateNull function that produced errors when assessing a single geneset</li>
 <li>fixed bugs in the vignette</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.5.1" id="singscore-151">singscore 1.5.1<a class="anchor" aria-label="anchor" href="#singscore-151"></a></h2>
-<ul><li>added link to the F1000research published workflow that demonstrates
-usage of singscore on a real dataset (<a href="https://f1000research.com/articles/8-776/v2" class="external-link uri">https://f1000research.com/articles/8-776/v2</a>)</li>
-<li>allow labelling of samples on dispersion plots
-(<code>plotDispersion</code>) in a similar manner to landscape plots
-(<code>projectScoreLandscape</code>)</li>
+<ul><li>added link to the F1000research published workflow that demonstrates usage of singscore on a real dataset (<a href="https://f1000research.com/articles/8-776/v2" class="external-link uri">https://f1000research.com/articles/8-776/v2</a>)</li>
+<li>allow labelling of samples on dispersion plots (<code>plotDispersion</code>) in a similar manner to landscape plots (<code>projectScoreLandscape</code>)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.2" id="singscore-132">singscore 1.3.2<a class="anchor" aria-label="anchor" href="#singscore-132"></a></h2>
-<ul><li>allow continous and discrete annotations for
-<code>plotDispersion</code> and <code>projectScoreLandscape</code>.
-Annotations can now be part of the score data.frame and then specified
-as a column name</li>
+<ul><li>allow continous and discrete annotations for <code>plotDispersion</code> and <code>projectScoreLandscape</code>. Annotations can now be part of the score data.frame and then specified as a column name</li>
 <li>plot themes updated</li>
 <li>citation updated: cite the singscore manuscript</li>
-<li>number of bins for the hexbin plot in <code>plotLandscape</code> is
-determined from the data</li>
-<li>fixed bug in calculation of scores. Boundary calculation was
-previously done with all genes in the gene-set. It should be done with
-genes present in both the gene-set and the data (i.e. after filtering
-out those not measured in the data).</li>
-<li>TotalDispersion now estimated as the mean of dispersions from the
-up- and down-regulated gene sets instead of the sum (previous estimate
-divided by 2)</li>
+<li>number of bins for the hexbin plot in <code>plotLandscape</code> is determined from the data</li>
+<li>fixed bug in calculation of scores. Boundary calculation was previously done with all genes in the gene-set. It should be done with genes present in both the gene-set and the data (i.e. after filtering out those not measured in the data).</li>
+<li>TotalDispersion now estimated as the mean of dispersions from the up- and down-regulated gene sets instead of the sum (previous estimate divided by 2)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.2.2" id="singscore-122">singscore 1.2.2<a class="anchor" aria-label="anchor" href="#singscore-122"></a></h2>
@@ -111,8 +95,7 @@ divided by 2)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.3" id="singscore-0993">singscore 0.99.3<a class="anchor" aria-label="anchor" href="#singscore-0993"></a></h2>
-<ul><li>change argument name bidirectional to knownDirection, default as
-TRUE</li>
+<ul><li>change argument name bidirectional to knownDirection, default as TRUE</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.2" id="version-0992">version 0.99.2<a class="anchor" aria-label="anchor" href="#version-0992"></a></h2>
@@ -130,12 +113,11 @@ TRUE</li>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

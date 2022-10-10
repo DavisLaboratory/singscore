@@ -25,7 +25,7 @@ column names "TotalScore" "TotalDispersion" "UpScore" "UpDispersion"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -72,14 +72,14 @@ column names "TotalScore" "TotalDispersion" "UpScore" "UpDispersion"
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plotScoreLandscape</span><span class="op">(</span>
-  <span class="va">scoredf1</span>,
-  <span class="va">scoredf2</span>,
-  scorenames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>,
-  textSize <span class="op">=</span> <span class="fl">1.2</span>,
-  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,
-  hexMin <span class="op">=</span> <span class="fl">100</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plotScoreLandscape</span><span class="op">(</span></span>
+<span>  <span class="va">scoredf1</span>,</span>
+<span>  <span class="va">scoredf2</span>,</span>
+<span>  scorenames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  textSize <span class="op">=</span> <span class="fl">1.2</span>,</span>
+<span>  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  hexMin <span class="op">=</span> <span class="fl">100</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -87,33 +87,46 @@ column names "TotalScore" "TotalDispersion" "UpScore" "UpDispersion"
     <dl><dt>scoredf1</dt>
 <dd><p>data.frame, result of the simpleScore() function which scores
 the gene expression matrix against a gene set of interest</p></dd>
+
+
 <dt>scoredf2</dt>
 <dd><p>data.frame, result of the simpleScore() function which scores
 the gene expression matrix against another gene set of interest</p></dd>
+
+
 <dt>scorenames</dt>
 <dd><p>character vector of length 2, names for the two scored gene
 set/signatures stored in scoredf1 and scoredf2</p></dd>
+
+
 <dt>textSize</dt>
 <dd><p>numeric, set the text size for the plot, default as 1.5</p></dd>
+
+
 <dt>isInteractive</dt>
 <dd><p>boolean, whether the plot is interactive default as
 FALSE</p></dd>
+
+
 <dt>hexMin</dt>
 <dd><p>integer, the threshold which decides whether hex bin plot or
 scatter plot is displayed, default as 100</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A ggplot object, a scatter plot, demonstrating the relationship
+    
+
+<p>A ggplot object, a scatter plot, demonstrating the relationship
 between scores from two signatures on the same set of samples.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ranked</span> <span class="op">&lt;-</span> <span class="fu"><a href="rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">scoredf</span> <span class="op">&lt;-</span> <span class="fu"><a href="simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">ranked</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">scoredf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">ranked</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plotScoreLandscape</span><span class="op">(</span><span class="va">scoredf</span>, <span class="va">scoredf2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ranked</span> <span class="op">&lt;-</span> <span class="fu"><a href="rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">scoredf</span> <span class="op">&lt;-</span> <span class="fu"><a href="simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">ranked</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">scoredf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">ranked</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plotScoreLandscape</span><span class="op">(</span><span class="va">scoredf</span>, <span class="va">scoredf2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plotScoreLandscape-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -125,12 +138,11 @@ between scores from two signatures on the same set of samples.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

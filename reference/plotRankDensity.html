@@ -22,7 +22,7 @@ Densities are estimated using KDE."><meta property="og:image" content="/logo.png
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -66,49 +66,49 @@ Densities are estimated using KDE.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plotRankDensity</span><span class="op">(</span>
-  <span class="va">rankData</span>,
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,
-  textSize <span class="op">=</span> <span class="fl">1.5</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for ANY,vector,missing</span>
-<span class="fu">plotRankDensity</span><span class="op">(</span>
-  <span class="va">rankData</span>,
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,
-  textSize <span class="op">=</span> <span class="fl">1.5</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for ANY,GeneSet,missing</span>
-<span class="fu">plotRankDensity</span><span class="op">(</span>
-  <span class="va">rankData</span>,
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,
-  textSize <span class="op">=</span> <span class="fl">1.5</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for ANY,vector,vector</span>
-<span class="fu">plotRankDensity</span><span class="op">(</span>
-  <span class="va">rankData</span>,
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,
-  textSize <span class="op">=</span> <span class="fl">1.5</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for ANY,GeneSet,GeneSet</span>
-<span class="fu">plotRankDensity</span><span class="op">(</span>
-  <span class="va">rankData</span>,
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,
-  textSize <span class="op">=</span> <span class="fl">1.5</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plotRankDensity</span><span class="op">(</span></span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  textSize <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for ANY,vector,missing</span></span>
+<span><span class="fu">plotRankDensity</span><span class="op">(</span></span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  textSize <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for ANY,GeneSet,missing</span></span>
+<span><span class="fu">plotRankDensity</span><span class="op">(</span></span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  textSize <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for ANY,vector,vector</span></span>
+<span><span class="fu">plotRankDensity</span><span class="op">(</span></span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  textSize <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for ANY,GeneSet,GeneSet</span></span>
+<span><span class="fu">plotRankDensity</span><span class="op">(</span></span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  textSize <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -117,30 +117,41 @@ Densities are estimated using KDE.</p>
 <dd><p>one column of the ranked gene expression matrix obtained from
 the <code><a href="rankGenes.html">rankGenes()</a></code> function, use <code>drop = FALSE</code> when subsetting the ranked
 gene expression matrix, see examples.</p></dd>
+
+
 <dt>upSet</dt>
 <dd><p>GeneSet object or a vector of gene Ids, up-regulated gene set</p></dd>
+
+
 <dt>downSet</dt>
 <dd><p>GeneSet object or a vector of gene Ids, down-regulated gene
 set</p></dd>
+
+
 <dt>isInteractive</dt>
 <dd><p>Boolean, determine whether the returned plot is
 interactive</p></dd>
+
+
 <dt>textSize</dt>
 <dd><p>numberic, set the size of text on the plot</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A ggplot object (or a plotly object) with a rank density plot
+    
+
+<p>A ggplot object (or a plotly object) with a rank density plot
 overlayed with a barcode plot</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ranked</span> <span class="op">&lt;-</span> <span class="fu"><a href="rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plotRankDensity</span><span class="op">(</span><span class="va">ranked</span><span class="op">[</span>,<span class="fl">2</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ranked</span> <span class="op">&lt;-</span> <span class="fu"><a href="rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plotRankDensity</span><span class="op">(</span><span class="va">ranked</span><span class="op">[</span>,<span class="fl">2</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown aesthetics: text</span>
 <span class="r-plt img"><img src="plotRankDensity-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -151,12 +162,11 @@ overlayed with a barcode plot</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

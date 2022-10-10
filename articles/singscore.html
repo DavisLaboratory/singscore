@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <h1 data-toc-skip>singscore</h1>
                         <h4 data-toc-skip class="author">Ruqian Lyu</h4>
             
-            <h4 data-toc-skip class="date">2022-03-17</h4>
+            <h4 data-toc-skip class="date">2022-10-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DavisLaboratory/singscore/blob/HEAD/vignettes/singscore.Rmd" class="external-link"><code>vignettes/singscore.Rmd</code></a></small>
       <div class="hidden name"><code>singscore.Rmd</code></div>
@@ -95,6 +95,25 @@
 ‘singscore’ to score a gene expression dataset against a gene set at a
 single-sample level and provides visualisation functions to improve
 interpretation of the results.</p>
+<p>Please cite the following papers when using this package:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">'singscore'</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## To cite package 'singscore' in publications use:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##   Foroutan M, Bhuva D, Lyu R, Horan K, Cursons J, Davis M (2018).</span></span>
+<span><span class="co">##   "Single sample scoring of molecular phenotypes." _BMC</span></span>
+<span><span class="co">##   bioinformatics_, *19*(1), 404. doi:10.1186/s12859-018-2435-4</span></span>
+<span><span class="co">##   &lt;https://doi.org/10.1186/s12859-018-2435-4&gt;.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##   Bhuva D, Cursons J, Davis M (2020). "Stable gene expression for</span></span>
+<span><span class="co">##   normalisation and single-sample scoring." _Nucleic Acids Research_,</span></span>
+<span><span class="co">##   *48*(19), e113. doi:10.1093/nar/gkaa802</span></span>
+<span><span class="co">##   &lt;https://doi.org/10.1093/nar/gkaa802&gt;.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span></span>
+<span><span class="co">## bibtex=TRUE)', 'toBibtex(.)', or set</span></span>
+<span><span class="co">## 'options(citation.bibtex.max=999)'.</span></span></code></pre>
 <p><code>singscore</code> implements a simple single-sample gene-set
 (gene-signature) scoring method which scores individual samples
 independently without relying on other samples in gene expression
@@ -107,15 +126,21 @@ various visualisation functions to further explore results of the
 analysis.</p>
 <p>Additional packages we have developed can enhance the singscore
 workflow:</p>
-<p>1.<a href="https://www.bioconductor.org/packages/release/data/experiment/html/msigdb.html" class="external-link"><code>msigdb</code></a>
+<ol style="list-style-type: decimal">
+<li>
+<a href="https://www.bioconductor.org/packages/release/data/experiment/html/msigdb.html" class="external-link"><code>msigdb</code></a>
 - A package that provides gene-sets from the molecular signatures
 database (MSigDB) as a <code>GeneSetCollection</code> object that is
-compatible with <code>singscore</code>. 2. <a href="https://www.bioconductor.org/packages/release/bioc/html/vissE.html" class="external-link"><code>vissE</code></a>
+compatible with <code>singscore</code>.</li>
+<li>
+<a href="https://www.bioconductor.org/packages/release/bioc/html/vissE.html" class="external-link"><code>vissE</code></a>
 - A package that can summarise and aid in the interpretation of a list
-of significant gene-sets identified by <code>singscore</code> (see <a href="https://davislaboratory.github.io/GenesetAnalysisWorkflow/" class="external-link">tutorial</a>).
-3. <a href="https://www.bioconductor.org/packages/release/data/experiment/html/emtdata.html" class="external-link"><code>emtdata</code></a>
+of significant gene-sets identified by <code>singscore</code> (see <a href="https://davislaboratory.github.io/GenesetAnalysisWorkflow/" class="external-link">tutorial</a>).</li>
+<li>
+<a href="https://www.bioconductor.org/packages/release/data/experiment/html/emtdata.html" class="external-link"><code>emtdata</code></a>
 - The full EMT dataset used in this tutorial (with additional EMT
-related datasets).</p>
+related datasets).</li>
+</ol>
 <p>We have also published and made openly available the extensive
 tutorials below that demonstrate the variety of ways in which
 <code>singscore</code> can be used to gain a better functional
@@ -136,22 +161,22 @@ set analysis”).</li>
 <h2 id="install-singscore-r-package">Install “singscore” R package<a class="anchor" aria-label="anchor" href="#install-singscore-r-package"></a>
 </h2>
 <p>Install ‘singscore’ from Bioconductor</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"singscore"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"singscore"</span><span class="op">)</span></span></code></pre></div>
 <p>The most updated version of ‘singscore’ is hosted on GitHub and can
-be easily installed using <code><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">devtools::install_github()</a></code>
+be easily installed using <code><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">devtools::install_github()</a></code>
 function provided by <strong>devtools</strong>, (<a href="https://cran.r-project.org/package=devtools" class="external-link uri">https://cran.r-project.org/package=devtools</a>)</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># You would need to install 'devtools' package first.</span>
- <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-
-<span class="co"># And install the 'singscore' package from the GitHub repository</span>
-<span class="co"># 'singscore' requires these packages to be installed: methods, stats, graphics, ggplot2, ggsci, grDevices,</span>
-<span class="co">#  ggrepel, plotly, tidyr, plyr, magrittr, reshape, edgeR, RColorBrewer, Biobase, GSEABase, BiocParallel</span>
- <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'DavisLaboratory/singscore'</span><span class="op">)</span>
-<span class="co"># Set build_vignette = TRUE if would like to browseVignette()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># You would need to install 'devtools' package first.</span></span>
+<span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># And install the 'singscore' package from the GitHub repository</span></span>
+<span><span class="co"># 'singscore' requires these packages to be installed: methods, stats, graphics, ggplot2, ggsci, grDevices,</span></span>
+<span><span class="co">#  ggrepel, plotly, tidyr, plyr, magrittr, reshape, edgeR, RColorBrewer, Biobase, GSEABase, BiocParallel</span></span>
+<span> <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'DavisLaboratory/singscore'</span><span class="op">)</span></span>
+<span><span class="co"># Set build_vignette = TRUE if would like to browseVignette()</span></span></code></pre></div>
 <p>#Scoring samples against a gene-set ## Load datasets</p>
 <p>To illustrate the usage of ‘simpleScore()’, we first need to load the
 example datasets. The datasets used in this vignette have been built
@@ -165,57 +190,57 @@ TGFb gene signature with an up-regulated and down-regulated gene-set
 pair [@Foroutanmolcanres.0313.2016].</p>
 <p>Gene-sets from the molecular signatures database (MSigDB) can be
 accessed via our <code>msigdb</code> R/Bioconductor package (see <a href="https://bioconductor.org/packages/release/data/experiment/vignettes/msigdb/inst/doc/msigdb.html" class="external-link">vignette</a>).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davislaboratory.github.io/singscore" class="external-link">singscore</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">GSEABase</span><span class="op">)</span>
-<span class="co"># The example expression dataset and gene signatures are included in the package</span>
-<span class="co"># distribution, one can directly access them using the variable names</span>
-
-<span class="co"># To see the description of 'tgfb_expr_10_se','tgfb_gs_up','tgfb_gs_dn', look at </span>
-<span class="co"># their help pages using:</span>
-
-<span class="co"># ?tgfb_expr_10_se</span>
-<span class="co"># ?tgfb_gs_up</span>
-<span class="co"># ?tgfb_gs_dn</span>
-
-<span class="co"># Have a look at the object tgfb_expr_10_se containing gene expression data</span>
-<span class="co"># for 10 samples </span>
-<span class="va">tgfb_expr_10_se</span></code></pre></div>
-<pre><code><span class="co">## class: SummarizedExperiment </span>
-<span class="co">## dim: 11900 10 </span>
-<span class="co">## metadata(0):</span>
-<span class="co">## assays(1): counts</span>
-<span class="co">## rownames(11900): 2 9 ... 729164 752014</span>
-<span class="co">## rowData names(0):</span>
-<span class="co">## colnames(10): D_Ctrl_R1 D_TGFb_R1 ... Hil_Ctrl_R1 Hil_Ctrl_R2</span>
-<span class="co">## colData names(1): Treatment</span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Get the sample names by</span>
-<span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">tgfb_expr_10_se</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##  [1] "D_Ctrl_R1"   "D_TGFb_R1"   "D_Ctrl_R2"   "D_TGFb_R2"   "Hes_Ctrl_R1"</span>
-<span class="co">##  [6] "Hes_TGFb_R1" "Hes_Ctrl_R2" "Hes_TGFb_R2" "Hil_Ctrl_R1" "Hil_Ctrl_R2"</span></code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davislaboratory.github.io/singscore" class="external-link">singscore</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">GSEABase</span><span class="op">)</span></span>
+<span><span class="co"># The example expression dataset and gene signatures are included in the package</span></span>
+<span><span class="co"># distribution, one can directly access them using the variable names</span></span>
+<span></span>
+<span><span class="co"># To see the description of 'tgfb_expr_10_se','tgfb_gs_up','tgfb_gs_dn', look at </span></span>
+<span><span class="co"># their help pages using:</span></span>
+<span></span>
+<span><span class="co"># ?tgfb_expr_10_se</span></span>
+<span><span class="co"># ?tgfb_gs_up</span></span>
+<span><span class="co"># ?tgfb_gs_dn</span></span>
+<span></span>
+<span><span class="co"># Have a look at the object tgfb_expr_10_se containing gene expression data</span></span>
+<span><span class="co"># for 10 samples </span></span>
+<span><span class="va">tgfb_expr_10_se</span></span></code></pre></div>
+<pre><code><span><span class="co">## class: SummarizedExperiment </span></span>
+<span><span class="co">## dim: 11900 10 </span></span>
+<span><span class="co">## metadata(0):</span></span>
+<span><span class="co">## assays(1): counts</span></span>
+<span><span class="co">## rownames(11900): 2 9 ... 729164 752014</span></span>
+<span><span class="co">## rowData names(0):</span></span>
+<span><span class="co">## colnames(10): D_Ctrl_R1 D_TGFb_R1 ... Hil_Ctrl_R1 Hil_Ctrl_R2</span></span>
+<span><span class="co">## colData names(1): Treatment</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># View what tgfb_gs_up/dn contains</span>
-<span class="va">tgfb_gs_up</span></code></pre></div>
-<pre><code><span class="co">## setName: NA </span>
-<span class="co">## geneIds: 19, 87, ..., 402055 (total: 193)</span>
-<span class="co">## geneIdType: Null</span>
-<span class="co">## collectionType: Null </span>
-<span class="co">## details: use 'details(object)'</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Get the sample names by</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">tgfb_expr_10_se</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] "D_Ctrl_R1"   "D_TGFb_R1"   "D_Ctrl_R2"   "D_TGFb_R2"   "Hes_Ctrl_R1"</span></span>
+<span><span class="co">##  [6] "Hes_TGFb_R1" "Hes_Ctrl_R2" "Hes_TGFb_R2" "Hil_Ctrl_R1" "Hil_Ctrl_R2"</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tgfb_gs_dn</span></code></pre></div>
-<pre><code><span class="co">## setName: NA </span>
-<span class="co">## geneIds: 136, 220, ..., 161291 (total: 108)</span>
-<span class="co">## geneIdType: Null</span>
-<span class="co">## collectionType: Null </span>
-<span class="co">## details: use 'details(object)'</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># View what tgfb_gs_up/dn contains</span></span>
+<span><span class="va">tgfb_gs_up</span></span></code></pre></div>
+<pre><code><span><span class="co">## setName: NA </span></span>
+<span><span class="co">## geneIds: 19, 87, ..., 402055 (total: 193)</span></span>
+<span><span class="co">## geneIdType: Null</span></span>
+<span><span class="co">## collectionType: Null </span></span>
+<span><span class="co">## details: use 'details(object)'</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Get the size of the gene sets</span>
-<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu">GSEABase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html" class="external-link">geneIds</a></span><span class="op">(</span><span class="va">tgfb_gs_up</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] 193</span></code></pre>
+<code class="sourceCode R"><span><span class="va">tgfb_gs_dn</span></span></code></pre></div>
+<pre><code><span><span class="co">## setName: NA </span></span>
+<span><span class="co">## geneIds: 136, 220, ..., 161291 (total: 108)</span></span>
+<span><span class="co">## geneIdType: Null</span></span>
+<span><span class="co">## collectionType: Null </span></span>
+<span><span class="co">## details: use 'details(object)'</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu">GSEABase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html" class="external-link">geneIds</a></span><span class="op">(</span><span class="va">tgfb_gs_dn</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] 108</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Get the size of the gene sets</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu">GSEABase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html" class="external-link">geneIds</a></span><span class="op">(</span><span class="va">tgfb_gs_up</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 193</span></span></code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu">GSEABase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html" class="external-link">geneIds</a></span><span class="op">(</span><span class="va">tgfb_gs_dn</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 108</span></span></code></pre>
 <div class="section level3">
 <h3 id="sample-scoring">Sample scoring<a class="anchor" aria-label="anchor" href="#sample-scoring"></a>
 </h3>
@@ -227,44 +252,44 @@ containing the scores for each sample. When only a single gene-set is
 available (i.e. not an up- and down- regulated pair), the same function
 can be called by setting the <code>upSet</code> argument to the
 gene-set.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># The recommended method for dealing with ties in ranking is 'min', you can</span>
-<span class="co"># change by specifying 'tiesMethod' parameter for rankGenes function.</span>
-<span class="va">rankData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">tgfb_expr_10_se</span><span class="op">)</span>
-
-<span class="co"># Given the ranked data and gene signature, simpleScore returns the scores and </span>
-<span class="co"># dispersions for each sample</span>
-<span class="va">scoredf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">rankData</span>, upSet <span class="op">=</span> <span class="va">tgfb_gs_up</span>, downSet <span class="op">=</span> <span class="va">tgfb_gs_dn</span><span class="op">)</span>
-<span class="va">scoredf</span></code></pre></div>
-<pre><code><span class="co">##               TotalScore TotalDispersion    UpScore UpDispersion   DownScore</span>
-<span class="co">## D_Ctrl_R1   -0.088097993        2867.348 0.06096415     3119.390 -0.14906214</span>
-<span class="co">## D_TGFb_R1    0.286994210        2217.970 0.24931565     2352.886  0.03767856</span>
-<span class="co">## D_Ctrl_R2   -0.098964086        2861.418 0.06841242     3129.769 -0.16737650</span>
-<span class="co">## D_TGFb_R2    0.270721958        2378.832 0.25035661     2470.012  0.02036534</span>
-<span class="co">## Hes_Ctrl_R1 -0.002084788        2746.146 0.08046490     3134.216 -0.08254969</span>
-<span class="co">## Hes_TGFb_R1  0.176122839        2597.515 0.22894035     2416.638 -0.05281751</span>
-<span class="co">## Hes_Ctrl_R2  0.016883867        2700.556 0.08817828     3138.664 -0.07129441</span>
-<span class="co">## Hes_TGFb_R2  0.188466953        2455.186 0.23895473     2324.717 -0.05048778</span>
-<span class="co">## Hil_Ctrl_R1 -0.061991164        3039.330 0.08314254     3553.792 -0.14513371</span>
-<span class="co">## Hil_Ctrl_R2 -0.064937366        2959.270 0.07433863     3396.637 -0.13927600</span>
-<span class="co">##             DownDispersion</span>
-<span class="co">## D_Ctrl_R1         2615.306</span>
-<span class="co">## D_TGFb_R1         2083.053</span>
-<span class="co">## D_Ctrl_R2         2593.067</span>
-<span class="co">## D_TGFb_R2         2287.652</span>
-<span class="co">## Hes_Ctrl_R1       2358.075</span>
-<span class="co">## Hes_TGFb_R1       2778.392</span>
-<span class="co">## Hes_Ctrl_R2       2262.448</span>
-<span class="co">## Hes_TGFb_R2       2585.654</span>
-<span class="co">## Hil_Ctrl_R1       2524.868</span>
-<span class="co">## Hil_Ctrl_R2       2521.903</span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># To view more details of the simpleScore, use ?simpleScore</span>
-<span class="co"># Note that, when only one gene set is available in a gene signature, one can </span>
-<span class="co"># only input values for the upSet argument. In addition, a knownDirection </span>
-<span class="co"># argument can be set to FALSE if the direction of the gene set is unknown.</span>
-
-<span class="co"># simpleScore(rankData, upSet = tgfb_gs_up, knownDirection = FALSE)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># The recommended method for dealing with ties in ranking is 'min', you can</span></span>
+<span><span class="co"># change by specifying 'tiesMethod' parameter for rankGenes function.</span></span>
+<span><span class="va">rankData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">tgfb_expr_10_se</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Given the ranked data and gene signature, simpleScore returns the scores and </span></span>
+<span><span class="co"># dispersions for each sample</span></span>
+<span><span class="va">scoredf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">rankData</span>, upSet <span class="op">=</span> <span class="va">tgfb_gs_up</span>, downSet <span class="op">=</span> <span class="va">tgfb_gs_dn</span><span class="op">)</span></span>
+<span><span class="va">scoredf</span></span></code></pre></div>
+<pre><code><span><span class="co">##               TotalScore TotalDispersion    UpScore UpDispersion   DownScore</span></span>
+<span><span class="co">## D_Ctrl_R1   -0.088097993        2867.348 0.06096415     3119.390 -0.14906214</span></span>
+<span><span class="co">## D_TGFb_R1    0.286994210        2217.970 0.24931565     2352.886  0.03767856</span></span>
+<span><span class="co">## D_Ctrl_R2   -0.098964086        2861.418 0.06841242     3129.769 -0.16737650</span></span>
+<span><span class="co">## D_TGFb_R2    0.270721958        2378.832 0.25035661     2470.012  0.02036534</span></span>
+<span><span class="co">## Hes_Ctrl_R1 -0.002084788        2746.146 0.08046490     3134.216 -0.08254969</span></span>
+<span><span class="co">## Hes_TGFb_R1  0.176122839        2597.515 0.22894035     2416.638 -0.05281751</span></span>
+<span><span class="co">## Hes_Ctrl_R2  0.016883867        2700.556 0.08817828     3138.664 -0.07129441</span></span>
+<span><span class="co">## Hes_TGFb_R2  0.188466953        2455.186 0.23895473     2324.717 -0.05048778</span></span>
+<span><span class="co">## Hil_Ctrl_R1 -0.061991164        3039.330 0.08314254     3553.792 -0.14513371</span></span>
+<span><span class="co">## Hil_Ctrl_R2 -0.064937366        2959.270 0.07433863     3396.637 -0.13927600</span></span>
+<span><span class="co">##             DownDispersion</span></span>
+<span><span class="co">## D_Ctrl_R1         2615.306</span></span>
+<span><span class="co">## D_TGFb_R1         2083.053</span></span>
+<span><span class="co">## D_Ctrl_R2         2593.067</span></span>
+<span><span class="co">## D_TGFb_R2         2287.652</span></span>
+<span><span class="co">## Hes_Ctrl_R1       2358.075</span></span>
+<span><span class="co">## Hes_TGFb_R1       2778.392</span></span>
+<span><span class="co">## Hes_Ctrl_R2       2262.448</span></span>
+<span><span class="co">## Hes_TGFb_R2       2585.654</span></span>
+<span><span class="co">## Hil_Ctrl_R1       2524.868</span></span>
+<span><span class="co">## Hil_Ctrl_R2       2521.903</span></span></code></pre>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># To view more details of the simpleScore, use ?simpleScore</span></span>
+<span><span class="co"># Note that, when only one gene set is available in a gene signature, one can </span></span>
+<span><span class="co"># only input values for the upSet argument. In addition, a knownDirection </span></span>
+<span><span class="co"># argument can be set to FALSE if the direction of the gene set is unknown.</span></span>
+<span></span>
+<span><span class="co"># simpleScore(rankData, upSet = tgfb_gs_up, knownDirection = FALSE)</span></span></code></pre></div>
 <p>The returned data.frame consists of the scores for the up- and down-
 regulated gene-sets along with the combined score
 (<code>TotalScore</code>). Dispersion is calculated using the
@@ -291,81 +316,81 @@ logic is available in Bhuva et al. (2020) (manuscript in
 preparation).</p>
 <p>Stably expressed genes in carcinoma transcriptomes and blood can be
 obtained using the <code>getStableGenes</code> function.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#get the top 5 stable genes in carcinomas</span>
-<span class="fu"><a href="../reference/getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'carcinoma'</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "RBM45"  "BRAP"   "CIAO1"  "TARDBP" "HNRNPK"</span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#get the top 5 stable genes in blood</span>
-<span class="fu"><a href="../reference/getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'blood'</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "RBM45"  "BRAP"   "GOSR1"  "IWS1"   "HNRNPK"</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#get the top 5 stable genes in carcinomas</span></span>
+<span><span class="fu"><a href="../reference/getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'carcinoma'</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "RBM45"  "BRAP"   "CIAO1"  "TARDBP" "HNRNPK"</span></span></code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#get ensembl IDs instead of gene symbold</span>
-<span class="fu"><a href="../reference/getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'carcinoma'</span>, id <span class="op">=</span> <span class="st">'ensembl'</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "ENSG00000155636" "ENSG00000089234" "ENSG00000144021" "ENSG00000120948"</span>
-<span class="co">## [5] "ENSG00000165119"</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#get the top 5 stable genes in blood</span></span>
+<span><span class="fu"><a href="../reference/getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'blood'</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "RBM45"  "BRAP"   "GOSR1"  "IWS1"   "HNRNPK"</span></span></code></pre>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#get ensembl IDs instead of gene symbold</span></span>
+<span><span class="fu"><a href="../reference/getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'carcinoma'</span>, id <span class="op">=</span> <span class="st">'ensembl'</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "ENSG00000155636" "ENSG00000089234" "ENSG00000144021" "ENSG00000120948"</span></span>
+<span><span class="co">## [5] "ENSG00000165119"</span></span></code></pre>
 <p>This list can be used to score samples using a variant of singscore
 called <em>stingscore</em>.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#here we specify a custom set of genes (Entrez IDs)</span>
-<span class="va">stable_genes</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'8315'</span>, <span class="st">'9391'</span>, <span class="st">'23435'</span>, <span class="st">'3190'</span><span class="op">)</span>
-
-<span class="co">#create a dataset with a reduced set of genes (signature genes and stable genes)</span>
-<span class="va">measured</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">stable_genes</span>, <span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html" class="external-link">geneIds</a></span><span class="op">(</span><span class="va">tgfb_gs_up</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html" class="external-link">geneIds</a></span><span class="op">(</span><span class="va">tgfb_gs_dn</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">small_tgfb_expr_10</span> <span class="op">&lt;-</span>  <span class="va">tgfb_expr_10_se</span><span class="op">[</span><span class="va">measured</span>, <span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">small_tgfb_expr_10</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] 305  10</span></code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#rank genes using stable genes</span>
-<span class="va">rankData_st</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">small_tgfb_expr_10</span>, stableGenes <span class="op">=</span> <span class="va">stable_genes</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rankData_st</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##       D_Ctrl_R1 D_TGFb_R1 D_Ctrl_R2 D_TGFb_R2 Hes_Ctrl_R1 Hes_TGFb_R1</span>
-<span class="co">## 8315        0.2       0.2       0.2       0.2         0.2         0.2</span>
-<span class="co">## 9391        0.4       0.4       0.4       0.4         0.4         0.4</span>
-<span class="co">## 23435       0.6       0.6       0.6       0.6         0.6         0.6</span>
-<span class="co">## 3190        0.8       0.8       0.8       0.8         0.8         0.8</span>
-<span class="co">## 19          0.4       0.4       0.4       0.6         0.4         0.6</span>
-<span class="co">## 87          0.8       1.0       0.8       0.8         0.8         0.8</span>
-<span class="co">##       Hes_Ctrl_R2 Hes_TGFb_R2 Hil_Ctrl_R1 Hil_Ctrl_R2</span>
-<span class="co">## 8315          0.2         0.2         0.2         0.2</span>
-<span class="co">## 9391          0.4         0.4         0.4         0.4</span>
-<span class="co">## 23435         0.6         0.6         0.6         0.6</span>
-<span class="co">## 3190          0.8         0.8         0.8         0.8</span>
-<span class="co">## 19            0.4         0.8         0.4         0.4</span>
-<span class="co">## 87            0.8         0.8         0.8         0.8</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#here we specify a custom set of genes (Entrez IDs)</span></span>
+<span><span class="va">stable_genes</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'8315'</span>, <span class="st">'9391'</span>, <span class="st">'23435'</span>, <span class="st">'3190'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#create a dataset with a reduced set of genes (signature genes and stable genes)</span></span>
+<span><span class="va">measured</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">stable_genes</span>, <span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html" class="external-link">geneIds</a></span><span class="op">(</span><span class="va">tgfb_gs_up</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/GSEABase/man/GeneSet-class.html" class="external-link">geneIds</a></span><span class="op">(</span><span class="va">tgfb_gs_dn</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">small_tgfb_expr_10</span> <span class="op">&lt;-</span>  <span class="va">tgfb_expr_10_se</span><span class="op">[</span><span class="va">measured</span>, <span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">small_tgfb_expr_10</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 305  10</span></span></code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#score samples using stingscore</span>
-<span class="co">#simpleScore invoked with the new rank matrix will execute the stingscore</span>
-<span class="co">#   algorithm</span>
-<span class="va">scoredf_st</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">rankData_st</span>, upSet <span class="op">=</span> <span class="va">tgfb_gs_up</span>, downSet <span class="op">=</span> <span class="va">tgfb_gs_dn</span><span class="op">)</span>
-<span class="va">scoredf_st</span></code></pre></div>
-<pre><code><span class="co">##              TotalScore TotalDispersion     UpScore UpDispersion   DownScore</span>
-<span class="co">## D_Ctrl_R1   -0.04940510         0.14826 -0.10310881      0.29652 0.053703704</span>
-<span class="co">## D_TGFb_R1    0.27645366         0.14826  0.08756477      0.29652 0.188888889</span>
-<span class="co">## D_Ctrl_R2   -0.07259643         0.14826 -0.09481865      0.29652 0.022222222</span>
-<span class="co">## D_TGFb_R2    0.26430628         0.14826  0.08652850      0.29652 0.177777778</span>
-<span class="co">## Hes_Ctrl_R1  0.01732873         0.14826 -0.09378238      0.29652 0.111111111</span>
-<span class="co">## Hes_TGFb_R1  0.18121282         0.29652  0.06269430      0.29652 0.118518519</span>
-<span class="co">## Hes_Ctrl_R2  0.03176933         0.14826 -0.08860104      0.29652 0.120370370</span>
-<span class="co">## Hes_TGFb_R2  0.20667818         0.29652  0.08445596      0.29652 0.122222222</span>
-<span class="co">## Hil_Ctrl_R1 -0.05136250         0.14826 -0.06062176      0.29652 0.009259259</span>
-<span class="co">## Hil_Ctrl_R2 -0.03202840         0.14826 -0.06165803      0.29652 0.029629630</span>
-<span class="co">##             DownDispersion</span>
-<span class="co">## D_Ctrl_R1          0.00000</span>
-<span class="co">## D_TGFb_R1          0.00000</span>
-<span class="co">## D_Ctrl_R2          0.00000</span>
-<span class="co">## D_TGFb_R2          0.00000</span>
-<span class="co">## Hes_Ctrl_R1        0.00000</span>
-<span class="co">## Hes_TGFb_R1        0.29652</span>
-<span class="co">## Hes_Ctrl_R2        0.00000</span>
-<span class="co">## Hes_TGFb_R2        0.29652</span>
-<span class="co">## Hil_Ctrl_R1        0.00000</span>
-<span class="co">## Hil_Ctrl_R2        0.00000</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#rank genes using stable genes</span></span>
+<span><span class="va">rankData_st</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">small_tgfb_expr_10</span>, stableGenes <span class="op">=</span> <span class="va">stable_genes</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rankData_st</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##       D_Ctrl_R1 D_TGFb_R1 D_Ctrl_R2 D_TGFb_R2 Hes_Ctrl_R1 Hes_TGFb_R1</span></span>
+<span><span class="co">## 8315        0.2       0.2       0.2       0.2         0.2         0.2</span></span>
+<span><span class="co">## 9391        0.4       0.4       0.4       0.4         0.4         0.4</span></span>
+<span><span class="co">## 23435       0.6       0.6       0.6       0.6         0.6         0.6</span></span>
+<span><span class="co">## 3190        0.8       0.8       0.8       0.8         0.8         0.8</span></span>
+<span><span class="co">## 19          0.4       0.4       0.4       0.6         0.4         0.6</span></span>
+<span><span class="co">## 87          0.8       1.0       0.8       0.8         0.8         0.8</span></span>
+<span><span class="co">##       Hes_Ctrl_R2 Hes_TGFb_R2 Hil_Ctrl_R1 Hil_Ctrl_R2</span></span>
+<span><span class="co">## 8315          0.2         0.2         0.2         0.2</span></span>
+<span><span class="co">## 9391          0.4         0.4         0.4         0.4</span></span>
+<span><span class="co">## 23435         0.6         0.6         0.6         0.6</span></span>
+<span><span class="co">## 3190          0.8         0.8         0.8         0.8</span></span>
+<span><span class="co">## 19            0.4         0.8         0.4         0.4</span></span>
+<span><span class="co">## 87            0.8         0.8         0.8         0.8</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#plot the two scores against each other</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">scoredf</span><span class="op">$</span><span class="va">TotalScore</span>, <span class="va">scoredf_st</span><span class="op">$</span><span class="va">TotalScore</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>coef <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="singscore_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<code class="sourceCode R"><span><span class="co">#score samples using stingscore</span></span>
+<span><span class="co">#simpleScore invoked with the new rank matrix will execute the stingscore</span></span>
+<span><span class="co">#   algorithm</span></span>
+<span><span class="va">scoredf_st</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">rankData_st</span>, upSet <span class="op">=</span> <span class="va">tgfb_gs_up</span>, downSet <span class="op">=</span> <span class="va">tgfb_gs_dn</span><span class="op">)</span></span>
+<span><span class="va">scoredf_st</span></span></code></pre></div>
+<pre><code><span><span class="co">##              TotalScore TotalDispersion     UpScore UpDispersion   DownScore</span></span>
+<span><span class="co">## D_Ctrl_R1   -0.04940510         0.14826 -0.10310881      0.29652 0.053703704</span></span>
+<span><span class="co">## D_TGFb_R1    0.27645366         0.14826  0.08756477      0.29652 0.188888889</span></span>
+<span><span class="co">## D_Ctrl_R2   -0.07259643         0.14826 -0.09481865      0.29652 0.022222222</span></span>
+<span><span class="co">## D_TGFb_R2    0.26430628         0.14826  0.08652850      0.29652 0.177777778</span></span>
+<span><span class="co">## Hes_Ctrl_R1  0.01732873         0.14826 -0.09378238      0.29652 0.111111111</span></span>
+<span><span class="co">## Hes_TGFb_R1  0.18121282         0.29652  0.06269430      0.29652 0.118518519</span></span>
+<span><span class="co">## Hes_Ctrl_R2  0.03176933         0.14826 -0.08860104      0.29652 0.120370370</span></span>
+<span><span class="co">## Hes_TGFb_R2  0.20667818         0.29652  0.08445596      0.29652 0.122222222</span></span>
+<span><span class="co">## Hil_Ctrl_R1 -0.05136250         0.14826 -0.06062176      0.29652 0.009259259</span></span>
+<span><span class="co">## Hil_Ctrl_R2 -0.03202840         0.14826 -0.06165803      0.29652 0.029629630</span></span>
+<span><span class="co">##             DownDispersion</span></span>
+<span><span class="co">## D_Ctrl_R1          0.00000</span></span>
+<span><span class="co">## D_TGFb_R1          0.00000</span></span>
+<span><span class="co">## D_Ctrl_R2          0.00000</span></span>
+<span><span class="co">## D_TGFb_R2          0.00000</span></span>
+<span><span class="co">## Hes_Ctrl_R1        0.00000</span></span>
+<span><span class="co">## Hes_TGFb_R1        0.29652</span></span>
+<span><span class="co">## Hes_Ctrl_R2        0.00000</span></span>
+<span><span class="co">## Hes_TGFb_R2        0.29652</span></span>
+<span><span class="co">## Hil_Ctrl_R1        0.00000</span></span>
+<span><span class="co">## Hil_Ctrl_R2        0.00000</span></span></code></pre>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#plot the two scores against each other</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">scoredf</span><span class="op">$</span><span class="va">TotalScore</span>, <span class="va">scoredf_st</span><span class="op">$</span><span class="va">TotalScore</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>coef <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="singscore_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>Scores computed using the classic singscore and the modified
 stingscore will be similar (correlated if not equal) if the selection of
 stable genes is good. Ideal stable genes will have stable gene
@@ -392,21 +417,21 @@ the second sample in <code>rankData</code> which combines a density plot
 since we are subsetting the data.frame rankData by one column, we set
 <code>drop = FALSE</code> to maintain the structure of the
 data.frame/matrix.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#  You can provide the upSet alone when working with unpaired gene-sets </span>
-<span class="co"># We plot the second sample in rankData, view it by </span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rankData</span><span class="op">[</span>,<span class="fl">2</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##    D_TGFb_R1</span>
-<span class="co">## 2       1255</span>
-<span class="co">## 9       7611</span>
-<span class="co">## 10      1599</span>
-<span class="co">## 12      3682</span>
-<span class="co">## 13      3599</span>
-<span class="co">## 14     10013</span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plotRankDensity.html">plotRankDensity</a></span><span class="op">(</span><span class="va">rankData</span><span class="op">[</span>,<span class="fl">2</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, upSet <span class="op">=</span> <span class="va">tgfb_gs_up</span>, 
-                downSet <span class="op">=</span> <span class="va">tgfb_gs_dn</span>, isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Warning: Ignoring unknown aesthetics: text</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#  You can provide the upSet alone when working with unpaired gene-sets </span></span>
+<span><span class="co"># We plot the second sample in rankData, view it by </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rankData</span><span class="op">[</span>,<span class="fl">2</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    D_TGFb_R1</span></span>
+<span><span class="co">## 2       1255</span></span>
+<span><span class="co">## 9       7611</span></span>
+<span><span class="co">## 10      1599</span></span>
+<span><span class="co">## 12      3682</span></span>
+<span><span class="co">## 13      3599</span></span>
+<span><span class="co">## 14     10013</span></span></code></pre>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plotRankDensity.html">plotRankDensity</a></span><span class="op">(</span><span class="va">rankData</span><span class="op">[</span>,<span class="fl">2</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, upSet <span class="op">=</span> <span class="va">tgfb_gs_up</span>, </span>
+<span>                downSet <span class="op">=</span> <span class="va">tgfb_gs_dn</span>, isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Ignoring unknown aesthetics: text</span></span></code></pre>
 <p><img src="singscore_files/figure-html/plotdt-1.png" width="768"></p>
 <p>Setting <code>isInteractive = TRUE</code> generates an interactive
 plot using the <code>plotly</code> package. Hovering over the bars in
@@ -423,25 +448,25 @@ the ‘score VS. dispersions’ for the total scores, the up scores and the
 down score of samples. It requires the scored data.frame from
 <code>simpleScore</code> function and annotations (via
 <code>annot</code> parameter) can be used for coloring the points.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#  Get the annotations of samples by their sample names</span>
-<span class="va">tgfbAnnot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>SampleID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">tgfb_expr_10_se</span><span class="op">)</span>,
-                       Type <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
-<span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"Ctrl"</span>, <span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">SampleID</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="st">"Control"</span>
-<span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"TGFb"</span>, <span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">SampleID</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="st">"TGFb"</span>
-
-<span class="co"># Sample annotations</span>
-<span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span></code></pre></div>
-<pre><code><span class="co">##  [1] "Control" "TGFb"    "Control" "TGFb"    "Control" "TGFb"    "Control"</span>
-<span class="co">##  [8] "TGFb"    "Control" "Control"</span></code></pre>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plotDispersion.html">plotDispersion</a></span><span class="op">(</span><span class="va">scoredf</span>,annot <span class="op">=</span> <span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span>,isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#  Get the annotations of samples by their sample names</span></span>
+<span><span class="va">tgfbAnnot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>SampleID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">tgfb_expr_10_se</span><span class="op">)</span>,</span>
+<span>                       Type <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"Ctrl"</span>, <span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">SampleID</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="st">"Control"</span></span>
+<span><span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"TGFb"</span>, <span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">SampleID</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="st">"TGFb"</span></span>
+<span></span>
+<span><span class="co"># Sample annotations</span></span>
+<span><span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] "Control" "TGFb"    "Control" "TGFb"    "Control" "TGFb"    "Control"</span></span>
+<span><span class="co">##  [8] "TGFb"    "Control" "Control"</span></span></code></pre>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plotDispersion.html">plotDispersion</a></span><span class="op">(</span><span class="va">scoredf</span>,annot <span class="op">=</span> <span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span>,isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="singscore_files/figure-html/plotds-1.png" width="768"></p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># To see an interactive version powered by 'plotly', simply set the </span>
-<span class="co"># 'isInteractive' = TRUE, i.e :</span>
-<span class="co">#</span>
-<span class="co"># plotDispersion(scoredf,annot = tgfbAnnot$Type,isInteractive = TRUE)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># To see an interactive version powered by 'plotly', simply set the </span></span>
+<span><span class="co"># 'isInteractive' = TRUE, i.e :</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co"># plotDispersion(scoredf,annot = tgfbAnnot$Type,isInteractive = TRUE)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="plot-score-landscape">Plot score landscape<a class="anchor" aria-label="anchor" href="#plot-score-landscape"></a>
@@ -463,9 +488,9 @@ al. 2012)</span> against an epithelial gene signature and mesenchymal
 gene signature <span class="citation">(Tan et al. 2014)</span>
 respectively. For details on how to obtain the dataset please see the
 section at the end of the vignette.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plotScoreLandscape.html">plotScoreLandscape</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span>, <span class="va">scoredf_ccle_mes</span>, 
-                   scorenames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ccle-EPI'</span>,<span class="st">'ccle-MES'</span><span class="op">)</span>,hexMin <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plotScoreLandscape.html">plotScoreLandscape</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span>, <span class="va">scoredf_ccle_mes</span>, </span>
+<span>                   scorenames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ccle-EPI'</span>,<span class="st">'ccle-MES'</span><span class="op">)</span>,hexMin <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><img src="singscore_files/figure-html/loadCCLE-1.png" width="768"></p>
 <p>Similarly, pre-computed scores for the <a href="https://cancergenome.nih.gov/" class="external-link">TCGA</a> breast cancer RNA-seq
 dataset against epithelial and mesenchymal gene signatures are stored in
@@ -473,38 +498,38 @@ dataset against epithelial and mesenchymal gene signatures are stored in
 respectively <span class="citation">(Tan et al. 2014)</span>. The
 utility of this function is enhanced when the number of samples is
 large.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tcgaLandscape</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotScoreLandscape.html">plotScoreLandscape</a></span><span class="op">(</span><span class="va">scoredf_tcga_epi</span>, <span class="va">scoredf_tcga_mes</span>, 
-                   scorenames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'tcga_EPI'</span>,<span class="st">'tcga_MES'</span><span class="op">)</span>, isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="va">tcgaLandscape</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tcgaLandscape</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotScoreLandscape.html">plotScoreLandscape</a></span><span class="op">(</span><span class="va">scoredf_tcga_epi</span>, <span class="va">scoredf_tcga_mes</span>, </span>
+<span>                   scorenames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'tcga_EPI'</span>,<span class="st">'tcga_MES'</span><span class="op">)</span>, isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tcgaLandscape</span></span></code></pre></div>
 <p><img src="singscore_files/figure-html/loadTCGA-1.png" width="768"></p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># To get an interactive version of plot, set isInteractive = TRUE</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># To get an interactive version of plot, set isInteractive = TRUE</span></span></code></pre></div>
 <p>You can also project new data points onto the landscape plot
 generated above by using the <code>projectScoreLandscape</code>
 function. For example, the plot below overlays 3 CCLE samples onto the
 TCGA epithelial-mesenchymal landscape. Points are labeled with their
 sample names by default.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Project on the above generated 'tcgaLandscape' plot</span>
-<span class="fu"><a href="../reference/projectScoreLandscape.html">projectScoreLandscape</a></span><span class="op">(</span>plotObj <span class="op">=</span> <span class="va">tcgaLandscape</span>, <span class="va">scoredf_ccle_epi</span>, 
-                      <span class="va">scoredf_ccle_mes</span>,
-                      subSamples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span>,
-                      annot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span>, 
-                      sampleLabels <span class="op">=</span> <span class="cn">NULL</span>,
-                      isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Warning: Ignoring unknown aesthetics: text</span></code></pre>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Project on the above generated 'tcgaLandscape' plot</span></span>
+<span><span class="fu"><a href="../reference/projectScoreLandscape.html">projectScoreLandscape</a></span><span class="op">(</span>plotObj <span class="op">=</span> <span class="va">tcgaLandscape</span>, <span class="va">scoredf_ccle_epi</span>, </span>
+<span>                      <span class="va">scoredf_ccle_mes</span>,</span>
+<span>                      subSamples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                      annot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span>, </span>
+<span>                      sampleLabels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                      isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Ignoring unknown aesthetics: text</span></span></code></pre>
 <p><img src="singscore_files/figure-html/projectScore-1.png" width="768"></p>
 <p>Custom labels can be provided by passing a character vector to the
 <code>sampleLabels</code> argument.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/projectScoreLandscape.html">projectScoreLandscape</a></span><span class="op">(</span>plotObj <span class="op">=</span> <span class="va">tcgaLandscape</span>, <span class="va">scoredf_ccle_epi</span>, <span class="va">scoredf_ccle_mes</span>,
-                      subSamples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span>,
-                      sampleLabels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'l1'</span>,<span class="st">'l2'</span>,<span class="st">'l3'</span>,<span class="st">'l4'</span>,<span class="st">'l5'</span><span class="op">)</span>,
-                      annot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span>, 
-                      isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Warning: Ignoring unknown aesthetics: text</span></code></pre>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/projectScoreLandscape.html">projectScoreLandscape</a></span><span class="op">(</span>plotObj <span class="op">=</span> <span class="va">tcgaLandscape</span>, <span class="va">scoredf_ccle_epi</span>, <span class="va">scoredf_ccle_mes</span>,</span>
+<span>                      subSamples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                      sampleLabels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'l1'</span>,<span class="st">'l2'</span>,<span class="st">'l3'</span>,<span class="st">'l4'</span>,<span class="st">'l5'</span><span class="op">)</span>,</span>
+<span>                      annot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span>, </span>
+<span>                      isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Ignoring unknown aesthetics: text</span></span></code></pre>
 <p><img src="singscore_files/figure-html/projectScore2-1.png" width="768"></p>
 </div>
 </div>
@@ -526,59 +551,59 @@ B\)</span> matrix with permuted scores along the columns for each
 sample.</p>
 <p>The permutation function has parallel computing features provided by
 using <a href="http://bioconductor.org/packages/release/bioc/html/BiocParallel.html" class="external-link"><code>BiocParallel</code></a></p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># tgfb_gs_up : up regulated gene set in the tgfb gene signature</span>
-<span class="co"># tgfb_gs_dn : down regulated gene set in the tgfb gene signature</span>
-
-<span class="co"># This permutation function uses BiocParallel::bplapply() parallel function, by </span>
-<span class="co"># supplying the first 5 columns of rankData, we generate Null distribution for </span>
-<span class="co"># the first 5 samples.</span>
-
-<span class="co"># detect how many CPU cores are available for your machine</span>
-<span class="co"># parallel::detectCores()</span>
-
-<span class="va">ncores</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-
-<span class="co"># Provide the generateNull() function the number of cores you would like</span>
-<span class="co"># the function to use by passing the ncore parameter</span>
-
-<span class="va">permuteResult</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="../reference/generateNull.html">generateNull</a></span><span class="op">(</span>
-    upSet <span class="op">=</span> <span class="va">tgfb_gs_up</span>,
-    downSet <span class="op">=</span> <span class="va">tgfb_gs_dn</span>,
-    rankData <span class="op">=</span> <span class="va">rankData</span>,
-    subSamples <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,
-    centerScore <span class="op">=</span> <span class="cn">TRUE</span>,
-    knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,
-    B <span class="op">=</span> <span class="fl">1000</span>,
-    ncores <span class="op">=</span> <span class="va">ncores</span>,
-    seed <span class="op">=</span> <span class="fl">1</span>,
-    useBPPARAM <span class="op">=</span> <span class="cn">NULL</span>
-  <span class="op">)</span>
-<span class="co"># Note here, the useBPPARAM parameter allows user to supply a BPPARAM variable </span>
-<span class="co"># as a parameter which decides the type of parallel ends to use.</span>
-<span class="co"># such as </span>
-<span class="co"># snow &lt;-  BiocParallel::SnowParam(type = "SOCK")</span>
-<span class="co"># permuteResult &lt;-  generateNull(upSet = tgfb_gs_up, downSet = tgfb_gs_dn,</span>
-<span class="co"># rankData[,1:5],  B = 1000, seed = 1,ncores = ncores, useBPPARAM = snow)</span>
-
-<span class="co"># If you are not sure about this, just leave the value as NULL and set how many</span>
-<span class="co"># CPU cores to use via the ncores argument. It will use the default parallel </span>
-<span class="co"># backend for your machine.</span>
-
-<span class="co"># For more information, please see the help page for ?generateNull()</span>
-<span class="co"># Please also note that one should pass the same values to the upSet, </span>
-<span class="co"># downSet, centerScore and knownDirection arguments as what they provide </span>
-<span class="co"># for the simpleScore() function to generate a proper null distribution.</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">permuteResult</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##     D_Ctrl_R1   D_TGFb_R1   D_Ctrl_R2   D_TGFb_R2 Hes_Ctrl_R1</span>
-<span class="co">## 1 -0.03108049 -0.02355802 -0.03296665 -0.02552833 -0.02976792</span>
-<span class="co">## 2  0.05924161  0.05508062  0.05900367  0.05473372  0.05781921</span>
-<span class="co">## 3 -0.06808434 -0.06405468 -0.07658483 -0.06884367 -0.06999305</span>
-<span class="co">## 4  0.06030101  0.08181637  0.05814608  0.08205247  0.07089498</span>
-<span class="co">## 5 -0.05495649 -0.04898792 -0.06288874 -0.05624015 -0.05125311</span>
-<span class="co">## 6  0.04852306  0.03894352  0.05051753  0.03736856  0.04133476</span></code></pre>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># tgfb_gs_up : up regulated gene set in the tgfb gene signature</span></span>
+<span><span class="co"># tgfb_gs_dn : down regulated gene set in the tgfb gene signature</span></span>
+<span></span>
+<span><span class="co"># This permutation function uses BiocParallel::bplapply() parallel function, by </span></span>
+<span><span class="co"># supplying the first 5 columns of rankData, we generate Null distribution for </span></span>
+<span><span class="co"># the first 5 samples.</span></span>
+<span></span>
+<span><span class="co"># detect how many CPU cores are available for your machine</span></span>
+<span><span class="co"># parallel::detectCores()</span></span>
+<span></span>
+<span><span class="va">ncores</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="co"># Provide the generateNull() function the number of cores you would like</span></span>
+<span><span class="co"># the function to use by passing the ncore parameter</span></span>
+<span></span>
+<span><span class="va">permuteResult</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="../reference/generateNull.html">generateNull</a></span><span class="op">(</span></span>
+<span>    upSet <span class="op">=</span> <span class="va">tgfb_gs_up</span>,</span>
+<span>    downSet <span class="op">=</span> <span class="va">tgfb_gs_dn</span>,</span>
+<span>    rankData <span class="op">=</span> <span class="va">rankData</span>,</span>
+<span>    subSamples <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
+<span>    centerScore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    B <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>    ncores <span class="op">=</span> <span class="va">ncores</span>,</span>
+<span>    seed <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    useBPPARAM <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co"># Note here, the useBPPARAM parameter allows user to supply a BPPARAM variable </span></span>
+<span><span class="co"># as a parameter which decides the type of parallel ends to use.</span></span>
+<span><span class="co"># such as </span></span>
+<span><span class="co"># snow &lt;-  BiocParallel::SnowParam(type = "SOCK")</span></span>
+<span><span class="co"># permuteResult &lt;-  generateNull(upSet = tgfb_gs_up, downSet = tgfb_gs_dn,</span></span>
+<span><span class="co"># rankData[,1:5],  B = 1000, seed = 1,ncores = ncores, useBPPARAM = snow)</span></span>
+<span></span>
+<span><span class="co"># If you are not sure about this, just leave the value as NULL and set how many</span></span>
+<span><span class="co"># CPU cores to use via the ncores argument. It will use the default parallel </span></span>
+<span><span class="co"># backend for your machine.</span></span>
+<span></span>
+<span><span class="co"># For more information, please see the help page for ?generateNull()</span></span>
+<span><span class="co"># Please also note that one should pass the same values to the upSet, </span></span>
+<span><span class="co"># downSet, centerScore and knownDirection arguments as what they provide </span></span>
+<span><span class="co"># for the simpleScore() function to generate a proper null distribution.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">permuteResult</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##     D_Ctrl_R1   D_TGFb_R1   D_Ctrl_R2   D_TGFb_R2 Hes_Ctrl_R1</span></span>
+<span><span class="co">## 1 -0.03108049 -0.02355802 -0.03296665 -0.02552833 -0.02976792</span></span>
+<span><span class="co">## 2  0.05924161  0.05508062  0.05900367  0.05473372  0.05781921</span></span>
+<span><span class="co">## 3 -0.06808434 -0.06405468 -0.07658483 -0.06884367 -0.06999305</span></span>
+<span><span class="co">## 4  0.06030101  0.08181637  0.05814608  0.08205247  0.07089498</span></span>
+<span><span class="co">## 5 -0.05495649 -0.04898792 -0.06288874 -0.05624015 -0.05125311</span></span>
+<span><span class="co">## 6  0.04852306  0.03894352  0.05051753  0.03736856  0.04133476</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="estimate-empirical-p-values">Estimate empirical p-values<a class="anchor" aria-label="anchor" href="#estimate-empirical-p-values"></a>
@@ -588,14 +613,14 @@ the <code><a href="../reference/getPvals.html">getPvals()</a></code> function by
 calculated above. Unless all permutations are exhausted (mostly
 infeasible), the minimum <span class="math inline">\(p\)</span>-value
 obtained is <span class="math inline">\(\frac{1}{B}\)</span>.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pvals</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getPvals.html">getPvals</a></span><span class="op">(</span><span class="va">permuteResult</span>, <span class="va">scoredf</span>, subSamples <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>
-
-<span class="co"># getPval returns p-values for each individual sample.</span>
-<span class="co"># show the p-values for first 5 samples</span>
-<span class="va">pvals</span></code></pre></div>
-<pre><code><span class="co">##   D_Ctrl_R1   D_TGFb_R1   D_Ctrl_R2   D_TGFb_R2 Hes_Ctrl_R1 </span>
-<span class="co">##       0.996       0.001       0.999       0.001       0.530</span></code></pre>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pvals</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getPvals.html">getPvals</a></span><span class="op">(</span><span class="va">permuteResult</span>, <span class="va">scoredf</span>, subSamples <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># getPval returns p-values for each individual sample.</span></span>
+<span><span class="co"># show the p-values for first 5 samples</span></span>
+<span><span class="va">pvals</span></span></code></pre></div>
+<pre><code><span><span class="co">##   D_Ctrl_R1   D_TGFb_R1   D_Ctrl_R2   D_TGFb_R2 Hes_Ctrl_R1 </span></span>
+<span><span class="co">##       0.996       0.001       0.999       0.001       0.530</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="plot-null-distribution">Plot null distribution<a class="anchor" aria-label="anchor" href="#plot-null-distribution"></a>
@@ -604,17 +629,17 @@ obtained is <span class="math inline">\(\frac{1}{B}\)</span>.</p>
 <span class="math inline">\(p\)</span>-value labelled. The function uses
 the <code>sampleNames</code> parameter to decide which samples to
 plot.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plotNull.html">plotNull</a></span><span class="op">(</span><span class="va">permuteResult</span>, <span class="va">scoredf</span>, <span class="va">pvals</span>, sampleNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pvals</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plotNull.html">plotNull</a></span><span class="op">(</span><span class="va">permuteResult</span>, <span class="va">scoredf</span>, <span class="va">pvals</span>, sampleNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pvals</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="singscore_files/figure-html/plotNull1-1.png" width="768"></p>
 <p>You can provide multiple sample names to plot these samples in one
 plot. For example, plot the first 2 samples.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot the null distributions for the first 2 samples and the p-values</span>
-<span class="co"># We can see from the plot, the control samples are not significant and TGFb </span>
-<span class="co"># samples are very significant with very low p-values</span>
-<span class="fu"><a href="../reference/plotNull.html">plotNull</a></span><span class="op">(</span><span class="va">permuteResult</span>, <span class="va">scoredf</span>, <span class="va">pvals</span>, sampleNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pvals</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Using  as id variables</span></code></pre>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># plot the null distributions for the first 2 samples and the p-values</span></span>
+<span><span class="co"># We can see from the plot, the control samples are not significant and TGFb </span></span>
+<span><span class="co"># samples are very significant with very low p-values</span></span>
+<span><span class="fu"><a href="../reference/plotNull.html">plotNull</a></span><span class="op">(</span><span class="va">permuteResult</span>, <span class="va">scoredf</span>, <span class="va">pvals</span>, sampleNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pvals</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Using  as id variables</span></span></code></pre>
 <p><img src="singscore_files/figure-html/plotNull2-1.png" width="1152"></p>
 </div>
 </div>
@@ -656,103 +681,104 @@ for tumour’. The TCGA dataset was downloaded from The UCSC Cancer
 Genomics Browser in February 2016 (<a href="https://genome-cancer.ucsc.edu" class="external-link uri">https://genome-cancer.ucsc.edu</a>)</p>
 </li>
 </ol>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># preview the scored CCLE samples</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##           TotalScore TotalDispersion</span>
-<span class="co">## HCC2157   0.22060031        5926.693</span>
-<span class="co">## AU565     0.30387843        3884.412</span>
-<span class="co">## UACC.893  0.30615947        3527.847</span>
-<span class="co">## BT.483    0.30493150        4158.693</span>
-<span class="co">## Hs.739.T -0.06886754        4281.007</span>
-<span class="co">## HCC2218   0.31230039        3331.402</span></code></pre>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># preview the scored TCGA samples</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">scoredf_tcga_epi</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##                 TotalScore TotalDispersion</span>
-<span class="co">## TCGA.3C.AAAU.01  0.2722128        3952.612</span>
-<span class="co">## TCGA.3C.AALI.01  0.3209824        2835.472</span>
-<span class="co">## TCGA.3C.AALJ.01  0.2531933        4174.260</span>
-<span class="co">## TCGA.3C.AALK.01  0.3042650        3234.292</span>
-<span class="co">## TCGA.4H.AAAK.01  0.2682847        4222.445</span>
-<span class="co">## TCGA.5L.AAT0.01  0.2560761        4132.747</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># preview the scored CCLE samples</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##           TotalScore TotalDispersion</span></span>
+<span><span class="co">## HCC2157   0.22060031        5926.693</span></span>
+<span><span class="co">## AU565     0.30387843        3884.412</span></span>
+<span><span class="co">## UACC.893  0.30615947        3527.847</span></span>
+<span><span class="co">## BT.483    0.30493150        4158.693</span></span>
+<span><span class="co">## Hs.739.T -0.06886754        4281.007</span></span>
+<span><span class="co">## HCC2218   0.31230039        3331.402</span></span></code></pre>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># preview the scored TCGA samples</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">scoredf_tcga_epi</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##                 TotalScore TotalDispersion</span></span>
+<span><span class="co">## TCGA.3C.AAAU.01  0.2722128        3952.612</span></span>
+<span><span class="co">## TCGA.3C.AALI.01  0.3209824        2835.472</span></span>
+<span><span class="co">## TCGA.3C.AALJ.01  0.2531933        4174.260</span></span>
+<span><span class="co">## TCGA.3C.AALK.01  0.3042650        3234.292</span></span>
+<span><span class="co">## TCGA.4H.AAAK.01  0.2682847        4222.445</span></span>
+<span><span class="co">## TCGA.5L.AAT0.01  0.2560761        4132.747</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## R Under development (unstable) (2022-03-10 r81874)</span>
-<span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span>
-<span class="co">## Running under: Ubuntu 20.04.4 LTS</span>
-<span class="co">## </span>
-<span class="co">## Matrix products: default</span>
-<span class="co">## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so</span>
-<span class="co">## </span>
-<span class="co">## locale:</span>
-<span class="co">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span>
-<span class="co">##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span>
-<span class="co">##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span>
-<span class="co">##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span>
-<span class="co">##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span>
-<span class="co">## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span>
-<span class="co">## </span>
-<span class="co">## attached base packages:</span>
-<span class="co">## [1] stats4    stats     graphics  grDevices utils     datasets  methods  </span>
-<span class="co">## [8] base     </span>
-<span class="co">## </span>
-<span class="co">## other attached packages:</span>
-<span class="co">##  [1] GSEABase_1.57.0      graph_1.73.0         annotate_1.73.0     </span>
-<span class="co">##  [4] XML_3.99-0.9         AnnotationDbi_1.57.1 IRanges_2.29.1      </span>
-<span class="co">##  [7] S4Vectors_0.33.11    Biobase_2.55.0       BiocGenerics_0.41.2 </span>
-<span class="co">## [10] singscore_1.15.5     BiocStyle_2.23.1    </span>
-<span class="co">## </span>
-<span class="co">## loaded via a namespace (and not attached):</span>
-<span class="co">##  [1] bitops_1.0-7                matrixStats_0.61.0         </span>
-<span class="co">##  [3] fs_1.5.2                    bit64_4.0.5                </span>
-<span class="co">##  [5] RColorBrewer_1.1-2          httr_1.4.2                 </span>
-<span class="co">##  [7] rprojroot_2.0.2             GenomeInfoDb_1.31.5        </span>
-<span class="co">##  [9] tools_4.2.0                 bslib_0.3.1                </span>
-<span class="co">## [11] utf8_1.2.2                  R6_2.5.1                   </span>
-<span class="co">## [13] DBI_1.1.2                   colorspace_2.0-3           </span>
-<span class="co">## [15] tidyselect_1.1.2            bit_4.0.4                  </span>
-<span class="co">## [17] compiler_4.2.0              textshaping_0.3.6          </span>
-<span class="co">## [19] cli_3.2.0                   desc_1.4.1                 </span>
-<span class="co">## [21] DelayedArray_0.21.2         labeling_0.4.2             </span>
-<span class="co">## [23] bookdown_0.25               sass_0.4.0                 </span>
-<span class="co">## [25] scales_1.1.1                hexbin_1.28.2              </span>
-<span class="co">## [27] pkgdown_2.0.2.9000          systemfonts_1.0.4          </span>
-<span class="co">## [29] stringr_1.4.0               digest_0.6.29              </span>
-<span class="co">## [31] rmarkdown_2.13              XVector_0.35.0             </span>
-<span class="co">## [33] pkgconfig_2.0.3             htmltools_0.5.2            </span>
-<span class="co">## [35] MatrixGenerics_1.7.0        highr_0.9                  </span>
-<span class="co">## [37] limma_3.51.5                fastmap_1.1.0              </span>
-<span class="co">## [39] rlang_1.0.2                 RSQLite_2.2.10             </span>
-<span class="co">## [41] farver_2.1.0                jquerylib_0.1.4            </span>
-<span class="co">## [43] generics_0.1.2              jsonlite_1.8.0             </span>
-<span class="co">## [45] BiocParallel_1.29.17        dplyr_1.0.8                </span>
-<span class="co">## [47] RCurl_1.98-1.6              magrittr_2.0.2             </span>
-<span class="co">## [49] GenomeInfoDbData_1.2.7      Matrix_1.4-0               </span>
-<span class="co">## [51] Rcpp_1.0.8.2                munsell_0.5.0              </span>
-<span class="co">## [53] fansi_1.0.2                 lifecycle_1.0.1            </span>
-<span class="co">## [55] edgeR_3.37.0                stringi_1.7.6              </span>
-<span class="co">## [57] yaml_2.3.5                  SummarizedExperiment_1.25.3</span>
-<span class="co">## [59] zlibbioc_1.41.0             plyr_1.8.6                 </span>
-<span class="co">## [61] grid_4.2.0                  blob_1.2.2                 </span>
-<span class="co">## [63] parallel_4.2.0              ggrepel_0.9.1              </span>
-<span class="co">## [65] crayon_1.5.0                lattice_0.20-45            </span>
-<span class="co">## [67] Biostrings_2.63.2           KEGGREST_1.35.0            </span>
-<span class="co">## [69] locfit_1.5-9.5              knitr_1.37                 </span>
-<span class="co">## [71] pillar_1.7.0                GenomicRanges_1.47.6       </span>
-<span class="co">## [73] reshape2_1.4.4              glue_1.6.2                 </span>
-<span class="co">## [75] evaluate_0.15               BiocManager_1.30.16        </span>
-<span class="co">## [77] png_0.1-7                   vctrs_0.3.8                </span>
-<span class="co">## [79] gtable_0.3.0                purrr_0.3.4                </span>
-<span class="co">## [81] tidyr_1.2.0                 reshape_0.8.8              </span>
-<span class="co">## [83] cachem_1.0.6                ggplot2_3.3.5              </span>
-<span class="co">## [85] xfun_0.30                   xtable_1.8-4               </span>
-<span class="co">## [87] ragg_1.2.2                  tibble_3.1.6               </span>
-<span class="co">## [89] memoise_2.0.1               ellipsis_0.3.2</span></code></pre>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## R version 4.2.1 (2022-06-23)</span></span>
+<span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
+<span><span class="co">## Running under: Ubuntu 20.04.5 LTS</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Matrix products: default</span></span>
+<span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3</span></span>
+<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## locale:</span></span>
+<span><span class="co">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
+<span><span class="co">##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
+<span><span class="co">##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
+<span><span class="co">##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
+<span><span class="co">##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
+<span><span class="co">## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## attached base packages:</span></span>
+<span><span class="co">## [1] stats4    stats     graphics  grDevices utils     datasets  methods  </span></span>
+<span><span class="co">## [8] base     </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## other attached packages:</span></span>
+<span><span class="co">##  [1] GSEABase_1.59.0      graph_1.75.0         annotate_1.75.0     </span></span>
+<span><span class="co">##  [4] XML_3.99-0.11        AnnotationDbi_1.59.1 IRanges_2.31.2      </span></span>
+<span><span class="co">##  [7] S4Vectors_0.35.4     Biobase_2.57.1       BiocGenerics_0.43.4 </span></span>
+<span><span class="co">## [10] singscore_1.17.7     BiocStyle_2.25.0    </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## loaded via a namespace (and not attached):</span></span>
+<span><span class="co">##  [1] bitops_1.0-7                matrixStats_0.62.0         </span></span>
+<span><span class="co">##  [3] fs_1.5.2                    bit64_4.0.5                </span></span>
+<span><span class="co">##  [5] RColorBrewer_1.1-3          httr_1.4.4                 </span></span>
+<span><span class="co">##  [7] rprojroot_2.0.3             GenomeInfoDb_1.33.7        </span></span>
+<span><span class="co">##  [9] tools_4.2.1                 bslib_0.4.0                </span></span>
+<span><span class="co">## [11] utf8_1.2.2                  R6_2.5.1                   </span></span>
+<span><span class="co">## [13] DBI_1.1.3                   colorspace_2.0-3           </span></span>
+<span><span class="co">## [15] tidyselect_1.1.2            bit_4.0.4                  </span></span>
+<span><span class="co">## [17] compiler_4.2.1              textshaping_0.3.6          </span></span>
+<span><span class="co">## [19] cli_3.4.1                   desc_1.4.2                 </span></span>
+<span><span class="co">## [21] DelayedArray_0.23.2         labeling_0.4.2             </span></span>
+<span><span class="co">## [23] bookdown_0.29               sass_0.4.2                 </span></span>
+<span><span class="co">## [25] scales_1.2.1                hexbin_1.28.2              </span></span>
+<span><span class="co">## [27] pkgdown_2.0.6.9000          systemfonts_1.0.4          </span></span>
+<span><span class="co">## [29] stringr_1.4.1               digest_0.6.29              </span></span>
+<span><span class="co">## [31] rmarkdown_2.16              XVector_0.37.1             </span></span>
+<span><span class="co">## [33] pkgconfig_2.0.3             htmltools_0.5.3            </span></span>
+<span><span class="co">## [35] MatrixGenerics_1.9.1        highr_0.9                  </span></span>
+<span><span class="co">## [37] limma_3.53.10               fastmap_1.1.0              </span></span>
+<span><span class="co">## [39] rlang_1.0.6                 RSQLite_2.2.18             </span></span>
+<span><span class="co">## [41] farver_2.1.1                jquerylib_0.1.4            </span></span>
+<span><span class="co">## [43] generics_0.1.3              jsonlite_1.8.2             </span></span>
+<span><span class="co">## [45] BiocParallel_1.31.12        dplyr_1.0.10               </span></span>
+<span><span class="co">## [47] RCurl_1.98-1.9              magrittr_2.0.3             </span></span>
+<span><span class="co">## [49] GenomeInfoDbData_1.2.9      Matrix_1.5-1               </span></span>
+<span><span class="co">## [51] Rcpp_1.0.9                  munsell_0.5.0              </span></span>
+<span><span class="co">## [53] fansi_1.0.3                 lifecycle_1.0.2            </span></span>
+<span><span class="co">## [55] stringi_1.7.8               yaml_2.3.5                 </span></span>
+<span><span class="co">## [57] edgeR_3.39.6                SummarizedExperiment_1.27.3</span></span>
+<span><span class="co">## [59] zlibbioc_1.43.0             plyr_1.8.7                 </span></span>
+<span><span class="co">## [61] grid_4.2.1                  blob_1.2.3                 </span></span>
+<span><span class="co">## [63] parallel_4.2.1              ggrepel_0.9.1              </span></span>
+<span><span class="co">## [65] crayon_1.5.2                lattice_0.20-45            </span></span>
+<span><span class="co">## [67] Biostrings_2.65.6           KEGGREST_1.37.3            </span></span>
+<span><span class="co">## [69] locfit_1.5-9.6              knitr_1.40                 </span></span>
+<span><span class="co">## [71] pillar_1.8.1                GenomicRanges_1.49.1       </span></span>
+<span><span class="co">## [73] codetools_0.2-18            reshape2_1.4.4             </span></span>
+<span><span class="co">## [75] glue_1.6.2                  evaluate_0.16              </span></span>
+<span><span class="co">## [77] BiocManager_1.30.18         png_0.1-7                  </span></span>
+<span><span class="co">## [79] vctrs_0.4.2                 gtable_0.3.1               </span></span>
+<span><span class="co">## [81] purrr_0.3.5                 tidyr_1.2.1                </span></span>
+<span><span class="co">## [83] reshape_0.8.9               cachem_1.0.6               </span></span>
+<span><span class="co">## [85] ggplot2_3.3.6               xfun_0.33                  </span></span>
+<span><span class="co">## [87] xtable_1.8-4                ragg_1.2.3                 </span></span>
+<span><span class="co">## [89] tibble_3.1.8                memoise_2.0.1</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -799,13 +825,12 @@ Portraits of Human Breast Tumors.”</span> <em>Nature</em> 490 (7418):
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+<p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer>

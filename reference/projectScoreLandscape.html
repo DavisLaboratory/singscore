@@ -20,7 +20,7 @@ projected data points."><meta property="og:image" content="/logo.png"><!-- mathj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -62,54 +62,71 @@ projected data points.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">projectScoreLandscape</span><span class="op">(</span>
-  plotObj <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">scoredf1</span>,
-  <span class="va">scoredf2</span>,
-  annot <span class="op">=</span> <span class="cn">NULL</span>,
-  annot_name <span class="op">=</span> <span class="cn">NULL</span>,
-  subSamples <span class="op">=</span> <span class="cn">NULL</span>,
-  sampleLabels <span class="op">=</span> <span class="cn">NULL</span>,
-  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">projectScoreLandscape</span><span class="op">(</span></span>
+<span>  plotObj <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">scoredf1</span>,</span>
+<span>  <span class="va">scoredf2</span>,</span>
+<span>  annot <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  annot_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  subSamples <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sampleLabels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  isInteractive <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>plotObj</dt>
 <dd><p>a ggplot object, resulted from <code><a href="plotScoreLandscape.html">plotScoreLandscape()</a></code></p></dd>
+
+
 <dt>scoredf1</dt>
 <dd><p>data.frame, result of the simpleScore() function which scores
 the gene expression matrix against a gene set of interest</p></dd>
+
+
 <dt>scoredf2</dt>
 <dd><p>data.frame, result of the simpleScore() function which scores
 the gene expression matrix against another gene set of interest. Scores in
 scoredf1 and scoredf2 consist of the new data points that will be projected
 on the <code>plotObj</code> landscape plot.</p></dd>
+
+
 <dt>annot</dt>
 <dd><p>any numeric, character or factor annotation provided by the user
 that needs to be plot. Alternatively, this can be a character specifying
 the column of scoredf1 holding the annotation. Annotations must be ordered
 in the same way as the scores</p></dd>
+
+
 <dt>annot_name</dt>
 <dd><p>character, legend title for the annotation</p></dd>
+
+
 <dt>subSamples</dt>
 <dd><p>vector of character or indices for subsetting the scoredfs,
 default as NULL and all samples in scoredfs will be plotted. The subsetted
 samples are projected onto the landscape plot of <code>plotObj</code>.</p></dd>
+
+
 <dt>sampleLabels</dt>
 <dd><p>vector of character, sample names to display, ordered in
 the same way as samples are ordered in the 'scoredfs' data.frames and with
 labels for all samples. Samples whose labels should not be displayed should
 be left as empty strings or NAs. Default as NULL which means the projected
 points are not labelled.</p></dd>
+
+
 <dt>isInteractive</dt>
 <dd><p>boolean, whether the plot is interactive default as
 FALSE</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>New data points on the already plotted ggplot object from
+    
+
+<p>New data points on the already plotted ggplot object from
 plotScoreLanscape()</p>
     </div>
     <div id="see-also">
@@ -131,12 +148,11 @@ projectScoreLandscape(psl,scoredf1, scoredf2)</p></div>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

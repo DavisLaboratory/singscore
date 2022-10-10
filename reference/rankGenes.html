@@ -27,7 +27,7 @@ gene expression matrix from the object and rank the genes. The default
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -76,22 +76,22 @@ gene expression matrix from the object and rank the genes. The default
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S4 method for matrix</span>
-<span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S4 method for data.frame</span>
-<span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S4 method for DGEList</span>
-<span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S4 method for ExpressionSet</span>
-<span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S4 method for SummarizedExperiment</span>
-<span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for matrix</span></span>
+<span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for data.frame</span></span>
+<span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for DGEList</span></span>
+<span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for ExpressionSet</span></span>
+<span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for SummarizedExperiment</span></span>
+<span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">expreMatrix</span>, tiesMethod <span class="op">=</span> <span class="st">"min"</span>, stableGenes <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,19 +99,26 @@ gene expression matrix from the object and rank the genes. The default
     <dl><dt>expreMatrix</dt>
 <dd><p>matrix, data.frame, ExpressionSet, DGEList or
 SummarizedExperiment storing gene expression measurements</p></dd>
+
+
 <dt>tiesMethod</dt>
 <dd><p>character, indicating what method to use when dealing with
 ties</p></dd>
+
+
 <dt>stableGenes</dt>
 <dd><p>character, containing a list of stable genes to be used to
 rank genes using expression of stable genes. This is required when using the
 stable genes dependent version of singscore (see details in <code>simpleScore</code>).
 Stable genes for solid cancers (carcinomas) and blood transcriptomes can be
 obtained using the <code>getStableGenes</code> function</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The ranked gene expression matrix that has samples in columns and
+    
+
+<p>The ranked gene expression matrix that has samples in columns and
 genes in rows. Unit normalised ranks are returned if data is ranked using
 stable genes</p>
     </div>
@@ -125,7 +132,7 @@ stable genes</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">rankGenes</span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span> <span class="co"># toy_expr_se is a gene expression dataset</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span> <span class="co"># toy_expr_se is a gene expression dataset</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D_Ctrl_R1 D_TGFb_R1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          2         2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9         13        12</span>
@@ -149,11 +156,11 @@ stable genes</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29        15        15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"stable")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ExpressionSet object</span></span>
-<span class="r-in"><span class="va">emat</span> <span class="op">&lt;-</span> <span class="fu">SummarizedExperiment</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu">Biobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html" class="external-link">ExpressionSet</a></span><span class="op">(</span>assayData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">emat</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">rankGenes</span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ExpressionSet object</span></span></span>
+<span class="r-in"><span><span class="va">emat</span> <span class="op">&lt;-</span> <span class="fu">SummarizedExperiment</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu">Biobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html" class="external-link">ExpressionSet</a></span><span class="op">(</span>assayData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">emat</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D_Ctrl_R1 D_TGFb_R1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          2         2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9         13        12</span>
@@ -177,9 +184,9 @@ stable genes</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29        15        15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"stable")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#scoring using the stable version of singscore</span></span>
-<span class="r-in"><span class="fu">rankGenes</span><span class="op">(</span><span class="va">e</span>, stableGenes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2'</span>, <span class="st">'20'</span>, <span class="st">'25'</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#scoring using the stable version of singscore</span></span></span>
+<span class="r-in"><span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">e</span>, stableGenes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2'</span>, <span class="st">'20'</span>, <span class="st">'25'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D_Ctrl_R1 D_TGFb_R1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.25      0.25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9       0.75      0.75</span>
@@ -203,12 +210,12 @@ stable genes</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29      0.75      0.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"stable")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">#for real cancer or blood datasets, use getStableGenes()</span></span>
-<span class="r-in"><span class="fu">rankGenes</span><span class="op">(</span><span class="va">cancer_expr</span>, stableGenes <span class="op">=</span> <span class="fu"><a href="getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">rankGenes</span><span class="op">(</span><span class="va">blood_expr</span>, stableGenes <span class="op">=</span> <span class="fu"><a href="getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'blood'</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">#for real cancer or blood datasets, use getStableGenes()</span></span></span>
+<span class="r-in"><span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">cancer_expr</span>, stableGenes <span class="op">=</span> <span class="fu"><a href="getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">rankGenes</span><span class="op">(</span><span class="va">blood_expr</span>, stableGenes <span class="op">=</span> <span class="fu"><a href="getStableGenes.html">getStableGenes</a></span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">'blood'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -219,12 +226,11 @@ stable genes</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

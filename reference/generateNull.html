@@ -25,7 +25,7 @@ a proper null distribution."><meta property="og:image" content="/logo.png"><!-- 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -72,74 +72,74 @@ a proper null distribution.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">generateNull</span><span class="op">(</span>
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">rankData</span>,
-  subSamples <span class="op">=</span> <span class="cn">NULL</span>,
-  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,
-  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,
-  B <span class="op">=</span> <span class="fl">1000</span>,
-  ncores <span class="op">=</span> <span class="fl">1</span>,
-  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,
-  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for vector,ANY</span>
-<span class="fu">generateNull</span><span class="op">(</span>
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">rankData</span>,
-  subSamples <span class="op">=</span> <span class="cn">NULL</span>,
-  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,
-  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,
-  B <span class="op">=</span> <span class="fl">1000</span>,
-  ncores <span class="op">=</span> <span class="fl">1</span>,
-  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,
-  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for GeneSet,ANY</span>
-<span class="fu">generateNull</span><span class="op">(</span>
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">rankData</span>,
-  subSamples <span class="op">=</span> <span class="cn">NULL</span>,
-  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,
-  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,
-  B <span class="op">=</span> <span class="fl">1000</span>,
-  ncores <span class="op">=</span> <span class="fl">1</span>,
-  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,
-  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for vector,vector</span>
-<span class="fu">generateNull</span><span class="op">(</span>
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">rankData</span>,
-  subSamples <span class="op">=</span> <span class="cn">NULL</span>,
-  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,
-  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,
-  B <span class="op">=</span> <span class="fl">1000</span>,
-  ncores <span class="op">=</span> <span class="fl">1</span>,
-  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,
-  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for GeneSet,GeneSet</span>
-<span class="fu">generateNull</span><span class="op">(</span>
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">rankData</span>,
-  subSamples <span class="op">=</span> <span class="cn">NULL</span>,
-  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,
-  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,
-  B <span class="op">=</span> <span class="fl">1000</span>,
-  ncores <span class="op">=</span> <span class="fl">1</span>,
-  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,
-  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">generateNull</span><span class="op">(</span></span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  subSamples <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for vector,ANY</span></span>
+<span><span class="fu">generateNull</span><span class="op">(</span></span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  subSamples <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for GeneSet,ANY</span></span>
+<span><span class="fu">generateNull</span><span class="op">(</span></span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  subSamples <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for vector,vector</span></span>
+<span><span class="fu">generateNull</span><span class="op">(</span></span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  subSamples <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for GeneSet,GeneSet</span></span>
+<span><span class="fu">generateNull</span><span class="op">(</span></span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  subSamples <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  centerScore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  knownDirection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  B <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">1e+06</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  useBPPARAM <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -147,19 +147,29 @@ a proper null distribution.</p>
     <dl><dt>upSet</dt>
 <dd><p>A GeneSet object or character vector of gene IDs of up-regulated
 gene set or a gene set where the nature of genes is not known</p></dd>
+
+
 <dt>downSet</dt>
 <dd><p>A GeneSet object or character vector of gene IDs of
 down-regulated gene set or NULL where only a single gene set is provided</p></dd>
+
+
 <dt>rankData</dt>
 <dd><p>A matrix object, ranked gene expression matrix data generated
 using the <code><a href="rankGenes.html">rankGenes()</a></code> function (make sure this matrix is not modified, see
 details)</p></dd>
+
+
 <dt>subSamples</dt>
 <dd><p>A vector of sample labels/indices that will be used to
 subset the rankData matrix. All samples will be scored if not provided</p></dd>
+
+
 <dt>centerScore</dt>
 <dd><p>A Boolean, specifying whether scores should be centered
 around 0, default as TRUE. Note: scores never centered if <code>knownDirection = FALSE</code></p></dd>
+
+
 <dt>knownDirection</dt>
 <dd><p>A boolean, determining whether the gene set should be
 considered to be directional or not. A gene set is directional if the type
@@ -167,23 +177,34 @@ of genes in it are known i.e. up- or down-regulated. This should be set to
 TRUE if the gene set is composed of both up- AND down-regulated genes.
 Defaults to TRUE. This parameter becomes irrelevant when both upSet(Colc)
 and downSet(Colc) are provided.</p></dd>
+
+
 <dt>B</dt>
 <dd><p>integer, the number of permutation repeats or the number of random
 gene sets to be generated, default as 1000</p></dd>
+
+
 <dt>ncores, </dt>
 <dd><p>integer, the number of CPU cores the function can use</p></dd>
+
+
 <dt>seed</dt>
 <dd><p>integer, set the seed for randomisation</p></dd>
+
+
 <dt>useBPPARAM, </dt>
 <dd><p>the backend the function uses, if NULL is provided, the
 function uses the default parallel backend which is the first on the list
 returned by <code><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">BiocParallel::registered()</a></code> i.e
 <code>BiocParallel::registered()[[1]]</code> for your machine. It can be changed
 explicitly by passing a BPPARAM</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix of empirical scores for all samples</p>
+    
+
+<p>A matrix of empirical scores for all samples</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -197,24 +218,24 @@ explicitly by passing a BPPARAM</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ranked</span> <span class="op">&lt;-</span> <span class="fu"><a href="rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">scoredf</span> <span class="op">&lt;-</span> <span class="fu"><a href="simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">ranked</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># find out what backends can be registered on your machine</span></span>
-<span class="r-in"><span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">registered</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ranked</span> <span class="op">&lt;-</span> <span class="fu"><a href="rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">scoredf</span> <span class="op">&lt;-</span> <span class="fu"><a href="simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">ranked</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># find out what backends can be registered on your machine</span></span></span>
+<span class="r-in"><span><span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">registered</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $SerialParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: SerialParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bpisup: FALSE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bpRNGseed: ; bptimeout: NA; bpprogressbar: FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bpexportglobals: FALSE; bpforceGC: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpexportglobals: FALSE; bpexportvariables: FALSE; bpforceGC: FALSE; bpfallback: FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bplogdir: NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bpresultdir: NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># the first one is the default backend</span></span>
-<span class="r-in"><span class="co"># ncores = ncores &lt;- parallel::detectCores() - 2</span></span>
-<span class="r-in"><span class="va">permuteResult</span> <span class="op">=</span> <span class="fu">generateNull</span><span class="op">(</span>upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span>, <span class="va">ranked</span>,</span>
-<span class="r-in">centerScore <span class="op">=</span> <span class="cn">TRUE</span>, B <span class="op">=</span><span class="fl">10</span>, seed <span class="op">=</span> <span class="fl">1</span>, ncores <span class="op">=</span> <span class="fl">1</span> <span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># the first one is the default backend</span></span></span>
+<span class="r-in"><span><span class="co"># ncores = ncores &lt;- parallel::detectCores() - 2</span></span></span>
+<span class="r-in"><span><span class="va">permuteResult</span> <span class="op">=</span> <span class="fu">generateNull</span><span class="op">(</span>upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span>, <span class="va">ranked</span>,</span></span>
+<span class="r-in"><span>centerScore <span class="op">=</span> <span class="cn">TRUE</span>, B <span class="op">=</span><span class="fl">10</span>, seed <span class="op">=</span> <span class="fl">1</span>, ncores <span class="op">=</span> <span class="fl">1</span> <span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -225,12 +246,11 @@ explicitly by passing a BPPARAM</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

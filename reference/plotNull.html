@@ -20,7 +20,7 @@ sample or multiple samples."><meta property="og:image" content="/logo.png"><!-- 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -62,15 +62,15 @@ sample or multiple samples.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plotNull</span><span class="op">(</span>
-  <span class="va">permuteResult</span>,
-  <span class="va">scoredf</span>,
-  <span class="va">pvals</span>,
-  sampleNames <span class="op">=</span> <span class="cn">NULL</span>,
-  cutoff <span class="op">=</span> <span class="fl">0.01</span>,
-  textSize <span class="op">=</span> <span class="fl">2</span>,
-  labelSize <span class="op">=</span> <span class="fl">5</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plotNull</span><span class="op">(</span></span>
+<span>  <span class="va">permuteResult</span>,</span>
+<span>  <span class="va">scoredf</span>,</span>
+<span>  <span class="va">pvals</span>,</span>
+<span>  sampleNames <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cutoff <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>  textSize <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  labelSize <span class="op">=</span> <span class="fl">5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -78,25 +78,40 @@ sample or multiple samples.</p>
     <dl><dt>permuteResult</dt>
 <dd><p>A matrix, null distributions for each sample generated
 using the <code><a href="generateNull.html">generateNull()</a></code> function</p></dd>
+
+
 <dt>scoredf</dt>
 <dd><p>A dataframe, singscores generated using the <code><a href="simpleScore.html">simpleScore()</a></code>
 function</p></dd>
+
+
 <dt>pvals</dt>
 <dd><p>A vector, estimated p-values using the <code><a href="getPvals.html">getPvals()</a></code> function
 <code>permuteResult</code>,<code>scoredf</code> and <code>pvals</code> are the results for the same samples.</p></dd>
+
+
 <dt>sampleNames</dt>
 <dd><p>A character vector, sample IDs for which null
 distributions will be plotted</p></dd>
+
+
 <dt>cutoff</dt>
 <dd><p>numeric, the cutoff value for determining significance</p></dd>
+
+
 <dt>textSize</dt>
 <dd><p>numeric, size of axes labels, axes values and title</p></dd>
+
+
 <dt>labelSize</dt>
 <dd><p>numeric, size of label texts</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a ggplot object</p>
+    
+
+<p>a ggplot object</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -105,31 +120,31 @@ distributions will be plotted</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ranked</span> <span class="op">&lt;-</span> <span class="fu"><a href="rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">scoredf</span> <span class="op">&lt;-</span> <span class="fu"><a href="simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">ranked</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># find out what backends can be registered on your machine</span></span>
-<span class="r-in"><span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">registered</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ranked</span> <span class="op">&lt;-</span> <span class="fu"><a href="rankGenes.html">rankGenes</a></span><span class="op">(</span><span class="va">toy_expr_se</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">scoredf</span> <span class="op">&lt;-</span> <span class="fu"><a href="simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">ranked</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># find out what backends can be registered on your machine</span></span></span>
+<span class="r-in"><span><span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">registered</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $SerialParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: SerialParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bpisup: FALSE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bpRNGseed: 1; bptimeout: NA; bpprogressbar: FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bpexportglobals: FALSE; bpforceGC: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpexportglobals: FALSE; bpexportvariables: FALSE; bpforceGC: FALSE; bpfallback: FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bplogdir: NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bpresultdir: NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># the first one is the default backend, and it can be changed explicitly.</span></span>
-<span class="r-in"><span class="va">permuteResult</span> <span class="op">=</span> <span class="fu"><a href="generateNull.html">generateNull</a></span><span class="op">(</span>upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span>, <span class="va">ranked</span>,</span>
-<span class="r-in">B <span class="op">=</span><span class="fl">10</span>, seed <span class="op">=</span> <span class="fl">1</span>,useBPPARAM <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># call the permutation function to generate the empirical scores</span></span>
-<span class="r-in"><span class="co">#for B times.</span></span>
-<span class="r-in"><span class="va">pvals</span> <span class="op">&lt;-</span> <span class="fu"><a href="getPvals.html">getPvals</a></span><span class="op">(</span><span class="va">permuteResult</span>,<span class="va">scoredf</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># plot for all samples</span></span>
-<span class="r-in"><span class="fu">plotNull</span><span class="op">(</span><span class="va">permuteResult</span>,<span class="va">scoredf</span>,<span class="va">pvals</span>,sampleNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pvals</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># the first one is the default backend, and it can be changed explicitly.</span></span></span>
+<span class="r-in"><span><span class="va">permuteResult</span> <span class="op">=</span> <span class="fu"><a href="generateNull.html">generateNull</a></span><span class="op">(</span>upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span>, <span class="va">ranked</span>,</span></span>
+<span class="r-in"><span>B <span class="op">=</span><span class="fl">10</span>, seed <span class="op">=</span> <span class="fl">1</span>,useBPPARAM <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># call the permutation function to generate the empirical scores</span></span></span>
+<span class="r-in"><span><span class="co">#for B times.</span></span></span>
+<span class="r-in"><span><span class="va">pvals</span> <span class="op">&lt;-</span> <span class="fu"><a href="getPvals.html">getPvals</a></span><span class="op">(</span><span class="va">permuteResult</span>,<span class="va">scoredf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># plot for all samples</span></span></span>
+<span class="r-in"><span><span class="fu">plotNull</span><span class="op">(</span><span class="va">permuteResult</span>,<span class="va">scoredf</span>,<span class="va">pvals</span>,sampleNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pvals</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using  as id variables</span>
 <span class="r-plt img"><img src="plotNull-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">#plot for the first sample</span></span>
-<span class="r-in"><span class="fu">plotNull</span><span class="op">(</span><span class="va">permuteResult</span>,<span class="va">scoredf</span>,<span class="va">pvals</span>,sampleNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pvals</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#plot for the first sample</span></span></span>
+<span class="r-in"><span><span class="fu">plotNull</span><span class="op">(</span><span class="va">permuteResult</span>,<span class="va">scoredf</span>,<span class="va">pvals</span>,sampleNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pvals</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plotNull-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -141,12 +156,11 @@ distributions will be plotted</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

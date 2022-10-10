@@ -19,7 +19,7 @@ and it returns plots visualising the density and the rugs of the ran ks."><meta 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
       </span>
     </div>
 
@@ -60,13 +60,13 @@ and it returns plots visualising the density and the rugs of the ran ks.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plotRankDensity_intl</span><span class="op">(</span>
-  <span class="va">rankData</span>,
-  <span class="va">upSet</span>,
-  downSet <span class="op">=</span> <span class="cn">NULL</span>,
-  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,
-  textSize <span class="op">=</span> <span class="fl">1.2</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plotRankDensity_intl</span><span class="op">(</span></span>
+<span>  <span class="va">rankData</span>,</span>
+<span>  <span class="va">upSet</span>,</span>
+<span>  downSet <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  isInteractive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  textSize <span class="op">=</span> <span class="fl">1.2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -75,19 +75,30 @@ and it returns plots visualising the density and the rugs of the ran ks.</p>
 <dd><p>one column of the ranked gene expression matrix obtained from
 the <code><a href="rankGenes.html">rankGenes()</a></code> function, use drop = FALSE when subsetting the ranked gene
 expression matrix, see examples.</p></dd>
+
+
 <dt>upSet</dt>
 <dd><p>GeneSet object, up regulated gene set</p></dd>
+
+
 <dt>downSet</dt>
 <dd><p>GeneSet object, down regulated gene set</p></dd>
+
+
 <dt>isInteractive</dt>
 <dd><p>Boolean, determin whether the returned plot is
 interactive</p></dd>
+
+
 <dt>textSize</dt>
 <dd><p>numeric, set the size of text on the plot</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A ggplot object (optionally interactive) demonstrating the rank
+    
+
+<p>A ggplot object (optionally interactive) demonstrating the rank
 density along with rug plot</p>
     </div>
     <div id="see-also">
@@ -103,12 +114,11 @@ density along with rug plot</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva.</p>
+  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>
