@@ -1,0 +1,16 @@
+url: https://DavisLaboratory.github.io/singscore
+
+template:
+  params:
+    bootswatch: flatly
+    #ganalytics: UA-99999999-9
+
+home:
+  title: "singscore"
+  type: inverse
+
+
+navbar:
+  right:
+   - icon: fa-github
+     href: https://github.com/DavisLaboratory/singscore
