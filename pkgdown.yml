@@ -3,7 +3,7 @@ pkgdown: 2.0.6.9000
 pkgdown_sha: 7fe9e802df2964d483d0267f1d5a59aa7b3c685d
 articles:
   singscore: singscore.html
-last_built: 2022-10-11T03:41Z
+last_built: 2022-10-13T00:39Z
 urls:
   reference: https://DavisLaboratory.github.io/singscore/reference
   article: https://DavisLaboratory.github.io/singscore/articles
