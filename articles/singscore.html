@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.1</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <h1 data-toc-skip>singscore</h1>
                         <h4 data-toc-skip class="author">Ruqian Lyu</h4>
             
-            <h4 data-toc-skip class="date">2022-10-13</h4>
+            <h4 data-toc-skip class="date">2023-02-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DavisLaboratory/singscore/blob/HEAD/vignettes/singscore.Rmd" class="external-link"><code>vignettes/singscore.Rmd</code></a></small>
       <div class="hidden name"><code>singscore.Rmd</code></div>
@@ -98,8 +98,7 @@ interpretation of the results.</p>
 <p>Please cite the following papers when using this package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">'singscore'</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## </span></span>
-<span><span class="co">## To cite package 'singscore' in publications use:</span></span>
+<pre><code><span><span class="co">## To cite package 'singscore' in publications use:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   Foroutan M, Bhuva D, Lyu R, Horan K, Cursons J, Davis M (2018).</span></span>
 <span><span class="co">##   "Single sample scoring of molecular phenotypes." _BMC</span></span>
@@ -431,7 +430,13 @@ data.frame/matrix.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plotRankDensity.html">plotRankDensity</a></span><span class="op">(</span><span class="va">rankData</span><span class="op">[</span>,<span class="fl">2</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, upSet <span class="op">=</span> <span class="va">tgfb_gs_up</span>, </span>
 <span>                downSet <span class="op">=</span> <span class="va">tgfb_gs_dn</span>, isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Ignoring unknown aesthetics: text</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use `after_stat(density)` instead.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">singscore</span> package.</span></span>
+<span><span class="co">##   Please report the issue at</span></span>
+<span><span class="co">##   <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/DavisLaboratory/singscore/issues&gt;</span>.</span></span></code></pre>
+<pre><code><span><span class="co">## Warning in geom_segment(aes(y = ymap[upDown], xend = Ranks, yend =</span></span>
+<span><span class="co">## yendmap[upDown], : Ignoring unknown aesthetics: <span style="color: #00BB00;">text</span></span></span></code></pre>
 <p><img src="singscore_files/figure-html/plotdt-1.png" width="768"></p>
 <p>Setting <code>isInteractive = TRUE</code> generates an interactive
 plot using the <code>plotly</code> package. Hovering over the bars in
@@ -448,7 +453,7 @@ the ‘score VS. dispersions’ for the total scores, the up scores and the
 down score of samples. It requires the scored data.frame from
 <code>simpleScore</code> function and annotations (via
 <code>annot</code> parameter) can be used for coloring the points.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#  Get the annotations of samples by their sample names</span></span>
 <span><span class="va">tgfbAnnot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>SampleID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">tgfb_expr_10_se</span><span class="op">)</span>,</span>
 <span>                       Type <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
@@ -459,10 +464,10 @@ down score of samples. It requires the scored data.frame from
 <span><span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "Control" "TGFb"    "Control" "TGFb"    "Control" "TGFb"    "Control"</span></span>
 <span><span class="co">##  [8] "TGFb"    "Control" "Control"</span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plotDispersion.html">plotDispersion</a></span><span class="op">(</span><span class="va">scoredf</span>,annot <span class="op">=</span> <span class="va">tgfbAnnot</span><span class="op">$</span><span class="va">Type</span>,isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="singscore_files/figure-html/plotds-1.png" width="768"></p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To see an interactive version powered by 'plotly', simply set the </span></span>
 <span><span class="co"># 'isInteractive' = TRUE, i.e :</span></span>
 <span><span class="co">#</span></span>
@@ -488,7 +493,7 @@ al. 2012)</span> against an epithelial gene signature and mesenchymal
 gene signature <span class="citation">(Tan et al. 2014)</span>
 respectively. For details on how to obtain the dataset please see the
 section at the end of the vignette.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plotScoreLandscape.html">plotScoreLandscape</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span>, <span class="va">scoredf_ccle_mes</span>, </span>
 <span>                   scorenames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ccle-EPI'</span>,<span class="st">'ccle-MES'</span><span class="op">)</span>,hexMin <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><img src="singscore_files/figure-html/loadCCLE-1.png" width="768"></p>
@@ -498,20 +503,20 @@ dataset against epithelial and mesenchymal gene signatures are stored in
 respectively <span class="citation">(Tan et al. 2014)</span>. The
 utility of this function is enhanced when the number of samples is
 large.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tcgaLandscape</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotScoreLandscape.html">plotScoreLandscape</a></span><span class="op">(</span><span class="va">scoredf_tcga_epi</span>, <span class="va">scoredf_tcga_mes</span>, </span>
 <span>                   scorenames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'tcga_EPI'</span>,<span class="st">'tcga_MES'</span><span class="op">)</span>, isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tcgaLandscape</span></span></code></pre></div>
 <p><img src="singscore_files/figure-html/loadTCGA-1.png" width="768"></p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To get an interactive version of plot, set isInteractive = TRUE</span></span></code></pre></div>
 <p>You can also project new data points onto the landscape plot
 generated above by using the <code>projectScoreLandscape</code>
 function. For example, the plot below overlays 3 CCLE samples onto the
 TCGA epithelial-mesenchymal landscape. Points are labeled with their
 sample names by default.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Project on the above generated 'tcgaLandscape' plot</span></span>
 <span><span class="fu"><a href="../reference/projectScoreLandscape.html">projectScoreLandscape</a></span><span class="op">(</span>plotObj <span class="op">=</span> <span class="va">tcgaLandscape</span>, <span class="va">scoredf_ccle_epi</span>, </span>
 <span>                      <span class="va">scoredf_ccle_mes</span>,</span>
@@ -519,17 +524,19 @@ sample names by default.</p>
 <span>                      annot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span>, </span>
 <span>                      sampleLabels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                      isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Ignoring unknown aesthetics: text</span></span></code></pre>
+<pre><code><span><span class="co">## Warning in geom_point(aes(text = SampleText, colour = Class), shape = 21, :</span></span>
+<span><span class="co">## Ignoring unknown aesthetics: <span style="color: #00BB00;">text</span></span></span></code></pre>
 <p><img src="singscore_files/figure-html/projectScore-1.png" width="768"></p>
 <p>Custom labels can be provided by passing a character vector to the
 <code>sampleLabels</code> argument.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/projectScoreLandscape.html">projectScoreLandscape</a></span><span class="op">(</span>plotObj <span class="op">=</span> <span class="va">tcgaLandscape</span>, <span class="va">scoredf_ccle_epi</span>, <span class="va">scoredf_ccle_mes</span>,</span>
 <span>                      subSamples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                      sampleLabels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'l1'</span>,<span class="st">'l2'</span>,<span class="st">'l3'</span>,<span class="st">'l4'</span>,<span class="st">'l5'</span><span class="op">)</span>,</span>
 <span>                      annot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span>, </span>
 <span>                      isInteractive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Ignoring unknown aesthetics: text</span></span></code></pre>
+<pre><code><span><span class="co">## Warning in geom_point(aes(text = SampleText, colour = Class), shape = 21, :</span></span>
+<span><span class="co">## Ignoring unknown aesthetics: <span style="color: #00BB00;">text</span></span></span></code></pre>
 <p><img src="singscore_files/figure-html/projectScore2-1.png" width="768"></p>
 </div>
 </div>
@@ -551,7 +558,7 @@ B\)</span> matrix with permuted scores along the columns for each
 sample.</p>
 <p>The permutation function has parallel computing features provided by
 using <a href="http://bioconductor.org/packages/release/bioc/html/BiocParallel.html" class="external-link"><code>BiocParallel</code></a></p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># tgfb_gs_up : up regulated gene set in the tgfb gene signature</span></span>
 <span><span class="co"># tgfb_gs_dn : down regulated gene set in the tgfb gene signature</span></span>
 <span></span>
@@ -613,7 +620,7 @@ the <code><a href="../reference/getPvals.html">getPvals()</a></code> function by
 calculated above. Unless all permutations are exhausted (mostly
 infeasible), the minimum <span class="math inline">\(p\)</span>-value
 obtained is <span class="math inline">\(\frac{1}{B}\)</span>.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pvals</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getPvals.html">getPvals</a></span><span class="op">(</span><span class="va">permuteResult</span>, <span class="va">scoredf</span>, subSamples <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># getPval returns p-values for each individual sample.</span></span>
@@ -629,12 +636,12 @@ obtained is <span class="math inline">\(\frac{1}{B}\)</span>.</p>
 <span class="math inline">\(p\)</span>-value labelled. The function uses
 the <code>sampleNames</code> parameter to decide which samples to
 plot.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plotNull.html">plotNull</a></span><span class="op">(</span><span class="va">permuteResult</span>, <span class="va">scoredf</span>, <span class="va">pvals</span>, sampleNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pvals</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="singscore_files/figure-html/plotNull1-1.png" width="768"></p>
 <p>You can provide multiple sample names to plot these samples in one
 plot. For example, plot the first 2 samples.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the null distributions for the first 2 samples and the p-values</span></span>
 <span><span class="co"># We can see from the plot, the control samples are not significant and TGFb </span></span>
 <span><span class="co"># samples are very significant with very low p-values</span></span>
@@ -681,7 +688,7 @@ for tumour’. The TCGA dataset was downloaded from The UCSC Cancer
 Genomics Browser in February 2016 (<a href="https://genome-cancer.ucsc.edu" class="external-link uri">https://genome-cancer.ucsc.edu</a>)</p>
 </li>
 </ol>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># preview the scored CCLE samples</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">scoredf_ccle_epi</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##           TotalScore TotalDispersion</span></span>
@@ -691,7 +698,7 @@ Genomics Browser in February 2016 (<a href="https://genome-cancer.ucsc.edu" clas
 <span><span class="co">## BT.483    0.30493150        4158.693</span></span>
 <span><span class="co">## Hs.739.T -0.06886754        4281.007</span></span>
 <span><span class="co">## HCC2218   0.31230039        3331.402</span></span></code></pre>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># preview the scored TCGA samples</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">scoredf_tcga_epi</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                 TotalScore TotalDispersion</span></span>
@@ -705,15 +712,15 @@ Genomics Browser in February 2016 (<a href="https://genome-cancer.ucsc.edu" clas
 <div class="section level2">
 <h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## R version 4.2.1 (2022-06-23)</span></span>
+<pre><code><span><span class="co">## R Under development (unstable) (2023-02-16 r83857)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
-<span><span class="co">## Running under: Ubuntu 20.04.5 LTS</span></span>
+<span><span class="co">## Running under: Ubuntu 22.04.1 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
-<span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3</span></span>
-<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3</span></span>
+<span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## locale:</span></span>
 <span><span class="co">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
@@ -723,62 +730,66 @@ Genomics Browser in February 2016 (<a href="https://genome-cancer.ucsc.edu" clas
 <span><span class="co">##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
 <span><span class="co">## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
 <span><span class="co">## </span></span>
+<span><span class="co">## time zone: UTC</span></span>
+<span><span class="co">## tzcode source: system (glibc)</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## attached base packages:</span></span>
 <span><span class="co">## [1] stats4    stats     graphics  grDevices utils     datasets  methods  </span></span>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">##  [1] GSEABase_1.59.0      graph_1.75.0         annotate_1.75.0     </span></span>
-<span><span class="co">##  [4] XML_3.99-0.11        AnnotationDbi_1.59.1 IRanges_2.31.2      </span></span>
-<span><span class="co">##  [7] S4Vectors_0.35.4     Biobase_2.57.1       BiocGenerics_0.43.4 </span></span>
-<span><span class="co">## [10] singscore_1.17.8     BiocStyle_2.25.0    </span></span>
+<span><span class="co">##  [1] GSEABase_1.61.0      graph_1.77.1         annotate_1.77.0     </span></span>
+<span><span class="co">##  [4] XML_3.99-0.13        AnnotationDbi_1.61.0 IRanges_2.33.0      </span></span>
+<span><span class="co">##  [7] S4Vectors_0.37.3     Biobase_2.59.0       BiocGenerics_0.45.0 </span></span>
+<span><span class="co">## [10] singscore_1.19.1     BiocStyle_2.27.1    </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] bitops_1.0-7                matrixStats_0.62.0         </span></span>
-<span><span class="co">##  [3] fs_1.5.2                    bit64_4.0.5                </span></span>
-<span><span class="co">##  [5] RColorBrewer_1.1-3          httr_1.4.4                 </span></span>
-<span><span class="co">##  [7] rprojroot_2.0.3             GenomeInfoDb_1.33.7        </span></span>
-<span><span class="co">##  [9] tools_4.2.1                 bslib_0.4.0                </span></span>
-<span><span class="co">## [11] utf8_1.2.2                  R6_2.5.1                   </span></span>
-<span><span class="co">## [13] DBI_1.1.3                   colorspace_2.0-3           </span></span>
-<span><span class="co">## [15] tidyselect_1.2.0            bit_4.0.4                  </span></span>
-<span><span class="co">## [17] compiler_4.2.1              textshaping_0.3.6          </span></span>
-<span><span class="co">## [19] cli_3.4.1                   desc_1.4.2                 </span></span>
-<span><span class="co">## [21] DelayedArray_0.23.2         labeling_0.4.2             </span></span>
-<span><span class="co">## [23] bookdown_0.29               sass_0.4.2                 </span></span>
-<span><span class="co">## [25] scales_1.2.1                hexbin_1.28.2              </span></span>
-<span><span class="co">## [27] pkgdown_2.0.6.9000          systemfonts_1.0.4          </span></span>
-<span><span class="co">## [29] stringr_1.4.1               digest_0.6.29              </span></span>
-<span><span class="co">## [31] rmarkdown_2.17              XVector_0.37.1             </span></span>
-<span><span class="co">## [33] pkgconfig_2.0.3             htmltools_0.5.3            </span></span>
-<span><span class="co">## [35] MatrixGenerics_1.9.1        highr_0.9                  </span></span>
-<span><span class="co">## [37] limma_3.53.10               fastmap_1.1.0              </span></span>
-<span><span class="co">## [39] rlang_1.0.6                 RSQLite_2.2.18             </span></span>
-<span><span class="co">## [41] farver_2.1.1                jquerylib_0.1.4            </span></span>
-<span><span class="co">## [43] generics_0.1.3              jsonlite_1.8.2             </span></span>
-<span><span class="co">## [45] BiocParallel_1.31.13        dplyr_1.0.10               </span></span>
-<span><span class="co">## [47] RCurl_1.98-1.9              magrittr_2.0.3             </span></span>
-<span><span class="co">## [49] GenomeInfoDbData_1.2.9      Matrix_1.5-1               </span></span>
-<span><span class="co">## [51] Rcpp_1.0.9                  munsell_0.5.0              </span></span>
-<span><span class="co">## [53] fansi_1.0.3                 lifecycle_1.0.3            </span></span>
-<span><span class="co">## [55] stringi_1.7.8               yaml_2.3.5                 </span></span>
-<span><span class="co">## [57] edgeR_3.39.6                SummarizedExperiment_1.27.3</span></span>
-<span><span class="co">## [59] zlibbioc_1.43.0             plyr_1.8.7                 </span></span>
-<span><span class="co">## [61] grid_4.2.1                  blob_1.2.3                 </span></span>
-<span><span class="co">## [63] parallel_4.2.1              ggrepel_0.9.1              </span></span>
-<span><span class="co">## [65] crayon_1.5.2                lattice_0.20-45            </span></span>
-<span><span class="co">## [67] Biostrings_2.65.6           KEGGREST_1.37.3            </span></span>
-<span><span class="co">## [69] locfit_1.5-9.6              knitr_1.40                 </span></span>
-<span><span class="co">## [71] pillar_1.8.1                GenomicRanges_1.49.1       </span></span>
-<span><span class="co">## [73] codetools_0.2-18            reshape2_1.4.4             </span></span>
-<span><span class="co">## [75] glue_1.6.2                  evaluate_0.17              </span></span>
-<span><span class="co">## [77] BiocManager_1.30.18         png_0.1-7                  </span></span>
-<span><span class="co">## [79] vctrs_0.4.2                 gtable_0.3.1               </span></span>
-<span><span class="co">## [81] purrr_0.3.5                 tidyr_1.2.1                </span></span>
-<span><span class="co">## [83] reshape_0.8.9               cachem_1.0.6               </span></span>
-<span><span class="co">## [85] ggplot2_3.3.6               xfun_0.33                  </span></span>
-<span><span class="co">## [87] xtable_1.8-4                ragg_1.2.3                 </span></span>
-<span><span class="co">## [89] tibble_3.1.8                memoise_2.0.1</span></span></code></pre>
+<span><span class="co">##  [1] tidyselect_1.2.0            farver_2.1.1               </span></span>
+<span><span class="co">##  [3] dplyr_1.1.0                 blob_1.2.3                 </span></span>
+<span><span class="co">##  [5] Biostrings_2.67.0           bitops_1.0-7               </span></span>
+<span><span class="co">##  [7] fastmap_1.1.0               RCurl_1.98-1.10            </span></span>
+<span><span class="co">##  [9] reshape_0.8.9               digest_0.6.31              </span></span>
+<span><span class="co">## [11] lifecycle_1.0.3             KEGGREST_1.39.0            </span></span>
+<span><span class="co">## [13] RSQLite_2.3.0               magrittr_2.0.3             </span></span>
+<span><span class="co">## [15] compiler_4.3.0              rlang_1.0.6                </span></span>
+<span><span class="co">## [17] sass_0.4.5                  tools_4.3.0                </span></span>
+<span><span class="co">## [19] utf8_1.2.3                  yaml_2.3.7                 </span></span>
+<span><span class="co">## [21] knitr_1.42                  labeling_0.4.2             </span></span>
+<span><span class="co">## [23] bit_4.0.5                   DelayedArray_0.25.0        </span></span>
+<span><span class="co">## [25] RColorBrewer_1.1-3          plyr_1.8.8                 </span></span>
+<span><span class="co">## [27] BiocParallel_1.33.9         withr_2.5.0                </span></span>
+<span><span class="co">## [29] purrr_1.0.1                 desc_1.4.2                 </span></span>
+<span><span class="co">## [31] grid_4.3.0                  fansi_1.0.4                </span></span>
+<span><span class="co">## [33] xtable_1.8-4                colorspace_2.1-0           </span></span>
+<span><span class="co">## [35] edgeR_3.41.2                ggplot2_3.4.1              </span></span>
+<span><span class="co">## [37] scales_1.2.1                SummarizedExperiment_1.29.1</span></span>
+<span><span class="co">## [39] cli_3.6.0                   rmarkdown_2.20             </span></span>
+<span><span class="co">## [41] crayon_1.5.2                ragg_1.2.5                 </span></span>
+<span><span class="co">## [43] generics_0.1.3              httr_1.4.4                 </span></span>
+<span><span class="co">## [45] reshape2_1.4.4              DBI_1.1.3                  </span></span>
+<span><span class="co">## [47] cachem_1.0.6                stringr_1.5.0              </span></span>
+<span><span class="co">## [49] zlibbioc_1.45.0             parallel_4.3.0             </span></span>
+<span><span class="co">## [51] BiocManager_1.30.19         XVector_0.39.0             </span></span>
+<span><span class="co">## [53] matrixStats_0.63.0          vctrs_0.5.2                </span></span>
+<span><span class="co">## [55] Matrix_1.5-3                jsonlite_1.8.4             </span></span>
+<span><span class="co">## [57] bookdown_0.32               ggrepel_0.9.3              </span></span>
+<span><span class="co">## [59] bit64_4.0.5                 systemfonts_1.0.4          </span></span>
+<span><span class="co">## [61] locfit_1.5-9.7              limma_3.55.4               </span></span>
+<span><span class="co">## [63] hexbin_1.28.2               jquerylib_0.1.4            </span></span>
+<span><span class="co">## [65] tidyr_1.3.0                 glue_1.6.2                 </span></span>
+<span><span class="co">## [67] pkgdown_2.0.7.9000          codetools_0.2-19           </span></span>
+<span><span class="co">## [69] stringi_1.7.12              gtable_0.3.1               </span></span>
+<span><span class="co">## [71] GenomeInfoDb_1.35.15        GenomicRanges_1.51.4       </span></span>
+<span><span class="co">## [73] munsell_0.5.0               tibble_3.1.8               </span></span>
+<span><span class="co">## [75] pillar_1.8.1                htmltools_0.5.4            </span></span>
+<span><span class="co">## [77] GenomeInfoDbData_1.2.9      R6_2.5.1                   </span></span>
+<span><span class="co">## [79] textshaping_0.3.6           rprojroot_2.0.3            </span></span>
+<span><span class="co">## [81] evaluate_0.20               lattice_0.20-45            </span></span>
+<span><span class="co">## [83] highr_0.10                  png_0.1-8                  </span></span>
+<span><span class="co">## [85] memoise_2.0.1               bslib_0.4.2                </span></span>
+<span><span class="co">## [87] Rcpp_1.0.10                 xfun_0.37                  </span></span>
+<span><span class="co">## [89] fs_1.6.1                    MatrixGenerics_1.11.0      </span></span>
+<span><span class="co">## [91] pkgconfig_2.0.3</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -825,12 +836,12 @@ Portraits of Human Breast Tumors.”</span> <em>Nature</em> 490 (7418):
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
+<p>Developed by Dharmesh D. Bhuva, Ruqian Lyu, Momeneh Foroutan, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer>

@@ -19,7 +19,7 @@ of 1/B can be achieved with B permutations."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">singscore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.1</span>
       </span>
     </div>
 
@@ -95,12 +95,35 @@ to 1/B.</p>
 <span class="r-in"><span><span class="va">scoredf</span> <span class="op">&lt;-</span> <span class="fu"><a href="simpleScore.html">simpleScore</a></span><span class="op">(</span><span class="va">ranked</span>, upSet <span class="op">=</span> <span class="va">toy_gs_up</span>, downSet <span class="op">=</span> <span class="va">toy_gs_dn</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># find out what backends can be registered on your machine</span></span></span>
 <span class="r-in"><span><span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">registered</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $MulticoreParam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> class: MulticoreParam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpisup: FALSE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpRNGseed: 1; bptimeout: NA; bpprogressbar: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpexportglobals: TRUE; bpexportvariables: FALSE; bpforceGC: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpfallback: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bplogdir: NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpresultdir: NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   cluster type: FORK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $SnowParam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> class: SnowParam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpisup: FALSE; bpnworkers: 4; bptasks: 0; bpjobname: BPJOB</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpRNGseed: ; bptimeout: NA; bpprogressbar: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpexportglobals: TRUE; bpexportvariables: TRUE; bpforceGC: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpfallback: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bplogdir: NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpresultdir: NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   cluster type: SOCK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $SerialParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: SerialParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bpisup: FALSE; bpnworkers: 1; bptasks: 0; bpjobname: BPJOB</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bplog: FALSE; bpthreshold: INFO; bpstopOnError: TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bpRNGseed: 1; bptimeout: NA; bpprogressbar: FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bpexportglobals: FALSE; bpexportvariables: FALSE; bpforceGC: FALSE; bpfallback: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpRNGseed: ; bptimeout: NA; bpprogressbar: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpexportglobals: FALSE; bpexportvariables: FALSE; bpforceGC: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bpfallback: FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bplogdir: NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bpresultdir: NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -122,11 +145,11 @@ to 1/B.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Ruqian Lyu, Momeneh Foroutan, Dharmesh D. Bhuva, Malvika Kharbanda.</p>
+  <p></p><p>Developed by Dharmesh D. Bhuva, Ruqian Lyu, Momeneh Foroutan, Malvika Kharbanda.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer></div>
