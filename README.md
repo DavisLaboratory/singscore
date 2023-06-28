@@ -1,5 +1,5 @@
 
-# singscore <img src="https://github.com/Bioconductor/BiocStickers/blob/master/singscore/singscore.png?raw=true" alt="logo" align="right" height="140" width="120"/>
+# singscore <img src="https://github.com/Bioconductor/BiocStickers/blob/devel/singscore/singscore.png" alt="logo" align="right" height="140" width="120"/>
 
 [![R-CMD-check](https://github.com/DavisLaboratory/singscore/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/DavisLaboratory/singscore/actions)
 [![codecov](https://codecov.io/gh/DavisLaboratory/singscore/branch/master/graph/badge.svg?token=OWOL51QJD1)](https://codecov.io/gh/DavisLaboratory/singscore)
