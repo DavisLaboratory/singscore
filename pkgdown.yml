@@ -1,9 +1,9 @@
-pandoc: 2.19.2
+pandoc: 3.1.1
 pkgdown: 2.0.7.9000
-pkgdown_sha: c354aa7e5ea1f9936692494c28c89e5bdd31fc68
+pkgdown_sha: 39083f38bbb2de2e1126529392bddf3e6e262ab4
 articles:
   singscore: singscore.html
-last_built: 2023-02-21T03:27Z
+last_built: 2023-06-28T04:30Z
 urls:
   reference: https://DavisLaboratory.github.io/singscore/reference
   article: https://DavisLaboratory.github.io/singscore/articles
