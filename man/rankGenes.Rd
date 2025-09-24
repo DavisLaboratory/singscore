@@ -72,7 +72,7 @@ rankGenes(blood_expr, stableGenes = getStableGenes(5, type = 'blood'))
 }
 \seealso{
 \code{\link{getStableGenes}}, \code{\link{simpleScore}},
-\code{\link{rank}}, \link[=ExpressionSet-class]{"ExpressionSet"},
-\link[=SummarizedExperiment-class]{"SummarizedExperiment"},
-\link[=DGEList-class]{"DGEList"}
+\code{\link{rank}}, \link[Biobase:class.ExpressionSet]{"ExpressionSet"},
+\link[SummarizedExperiment:SummarizedExperiment-class]{"SummarizedExperiment"},
+\link[edgeR:DGEList-class]{"DGEList"}
 }

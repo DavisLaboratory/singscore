@@ -6,23 +6,23 @@ test_that("projectScoreLandscape works", {
   scoredf2 <- simpleScore(ranked, upSet = toy_gs_up)
   psl <- plotScoreLandscape(scoredf1, scoredf2)
 
-  expect_true(ggplot2::is.ggplot(
+  expect_true(ggplot2::is_ggplot(
     suppressWarnings(projectScoreLandscape(psl,scoredf1, scoredf2))))
-  expect_error(ggplot2::is.ggplot(
+  expect_error(ggplot2::is_ggplot(
     suppressWarnings(projectScoreLandscape(psl,scoredf1, scoredf2, c(1)))))
 
   #sampleLabels must have same number of elements with samples
-  expect_error(ggplot2::is.ggplot(
+  expect_error(ggplot2::is_ggplot(
     suppressWarnings(projectScoreLandscape(psl,scoredf1,
                                            scoredf2, c(1:5),
                                            sampleLabels = c('l1','l2','l3',
                                                             'l4','l5')))))
-  expect_error(ggplot2::is.ggplot(
+  expect_error(ggplot2::is_ggplot(
     suppressWarnings(projectScoreLandscape(psl,scoredf1,
                                            scoredf2,
                                            sampleLabels = c('l1','l2',
                                                             'l4','l5')))))
-  expect_error(ggplot2::is.ggplot(
+  expect_error(ggplot2::is_ggplot(
     suppressWarnings(projectScoreLandscape(psl,scoredf1,
                                            scoredf2,
                                            annot = c('a1','a2','a2')))))
@@ -40,22 +40,22 @@ test_that('projectScoreLandscape colours work for different annotations', {
 	char_annot = LETTERS[discrete_annot]
 
 	p1 = projectScoreLandscape(p0, scoredf_ccle_epi, scoredf_ccle_mes)
-	testthat::expect_true(ggplot2::is.ggplot(p1))
+	testthat::expect_true(ggplot2::is_ggplot(p1))
 
 	p2 = projectScoreLandscape(p0, scoredf_ccle_epi, scoredf_ccle_mes, discrete_annot)
-	testthat::expect_true(ggplot2::is.ggplot(p2))
+	testthat::expect_true(ggplot2::is_ggplot(p2))
 
 	p3 = projectScoreLandscape(p0, scoredf_ccle_epi, scoredf_ccle_mes, continous_annot)
-	testthat::expect_true(ggplot2::is.ggplot(p3))
+	testthat::expect_true(ggplot2::is_ggplot(p3))
 
 	p4 = projectScoreLandscape(p0, scoredf_ccle_epi, scoredf_ccle_mes, char_annot)
-	testthat::expect_true(ggplot2::is.ggplot(p4))
+	testthat::expect_true(ggplot2::is_ggplot(p4))
 
 	#column annotation
 	scoredf = scoredf_ccle_epi
 	scoredf$MyAnnot = char_annot
 	p5 = projectScoreLandscape(p0, scoredf, scoredf_ccle_mes, 'MyAnnot')
-	testthat::expect_true(ggplot2::is.ggplot(p5))
+	testthat::expect_true(ggplot2::is_ggplot(p5))
 })
 
 test_that('projectScoreLandscape works for interactive plots', {

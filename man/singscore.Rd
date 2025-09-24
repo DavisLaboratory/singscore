@@ -2,6 +2,7 @@
 % Please edit documentation in R/singscore.R
 \docType{package}
 \name{singscore}
+\alias{singscore-package}
 \alias{singscore}
 \title{singscore: A package for deriving gene-set scores at a single sample level}
 \description{
@@ -10,4 +11,23 @@ a single-sample level using gene expression data. It includes functions to
 perform hypothesis testing and provides visualisations to enable diagnosis of
 scores and gene sets along with visualisations to enable exploration of
 results.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://davislaboratory.github.io/singscore}
+  \item Report bugs at \url{https://github.com/DavisLaboratory/singscore/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Malvika Kharbanda \email{malvika.kharbanda@adelaide.edu.au} (\href{https://orcid.org/0000-0001-9726-3023}{ORCID})
+
+Authors:
+\itemize{
+  \item Dharmesh D. Bhuva \email{dharmesh.bhuva@adelaide.edu.au} (\href{https://orcid.org/0000-0002-6398-9157}{ORCID})
+  \item Ruqian Lyu \email{ruqianl@student.unimelb.edu.au} [contributor]
+  \item Momeneh Foroutan \email{foroutan.m@wehi.edu.au} (\href{https://orcid.org/0000-0002-1440-0457}{ORCID}) [contributor]
+}
+
 }

@@ -5,8 +5,8 @@ test_that("plotRankDensity is plotting", {
   plt <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up)
   plt2 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up,
                          downSet = toy_gs_dn)
-  expect_true(ggplot2::is.ggplot(plt))
-  expect_true(ggplot2::is.ggplot(plt2))
+  expect_true(ggplot2::is_ggplot(plt))
+  expect_true(ggplot2::is_ggplot(plt2))
  # expect_error(plotRankDensity(ranked[,2], upSet = toy_gs_up))
 })
 
@@ -21,9 +21,9 @@ test_that("Generic features for plotRankDensity",{
                           downSet = geneIdDn)
   plt3 <- plotRankDensity(ranked[,2,drop = FALSE], upSet = toy_gs_up,
                           downSet = toy_gs_dn)
-  expect_true(ggplot2::is.ggplot(plt))
-  expect_true(ggplot2::is.ggplot(plt2))
-  expect_true(ggplot2::is.ggplot(plt3))
+  expect_true(ggplot2::is_ggplot(plt))
+  expect_true(ggplot2::is_ggplot(plt2))
+  expect_true(ggplot2::is_ggplot(plt3))
   expect_equivalent(plt2$data, plt3$data)
   expect_equivalent(plt2$data, plt3$data)
 })

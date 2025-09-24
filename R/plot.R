@@ -1,5 +1,6 @@
 #' @include singscore.R
 #' @import ggplot2
+#' @importFrom stats density
 NULL
 
 #default theme
@@ -240,34 +241,33 @@ plotScoreLandscape <- function(scoredf1, scoredf2, scorenames = c(),
   plotdf = data.frame(scoredf1$TotalScore, scoredf2$TotalScore)
   colnames(plotdf) = c('sc1', 'sc2')
 
-  #setup plot
-  p1 = ggplot(plotdf, aes(sc1, sc2)) +
-    ggtitle('Signature landscape') +
-    xlab(scorenames[1]) + #label the x-axis
-    ylab(scorenames[2]) + #label the y-axis
-    getTheme(textSize) #specify the theme
-
-  # choose plot according to the number of observations
-  if (nrow(scoredf1) < hexMin) {
-    #use scatter plot for fewer points
-    p1 = p1 + geom_point(colour = 'blue')
-  } else{
-  	#number of bins to use for the hexbin plot
-  	numbins = round(sqrt(nrow(plotdf)))
-    p1 = p1 + geom_hex(colour = 'white', bins = numbins) +
-      scale_fill_distiller(palette = 'RdPu', direction = 1)
+  # base plot
+  p_base <- ggplot(plotdf, aes(sc1, sc2)) +
+    ggtitle("Signature landscape") +
+    xlab(scorenames[1]) +
+    ylab(scorenames[2]) +
+    getTheme(textSize)
+  
+  # choose layer
+  if (nrow(plotdf) < hexMin) {
+    p <- p_base + geom_point()
+  } else {
+    numbins <- max(10L, round(sqrt(nrow(plotdf))))
+    p <- p_base +
+      geom_hex(aes(fill = after_stat(count)), bins = numbins, colour = "white") +
+      scale_fill_distiller(palette = "RdPu", direction = 1)
   }
-
+  
   if (isInteractive) {
-    #replace params as ggplot objects are mutable
-    #white colour for bins looks bad on interactive and static looks bad without
-    oldparams = p1$layers[[1]]$aes_params
-    p1$layers[[1]]$aes_params = NULL
-    ply = plotly::ggplotly(p1)
-    p1$layers[[1]]$aes_params = oldparams
-    return(ply)
-  } else{
-    return(p1)
+    # Build a fresh interactive object; do NOT mutate layer aes_params
+    if (nrow(plotdf) < hexMin) {
+      return(plotly::ggplotly(p, tooltip = c("x", "y")))
+    } else {
+      # "fill" shows the binned count after_stat(count)
+      return(plotly::ggplotly(p, tooltip = c("x", "y", "fill")))
+    }
+  } else {
+    return(p)
   }
 }
 
@@ -323,106 +323,105 @@ projectScoreLandscape <- function(plotObj = NULL,
                                   subSamples = NULL,
                                   sampleLabels = NULL,
                                   isInteractive = FALSE){
-  #stop and print message
-  if (!is.ggplot(plotObj)) {
+  # require a ggplot object built by plotScoreLandscape()
+  if (is.null(plotObj) || !is_ggplot(plotObj)) {
     stop(
       'Please provide a ggplot object generated using plotScoreLandscape() (',
       class(plotObj)[1],
       ' object given)'
     )
   }
-
-  #check that the score dataframe have the same number of samples and names are
-  #are the same too
-  stopifnot(dim(scoredf1)[1] == dim(scoredf2)[1],
-            rownames(scoredf1) == rownames(scoredf2))
-
-  #create data frame with the new data
-  #subsetting the two data frames, scoredfs then checks the data dimensions
+  
+  # checks: same samples and order
+  stopifnot(nrow(scoredf1) == nrow(scoredf2),
+            identical(rownames(scoredf1), rownames(scoredf2)))
+  
+  # optional subsetting
   if (!is.null(subSamples)) {
-    scoredf1 = scoredf1[subSamples, ]
-    scoredf2 = scoredf2[subSamples, ]
+    scoredf1 <- scoredf1[subSamples, , drop = FALSE]
+    scoredf2 <- scoredf2[subSamples, , drop = FALSE]
     if (anyNA(scoredf1)) {
       message('some selected samples not exist in provided scoredf1')
-      scoredf1 = na.omit(scoredf1)
+      scoredf1 <- na.omit(scoredf1)
     }
     if (anyNA(scoredf2)) {
       message('some selected samples not exist in provided scoredf2')
-      scoredf2 = na.omit(scoredf2)
+      scoredf2 <- na.omit(scoredf2)
     }
   }
-
-  #sample labelling
-  sampleText = ''
+  
+  # sample labeling + hover text
   if (is.null(sampleLabels)) {
-    sampleLabels = ""
-    sampleText = rownames(scoredf1)
-  } else{
+    sampleLabels <- rep("", nrow(scoredf1))
+    sampleText   <- rownames(scoredf1)
+  } else {
     if (length(sampleLabels) != nrow(scoredf1))
-      stop(
-        "sampleLabels must contain the same number of labels with the number of samples in scoredf"
-      )
-    sampleLabels[is.na(sampleLabels)] = ""
-    sampleText = paste(paste('SampleID', rownames(scoredf1), sep = ': '),
-                       paste('Label', sampleLabels, sep = ': '), sep = '\n')
+      stop("sampleLabels must contain the same number of labels with the number of samples in scoredf")
+    sampleLabels[is.na(sampleLabels)] <- ""
+    sampleText <- paste(
+      paste('SampleID', rownames(scoredf1), sep = ': '),
+      paste('Label', sampleLabels, sep = ': '),
+      sep = '\n'
+    )
   }
-
-  #process annotations - set annot_name to annot if its a column reference
+  
+  # process annotations; set annot_name if annot is a column reference
   if (is.null(annot_name) &&
       is.character(annot) &&
       length(annot) == 1 &&
       annot %in% colnames(scoredf1)) {
-    annot_name = annot
+    annot_name <- annot
   }
-  annot = processAnnotation(scoredf1, annot)
-  newdata = data.frame(
-    'sc1' = scoredf1$TotalScore,
-    'sc2' = scoredf2$TotalScore,
-    'SampleLabel' = sampleLabels,
-    'SampleText' = sampleText,
-    'Class' = annot
+  class_vec <- processAnnotation(scoredf1, annot)
+  
+  newdata <- data.frame(
+    sc1         = scoredf1$TotalScore,
+    sc2         = scoredf2$TotalScore,
+    SampleLabel = sampleLabels,
+    SampleText  = sampleText,
+    Class       = class_vec,
+    check.names = FALSE
   )
-
-  #setup plot
-  p1 = plotObj +
-    geom_point(
-      aes(text = SampleText, colour = Class),
-      shape = 21,
-      fill = 'white',
-      size = 2,
-      stroke = 2,
+  
+  # overlay points on the provided landscape
+  p1 <- plotObj +
+    ggplot2::geom_point(
+      ggplot2::aes(colour = Class),
+      shape = 21, fill = "white", size = 2, stroke = 2,
       data = newdata
-    ) + getColorScale(annot) +
-    labs(colour = annot_name)
-
-  #remove legend if no annotation provided
-  if (all(annot %in% '')) {
-    p1 = p1 + guides(colour = FALSE)
+    ) +
+    getColorScale(class_vec) +
+    ggplot2::labs(colour = annot_name)
+  
+  # hide legend if no annotation provided
+  if (all(class_vec %in% "")) {
+    p1 <- p1 + ggplot2::guides(colour = "none")
   }
-
-  #need to deal with legends in both interactive and non-interactive
-  if (!isInteractive) {
-    #label samples
-    p1 = p1 +
+  
+  if (!isTRUE(isInteractive)) {
+    # static: add labels
+    p1 <- p1 +
       ggrepel::geom_label_repel(
         data = newdata,
-        aes(label = SampleLabel, colour = Class),
+        mapping = ggplot2::aes(label = SampleLabel, colour = Class),
         show.legend = FALSE
       )
-  } else if(isInteractive) {
-    #replace params as ggplot objects are mutable
-    oldparams1 = p1$layers[[1]]$aes_params
-    oldparams2 = p1$layers[[2]]$aes_params
-    p1$layers[[1]]$aes_params = NULL
-    p1$layers[[2]]$aes_params = NULL
-    ply = plotly::ggplotly(p1)
-    p1$layers[[1]]$aes_params = oldparams1
-    p1$layers[[2]]$aes_params = oldparams2
-    return(ply)
+    return(p1)
   }
-
-  return(p1)
+  
+  # interactive
+  p1 <- p1 +
+    ggplot2::geom_text(
+      data = newdata,
+      mapping = ggplot2::aes(label = SampleText, colour = Class),
+      inherit.aes = TRUE,   # inherits x=sc1, y=sc2 from plotObj mapping
+      alpha = 0,
+      show.legend = FALSE
+    )
+  
+  plotly::ggplotly(p1, tooltip = c("label", "x", "y", "colour"))
 }
+
 
 ################################################################################
 #### =============================== plotRankDensity_intl() ====================
@@ -488,7 +487,7 @@ plotRankDensity_intl <- function (rankData,
   #plot density and calculate max density and barcode line heights and
   #positions
   p1 = ggplot(allRanks, aes(x = Ranks, col = upDown)) +
-  	stat_density(aes(y = ..density..), geom = 'line', position = 'identity')
+  	stat_density(aes(y = after_stat(density)), geom = 'line', position = 'identity')
 
   #update y-positions for barcode of up-set
   dens = ggplot_build(p1)$data[[1]]$density
@@ -499,43 +498,52 @@ plotRankDensity_intl <- function (rankData,
   yendmap = ymap + c(1,-1) * bcheight
 
   #plot barcode plot
-  #text aes useful for the plotly plot, so supress the warnings
   p1 = p1 +
-  	geom_segment(aes(
-  		y = ymap[upDown],
-  		xend = Ranks,
-  		yend = yendmap[upDown],
-  		text = paste0(typemap[upDown], '\nGene symbol: ', EntrezID)
-  	), alpha = 0.75) +
-  	scale_colour_manual(values = colmap) +
-  	labs(colour = 'Type') +
-  	ggtitle('Rank density') +
-  	xlab('Normalised Ranks') +
-  	ylab('Density') +
-  	getTheme(textSize)
-
-  #if single geneset, remove legend
+    geom_segment(aes(
+      y    = ymap[upDown],
+      xend = Ranks,
+      yend = yendmap[upDown]
+    ),
+    alpha = 0.75) +
+    scale_colour_manual(values = colmap) +
+    labs(colour = 'Type') +
+    ggtitle('Rank density') +
+    xlab('Normalised Ranks') +
+    ylab('Density') +
+    getTheme(textSize)
+  
+  # if single geneset, remove legend
   if (is.null(downSet)) {
     p1 = p1 + theme(legend.position = 'none')
   }
-
+  
   if (isInteractive) {
-  	#Horizontal legend not supported by plotly yet so re-orient after
-  	#creating plotly object
-  	ply = plotly::ggplotly(p1, tooltip = c('text', 'x'))
-  	ply = ply %>% plotly::layout(
-  		legend = list(
-  			orientation = 'h',
-  			xanchor = 'center',
-  			x = 0.5,
-  			yanchor = 'top',
-  			y = -0.25
-  		),
-  		yaxis = list(fixedrange = TRUE)
-  	)
-  	return(ply)
-  } else{
-  	return(p1)
+    # Add invisible text layer to carry hover text for plotly (no ggplot2 warnings)
+    allRanks$hover <- paste0(typemap[allRanks$upDown], '\nGene symbol: ', allRanks$EntrezID)
+    
+    p1 <- p1 +
+      ggplot2::geom_text(
+        data = allRanks,
+        mapping = ggplot2::aes(x = Ranks, y = ymap[upDown], label = hover),
+        inherit.aes = FALSE,
+        alpha = 0
+      )
+    
+    # Horizontal legend not supported by plotly yet so re-orient after creating plotly object
+    ply = plotly::ggplotly(p1, tooltip = c('label', 'x', 'y', 'colour'))
+    ply = ply %>% plotly::layout(
+      legend = list(
+        orientation = 'h',
+        xanchor = 'center',
+        x = 0.5,
+        yanchor = 'top',
+        y = -0.25
+      ),
+      yaxis = list(fixedrange = TRUE)
+    )
+    return(ply)
+  } else {
+    return(p1)
   }
 }
 
@@ -584,92 +592,94 @@ plotNull <- function(permuteResult,
                      cutoff = 0.01,
                      textSize = 2,
                      labelSize = 5) {
-
+  
   stopifnot(!is.null(sampleNames))
-
-  quantile_title <- as.character((1 - cutoff)*100)
-  if(is.null(sampleNames)){
-    warning("Please provide which sample's null distribution to
-            plot by specifying the sampleNames argument.")
+  
+  quantile_title <- as.character((1 - cutoff) * 100)
+  if (is.null(sampleNames)) {
+    warning("Please provide which sample's null distribution to plot by specifying the sampleNames argument.")
   } else {
     pvals <- pvals[sampleNames, drop = FALSE]
-    pval_r <- as.character(format(pvals[sampleNames],scientific = TRUE,
-                                  digits = 3))
-    pvalTitle <- paste0(' p-value = ',pval_r)
+    pval_r <- as.character(format(pvals[sampleNames], scientific = TRUE, digits = 3))
+    pvalTitle <- paste0(" p-value = ", pval_r)
     names(pvalTitle) <- names(pvals[sampleNames])
-    cutoff_score <- c()
-    for(i in 1:length(sampleNames)){
-      cutoff_score[i] <- quantile(permuteResult[,sampleNames[i]],(1-cutoff))
-    }
-    names(cutoff_score) <-  sampleNames
-    cutoff_annot  <-  data.frame(sampleNames = sampleNames,
-                                 cutoff_score = cutoff_score)
-    #pDt <-  as.data.frame(pvals)
-    if(length(sampleNames)>1){
-      dt <- as.data.frame(permuteResult[,sampleNames])
-      longDt <- reshape::melt(dt,variable_name = "sampleNames")
-      resultScs <- scoredf[,1,drop = FALSE]
-      resultScs$sampleNames <-  rownames(resultScs)
-      #pDt$sampleNames <- names(pvals)
-      sampleLSc <-  merge(longDt, resultScs, by.x = "sampleNames",
-                          by.y = "sampleNames")
-      #plotDt  <-  merge(sampleLSc,pDt, by.x = 'sampleNames',
-      #by.y = 'sampleNames')
-      sampleLSc <- merge(sampleLSc,cutoff_annot)
-      sampleLSc <- merge(sampleLSc, pvalTitle)
-
-      xlimStart <- min(dt, scoredf[,1]) - 0.01
-      xlimEnd <- max(dt, scoredf[,1]) + 0.02
-      value <- NULL
-      TotalScore <- NULL
-      #browser()
-      plotObj <-  ggplot(data = sampleLSc)+
-        geom_density(mapping = aes( x = value), size =1)+
-        coord_cartesian(xlim = c(xlimStart,xlimEnd))+
-        facet_grid(sampleNames~.)+
-        geom_segment(mapping =  aes(x  = cutoff_score, y = 11,
-                                    xend = cutoff_score, yend = 0),
-                     linetype="dashed", colour = 'blue',size = 1)+
-        geom_segment(mapping = aes(x  = TotalScore, y = 11, xend = TotalScore,
-                                   yend = 0),colour = 'red',size = 2)+
-        geom_text(mapping = aes(x  = TotalScore, y = 12,
-                                label = pvalTitle[sampleNames]),
-                  colour = 'red',size = labelSize)+
-        geom_text(mapping = aes(x  = cutoff_score, y = 12,
-                                label = paste0(quantile_title,
-                                               '%-ile threshold')),
-                  colour = 'blue',size = labelSize)+
-        xlab("Scores")+
+    
+    # per-sample cutoff values
+    cutoff_score <- vapply(sampleNames, function(s) {
+      stats::quantile(permuteResult[, s], (1 - cutoff))
+    }, numeric(1))
+    names(cutoff_score) <- sampleNames
+    
+    # small data frames for per-facet annotations/lines
+    cutoff_annot <- data.frame(sampleNames = sampleNames,
+                               cutoff_score = unname(cutoff_score),
+                               stringsAsFactors = FALSE)
+    score_annot  <- data.frame(sampleNames = sampleNames,
+                               TotalScore   = scoredf[sampleNames, 1],
+                               stringsAsFactors = FALSE)
+    pval_annot   <- data.frame(sampleNames = sampleNames,
+                               label        = unname(pvalTitle[sampleNames]),
+                               stringsAsFactors = FALSE)
+    
+    if (length(sampleNames) > 1) {
+      dt <- as.data.frame(permuteResult[, sampleNames])
+      longDt <- reshape::melt(dt, variable_name = "sampleNames")
+      resultScs <- scoredf[, 1, drop = FALSE]
+      resultScs$sampleNames <- rownames(resultScs)
+      
+      # base limits
+      xlimStart <- min(dt, scoredf[, 1]) - 0.01
+      xlimEnd   <- max(dt, scoredf[, 1]) + 0.02
+      
+      # plot
+      plotObj <- ggplot(data = longDt, aes(x = value)) +
+        geom_density(linewidth = 1) +
+        coord_cartesian(xlim = c(xlimStart, xlimEnd)) +
+        facet_grid(sampleNames ~ .) +
+        # per-facet vertical lines (no length-1-in-aes warnings)
+        geom_vline(data = cutoff_annot,
+                   aes(xintercept = cutoff_score),
+                   linetype = "dashed", colour = "blue", linewidth = 1) +
+        geom_vline(data = score_annot,
+                   aes(xintercept = TotalScore),
+                   colour = "red", linewidth = 2) +
+        # text labels (one per facet)
+        geom_text(data = pval_annot,
+                  aes(x = score_annot$TotalScore, y = 12, label = label),
+                  inherit.aes = FALSE, colour = "red", size = labelSize) +
+        geom_text(data = cutoff_annot,
+                  aes(x = cutoff_score, y = 12, label = paste0(quantile_title, "%-ile threshold")),
+                  inherit.aes = FALSE, colour = "blue", size = labelSize) +
+        xlab("Scores") +
         ggtitle("Null distribution")
+      
     } else {
-
-      xlimStart <- min(permuteResult[,sampleNames],
-                       scoredf[sampleNames,]$TotalScore) - 0.01
-      xlimEnd <- max(permuteResult[,sampleNames],
-                     scoredf[sampleNames,]$TotalScore) + 0.02
-      plotDt <- data.frame(sampleNames = sampleNames,
-                           value = permuteResult[,sampleNames],
-                           TotalScore = scoredf[sampleNames,]$TotalScore)
-      plotObj <-  ggplot(data = plotDt)+
-        geom_density(mapping = aes( x = value),size = 1)+
-        coord_cartesian(xlim = c(xlimStart,xlimEnd))+
-        geom_segment(mapping =  aes(x = cutoff_score, y = 11,
-                                    xend = cutoff_score, yend =0),
-                     linetype = "dashed", colour = 'blue',size = 1)+
-        geom_segment(mapping = aes(x = TotalScore, y = 11,
-                                   xend = TotalScore, yend =0),
-                     colour = 'red',size = 2)+
-        geom_text(mapping = aes(x = TotalScore, y = 12,
-                                label = pvalTitle[sampleNames]),
-                  colour = 'red',size = labelSize)+
-        geom_text(mapping = aes(x = cutoff_score, y = 12,
-                                label = paste0(quantile_title,
-                                               '%-ile threshold')),
-                  colour = 'blue',size = labelSize)+
-        xlab("Scores")+
-        ggtitle( paste0(sampleNames," null distribution"))
+      s <- sampleNames[1]
+      xlimStart <- min(permuteResult[, s], scoredf[s, ]$TotalScore) - 0.01
+      xlimEnd   <- max(permuteResult[, s], scoredf[s, ]$TotalScore) + 0.02
+      
+      plotDt <- data.frame(sampleNames = s,
+                           value = permuteResult[, s],
+                           TotalScore = scoredf[s, ]$TotalScore)
+      
+      plotObj <- ggplot(data = plotDt, aes(x = value)) +
+        geom_density(linewidth = 1) +
+        coord_cartesian(xlim = c(xlimStart, xlimEnd)) +
+        # simple constants via annotate/geom_vline (no recycling warnings)
+        geom_vline(xintercept = cutoff_score[s],
+                   linetype = "dashed", colour = "blue", linewidth = 1) +
+        geom_vline(xintercept = plotDt$TotalScore[1],
+                   colour = "red", linewidth = 2) +
+        annotate("text", x = plotDt$TotalScore[1], y = 12,
+                 label = pvalTitle[s], colour = "red", size = labelSize) +
+        annotate("text", x = cutoff_score[s], y = 12,
+                 label = paste0(quantile_title, "%-ile threshold"),
+                 colour = "blue", size = labelSize) +
+        xlab("Scores") +
+        ggtitle(paste0(s, " null distribution"))
     }
-    plotObj+
+    
+    plotObj +
       theme_minimal() +
       theme(
         panel.grid.major = element_blank(),
@@ -685,10 +695,9 @@ plotNull <- function(permuteResult,
         legend.direction = "horizontal",
         legend.margin = margin(unit(0, "cm")),
         legend.title = element_text(face = "italic"),
-        plot.title = element_text(
-          face = "bold",
-          size = rel(textSize),
-          hjust = 0.5))
+        plot.title = element_text(face = "bold", size = rel(textSize), hjust = 0.5)
+      )
   }
-
 }
+
+

@@ -6,8 +6,8 @@ test_that("plotDispersion checks works", {
   plt1 <- plotDispersion(scoredf)
   plt2 <- plotDispersion(scoredf, annot = c(1,2))
 
-  testthat::expect_true(ggplot2::is.ggplot(plt1))
-  testthat::expect_true(ggplot2::is.ggplot(plt2))
+  testthat::expect_true(ggplot2::is_ggplot(plt1))
+  testthat::expect_true(ggplot2::is_ggplot(plt2))
 
   # annotation must have same length with samples if not NULL
   testthat::expect_error(plotDispersion(scoredf, annot = c(1)))
@@ -25,21 +25,21 @@ test_that('plotDispersion colours work for single sigs', {
 	char_annot = LETTERS[discrete_annot]
 
 	p1 = plotDispersion(scoredf)
-	testthat::expect_true(ggplot2::is.ggplot(p1))
+	testthat::expect_true(ggplot2::is_ggplot(p1))
 
 	p2 = plotDispersion(scoredf, annot = discrete_annot)
-	testthat::expect_true(ggplot2::is.ggplot(p2))
+	testthat::expect_true(ggplot2::is_ggplot(p2))
 
 	p3 = plotDispersion(scoredf, annot = continous_annot)
-	testthat::expect_true(ggplot2::is.ggplot(p3))
+	testthat::expect_true(ggplot2::is_ggplot(p3))
 
 	p4 = plotDispersion(scoredf, annot = char_annot)
-	testthat::expect_true(ggplot2::is.ggplot(p4))
+	testthat::expect_true(ggplot2::is_ggplot(p4))
 
 	#column annotation
 	scoredf$MyAnnot = char_annot
 	p5 = plotDispersion(scoredf, annot = 'MyAnnot')
-	testthat::expect_true(ggplot2::is.ggplot(p5))
+	testthat::expect_true(ggplot2::is_ggplot(p5))
 })
 
 test_that('plotDispersion colours work for up/dn sigs', {
@@ -54,21 +54,21 @@ test_that('plotDispersion colours work for up/dn sigs', {
 	char_annot = LETTERS[discrete_annot]
 
 	p1 = plotDispersion(scoredf)
-	testthat::expect_true(ggplot2::is.ggplot(p1))
+	testthat::expect_true(ggplot2::is_ggplot(p1))
 
 	p2 = plotDispersion(scoredf, annot = discrete_annot)
-	testthat::expect_true(ggplot2::is.ggplot(p2))
+	testthat::expect_true(ggplot2::is_ggplot(p2))
 
 	p3 = plotDispersion(scoredf, annot = continous_annot)
-	testthat::expect_true(ggplot2::is.ggplot(p3))
+	testthat::expect_true(ggplot2::is_ggplot(p3))
 
 	p4 = plotDispersion(scoredf, annot = char_annot)
-	testthat::expect_true(ggplot2::is.ggplot(p4))
+	testthat::expect_true(ggplot2::is_ggplot(p4))
 
 	#column annotation
 	scoredf$MyAnnot = char_annot
 	p5 = plotDispersion(scoredf, annot = 'MyAnnot')
-	testthat::expect_true(ggplot2::is.ggplot(p5))
+	testthat::expect_true(ggplot2::is_ggplot(p5))
 })
 
 test_that('plotDispersion interactive for single sigs', {
