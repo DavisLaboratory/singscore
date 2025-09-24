@@ -1,96 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/404.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/articles/singscore.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/index.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/generateNull.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/generateNull_intl.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/getPvals.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/getStableGenes.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/multiScore.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/plotDispersion.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/plotNull.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/plotRankDensity.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/plotRankDensity_intl.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/plotScoreLandscape.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/projectScoreLandscape.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/rankGenes.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/scoredf_ccle_epi.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/scoredf_ccle_mes.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/scoredf_tcga_epi.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/scoredf_tcga_mes.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/simpleScore.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/singscore.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/tgfb_expr_10_se.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/tgfb_gs_dn.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/tgfb_gs_up.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/toy_expr_se.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/toy_gs_dn.html</loc>
-  </url>
-  <url>
-    <loc>https://DavisLaboratory.github.io/singscore/reference/toy_gs_up.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://DavisLaboratory.github.io/singscore/404.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/articles/index.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/articles/singscore.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/authors.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/index.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/news/index.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/generateNull.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/generateNull_intl.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/getPvals.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/getStableGenes.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/index.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/multiScore.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/plotDispersion.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/plotNull.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/plotRankDensity.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/plotRankDensity_intl.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/plotScoreLandscape.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/projectScoreLandscape.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/rankGenes.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/scoredf_ccle_epi.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/scoredf_ccle_mes.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/scoredf_tcga_epi.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/scoredf_tcga_mes.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/simpleScore.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/singscore.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/tgfb_expr_10_se.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/tgfb_gs_dn.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/tgfb_gs_up.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/toy_expr_se.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/toy_gs_dn.html</loc></url>
+<url><loc>https://DavisLaboratory.github.io/singscore/reference/toy_gs_up.html</loc></url>
 </urlset>
+
